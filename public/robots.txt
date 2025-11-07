@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://bartlomiejkrawczyk.github.io/sitemap.xml
