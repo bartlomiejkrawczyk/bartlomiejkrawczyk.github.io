@@ -2,7 +2,7 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [ master ]
+    branches: [master]
   workflow_dispatch:
 
 permissions:
@@ -22,7 +22,7 @@ jobs:
           path: .
           node-version: 24
         env:
-          PUBLIC_POKEAPI: 'https://pokeapi.co/api/v2'
+          PUBLIC_POKEAPI: "https://pokeapi.co/api/v2"
 
   deploy:
     needs: build
