@@ -14,3 +14,11 @@ tags:
 ## Level-two heading
 
 > Tell me and I forget. Teach me and I remember. Involve me and I learn.
+
+```kotlin
+val test: Int = 123
+
+fun testing(test: String): Int {
+  return test.toInt()
+}
+```
