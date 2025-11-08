@@ -3,9 +3,13 @@ import mdx from "@astrojs/mdx";
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [mdx()],
+  integrations: [mdx({})],
   site: process.env.URL,
   base: "/",
+  markdown: {
+    syntaxHighlight: "shiki",
+    gfm: true,
+  },
   env: {
     schema: {
       URL: envField.string({
