@@ -23,4 +23,4 @@ fun testing(test: String): Int {
 }
 ```
 
-![Logo](../../public/assets/logo.jpg)
+![Logo](../../../public/assets/logo.jpg)
