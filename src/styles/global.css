@@ -148,11 +148,15 @@ body {
   line-height: 1.5;
 }
 
+header {
+  height: 64px;
+}
+
 .page-container {
   display: flex;
   justify-content: center;
   width: 100%;
-  min-height: 80vh;
+  min-height: calc(100vh - 64px);
 }
 
 .sidebar {
@@ -162,6 +166,12 @@ body {
 .main-content {
   max-width: 1000px;
   flex: 0 1 1000px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+footer {
 }
 
 @media (max-width: 768px) {
