@@ -7,6 +7,10 @@ export default defineConfig({
   site: process.env.URL,
   output: "static",
   base: "/",
+  prefetch: {
+    prefetchAll: true,
+    defaultStrategy: "hover",
+  },
   markdown: {
     syntaxHighlight: "shiki",
     gfm: true,
