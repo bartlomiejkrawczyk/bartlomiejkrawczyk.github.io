@@ -172,15 +172,29 @@ header {
 }
 
 footer {
+  display: flex;
+  margin-top: auto;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 3rem;
+  padding: 2.5rem 5rem;
+  text-align: center;
+  color: var(--gray-400);
+  font-size: var(--text-sm);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 50em) {
   .sidebar {
     display: none;
   }
 
   .main-content {
     flex: 1;
+  }
+
+  footer {
+    flex-direction: column;
+    padding: 3rem 2rem 3rem;
   }
 }
 
@@ -197,6 +211,14 @@ img {
 }
 
 a {
+  text-decoration: 1px solid underline transparent;
+  text-underline-offset: 0.25em;
+  transition: text-decoration-color var(--theme-transition);
+  color: var(--gray-400);
+}
+
+a:hover,
+a:focus {
   color: var(--link-color);
 }
 
