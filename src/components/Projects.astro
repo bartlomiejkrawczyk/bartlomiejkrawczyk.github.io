@@ -1,0 +1,25 @@
+---
+import { getCollection } from "astro:content";
+import { getRelativeLocaleUrl } from "astro:i18n";
+import type { LanguageKey } from "../i18n/ui";
+
+const projects = await getCollection("projects");
+const lang = Astro.currentLocale as LanguageKey;
+---
+
+<ul>
+  {
+    Object.entries(projects).map(([, project]) => (
+      <li>
+        <a href={getRelativeLocaleUrl(lang, "/projects/" + project.id)}>
+          {project.id} - {project.data.title}
+        </a>
+      </li>
+    ))
+  }
+</ul>
+
+<!-- 
+May configure pagination of projects: 
+https://docs.astro.build/en/guides/routing/#pagination 
+-->
