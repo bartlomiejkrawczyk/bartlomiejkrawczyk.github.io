@@ -148,6 +148,32 @@ body {
   line-height: 1.5;
 }
 
+.page-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  min-height: 80vh;
+}
+
+.sidebar {
+  flex: 1;
+}
+
+.main-content {
+  max-width: 1000px;
+  flex: 0 1 1000px;
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    display: none;
+  }
+
+  .main-content {
+    flex: 1;
+  }
+}
+
 *,
 *::after,
 *::before {
