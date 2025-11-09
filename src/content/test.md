@@ -22,3 +22,5 @@ fun testing(test: String): Int {
   return test.toInt()
 }
 ```
+
+![Logo](../../public/assets/logo.jpg)
