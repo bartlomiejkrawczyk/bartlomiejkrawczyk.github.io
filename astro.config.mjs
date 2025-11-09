@@ -5,6 +5,7 @@ import mdx from "@astrojs/mdx";
 export default defineConfig({
   integrations: [mdx({})],
   site: process.env.URL,
+  output: "static",
   base: "/",
   markdown: {
     syntaxHighlight: "shiki",
@@ -26,5 +27,13 @@ export default defineConfig({
   i18n: {
     locales: ["en", "pl"],
     defaultLocale: "en",
+    routing: {
+      prefixDefaultLocale: false,
+      redirectToDefaultLocale: true,
+      fallbackType: "rewrite",
+    },
+    fallback: {
+      pl: "en",
+    },
   },
 });
