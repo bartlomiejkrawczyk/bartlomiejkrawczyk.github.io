@@ -2,10 +2,17 @@ import { defineConfig, envField } from "astro/config";
 import mdx from "@astrojs/mdx";
 import { remarkReadingTime } from "./remark-reading-time.mjs";
 import { remarkModifiedTime } from "./remark-modified-time.mjs";
+import { visualizer } from "rollup-plugin-visualizer";
+import remarkToc from "remark-toc";
+import rehypePresetMinify from "rehype-preset-minify";
+import sitemap from "@astrojs/sitemap";
+import dotenv from "dotenv";
+import path from "path";
+
+dotenv.config({ path: path.resolve("./.env.production") });
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [mdx({})],
   site: process.env.URL,
   output: "static",
   base: "/",
@@ -15,9 +22,15 @@ export default defineConfig({
   },
   markdown: {
     syntaxHighlight: "shiki",
+    // shikiConfig: { theme: "dracula" },
+    remarkPlugins: [remarkToc],
     gfm: true,
     remarkPlugins: [remarkReadingTime, remarkModifiedTime],
   },
+  integrations: [
+    mdx({ extendMarkdownConfig: true, rehypePlugins: [rehypePresetMinify] }),
+    sitemap(),
+  ],
   env: {
     schema: {
       URL: envField.string({
@@ -42,5 +55,13 @@ export default defineConfig({
     fallback: {
       pl: "en",
     },
+  },
+  vite: {
+    plugins: [
+      visualizer({
+        emitFile: true,
+        filename: "stats.html",
+      }),
+    ],
   },
 });
