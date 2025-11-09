@@ -1,5 +1,25 @@
 ---
+import { getRelativeLocaleUrl } from "astro:i18n";
+import LanguagePicker from "./LanguagePicker.astro";
+import { type LanguageKey } from "../i18n/ui";
+import { useTranslations } from "../i18n/utils";
 
+const lang = Astro.currentLocale as LanguageKey;
+const t = useTranslations(lang);
 ---
 
-<header></header>
+<header>
+  <ul>
+    <li>
+      <a href={getRelativeLocaleUrl(lang, "/")}>
+        {t("nav.home")}
+      </a>
+    </li>
+    <li>
+      <a href={getRelativeLocaleUrl(lang, "about")}>
+        {t("nav.about")}
+      </a>
+    </li>
+  </ul>
+  <LanguagePicker />
+</header>

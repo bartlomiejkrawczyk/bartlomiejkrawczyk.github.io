@@ -4,6 +4,7 @@ import Head from "../components/Head.astro";
 import Header from "../components/Header.astro";
 import LeftSidebar from "../components/LeftSidebar.astro";
 import RightSidebar from "../components/RightSidebar.astro";
+import { type LanguageKey } from "../i18n/ui";
 
 interface Props {
   title?: string | undefined;
@@ -11,10 +12,12 @@ interface Props {
 }
 
 const { title, description } = Astro.props;
+
+const lang = Astro.currentLocale as LanguageKey;
 ---
 
 <!doctype html>
-<html lang="en" transition:name="root" transition:animate="none">
+<html lang={lang} transition:name="root" transition:animate="none">
   <Head title={title} description={description} />
   <body>
     <Header />
