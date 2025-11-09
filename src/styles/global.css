@@ -222,6 +222,11 @@ a:focus {
   color: var(--link-color);
 }
 
+a:hover svg,
+a:focus svg {
+  stroke: var(--link-color);
+}
+
 h1,
 h2,
 h3,
