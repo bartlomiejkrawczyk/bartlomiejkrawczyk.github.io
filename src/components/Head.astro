@@ -1,0 +1,64 @@
+---
+import "../styles/global.css";
+import type { ImageMetadata } from "astro";
+import FallbackImage from "../../public/assets/logo.jpg";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
+import LanguageToggle from "./LanguageToggle.astro";
+import ThemeToggle from "./ThemeToggle.astro";
+const SITE_URL = import.meta.env.URL;
+
+interface Props {
+  title?: string | undefined;
+  description?: string | undefined;
+  image?: ImageMetadata | undefined;
+}
+
+const canonicalURL = new URL(Astro.url.pathname, SITE_URL);
+
+const {
+  title = SITE_TITLE,
+  description = SITE_DESCRIPTION,
+  image = FallbackImage,
+  ...props
+} = Astro.props;
+---
+
+<head {...props}>
+  <!-- Global Metadata -->
+  <meta charset="UTF-8" />
+
+  <meta name="viewport" content="width=device-width" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="sitemap" href="/sitemap-index.xml" />
+  <meta name="generator" content={Astro.generator} />
+  <link rel="manifest" href="/manifest.webmanifest" />
+
+  <!-- Font preloads -->
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href={canonicalURL} />
+
+  <!-- Primary Meta Tags -->
+  <title>{title}</title>
+  <meta name="title" content={title} />
+  <meta name="description" content={description} />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={SITE_URL} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:image" content={new URL(image.src, SITE_URL)} />
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content={SITE_URL} />
+  <meta property="twitter:title" content={title} />
+  <meta property="twitter:description" content={description} />
+  <meta property="twitter:image" content={new URL(image.src, SITE_URL)} />
+
+  <ThemeToggle />
+  <LanguageToggle />
+
+  <slot />
+</head>

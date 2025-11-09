@@ -1,0 +1,35 @@
+---
+import Footer from "../components/Footer.astro";
+import Head from "../components/Head.astro";
+import Header from "../components/Header.astro";
+import LeftSidebar from "../components/LeftSidebar.astro";
+import RightSidebar from "../components/RightSidebar.astro";
+import { type LanguageKey } from "../i18n/ui";
+
+interface Props {
+  title?: string | undefined;
+  description?: string | undefined;
+}
+
+const { title, description } = Astro.props;
+
+const lang = Astro.currentLocale as LanguageKey;
+---
+
+<!doctype html>
+<html lang={lang} transition:name="root" transition:animate="none">
+  <Head title={title} description={description} />
+  <body>
+    <Header />
+    <div class="page-container">
+      <LeftSidebar />
+      <div class="main-content">
+        <div class="content" transition:animate="fade">
+          <slot />
+        </div>
+        <Footer />
+      </div>
+      <RightSidebar />
+    </div>
+  </body>
+</html>

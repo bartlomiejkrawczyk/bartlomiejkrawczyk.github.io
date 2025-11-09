@@ -1,0 +1,29 @@
+---
+import Icon from "./Icon.astro";
+
+const currentYear = new Date().getFullYear();
+---
+
+<footer>
+  <p>&copy; 2024-{currentYear} Bartłomiej Krawczyk</p>
+  <p class="socials">
+    <a href="https://github.com/bartlomiejkrawczyk">
+      <Icon icon="github-logo" gradient={true} size="20px" />GitHub
+    </a>
+  </p>
+</footer>
+
+<style>
+  .socials {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  @media (max-width: 50em) {
+    .socials {
+      justify-content: center;
+    }
+  }
+</style>

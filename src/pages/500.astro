@@ -1,0 +1,14 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+interface Props {
+  error: unknown;
+}
+
+const { error } = Astro.props;
+---
+
+<Layout title="Internal Server Error">
+  <h1>500 - Internal Server Error</h1>
+  <div>{error instanceof Error ? error.message : JSON.stringify(error)}</div>
+</Layout>

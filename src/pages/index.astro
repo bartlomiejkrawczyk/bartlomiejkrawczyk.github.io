@@ -1,0 +1,15 @@
+---
+import Projects from "../components/Projects.astro";
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout>
+  <a href="./about">About</a>
+  <Projects />
+  <a href="./500">500</a>
+  <a href="./404">404</a>
+  <a href="/FO-23Z">Radar Simulator</a>
+  Current locale: {Astro.currentLocale}
+  Preferred locale: {Astro.preferredLocale}
+  Preferred locale list: {Astro.preferredLocaleList}
+</Layout>

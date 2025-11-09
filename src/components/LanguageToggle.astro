@@ -1,0 +1,100 @@
+---
+
+---
+
+<script type="text/javascript" is:inline>
+  (function () {
+    const supportedLangs = ["en", "pl", "de", "fr"];
+    const defaultLang = "en";
+
+    const path = window.location.pathname;
+    const storedLang = localStorage.getItem("preferredLang");
+    const pathParts = path.split("/").filter(Boolean);
+
+    const currentLang = supportedLangs.includes(pathParts[0])
+      ? pathParts[0]
+      : defaultLang;
+
+    function buildPath(targetLang) {
+      const parts = pathParts.slice();
+
+      if (currentLang === defaultLang && targetLang !== defaultLang) {
+        parts.unshift(targetLang);
+      } else if (currentLang !== defaultLang && targetLang === defaultLang) {
+        parts.shift();
+      } else if (currentLang !== targetLang) {
+        parts[0] = targetLang;
+      }
+
+      return (
+        "/" + parts.join("/") + window.location.search + window.location.hash
+      );
+    }
+
+    if (
+      storedLang &&
+      supportedLangs.includes(storedLang) &&
+      storedLang !== currentLang
+    ) {
+      const newPath = buildPath(storedLang);
+      window.location.replace(newPath);
+      return;
+    }
+
+    if (!storedLang) {
+      let lang = window.navigator.languages
+        ? window.navigator.languages[0]
+        : window.navigator.language ||
+          window.navigator.browserLanguage ||
+          window.navigator.userLanguage ||
+          defaultLang;
+
+      let shortLang = lang.toLowerCase();
+      if (shortLang.includes("-")) shortLang = shortLang.split("-")[0];
+      if (shortLang.includes("_")) shortLang = shortLang.split("_")[0];
+
+      localStorage.setItem("preferredLang", shortLang);
+
+      if (supportedLangs.includes(shortLang) && shortLang !== currentLang) {
+        const newPath = buildPath(shortLang);
+        window.location.replace(newPath);
+      }
+    }
+  })();
+
+  function setLanguage(targetLang) {
+    const supportedLangs = ["en", "pl"];
+    const defaultLang = "en";
+
+    if (!supportedLangs.includes(targetLang)) return;
+
+    localStorage.setItem("preferredLang", targetLang);
+
+    const path = window.location.pathname;
+    const pathParts = path.split("/").filter(Boolean);
+    const currentLang = supportedLangs.includes(pathParts[0])
+      ? pathParts[0]
+      : defaultLang;
+
+    function buildPath(targetLang) {
+      const parts = pathParts.slice();
+
+      if (currentLang === defaultLang && targetLang !== defaultLang) {
+        parts.unshift(targetLang);
+      } else if (currentLang !== defaultLang && targetLang === defaultLang) {
+        parts.shift();
+      } else if (currentLang !== targetLang) {
+        parts[0] = targetLang;
+      }
+
+      return (
+        "/" + parts.join("/") + window.location.search + window.location.hash
+      );
+    }
+
+    if (targetLang !== currentLang) {
+      const newPath = buildPath(targetLang);
+      window.location.href = newPath;
+    }
+  }
+</script>
