@@ -3,8 +3,8 @@ import "../styles/global.css";
 import type { ImageMetadata } from "astro";
 import FallbackImage from "../../public/assets/logo.jpg";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
-import LanguageSwitcher from "./LanguageSwitcher.astro";
-import ThemeSwitcher from "./ThemeSwitcher.astro";
+import LanguageToggle from "./LanguageToggle.astro";
+import ThemeToggle from "./ThemeToggle.astro";
 const SITE_URL = import.meta.env.URL;
 
 interface Props {
@@ -57,8 +57,8 @@ const {
   <meta property="twitter:description" content={description} />
   <meta property="twitter:image" content={new URL(image.src, SITE_URL)} />
 
-  <ThemeSwitcher />
-  <LanguageSwitcher />
+  <ThemeToggle />
+  <LanguageToggle />
 
   <slot />
 </head>

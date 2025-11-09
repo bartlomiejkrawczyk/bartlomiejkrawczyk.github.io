@@ -1,28 +1,31 @@
 ---
-import Content from "../components/Content.astro";
 import Footer from "../components/Footer.astro";
 import Head from "../components/Head.astro";
 import Header from "../components/Header.astro";
 import LeftSidebar from "../components/LeftSidebar.astro";
 import RightSidebar from "../components/RightSidebar.astro";
+
 interface Props {
   title?: string | undefined;
   description?: string | undefined;
 }
+
 const { title, description } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" transition:name="root" transition:animate="none">
   <Head title={title} description={description} />
   <body>
     <Header />
     <div class="page-container">
       <LeftSidebar />
-      <Content>
-        <slot />
+      <div class="main-content">
+        <div class="content" transition:animate="fade">
+          <slot />
+        </div>
         <Footer />
-      </Content>
+      </div>
       <RightSidebar />
     </div>
   </body>
