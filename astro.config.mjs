@@ -1,5 +1,7 @@
 import { defineConfig, envField } from "astro/config";
 import mdx from "@astrojs/mdx";
+import { remarkReadingTime } from "./remark-reading-time.mjs";
+import { remarkModifiedTime } from "./remark-modified-time.mjs";
 
 // https://astro.build/config
 export default defineConfig({
@@ -14,6 +16,7 @@ export default defineConfig({
   markdown: {
     syntaxHighlight: "shiki",
     gfm: true,
+    remarkPlugins: [remarkReadingTime, remarkModifiedTime],
   },
   env: {
     schema: {

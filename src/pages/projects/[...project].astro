@@ -2,6 +2,10 @@
 import { type CollectionEntry, getCollection, render } from "astro:content";
 import Icon from "../../components/Icon.astro";
 import Layout from "../../layouts/Layout.astro";
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+
+dayjs.extend(utc);
 
 export async function getStaticPaths() {
   const projects = await getCollection("projects");
@@ -16,11 +20,17 @@ interface Props {
 }
 
 const { project } = Astro.props;
-const { Content } = await render(project);
+const { Content, remarkPluginFrontmatter } = await render(project);
+
+const lastModified = dayjs(remarkPluginFrontmatter.lastModified).format(
+  "YYYY-MM-DD HH:mm Z[Z]",
+);
 ---
 
 <Layout title={project.data.title}>
   <Icon icon="discord-logo" gradient={true} size="100px" />
+  <p>{remarkPluginFrontmatter.minutesRead}</p>
+  <p>Last Modified: {lastModified}</p>
   <Content />
 </Layout>
 
