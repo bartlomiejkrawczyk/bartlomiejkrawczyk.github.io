@@ -3,6 +3,8 @@ import "../styles/global.css";
 import type { ImageMetadata } from "astro";
 import FallbackImage from "../../public/assets/logo.jpg";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
+import LanguageSwitcher from "./LanguageSwitcher.astro";
+import ThemeSwitcher from "./ThemeSwitcher.astro";
 const SITE_URL = import.meta.env.URL;
 
 interface Props {
@@ -55,33 +57,8 @@ const {
   <meta property="twitter:description" content={description} />
   <meta property="twitter:image" content={new URL(image.src, SITE_URL)} />
 
-  <!-- Theme -->
-  <script is:inline>
-    const getThemePreference = () => {
-      if (
-        typeof localStorage !== "undefined" &&
-        localStorage.getItem("theme")
-      ) {
-        return localStorage.getItem("theme");
-      }
-      return window.matchMedia("(prefers-color-scheme: dark)").matches
-        ? "dark"
-        : "light";
-    };
-    const isDark = getThemePreference() === "dark";
-    document.documentElement.classList[isDark ? "add" : "remove"]("theme-dark");
+  <ThemeSwitcher />
+  <LanguageSwitcher />
 
-    if (typeof localStorage !== "undefined") {
-      const observer = new MutationObserver(() => {
-        const isDark =
-          document.documentElement.classList.contains("theme-dark");
-        localStorage.setItem("theme", isDark ? "dark" : "light");
-      });
-      observer.observe(document.documentElement, {
-        attributes: true,
-        attributeFilter: ["class"],
-      });
-    }
-  </script>
   <slot />
 </head>
