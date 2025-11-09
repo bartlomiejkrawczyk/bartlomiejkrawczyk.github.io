@@ -9,7 +9,10 @@ import sitemap from "@astrojs/sitemap";
 import dotenv from "dotenv";
 import path from "path";
 
-dotenv.config({ path: path.resolve("./.env.production") });
+const isProd = process.env.NODE_ENV === "production";
+if (isProd) {
+  dotenv.config({ path: path.resolve("./.env.production") });
+}
 
 // https://astro.build/config
 export default defineConfig({
