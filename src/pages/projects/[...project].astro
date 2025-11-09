@@ -1,5 +1,6 @@
 ---
 import { type CollectionEntry, getCollection, render } from "astro:content";
+import Icon from "../../components/Icon.astro";
 import Layout from "../../layouts/Layout.astro";
 
 export async function getStaticPaths() {
@@ -19,6 +20,7 @@ const { Content } = await render(project);
 ---
 
 <Layout title={project.data.title}>
+  <Icon icon="discord-logo" gradient={true} size="100px" />
   <Content />
 </Layout>
 
