@@ -12,6 +12,8 @@ import path from "path";
 const isProd = process.env.NODE_ENV === "production";
 if (isProd) {
   dotenv.config({ path: path.resolve("./.env.production") });
+} else {
+  dotenv.config({ path: path.resolve("./.env.development") });
 }
 
 // https://astro.build/config
@@ -32,7 +34,15 @@ export default defineConfig({
   },
   integrations: [
     mdx({ extendMarkdownConfig: true, rehypePlugins: [rehypePresetMinify] }),
-    sitemap(),
+    sitemap({
+      i18n: {
+        defaultLocale: "en",
+        locales: {
+          en: "en-US",
+          pl: "pl-PL",
+        },
+      },
+    }),
   ],
   env: {
     schema: {
