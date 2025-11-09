@@ -5,6 +5,8 @@ import FallbackImage from "../../public/assets/logo.jpg";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 import LanguageToggle from "./LanguageToggle.astro";
 import ThemeToggle from "./ThemeToggle.astro";
+import { getRelativeLocaleUrl } from "astro:i18n";
+import type { LanguageKey } from "../i18n/ui";
 const SITE_URL = import.meta.env.URL;
 
 interface Props {
@@ -13,7 +15,9 @@ interface Props {
   image?: ImageMetadata | undefined;
 }
 
-const canonicalURL = new URL(Astro.url.pathname, SITE_URL);
+const lang = Astro.currentLocale as LanguageKey;
+const currentURL = getRelativeLocaleUrl(lang, Astro.url.pathname);
+const canonicalURL = new URL(currentURL, SITE_URL);
 
 const {
   title = SITE_TITLE,
