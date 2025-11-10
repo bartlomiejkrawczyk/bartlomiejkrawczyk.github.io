@@ -8,6 +8,7 @@ import rehypePresetMinify from "rehype-preset-minify";
 import sitemap from "@astrojs/sitemap";
 import dotenv from "dotenv";
 import path from "path";
+import tailwindcss from "@tailwindcss/vite";
 
 const isProd = process.env.NODE_ENV === "production";
 if (isProd) {
@@ -75,6 +76,7 @@ export default defineConfig({
         emitFile: true,
         filename: "stats.html",
       }),
+      tailwindcss(),
     ],
   },
 });
