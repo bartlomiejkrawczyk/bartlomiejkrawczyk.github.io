@@ -5,6 +5,8 @@ import type { LanguageKey } from "../i18n/ui";
 
 const projects = await getCollection("projects");
 const lang = Astro.currentLocale as LanguageKey;
+
+type Props = Record<string, never>;
 ---
 
 <ul>
