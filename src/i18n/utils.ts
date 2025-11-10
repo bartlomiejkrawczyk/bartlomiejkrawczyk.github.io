@@ -10,9 +10,6 @@ export function getLangFromUrl(url: URL) {
   let langParts = url.pathname.split("/");
   let [, lang] = langParts;
 
-  console.log(lang);
-  console.log(langParts);
-
   if (lang === undefined) return defaultLang;
 
   if (!(lang in languages)) {
