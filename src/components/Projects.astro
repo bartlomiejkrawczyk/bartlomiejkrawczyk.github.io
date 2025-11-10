@@ -1,7 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import { getRelativeLocaleUrl } from "astro:i18n";
-import type { LanguageKey } from "../i18n/ui";
+import type { LanguageKey } from "@i18n/ui";
 
 const projects = await getCollection("projects");
 const lang = Astro.currentLocale as LanguageKey;

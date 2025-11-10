@@ -12,7 +12,10 @@
       }
     ],
     "paths": {
+      "@public/*": ["./public/*"],
+      "@src/*": ["./src/*"],
       "@components/*": ["./src/components/*"],
+      "@styles/*": ["./src/styles/*"],
       "@assets/*": ["./src/assets/*"],
       "@i18n/*": ["./src/i18n/*"],
       "@content/*": ["./src/content/*"],
