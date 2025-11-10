@@ -48,6 +48,17 @@ define foobar() {
 }
 ```
 
+```kt title="file.kt" ins={3} del={2}
+fun foobar() {
+    print("Welcome to flavor county!")
+    print("Welcome to flavor country!")
+}
+```
+
+```bash
+echo Test
+```
+
 (which makes copying & pasting easier). You can optionally mark the
 delimited block for Pandoc to syntax highlight it:
 
@@ -57,7 +68,7 @@ import time
 for i in range(10):
     # (but not *too* quick)
     time.sleep(0.5)
-    print i
+    print(i)
 ```
 
 ### An h3 header
@@ -157,3 +168,9 @@ $$I = \int \rho R^{2} dV$$
 
 And note that you can backslash-escape any punctuation characters
 which you wish to be displayed literally, ex.: \`foo\`, \*bar\*, etc.
+
+| Left-Aligned | Center-Aligned | Right-Aligned |
+| :----------- | :------------: | ------------: |
+| This         |       is       |            an |
+| aligned      |      text      |       example |
+| example      |     table      |         right |
