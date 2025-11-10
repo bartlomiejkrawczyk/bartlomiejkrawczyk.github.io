@@ -4,6 +4,7 @@ import Icon from "@components/Icon.astro";
 import Layout from "@layouts/Layout.astro";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
+import type { ExtendedProjectEntry } from "../../content.config";
 
 dayjs.extend(utc);
 
@@ -16,18 +17,21 @@ export async function getStaticPaths() {
 }
 
 interface Props {
-  project: CollectionEntry<"projects">;
+  project: ExtendedProjectEntry;
 }
 
 const { project } = Astro.props;
 const { Content, remarkPluginFrontmatter } = await render(project);
+
+console.log(JSON.stringify(project));
+const { data } = project;
 
 const lastModified = dayjs(remarkPluginFrontmatter.lastModified).format(
   "YYYY-MM-DD HH:mm Z[Z]",
 );
 ---
 
-<Layout title={project.data.title}>
+<Layout title={data.title}>
   <Icon icon="discord-logo" gradient={true} size="100px" />
   <p>{remarkPluginFrontmatter.minutesRead}</p>
   <p>Last Modified: {lastModified}</p>
