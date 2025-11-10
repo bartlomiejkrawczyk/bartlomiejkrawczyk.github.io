@@ -2,6 +2,11 @@
 ---
 
 # An h1 header
+## An h2 header
+### An h3 header
+#### An h4 header
+##### An h5 header
+###### An h6 header
 
 Paragraphs are separated by a blank line.
 
@@ -170,7 +175,7 @@ And note that you can backslash-escape any punctuation characters
 which you wish to be displayed literally, ex.: \`foo\`, \*bar\*, etc.
 
 | Left-Aligned | Center-Aligned | Right-Aligned |
-| :----------- | :------------: | ------------: |
-| This         |       is       |            an |
-| aligned      |      text      |       example |
-| example      |     table      |         right |
+|--------------|----------------|---------------|
+| This         | is             | an            |
+| aligned      | text           | example       |
+| example      | table          | right         |
