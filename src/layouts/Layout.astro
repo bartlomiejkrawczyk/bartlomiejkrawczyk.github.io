@@ -1,14 +1,16 @@
 ---
-import Footer from "../components/Footer.astro";
-import Head from "../components/Head.astro";
-import Header from "../components/Header.astro";
-import LeftSidebar from "../components/LeftSidebar.astro";
-import RightSidebar from "../components/RightSidebar.astro";
-import { type LanguageKey } from "../i18n/ui";
+import "@styles/global.css";
+import Footer from "@components/Footer.astro";
+import Head from "@components/Head.astro";
+import Header from "@components/Header.astro";
+import LeftSidebar from "@components/LeftSidebar.astro";
+import RightSidebar from "@components/RightSidebar.astro";
+import { type LanguageKey } from "@i18n/ui";
 
 interface Props {
   title?: string | undefined;
   description?: string | undefined;
+  children: any;
 }
 
 const { title, description } = Astro.props;
@@ -18,13 +20,15 @@ const lang = Astro.currentLocale as LanguageKey;
 
 <!doctype html>
 <html lang={lang} transition:name="root" transition:animate="none">
-  <Head title={title} description={description} />
+  <Head title={title} description={description}>
+    <slot name="head" slot="head" />
+  </Head>
   <body>
     <Header />
     <div class="page-container">
       <LeftSidebar />
       <div class="main-content">
-        <div class="content" transition:animate="fade">
+        <div class="content p-8" transition:animate="fade">
           <slot />
         </div>
         <Footer />
@@ -33,3 +37,61 @@ const lang = Astro.currentLocale as LanguageKey;
     </div>
   </body>
 </html>
+
+<style is:global>
+  header {
+    height: 64px;
+  }
+
+  .page-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    min-height: calc(100vh - 64px);
+  }
+
+  .sidebar {
+    flex: 1;
+  }
+
+  .main-content {
+    max-width: 1400px;
+    flex: 0 1 1400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  footer {
+    display: flex;
+    margin-top: auto;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 3rem;
+    padding: 2.5rem 5rem;
+    text-align: center;
+    color: var(--gray-400);
+    font-size: var(--text-sm);
+  }
+
+  @media (max-width: 50em) {
+    .sidebar {
+      display: none;
+    }
+
+    .main-content {
+      flex: 1;
+    }
+
+    footer {
+      flex-direction: column;
+      padding: 3rem 2rem 3rem;
+    }
+  }
+</style>

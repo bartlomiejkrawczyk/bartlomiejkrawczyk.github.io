@@ -1,9 +1,11 @@
 ---
-import Projects from "../components/Projects.astro";
-import Layout from "../layouts/Layout.astro";
+import Projects from "@components/Projects.astro";
+import Layout from "@layouts/Layout.astro";
+import Avatar from "@src/components/Avatar.astro";
 ---
 
 <Layout>
+  <Avatar />
   <a href="./about">About</a>
   <Projects />
   <a href="./500">500</a>

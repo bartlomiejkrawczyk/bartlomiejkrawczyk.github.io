@@ -8,6 +8,9 @@ import rehypePresetMinify from "rehype-preset-minify";
 import sitemap from "@astrojs/sitemap";
 import dotenv from "dotenv";
 import path from "path";
+import tailwindcss from "@tailwindcss/vite";
+import astroExpressiveCode from "astro-expressive-code";
+import { pluginLineNumbers } from "@expressive-code/plugin-line-numbers";
 
 const isProd = process.env.NODE_ENV === "production";
 if (isProd) {
@@ -26,6 +29,7 @@ export default defineConfig({
     defaultStrategy: "hover",
   },
   markdown: {
+    // https://docs.astro.build/en/reference/configuration-reference/#markdownshikiconfig
     syntaxHighlight: "shiki",
     // shikiConfig: { theme: "dracula" },
     remarkPlugins: [remarkToc],
@@ -33,6 +37,30 @@ export default defineConfig({
     remarkPlugins: [remarkReadingTime, remarkModifiedTime],
   },
   integrations: [
+    astroExpressiveCode({
+      // https://expressive-code.com/guides/themes/
+      // themes: [
+      //  "dracula",
+      //  "dark-plus",
+      //  "github-dark-default",
+      //  "material-theme-darker",
+      //  "min-dark",
+      // ],
+      // themes: ["dark-plus"],
+      shiki: {},
+      frames: {
+        showCopyToClipboardButton: true,
+      },
+      styleOverrides: {
+        frames: {},
+        textMarkers: {},
+      },
+      tabWidth: 4,
+      defaultProps: {
+        showLineNumbers: true,
+      },
+      plugins: [pluginLineNumbers()],
+    }),
     mdx({ extendMarkdownConfig: true, rehypePlugins: [rehypePresetMinify] }),
     sitemap({
       i18n: {
@@ -75,6 +103,8 @@ export default defineConfig({
         emitFile: true,
         filename: "stats.html",
       }),
+      tailwindcss(),
     ],
+    build: {},
   },
 });

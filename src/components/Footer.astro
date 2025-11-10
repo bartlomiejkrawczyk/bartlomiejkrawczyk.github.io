@@ -2,6 +2,8 @@
 import Icon from "./Icon.astro";
 
 const currentYear = new Date().getFullYear();
+
+type Props = Record<string, never>;
 ---
 
 <footer>
@@ -9,6 +11,9 @@ const currentYear = new Date().getFullYear();
   <p class="socials">
     <a href="https://github.com/bartlomiejkrawczyk">
       <Icon icon="github-logo" gradient={true} size="20px" />GitHub
+    </a>
+    <a href="https://discordapp.com/users/384450810547011584">
+      <Icon icon="discord-logo" gradient={true} size="20px" />Discord
     </a>
   </p>
 </footer>
