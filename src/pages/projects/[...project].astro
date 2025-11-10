@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from "astro:content";
 import Icon from "@components/Icon.astro";
+import Prose from "@components/Prose.astro";
 import Layout from "@layouts/Layout.astro";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
@@ -34,7 +35,10 @@ const lastModified = dayjs(remarkPluginFrontmatter.lastModified).format(
   <Icon icon="discord-logo" gradient={true} size="100px" />
   <p>{remarkPluginFrontmatter.minutesRead}</p>
   <p>Last Modified: {lastModified}</p>
-  <Content />
+
+  <Prose>
+    <Content />
+  </Prose>
 </Layout>
 
 <style></style>
