@@ -28,6 +28,7 @@ export const collections = {
     schema: z.object({
       title: z.string().optional(),
       description: z.string().optional(),
+      repository: z.string().optional(),
       publishDate: z.coerce.date().optional(),
       tags: z.array(z.string()).optional(),
       img: z.string().optional(),
