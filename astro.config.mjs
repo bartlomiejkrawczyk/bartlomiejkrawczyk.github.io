@@ -11,7 +11,7 @@ import path from "path";
 import tailwindcss from "@tailwindcss/vite";
 import astroExpressiveCode, { createInlineSvgUrl } from "astro-expressive-code";
 import { pluginLineNumbers } from "@expressive-code/plugin-line-numbers";
-// import rehypeMermaid from "rehype-mermaid";
+import rehypeMermaid from "rehype-mermaid";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import { rehypeHeadingIds } from "@astrojs/markdown-remark";
 import remarkToc from "remark-toc";
@@ -61,7 +61,7 @@ export default defineConfig({
     ],
     rehypePlugins: [
       rehypeHeadingIds,
-      // rehypeMermaid,
+      rehypeMermaid,
       rehypeAccessibleEmojis,
       [
         rehypeAutolinkHeadings,
