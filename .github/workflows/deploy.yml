@@ -22,7 +22,7 @@ jobs:
         with:
           path: .
           node-version: 24
-          build-cmd: npx playwright install --with-deps chromium && npm run build
+          build-cmd: npx playwright install && npm run build
 
   deploy:
     needs: build
