@@ -35,7 +35,11 @@ const lastModified = dayjs(remarkPluginFrontmatter.lastModified).format(
 
 <Layout title={data.title}>
   <Fragment slot="head">
-    <script async src="/scripts/tex-mml-chtml.js"></script>
+    <script
+      async
+      is:inline
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+    ></script>
     <script is:inline>
       window.MathJax = {
         tex: {
