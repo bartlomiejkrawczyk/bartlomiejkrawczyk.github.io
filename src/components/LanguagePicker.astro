@@ -4,12 +4,71 @@ import { languages } from "@i18n/ui";
 type Props = Record<string, never>;
 ---
 
-<ul>
-  {
-    Object.entries(languages).map(([lang, label]) => (
-      <li>
-        {label} - {lang}
-      </li>
-    ))
+{
+  Object.entries(languages).map(([lang, label]) => (
+    <button id={"language-btn-" + lang}>
+      {label} - {lang}
+    </button>
+  ))
+}
+
+<script>
+  import { languages, type LanguageKey } from "@i18n/ui";
+
+  function setLanguage(targetLang: LanguageKey) {
+    const supportedLangs = ["en", "pl"];
+    const defaultLang = "en";
+
+    console.log("Target lang: ", targetLang);
+
+    if (!supportedLangs.includes(targetLang)) return;
+
+    const optionalCurrentLang = localStorage.getItem("preferredLang");
+
+    const path = window.location.pathname;
+    const pathParts = path.split("/").filter(Boolean);
+    console.log(pathParts);
+
+    let currentLang = defaultLang;
+
+    if (optionalCurrentLang === null) {
+      const firstPath = pathParts[0];
+      currentLang =
+        firstPath && supportedLangs.includes(firstPath)
+          ? firstPath
+          : defaultLang;
+    } else {
+      currentLang = optionalCurrentLang;
+    }
+
+    localStorage.setItem("preferredLang", targetLang);
+
+    console.log("Current lang: ", currentLang);
+
+    function buildPath(targetLang: LanguageKey) {
+      const parts = pathParts.slice();
+
+      if (currentLang === defaultLang && targetLang !== defaultLang) {
+        parts.unshift(targetLang);
+      } else if (currentLang !== defaultLang && targetLang === defaultLang) {
+        parts.shift();
+      } else if (currentLang !== targetLang) {
+        parts[0] = targetLang;
+      }
+
+      const joinedParts = parts.length == 0 ? "" : parts.join("/");
+
+      return "/" + joinedParts + window.location.search + window.location.hash;
+    }
+
+    if (targetLang !== currentLang) {
+      const newPath = buildPath(targetLang);
+      window.location.href = newPath;
+    }
   }
-</ul>
+
+  Object.entries(languages).forEach(([lang]) => {
+    const button = document.querySelector("#language-btn-" + lang);
+    button?.addEventListener("click", () => setLanguage(lang as LanguageKey));
+  });
+</script>

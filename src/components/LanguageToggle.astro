@@ -61,40 +61,4 @@ type Props = Record<string, never>;
       }
     }
   })();
-
-  function setLanguage(targetLang) {
-    const supportedLangs = ["en", "pl"];
-    const defaultLang = "en";
-
-    if (!supportedLangs.includes(targetLang)) return;
-
-    localStorage.setItem("preferredLang", targetLang);
-
-    const path = window.location.pathname;
-    const pathParts = path.split("/").filter(Boolean);
-    const currentLang = supportedLangs.includes(pathParts[0])
-      ? pathParts[0]
-      : defaultLang;
-
-    function buildPath(targetLang) {
-      const parts = pathParts.slice();
-
-      if (currentLang === defaultLang && targetLang !== defaultLang) {
-        parts.unshift(targetLang);
-      } else if (currentLang !== defaultLang && targetLang === defaultLang) {
-        parts.shift();
-      } else if (currentLang !== targetLang) {
-        parts[0] = targetLang;
-      }
-
-      return (
-        "/" + parts.join("/") + window.location.search + window.location.hash
-      );
-    }
-
-    if (targetLang !== currentLang) {
-      const newPath = buildPath(targetLang);
-      window.location.href = newPath;
-    }
-  }
 </script>
