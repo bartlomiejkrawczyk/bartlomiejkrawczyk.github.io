@@ -271,3 +271,5 @@ h5 {
     font-weight: 400;
   }
 }
+
+@custom-variant dark (&:where(.theme-dark, .theme-dark *));
