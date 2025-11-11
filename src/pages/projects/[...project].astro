@@ -11,10 +11,12 @@ dayjs.extend(utc);
 
 export async function getStaticPaths() {
   const projects = await getCollection("projects");
-  return projects.map((project) => ({
-    params: { project: project.id },
-    props: { project },
-  }));
+  return projects
+    .sort((a, b) => a.id.localeCompare(b.id))
+    .map((project) => ({
+      params: { project: project.id },
+      props: { project },
+    }));
 }
 
 interface Props {
@@ -32,6 +34,23 @@ const lastModified = dayjs(remarkPluginFrontmatter.lastModified).format(
 ---
 
 <Layout title={data.title}>
+  <Fragment slot="head">
+    <script type="text/x-mathjax-config" is:inline>
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [
+            ["$", "$"],
+            ["\\(", "\\)"],
+          ],
+        },
+      });
+    </script>
+    <script
+      type="text/javascript"
+      src="http://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+      is:inline></script>
+  </Fragment>
+
   <Icon icon="discord-logo" gradient={true} size="100px" />
   <p>{remarkPluginFrontmatter.minutesRead}</p>
   <p>Last Modified: {lastModified}</p>
