@@ -181,7 +181,7 @@ And note that you can backslash-escape any punctuation characters
 which you wish to be displayed literally, ex.: \`foo\`, \*bar\*, etc.
 
 | Left-Aligned | Center-Aligned | Right-Aligned |
-|--------------|----------------|---------------|
+|:-------------|:--------------:|--------------:|
 | This         | is             | an            |
 | aligned      | text           | example       |
 | example      | table          | right         |
