@@ -53,6 +53,12 @@ export default defineConfig({
             properties: {
               className: "heading-link-symbol",
             },
+            children: [
+              {
+                type: "text",
+                value: "#",
+              },
+            ],
           },
         },
       ],

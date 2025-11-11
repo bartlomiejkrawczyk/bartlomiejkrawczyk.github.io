@@ -189,7 +189,7 @@ a:focus svg {
 
 .heading-link-symbol {
   opacity: 0;
-  margin-right: 0.25em;
+  margin-left: 0.2em;
   transition: opacity 0.2s;
 }
 
