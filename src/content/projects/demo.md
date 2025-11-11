@@ -53,12 +53,16 @@ define foobar() {
 }
 ```
 
+<br/>
+
 ```kt title="file.kt" ins={3} del={2}
 fun foobar() {
     print("Welcome to flavor county!")
     print("Welcome to flavor country!")
 }
 ```
+
+<br/>
 
 ```bash
 echo Test
