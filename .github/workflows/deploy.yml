@@ -19,12 +19,25 @@ jobs:
       - name: Checkout your repository using git
         uses: actions/checkout@v5
 
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24.x
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Install Playwright
+        run: npm install -D @playwright/test@latest
+
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+
       - name: Install, build, and upload your site
         uses: withastro/action@v5
         with:
           path: .
           node-version: 24
-          build-cmd: npx playwright install --with-deps chromium && npm run build
 
   deploy:
     needs: build
