@@ -1,6 +1,5 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
-@config "./tailwind.config.js";
 
 /* Global variables */
 :root {
@@ -252,4 +251,13 @@ h5 {
 .stack {
   display: flex;
   flex-direction: column;
+}
+
+@utility prose {
+  code {
+    &::before,
+    &::after {
+      content: none;
+    }
+  }
 }
