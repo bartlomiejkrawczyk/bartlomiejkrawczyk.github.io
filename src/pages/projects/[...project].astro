@@ -33,7 +33,7 @@ const lastModified = dayjs(remarkPluginFrontmatter.lastModified).format(
 
 <Layout title={data.title}>
   <Fragment slot="head">
-    <script type="text/x-mathjax-config">
+    <script type="text/x-mathjax-config" is:inline>
       MathJax.Hub.Config({
         tex2jax: {
           inlineMath: [
@@ -46,6 +46,7 @@ const lastModified = dayjs(remarkPluginFrontmatter.lastModified).format(
     <script
       type="text/javascript"
       src="http://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+      is:inline
     ></script>
   </Fragment>
 
