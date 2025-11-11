@@ -15,6 +15,7 @@ import rehypeMermaid from "rehype-mermaid";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import { rehypeHeadingIds } from "@astrojs/markdown-remark";
 import remarkToc from "remark-toc";
+import { rehypeAccessibleEmojis } from "rehype-accessible-emojis";
 
 const isProd = process.env.NODE_ENV === "production";
 if (isProd) {
@@ -61,6 +62,7 @@ export default defineConfig({
     rehypePlugins: [
       rehypeHeadingIds,
       rehypeMermaid,
+      rehypeAccessibleEmojis,
       [
         rehypeAutolinkHeadings,
         {
@@ -122,8 +124,10 @@ export default defineConfig({
         textMarkers: {},
       },
       tabWidth: 4,
+
       defaultProps: {
         showLineNumbers: true,
+        wrap: true,
       },
       plugins: [pluginLineNumbers()],
     }),
