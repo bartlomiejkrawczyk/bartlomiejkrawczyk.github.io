@@ -3,7 +3,10 @@ import { getCollection } from "astro:content";
 import { getRelativeLocaleUrl } from "astro:i18n";
 import type { LanguageKey } from "@i18n/ui";
 
-const projects = await getCollection("projects");
+const projects = await getCollection("projects").then((projects) =>
+  projects.sort((a, b) => a.id.localeCompare(b.id)),
+);
+
 const lang = Astro.currentLocale as LanguageKey;
 
 type Props = Record<string, never>;

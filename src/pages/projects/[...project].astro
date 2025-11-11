@@ -11,10 +11,12 @@ dayjs.extend(utc);
 
 export async function getStaticPaths() {
   const projects = await getCollection("projects");
-  return projects.map((project) => ({
-    params: { project: project.id },
-    props: { project },
-  }));
+  return projects
+    .sort((a, b) => a.id.localeCompare(b.id))
+    .map((project) => ({
+      params: { project: project.id },
+      props: { project },
+    }));
 }
 
 interface Props {
@@ -46,8 +48,7 @@ const lastModified = dayjs(remarkPluginFrontmatter.lastModified).format(
     <script
       type="text/javascript"
       src="http://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
-      is:inline
-    ></script>
+      is:inline></script>
   </Fragment>
 
   <Icon icon="discord-logo" gradient={true} size="100px" />
