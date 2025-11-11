@@ -181,6 +181,22 @@ a:focus svg {
   stroke: var(--link-color);
 }
 
+.heading-link {
+  color: inherit;
+  text-decoration: none;
+  position: relative;
+}
+
+.heading-link-symbol {
+  opacity: 0;
+  margin-right: 0.25em;
+  transition: opacity 0.2s;
+}
+
+.heading-link:hover .heading-link-symbol {
+  opacity: 1;
+}
+
 h1,
 h2,
 h3,

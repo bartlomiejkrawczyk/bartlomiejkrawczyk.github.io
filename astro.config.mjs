@@ -11,6 +11,9 @@ import path from "path";
 import tailwindcss from "@tailwindcss/vite";
 import astroExpressiveCode from "astro-expressive-code";
 import { pluginLineNumbers } from "@expressive-code/plugin-line-numbers";
+import rehypeMermaid from "rehype-mermaid";
+import rehypeAutolinkHeadings from "rehype-autolink-headings";
+import rehypeSlug from "rehype-slug";
 
 const isProd = process.env.NODE_ENV === "production";
 if (isProd) {
@@ -32,9 +35,29 @@ export default defineConfig({
     // https://docs.astro.build/en/reference/configuration-reference/#markdownshikiconfig
     syntaxHighlight: "shiki",
     // shikiConfig: { theme: "dracula" },
-    remarkPlugins: [remarkToc],
-    gfm: true,
     remarkPlugins: [remarkReadingTime, remarkModifiedTime],
+    rehypePlugins: [
+      rehypeSlug,
+      rehypeMermaid,
+      [
+        rehypeAutolinkHeadings,
+        {
+          behavior: "wrap",
+          properties: {
+            className: ["heading-link"],
+            ariaHidden: true,
+          },
+          content: {
+            type: "element",
+            tagName: "span",
+            properties: {
+              className: "heading-link-symbol",
+            },
+          },
+        },
+      ],
+    ],
+    gfm: true,
   },
   integrations: [
     astroExpressiveCode({

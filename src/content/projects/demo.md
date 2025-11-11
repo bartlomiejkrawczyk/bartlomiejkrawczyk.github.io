@@ -179,3 +179,48 @@ which you wish to be displayed literally, ex.: \`foo\`, \*bar\*, etc.
 | This         | is             | an            |
 | aligned      | text           | example       |
 | example      | table          | right         |
+
+
+```mermaid
+%%{init:{'theme':'forest', 'flowchart': {'curve':'monotoneX'}}}%%
+flowchart LR
+    s((s))
+    A((A))
+    B((B))
+    C((C))
+    D((D))
+    E((E))
+    F((F))
+    G((G))
+    H((H))
+    t((t))
+
+    %% Zdolności wydobywcze
+    s --[10] 0 --> A
+    s --[13] 0 --> B
+    s --[22] 0 --> C
+    
+    %% Koszty transportu i przepustowości
+    A --[8] 3--> D
+    A --[10] 6--> E
+
+    B --[10] 6--> D
+    B --[13] 3--> E
+
+    C --[10] 4--> D
+    C --[8] 5--> E
+
+    D --[20] 2--> E
+    D --[16] 5--> F
+    D --[6] 7--> G
+    D --[10] 3--> H
+
+    E --[7] 5--> F
+    E --[4] 4--> G
+    E --[2] 2--> H
+
+    %% Zapotrzebowanie
+    F --[15] 0--> t
+    G --[10] 0--> t
+    H --[10] 0--> t
+```
