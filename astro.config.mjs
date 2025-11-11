@@ -14,6 +14,7 @@ import { pluginLineNumbers } from "@expressive-code/plugin-line-numbers";
 import rehypeMermaid from "rehype-mermaid";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import { rehypeHeadingIds } from "@astrojs/markdown-remark";
+import remarkToc from "remark-toc";
 
 const isProd = process.env.NODE_ENV === "production";
 if (isProd) {
@@ -40,8 +41,23 @@ export default defineConfig({
   markdown: {
     // https://docs.astro.build/en/reference/configuration-reference/#markdownshikiconfig
     syntaxHighlight: "shiki",
-    // shikiConfig: { theme: "dracula" },
-    remarkPlugins: [remarkReadingTime, remarkModifiedTime],
+    shikiConfig: {
+      wrap: true,
+      // theme: "dracula"
+    },
+    remarkPlugins: [
+      [
+        remarkToc,
+        {
+          heading: "(Table of contents)|(Spis treści)",
+          tight: true,
+          ordered: true,
+          maxDepth: 3,
+        },
+      ],
+      remarkReadingTime,
+      remarkModifiedTime,
+    ],
     rehypePlugins: [
       rehypeHeadingIds,
       rehypeMermaid,
