@@ -273,3 +273,15 @@ h5 {
 }
 
 @custom-variant dark (&:where(.theme-dark, .theme-dark *));
+
+@layer utilities {
+  .prose :where(table th[align="center"], table td[align="center"]) {
+    text-align: center;
+  }
+  .prose :where(table th[align="right"], table td[align="right"]) {
+    text-align: right;
+  }
+  .prose :where(table th[align="left"], table td[align="left"]) {
+    text-align: left;
+  }
+}
