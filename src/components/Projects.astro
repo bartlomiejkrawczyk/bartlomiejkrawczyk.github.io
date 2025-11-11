@@ -12,6 +12,7 @@ const lang = Astro.currentLocale as LanguageKey;
 type Props = Record<string, never>;
 ---
 
+<!-- https://docs.astro.build/en/guides/content-collections/#filtering-collection-queries -->
 <ul>
   {
     Object.entries(projects).map(([, project]) => (

@@ -177,4 +177,7 @@ export default defineConfig({
     ],
     build: {},
   },
+  image: {
+    remotePatterns: [{ protocol: "https" }],
+  },
 });
