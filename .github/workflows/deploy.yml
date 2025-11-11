@@ -33,11 +33,12 @@ jobs:
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
 
-      - name: Install, build, and upload your site
-        uses: withastro/action@v5
+      - name: Build site (increase memory, disable types)
+        run: ASTRO_DISABLE_TYPES=1 node --max-old-space-size=8192 ./node_modules/.bin/astro build
+
+      - uses: actions/upload-pages-artifact@v3
         with:
-          path: .
-          node-version: 24
+          path: dist
 
   deploy:
     needs: build
