@@ -13,7 +13,7 @@ import astroExpressiveCode, { createInlineSvgUrl } from "astro-expressive-code";
 import { pluginLineNumbers } from "@expressive-code/plugin-line-numbers";
 import rehypeMermaid from "rehype-mermaid";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
-import rehypeSlug from "rehype-slug";
+import { rehypeHeadingIds } from "@astrojs/markdown-remark";
 
 const isProd = process.env.NODE_ENV === "production";
 if (isProd) {
@@ -43,7 +43,7 @@ export default defineConfig({
     // shikiConfig: { theme: "dracula" },
     remarkPlugins: [remarkReadingTime, remarkModifiedTime],
     rehypePlugins: [
-      rehypeSlug,
+      rehypeHeadingIds,
       rehypeMermaid,
       [
         rehypeAutolinkHeadings,
