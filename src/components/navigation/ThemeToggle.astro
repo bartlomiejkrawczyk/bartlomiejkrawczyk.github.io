@@ -1,0 +1,58 @@
+---
+type Props = Record<string, never>;
+---
+
+<script type="text/javascript" is:inline>
+  const getThemePreference = () => {
+    if (typeof localStorage !== "undefined" && localStorage.getItem("theme")) {
+      return localStorage.getItem("theme");
+    }
+
+    const prefersDark = window.matchMedia(
+      "(prefers-color-scheme: dark)",
+    ).matches;
+    return `purple-${prefersDark ? "dark" : "light"}`;
+  };
+
+  const storedTheme = getThemePreference();
+  const [color, mode] = storedTheme.split("-");
+
+  document.documentElement.className = `theme-${color} ${mode === "dark" ? "theme-dark" : ""}`;
+
+  if (typeof localStorage !== "undefined") {
+    const observer = new MutationObserver(() => {
+      const html = document.documentElement;
+      const isDark = html.classList.contains("theme-dark");
+
+      const colorClass = Array.from(html.classList).find(
+        (cls) => cls.startsWith("theme-") && cls !== "theme-dark",
+      );
+      const colorName = colorClass
+        ? colorClass.replace("theme-", "")
+        : "purple";
+
+      localStorage.setItem(
+        "theme",
+        `${colorName}-${isDark ? "dark" : "light"}`,
+      );
+    });
+
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+  }
+
+  window.setTheme = function (
+    color = "purple",
+    mode = "light",
+    reload = false,
+  ) {
+    document.documentElement.className = `theme-${color} ${mode === "dark" ? "theme-dark" : ""}`;
+    localStorage.setItem("theme", `${color}-${mode}`);
+
+    if (reload) {
+      window.location.reload();
+    }
+  };
+</script>
