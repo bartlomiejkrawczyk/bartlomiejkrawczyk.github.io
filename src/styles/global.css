@@ -1,37 +1,22 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
+@import "./themes.css";
+
 /* Global variables */
 :root {
   /* Colors */
-  --gray-0: #090b11;
-  --gray-50: #141925;
-  --gray-100: #283044;
-  --gray-200: #3d4663;
-  --gray-300: #505d84;
-  --gray-400: #6474a2;
-  --gray-500: #8490b5;
-  --gray-600: #a3acc8;
-  --gray-700: #c3cadb;
-  --gray-800: #e3e6ee;
-  --gray-900: #f3f4f7;
-  --gray-999-basis: 0, 0%, 100%;
-  --gray-999_40: hsla(var(--gray-999-basis), 0.4);
-  --gray-999: #ffffff;
-
-  --accent-light: #c561f6;
-  --accent-regular: #7611a6;
-  --accent-dark: #1c0056;
-  --accent-overlay: hsla(280, 89%, 67%, 0.33);
+  --accent-overlay: hsla(280, 89%, 67%, 0);
   --accent-subtle-overlay: var(--accent-overlay);
   --accent-text-over: var(--gray-999);
 
-  --link-color: var(--accent-regular);
+  --link-color: var(--primary-regular);
 
   /* Gradients */
-  --gradient-stop-1: var(--accent-light);
-  --gradient-stop-2: var(--accent-regular);
-  --gradient-stop-3: var(--accent-dark);
+  --gradient-stop-1: var(--primary-dark);
+  --gradient-stop-2: var(--primary-regular);
+  --gradient-stop-3: var(--secondary-dark);
+
   --gradient-subtle: linear-gradient(
     150deg,
     var(--gray-900) 19%,
@@ -42,12 +27,6 @@
     var(--gradient-stop-1),
     var(--gradient-stop-2),
     var(--gradient-stop-3)
-  );
-  --gradient-accent-orange: linear-gradient(
-    150deg,
-    #ca7879,
-    var(--accent-regular),
-    var(--accent-dark)
   );
   --gradient-stroke: linear-gradient(180deg, var(--gray-900), var(--gray-700));
 
@@ -85,40 +64,20 @@
 }
 
 :root.theme-dark {
-  --gray-0: #ffffff;
-  --gray-50: #f3f4f7;
-  --gray-100: #e3e6ee;
-  --gray-200: #c3cadb;
-  --gray-300: #a3acc8;
-  --gray-400: #8490b5;
-  --gray-500: #6474a2;
-  --gray-600: #505d84;
-  --gray-700: #3d4663;
-  --gray-800: #283044;
-  --gray-900: #141925;
-  --gray-999-basis: 225, 31%, 5%;
-  --gray-999: #090b11;
-
-  --accent-light: #1c0056;
-  --accent-regular: #7611a6;
-  --accent-dark: #c561f6;
-  --accent-overlay: hsla(280, 89%, 67%, 0.33);
-  --accent-subtle-overlay: hsla(281, 81%, 36%, 0.33);
+  --accent-overlay: hsla(280, 89%, 67%, 0);
+  --accent-subtle-overlay: hsla(281, 81%, 36%, 0);
   --accent-text-over: var(--gray-0);
 
-  --link-color: var(--accent-dark);
+  --link-color: var(--primary-dark);
 
-  --gradient-stop-1: #4c11c6;
+  --gradient-stop-1: var(--primary-light);
+  --gradient-stop-2: var(--primary-regular);
+  --gradient-stop-3: var(--secondary-light);
+
   --gradient-subtle: linear-gradient(
     150deg,
     var(--gray-900) 19%,
     var(--gray-999) 81%
-  );
-  --gradient-accent-orange: linear-gradient(
-    150deg,
-    #ca7879,
-    var(--accent-regular),
-    var(--accent-light)
   );
   --gradient-stroke: linear-gradient(180deg, var(--gray-600), var(--gray-800));
 
@@ -147,7 +106,7 @@ body {
 }
 
 body {
-  background-color: var(--gray-999);
+  background-color: var(--gray-950);
   color: var(--gray-200);
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
@@ -207,26 +166,6 @@ h5 {
   color: var(--gray-100);
 }
 
-/* h1 {
-  font-size: var(--text-5xl);
-}
-
-h2 {
-  font-size: var(--text-4xl);
-}
-
-h3 {
-  font-size: var(--text-3xl);
-}
-
-h4 {
-  font-size: var(--text-2xl);
-}
-
-h5 {
-  font-size: var(--text-xl);
-} */
-
 /* Utilities */
 
 .sr-only {
@@ -254,12 +193,6 @@ h5 {
 }
 
 @utility prose {
-  /* --tw-prose-body: var(--color-primary);
-  --tw-prose-headings: var(--color-primary);
-  --tw-prose-bold: var(--color-primary);
-  --tw-prose-quote-borders: var(--color-slate-300);
-  --tw-prose-quotes: var(--color-muted-foreground);
-  --tw-prose-code: var(--color-primary); */
   code {
     &::before,
     &::after {
