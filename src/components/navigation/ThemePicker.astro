@@ -43,6 +43,19 @@ import { icons } from "../Icons";
   )
 }
 
+<script>
+  import { modes, colors } from "./Themes";
+
+  modes.forEach((mode) => {
+    colors.forEach((color) => {
+      const button = document.querySelector(`#div-${color}-${mode}`);
+      button?.addEventListener("click", () =>
+        window.setTheme?.(color, mode, true),
+      );
+    });
+  });
+</script>
+
 <style>
   .dark {
     background-color: #0f0f0f;
