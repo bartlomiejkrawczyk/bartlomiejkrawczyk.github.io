@@ -1,4 +1,5 @@
 import type { LanguageKey } from "@i18n/ui";
+import type { Color, Mode } from "@components/navigation/Themes";
 
 interface ImportMetaEnv {
   readonly URL: string;
@@ -17,3 +18,9 @@ declare namespace astroHTML.JSX {
 }
 
 declare function setLanguage(key: LanguageKey);
+
+declare global {
+  interface Window {
+    setTheme?: (color: Color, mode: Mode, refresh: Boolean) => void;
+  }
+}
