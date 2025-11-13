@@ -11,4 +11,5 @@
 - [ ] Add portfolio in pdf!
 - [ ] Client side "search" functionality - for easier project search
 - [ ] Client side tag filtering
-- [ ] 
+- [ ] Configure command line like search (with additional options: theme, language, print, etc)
+
