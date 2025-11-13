@@ -218,3 +218,10 @@ h5 {
     text-align: left;
   }
 }
+
+@media print {
+  .no-print,
+  .no-print * {
+    display: none !important;
+  }
+}
