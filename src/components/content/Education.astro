@@ -1,0 +1,58 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import EducationElement from "./EducationElement.astro";
+
+interface Props extends HTMLAttributes<"div"> {}
+
+const { ...props } = Astro.props;
+---
+
+<div {...props}>
+  <h2>Education</h2>
+  <EducationElement
+    university="Warsaw University of Technology"
+    period="February 2024 - September 2025"
+    subject="Computer Science"
+    degree="Master's Degree"
+    specialization="Intelligent Systems"
+    average={4.92}
+    subjects={[
+      "Niezawdone, Skalowalne i Łatwe w Utrzymaniu Systemy Informatyczne",
+      "Programowanie Równoległe i Rozproszone",
+      "Architektura i Integracja Systemów",
+      "Sieci Inteligentnych Urządzeń",
+      "Wirtualne Środowiska Obliczeniowe",
+      "Robotyka",
+    ]}
+  />
+  <EducationElement
+    university="Warsaw University of Technology"
+    period="October 2020 - February 2024"
+    subject="Computer Science"
+    degree="Bachelor's Degree"
+    specialization="Software Engineering"
+    average={4.96}
+    subjects={[
+      "Algorytmy i Struktury Danych",
+      "Systemy Oepracyjne",
+      "Programowanie Aplikacyjne - Java",
+      "Programowanie Obiektowe - C++",
+      "Wprowadzenie do Sztucznych Inteligencji",
+      "Inżynieria Uczenia Maszynowego",
+      "Bazy Danych",
+      "Sztuka Wytwarzania Oprogramowania",
+      "Sterowniki Programowalne",
+      "System UNIX",
+      "Paradygmaty Programowania",
+      "Programowanie Aplikacji Internetowych",
+      "Techniki Kompilacji",
+      "Programowanie Sieciowe",
+      "Wdrażanie i Utrzymanie Systemów Informatycznych",
+    ]}
+  />
+  <EducationElement
+    university="Liceum Ogólnokształcące im. Bolesława Prusa"
+    period="September 2017 - June 2020"
+    specialization="Computer Science, Math, English, Physics"
+  />
+</div>

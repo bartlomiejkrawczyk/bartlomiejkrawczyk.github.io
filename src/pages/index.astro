@@ -4,15 +4,16 @@ import Layout from "@layouts/Layout.astro";
 import Overview from "@src/components/content/Overview.astro";
 import About from "@src/components/content/About.astro";
 import Rodo from "@src/components/content/Rodo.astro";
+import Education from "@src/components/content/Education.astro";
+import Skills from "@src/components/content/Skills.astro";
 ---
 
 <Layout>
   <Overview />
   <About />
-  <a href="./about">About</a>
+  <Education />
+  <Skills />
   <Projects />
-  <a href="./500">500</a>
-  <a href="./404">404</a>
   <a href="/FO-23Z">Radar Simulator</a>
   Current locale: {Astro.currentLocale}
   <Rodo />

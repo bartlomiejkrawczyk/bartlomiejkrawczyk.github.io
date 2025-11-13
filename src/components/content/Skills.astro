@@ -1,3 +1,11 @@
 ---
+import type { HTMLAttributes } from "astro/types";
 
+interface Props extends HTMLAttributes<"div"> {}
+
+const { ...props } = Astro.props;
 ---
+
+<div {...props}>
+  <h2>Skills</h2>
+</div>
