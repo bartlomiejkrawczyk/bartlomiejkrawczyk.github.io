@@ -1,0 +1,15 @@
+- [ ] add `favico.ico` file
+- [ ] configure tag filtering for projects
+- [ ] aggregate multiple tags in same place
+- [x] Verify whether Cache-Control headers are set after deployment
+- [ ] Verify transitions `fade` or `slide`
+- [ ] Gradient text!
+- [ ] Window like page elements
+- [ ] Multi color theme selector
+- [ ] May take this page as an example: https://github.com/withastro/docs
+- [ ] Tag filtering - filter projects based on selected tags
+- [ ] Add portfolio in pdf!
+- [ ] Client side "search" functionality - for easier project search
+- [ ] Client side tag filtering
+- [ ] Configure command line like search (with additional options: theme, language, print, etc)
+

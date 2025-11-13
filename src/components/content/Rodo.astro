@@ -1,0 +1,11 @@
+---
+import type { LanguageKey } from "@src/i18n/ui";
+import { useTranslations } from "@src/i18n/utils";
+
+const lang = Astro.currentLocale as LanguageKey;
+const t = useTranslations(lang);
+---
+
+<div class="only-print">
+  {t("rodo")}
+</div>

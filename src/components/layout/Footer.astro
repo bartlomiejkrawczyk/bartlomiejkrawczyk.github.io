@@ -6,22 +6,47 @@ const currentYear = new Date().getFullYear();
 type Props = Record<string, never>;
 ---
 
-<footer>
+<footer class="no-print">
   <p>&copy; 2024-{currentYear} Bartłomiej Krawczyk</p>
   <p class="socials">
-    <a href="https://github.com/bartlomiejkrawczyk">
-      <Icon icon="github-logo" gradient={true} size="20px" />GitHub
+    <a
+      href="https://github.com/bartlomiejkrawczyk"
+      target="_blank"
+      class="link"
+    >
+      <Icon icon="github-logo" gradient={true} size="20px" /><span
+        class="link-text">GitHub</span
+      >
     </a>
-    <a href="https://discordapp.com/users/384450810547011584">
-      <Icon icon="discord-logo" gradient={true} size="20px" />Discord
+    <a
+      href="https://discordapp.com/users/384450810547011584"
+      target="_blank"
+      class="link"
+    >
+      <Icon icon="discord-logo" gradient={true} size="20px" /><span
+        class="link-text">Discord</span
+      >
     </a>
-    <a href="https://www.instagram.com/bartlomiejkrawczyk_">
-      <Icon icon="instagram-logo" gradient={true} size="20px" />Instagram
+    <a
+      href="https://www.instagram.com/bartlomiejkrawczyk_"
+      target="_blank"
+      class="link"
+    >
+      <Icon icon="instagram-logo" gradient={true} size="20px" /><span
+        class="link-text">Instagram</span
+      >
     </a>
   </p>
 </footer>
 
 <style>
+  .link {
+    display: flex;
+  }
+  .link-text {
+    padding-left: var(--spacing);
+  }
+
   .socials {
     display: flex;
     justify-content: flex-end;

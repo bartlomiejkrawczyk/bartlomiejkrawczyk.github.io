@@ -1,17 +1,20 @@
 ---
 import Projects from "@components/content/Projects.astro";
 import Layout from "@layouts/Layout.astro";
-import Avatar from "@components/content/Avatar.astro";
+import Overview from "@src/components/content/Overview.astro";
+import About from "@src/components/content/About.astro";
+import Rodo from "@src/components/content/Rodo.astro";
+import Education from "@src/components/content/Education.astro";
+import Skills from "@src/components/content/Skills.astro";
 ---
 
 <Layout>
-  <Avatar />
-  <a href="./about">About</a>
+  <Overview />
+  <About />
+  <Education />
+  <Skills />
   <Projects />
-  <a href="./500">500</a>
-  <a href="./404">404</a>
   <a href="/FO-23Z">Radar Simulator</a>
   Current locale: {Astro.currentLocale}
-  Preferred locale: {Astro.preferredLocale}
-  Preferred locale list: {Astro.preferredLocaleList}
+  <Rodo />
 </Layout>
