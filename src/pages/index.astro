@@ -2,9 +2,13 @@
 import Projects from "@components/content/Projects.astro";
 import Layout from "@layouts/Layout.astro";
 import Avatar from "@components/content/Avatar.astro";
+import Overview from "@src/components/content/Overview.astro";
+import About from "@src/components/content/About.astro";
 ---
 
 <Layout>
+  <Overview />
+  <About />
   <Avatar />
   <a href="./about">About</a>
   <Projects />
