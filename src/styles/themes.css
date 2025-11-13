@@ -20,7 +20,7 @@
   --gray-999: #fafafa;
 
   /* Override default */
-  --gray-950: #ffffff;
+  --background: #ffffff;
 
   /* Accent (default purple) */
   --accent-light: #c561f6;
@@ -46,6 +46,8 @@
   --gray-900: #212121;
   --gray-950: #0f0f0f;
   --gray-999: #0a0a0a;
+
+  --background: var(--gray-950);
 }
 
 /* ========================================================= */
