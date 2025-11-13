@@ -3,6 +3,7 @@ import Projects from "@components/content/Projects.astro";
 import Layout from "@layouts/Layout.astro";
 import Overview from "@src/components/content/Overview.astro";
 import About from "@src/components/content/About.astro";
+import Rodo from "@src/components/content/Rodo.astro";
 ---
 
 <Layout>
@@ -14,6 +15,5 @@ import About from "@src/components/content/About.astro";
   <a href="./404">404</a>
   <a href="/FO-23Z">Radar Simulator</a>
   Current locale: {Astro.currentLocale}
-  Preferred locale: {Astro.preferredLocale}
-  Preferred locale list: {Astro.preferredLocaleList}
+  <Rodo />
 </Layout>
