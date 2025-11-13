@@ -1,15 +1,36 @@
 ---
 import Icon from "../Icon.astro";
 import Avatar from "./Avatar.astro";
+import type { HTMLAttributes } from "astro/types";
+
+interface Props extends HTMLAttributes<"div"> {}
+
+const { ...props } = Astro.props;
 ---
 
-<div class="flex">
+<div class="flex" {...props}>
   <div class="flex-1 space-y-1.5">
     <h1>Bartłomiej Krawczyk</h1>
     <p>Backend Engineer</p>
     <a href="https://maps.app.goo.gl/UhjS3b31uSSrucAj8" class="flex">
-      <Icon gradient icon="location" size="22px" />
+      <Icon gradient icon="globe-world" size="22px" />
       <span class="ml-1">Warsaw, Poland</span>
+    </a>
+    <a href="tel:+48691177733" class="flex">
+      <Icon gradient icon="phone" size="22px" />
+      <span class="ml-1">+48 691 177 733</span>
+    </a>
+    <a href="https://bartlomiejkrawczyk.github.io" class="flex">
+      <Icon gradient icon="globe" size="22px" />
+      <span class="ml-1">bartlomiejkrawczyk.github.io</span>
+    </a>
+    <a href="https://bartlomiejkrawczyk.github.io" class="flex">
+      <Icon gradient icon="github-logo" size="22px" />
+      <span class="ml-1">bartlomiejkrawczyk</span>
+    </a>
+    <a href="mailto:bartlomiejkrawczyk01@gmail.com" class="flex">
+      <Icon gradient icon="envelope" size="22px" />
+      <span class="ml-1">bartlomiejkrawczyk01@gmail.com</span>
     </a>
   </div>
   <span class="relative flex shrink-0 overflow-hidden rounded-xl size-50">
