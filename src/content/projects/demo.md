@@ -187,8 +187,11 @@ which you wish to be displayed literally, ex.: \`foo\`, \*bar\*, etc.
 | example      | table          | right         |
 
 
-```mermaid
-%%{init:{'theme':'forest', 'flowchart': {'curve':'monotoneX'}}}%%
+```mermaid 
+%%{init:{
+    "theme":"forest", 
+    "flowchart": {"curve":"monotoneX"}
+}}%%
 flowchart LR
     s((s))
     A((A))
