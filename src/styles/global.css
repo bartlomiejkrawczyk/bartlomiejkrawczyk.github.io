@@ -166,6 +166,11 @@ h5 {
   color: var(--gray-100);
 }
 
+.flowchart {
+  background-color: #ffffff;
+  border-radius: 10px;
+}
+
 /* Utilities */
 
 .sr-only {
