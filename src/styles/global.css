@@ -246,3 +246,34 @@ h5 {
     display: none !important;
   }
 }
+
+h1:not(.prose h1),
+h2:not(.prose h2),
+h3:not(.prose h3),
+h4:not(.prose h4),
+h5:not(.prose h5) {
+  line-height: 1.1;
+  font-family: var(--font-brand);
+  font-weight: 600;
+  color: var(--gray-100);
+}
+
+h1:not(.prose h1) {
+  font-size: var(--text-3xl);
+}
+
+h2:not(.prose h2) {
+  font-size: var(--text-2xl);
+}
+
+h3:not(.prose h3) {
+  font-size: var(--text-xl);
+}
+
+h4:not(.prose h4) {
+  font-size: var(--text-lg);
+}
+
+h5:not(.prose h5) {
+  font-size: var(--text-md);
+}
