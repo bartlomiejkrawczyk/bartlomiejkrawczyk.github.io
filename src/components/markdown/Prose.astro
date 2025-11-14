@@ -5,3 +5,45 @@
 <div class="prose md:prose-lg lg:prose-xl dark:prose-invert max-w-none">
   <slot />
 </div>
+
+<script>
+  const html = document.documentElement;
+  let removedDark = false;
+
+  // Before print (Chrome/Edge/Firefox)
+  window.addEventListener("beforeprint", () => {
+    if (html.classList.contains("theme-dark")) {
+      html.classList.remove("theme-dark");
+      removedDark = true;
+    }
+  });
+
+  // After print (Chrome/Edge/Firefox)
+  window.addEventListener("afterprint", () => {
+    if (removedDark) {
+      html.classList.add("theme-dark");
+      removedDark = false;
+    }
+  });
+
+  // Safari support (print media query listener)
+  if (window.matchMedia) {
+    const mq = window.matchMedia("print");
+
+    mq.addEventListener("change", (e) => {
+      if (e.matches) {
+        // entering print
+        if (html.classList.contains("theme-dark")) {
+          html.classList.remove("theme-dark");
+          removedDark = true;
+        }
+      } else {
+        // leaving print
+        if (removedDark) {
+          html.classList.add("theme-dark");
+          removedDark = false;
+        }
+      }
+    });
+  }
+</script>
