@@ -8,10 +8,12 @@ const { ...props } = Astro.props;
 ---
 
 <div {...props}>
-  <h2>Education</h2>
+  <h2 class="pb-1">Education</h2>
   <EducationElement
+    class="py-1"
     university="Warsaw University of Technology"
     period="February 2024 - September 2025"
+    link="https://www.elka.pw.edu.pl/Wydzial"
     subject="Computer Science"
     degree="Master's Degree"
     specialization="Intelligent Systems"
@@ -26,8 +28,10 @@ const { ...props } = Astro.props;
     ]}
   />
   <EducationElement
+    class="py-1"
     university="Warsaw University of Technology"
     period="October 2020 - February 2024"
+    link="https://www.elka.pw.edu.pl/Wydzial"
     subject="Computer Science"
     degree="Bachelor's Degree"
     specialization="Software Engineering"
@@ -51,8 +55,10 @@ const { ...props } = Astro.props;
     ]}
   />
   <EducationElement
+    class="py-1"
     university="Liceum Ogólnokształcące im. Bolesława Prusa"
     period="September 2017 - June 2020"
+    link="https://loprus.pl/"
     specialization="Computer Science, Math, English, Physics"
   />
 </div>

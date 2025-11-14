@@ -4,6 +4,7 @@ import type { HTMLAttributes } from "astro/types";
 interface Props extends HTMLAttributes<"div"> {
   university: string;
   period: string;
+  city?: string;
   link?: string;
   subject?: string;
   degree?: string;
@@ -11,11 +12,13 @@ interface Props extends HTMLAttributes<"div"> {
   description?: string;
   average?: number;
   subjects?: Array<string>; // TODO: to add
+  distinction?: boolean; // TODO: to add
 }
 
 const {
   university,
   period,
+  city,
   link,
   subject,
   degree,
@@ -27,8 +30,8 @@ const {
 ---
 
 <div {...props}>
-  <div>
-    <h3><a href={link}>{university}</a></h3>
+  <div class="flex">
+    <h4 class="flex-1"><a href={link} target="_blank">{university}</a></h4>
     <span>{period}</span>
   </div>
   {subject ? <div>{subject}</div> : null}

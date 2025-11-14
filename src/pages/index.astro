@@ -5,16 +5,17 @@ import Overview from "@src/components/content/Overview.astro";
 import About from "@src/components/content/About.astro";
 import Rodo from "@src/components/content/Rodo.astro";
 import Education from "@src/components/content/Education.astro";
+import WorkExperience from "@src/components/content/WorkExperience.astro";
 import Skills from "@src/components/content/Skills.astro";
 ---
 
 <Layout>
   <Overview />
-  <About />
-  <Education />
-  <Skills />
+  <About class="py-4" />
+  <WorkExperience class="py-4 border-(--gray-900) border-t" />
+  <Education class="py-4 border-(--gray-900) border-t" />
+  <Skills class="py-4 border-(--gray-900) border-t" />
   <Projects />
   <a href="/FO-23Z">Radar Simulator</a>
-  Current locale: {Astro.currentLocale}
   <Rodo />
 </Layout>
