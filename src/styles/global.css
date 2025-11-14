@@ -63,37 +63,45 @@
   --theme-transition: 0.2s ease-in-out;
 }
 
-:root.theme-dark {
-  --accent-overlay: hsla(280, 89%, 67%, 0);
-  --accent-subtle-overlay: hsla(281, 81%, 36%, 0);
-  --accent-text-over: var(--gray-0);
+@media not print {
+  :root.theme-dark {
+    --accent-overlay: hsla(280, 89%, 67%, 0);
+    --accent-subtle-overlay: hsla(281, 81%, 36%, 0);
+    --accent-text-over: var(--gray-0);
 
-  --link-color: var(--primary-dark);
+    --link-color: var(--primary-dark);
 
-  --gradient-stop-1: var(--primary-light);
-  --gradient-stop-2: var(--primary-regular);
-  --gradient-stop-3: var(--secondary-light);
+    --gradient-stop-1: var(--primary-light);
+    --gradient-stop-2: var(--primary-regular);
+    --gradient-stop-3: var(--secondary-light);
 
-  --gradient-subtle: linear-gradient(
-    150deg,
-    var(--gray-900) 19%,
-    var(--gray-999) 81%
-  );
-  --gradient-stroke: linear-gradient(180deg, var(--gray-600), var(--gray-800));
+    --gradient-subtle: linear-gradient(
+      150deg,
+      var(--gray-900) 19%,
+      var(--gray-999) 81%
+    );
+    --gradient-stroke: linear-gradient(
+      180deg,
+      var(--gray-600),
+      var(--gray-800)
+    );
 
-  --shadow-sm:
-    0px 6px 3px rgba(255, 255, 255, 0.01),
-    0px 4px 2px rgba(255, 255, 255, 0.01),
-    0px 2px 2px rgba(255, 255, 255, 0.02), 0px 0px 1px rgba(255, 255, 255, 0.03);
-  --shadow-md:
-    0px 28px 11px rgba(255, 255, 255, 0.01),
-    0px 16px 10px rgba(255, 255, 255, 0.03),
-    0px 7px 7px rgba(255, 255, 255, 0.05), 0px 2px 4px rgba(255, 255, 255, 0.06);
-  --shadow-lg:
-    0px 62px 25px rgba(255, 255, 255, 0.01),
-    0px 35px 21px rgba(255, 255, 255, 0.05),
-    0px 16px 16px rgba(255, 255, 255, 0.1),
-    0px 4px 9px rgba(255, 255, 255, 0.12);
+    --shadow-sm:
+      0px 6px 3px rgba(255, 255, 255, 0.01),
+      0px 4px 2px rgba(255, 255, 255, 0.01),
+      0px 2px 2px rgba(255, 255, 255, 0.02),
+      0px 0px 1px rgba(255, 255, 255, 0.03);
+    --shadow-md:
+      0px 28px 11px rgba(255, 255, 255, 0.01),
+      0px 16px 10px rgba(255, 255, 255, 0.03),
+      0px 7px 7px rgba(255, 255, 255, 0.05),
+      0px 2px 4px rgba(255, 255, 255, 0.06);
+    --shadow-lg:
+      0px 62px 25px rgba(255, 255, 255, 0.01),
+      0px 35px 21px rgba(255, 255, 255, 0.05),
+      0px 16px 16px rgba(255, 255, 255, 0.1),
+      0px 4px 9px rgba(255, 255, 255, 0.12);
+  }
 }
 
 html,
