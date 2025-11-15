@@ -1,11 +1,59 @@
 ---
 import type { HTMLAttributes } from "astro/types";
+import { tags } from "@components/content/Tags";
 
 interface Props extends HTMLAttributes<"div"> {}
-
+// const lang = Astro.currentLocale as LanguageKey;
 const { ...props } = Astro.props;
 ---
 
 <div {...props}>
-  <h2>Skills</h2>
+  <h2 class="pb-1">Skills</h2>
+  <ul>
+    {
+      Object.entries(tags).map(([, tag]) => (
+        <li class={`skill ${tag.type}`}>
+          <a href={tag.link} target="_blank">
+            {tag.translation.en}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
 </div>
+
+<style>
+  .skill {
+    display: inline-block;
+    border-color: var(--gray-900);
+    border-style: var(--tw-border-style);
+    border-width: 1px;
+    initial-value: solid;
+    padding-left: var(--spacing);
+    padding-right: var(--spacing);
+    margin-top: var(--spacing);
+    margin-bottom: var(--spacing);
+    margin-right: calc(var(--spacing) * 2);
+    border-radius: var(--radius-lg);
+  }
+  .company {
+    display: none;
+  }
+  .language {
+    background-color: rgb(from var(--primary-light) r g b / 20%);
+    /* background-color: var(--primary-light); */
+    /* TODO: maybe set some color here? */
+  }
+  .framework {
+  }
+  .technology {
+  }
+  .cloud {
+  }
+  .library {
+  }
+  .database {
+  }
+  .other {
+  }
+</style>
