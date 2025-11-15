@@ -174,20 +174,27 @@ export const tagIds = [
   //   "data_grip"
 
   "apache_hive",
-  //   "mongo_db",
-  //   "arango_db",
-  //   "postgres",
-  //   "oracle",
-  //   "mysql",
-  //   "mariadb",
-  //   "sqlite",
-  //   "redis",
-  //   "ms_access",
-  //   "firebase",
-  //   "h2",
+  "mongo_db",
+  "arango_db",
+  "postgres",
+  "oracle",
+  "mysql",
+  "mariadb",
+  "sqlite",
+  "redis",
+  "ms_access",
+  "firebase",
+  "h2",
 
   //   "replication",
   //   "load_balancing",
+
+  //   "ai",
+  //   "ChatGPT",
+  //   "OpenAI",
+  //   "Gemini",
+  //   "Copilot",
+  //   "RoboDev",
 
   //   "basic_auth",
   //   "oauth2",
@@ -218,8 +225,8 @@ export const tagTypes = [
   "other",
 ] as const;
 
-type TagId = (typeof tagIds)[number];
-type TagType = (typeof tagTypes)[number];
+export type TagId = (typeof tagIds)[number];
+export type TagType = (typeof tagTypes)[number];
 
 interface Tag {
   id: TagId;
@@ -611,6 +618,72 @@ export const tags: Record<TagId, Tag> = {
     type: "database",
     link: "https://hive.apache.org/",
     translation: { en: "Apache Hive" },
+  },
+  mongo_db: {
+    id: "mongo_db",
+    type: "database",
+    link: "https://www.mongodb.com/",
+    translation: { en: "MongoDB" },
+  },
+  arango_db: {
+    id: "arango_db",
+    type: "database",
+    link: "https://www.arangodb.com",
+    translation: { en: "ArangoDB" },
+  },
+  postgres: {
+    id: "postgres",
+    type: "database",
+    link: "https://www.postgresql.org",
+    translation: { en: "PostgreSQL" },
+  },
+  oracle: {
+    id: "oracle",
+    type: "database",
+    link: "https://www.oracle.com/database/technologies/",
+    translation: { en: "Oracle Database" },
+  },
+  mysql: {
+    id: "mysql",
+    type: "database",
+    link: "https://www.mysql.com/",
+    translation: { en: "MySQL" },
+  },
+  mariadb: {
+    id: "mariadb",
+    type: "database",
+    link: "https://mariadb.org/",
+    translation: { en: "MariaDB" },
+  },
+  sqlite: {
+    id: "sqlite",
+    type: "database",
+    link: "https://sqlite.org/",
+    translation: { en: "SQLite" },
+  },
+  redis: {
+    id: "redis",
+    type: "database",
+    link: "https://redis.io/",
+    translation: { en: "Redis" },
+  },
+  ms_access: {
+    id: "ms_access",
+    type: "database",
+    link: "https://www.microsoft.com/microsoft-365/access",
+    translation: { en: "Microsoft Access" },
+  },
+  firebase: {
+    id: "firebase",
+    type: "database",
+    link: "https://firebase.google.com/",
+    translation: { en: "Firebase" },
+  },
+  h2: {
+    id: "h2",
+    type: "database",
+    link: "https://www.h2database.com/html/main.html",
+    translation: { en: "H2 Database" },
   },
   makefile: {
     id: "makefile",

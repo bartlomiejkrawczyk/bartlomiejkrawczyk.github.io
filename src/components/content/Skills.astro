@@ -44,30 +44,42 @@ const { ...props } = Astro.props;
     display: none;
   }
   .language {
-    background-color: rgb(from var(--primary-light) r g b / 25%);
+    background-color: rgb(from var(--primary-light) r g b / 50%);
   }
   .framework {
-    background-color: rgb(from var(--secondary-light) r g b / 25%);
+    background-color: rgb(from var(--secondary-light) r g b / 50%);
   }
   .technology {
-    background-color: rgb(from var(--primary-regular) r g b / 25%);
+    background-color: rgb(from var(--primary-regular) r g b / 50%);
   }
   .tool {
-    background-color: rgb(from var(--secondary-regular) r g b / 25%);
+    background-color: rgb(from var(--secondary-regular) r g b / 50%);
   }
   .operating_system {
-    background-color: rgb(from var(--primary-dark) r g b / 25%);
+    background-color: rgb(from var(--primary-dark) r g b / 50%);
+  }
+  .operating_system a {
+    color: var(--gray-950);
+  }
+  .operating_system a:hover,
+  .operating_system a:focus {
+    color: var(--primary-regular);
   }
   .cloud {
-    background-color: rgb(from var(--secondary-dark) r g b / 25%);
+    background-color: rgb(from var(--secondary-dark) r g b / 50%);
+    color: var(--gray-950);
+  }
+  .cloud a:hover,
+  .cloud a:focus {
+    color: var(--secondary-regular);
   }
   .library {
-    background-color: rgb(from var(--primary-light) r g b / 25%);
+    background-color: rgb(from var(--primary-light) r g b / 50%);
   }
   .database {
-    background-color: rgb(from var(--secondary-light) r g b / 25%);
+    background-color: rgb(from var(--secondary-light) r g b / 50%);
   }
   .other {
-    background-color: rgb(from var(--primary-regular) r g b / 25%);
+    background-color: rgb(from var(--primary-regular) r g b / 50%);
   }
 </style>
