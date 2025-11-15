@@ -1,13 +1,19 @@
 ---
 import type { LanguageKey } from "@src/i18n/ui";
 import { useTranslations } from "@src/i18n/utils";
+import type { HTMLAttributes } from "astro/types";
 
 const lang = Astro.currentLocale as LanguageKey;
 const t = useTranslations(lang);
+
+interface Props extends HTMLAttributes<"div"> {}
+const { ...props } = Astro.props;
 ---
 
-<div class="only-print">
-  <span class="text-(--gray-900)">
-    {t("rodo")}
-  </span>
+<div {...props}>
+  <div class="only-print">
+    <span class="text-(--gray-700)">
+      {t("rodo")}
+    </span>
+  </div>
 </div>

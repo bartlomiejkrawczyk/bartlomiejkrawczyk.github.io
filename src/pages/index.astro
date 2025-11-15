@@ -14,11 +14,22 @@ import AdditionalActivity from "@src/components/content/AdditionalActivity.astro
 <Layout>
   <Overview />
   <About class="py-4" />
-  <WorkExperience class="py-4 border-(--gray-900) border-t" />
-  <Education class="py-4 border-(--gray-900) border-t" />
-  <Skills class="py-4 border-(--gray-900) border-t" />
-  <Projects class="py-4 border-(--gray-900) border-t" />
-  <Awards class="py-4 border-(--gray-900) border-t" />
-  <AdditionalActivity class="py-4 border-(--gray-900) border-t" />
-  <Rodo class="py-4 border-(--gray-900) border-t" />
+  <WorkExperience class="content-section" />
+  <Education class="content-section" />
+  <Skills class="content-section" />
+  <Projects class="content-section" />
+  <Awards class="content-section" />
+  <AdditionalActivity class="content-section" />
+  <Rodo class="content-section" />
 </Layout>
+
+<style>
+  .content-section {
+    padding-block: calc(var(--spacing) * 4);
+    border-color: var(--gray-900);
+    border-top-style: var(--tw-border-style);
+    border-top-width: 1px;
+    initial-value: solid;
+    /* break-inside: avoid; TODO: consider this one */
+  }
+</style>
