@@ -36,24 +36,38 @@ const { ...props } = Astro.props;
     margin-right: calc(var(--spacing) * 2);
     border-radius: var(--radius-lg);
   }
+  .skill a:hover,
+  .skill a:focus {
+    color: var(--gray-50);
+  }
   .company {
     display: none;
   }
   .language {
-    background-color: rgb(from var(--primary-light) r g b / 20%);
-    /* background-color: var(--primary-light); */
-    /* TODO: maybe set some color here? */
+    background-color: rgb(from var(--primary-light) r g b / 25%);
   }
   .framework {
+    background-color: rgb(from var(--secondary-light) r g b / 25%);
   }
   .technology {
+    background-color: rgb(from var(--primary-regular) r g b / 25%);
+  }
+  .tool {
+    background-color: rgb(from var(--secondary-regular) r g b / 25%);
+  }
+  .operating_system {
+    background-color: rgb(from var(--primary-dark) r g b / 25%);
   }
   .cloud {
+    background-color: rgb(from var(--secondary-dark) r g b / 25%);
   }
   .library {
+    background-color: rgb(from var(--primary-light) r g b / 25%);
   }
   .database {
+    background-color: rgb(from var(--secondary-light) r g b / 25%);
   }
   .other {
+    background-color: rgb(from var(--primary-regular) r g b / 25%);
   }
 </style>
