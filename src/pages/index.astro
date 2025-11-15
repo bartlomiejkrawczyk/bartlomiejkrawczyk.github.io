@@ -5,16 +5,31 @@ import Overview from "@src/components/content/Overview.astro";
 import About from "@src/components/content/About.astro";
 import Rodo from "@src/components/content/Rodo.astro";
 import Education from "@src/components/content/Education.astro";
+import WorkExperience from "@src/components/content/WorkExperience.astro";
 import Skills from "@src/components/content/Skills.astro";
+import Awards from "@src/components/content/Awards.astro";
+import AdditionalActivity from "@src/components/content/AdditionalActivity.astro";
 ---
 
 <Layout>
   <Overview />
-  <About />
-  <Education />
-  <Skills />
-  <Projects />
-  <a href="/FO-23Z">Radar Simulator</a>
-  Current locale: {Astro.currentLocale}
-  <Rodo />
+  <About class="py-4" />
+  <WorkExperience class="content-section" />
+  <Education class="content-section" />
+  <Skills class="content-section" />
+  <Projects class="content-section" />
+  <Awards class="content-section" />
+  <AdditionalActivity class="content-section" />
+  <Rodo class="content-section" />
 </Layout>
+
+<style>
+  .content-section {
+    padding-block: calc(var(--spacing) * 4);
+    border-color: var(--gray-900);
+    border-top-style: var(--tw-border-style);
+    border-top-width: 1px;
+    initial-value: solid;
+    /* break-inside: avoid; TODO: consider this one */
+  }
+</style>

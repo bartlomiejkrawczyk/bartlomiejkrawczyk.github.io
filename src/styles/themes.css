@@ -33,21 +33,23 @@
 /* === DARK MODE (Inverted Neutral Grays) === */
 /* ========================================================= */
 
-:root.theme-dark {
-  --gray-50: #fafafa;
-  --gray-100: #f5f5f5;
-  --gray-200: #eeeeee;
-  --gray-300: #e0e0e0;
-  --gray-400: #bdbdbd;
-  --gray-500: #9e9e9e;
-  --gray-600: #757575;
-  --gray-700: #616161;
-  --gray-800: #424242;
-  --gray-900: #212121;
-  --gray-950: #0f0f0f;
-  --gray-999: #0a0a0a;
+@media not print {
+  :root.theme-dark {
+    --gray-50: #fafafa;
+    --gray-100: #f5f5f5;
+    --gray-200: #eeeeee;
+    --gray-300: #e0e0e0;
+    --gray-400: #bdbdbd;
+    --gray-500: #9e9e9e;
+    --gray-600: #757575;
+    --gray-700: #616161;
+    --gray-800: #424242;
+    --gray-900: #212121;
+    --gray-950: #0f0f0f;
+    --gray-999: #0a0a0a;
 
-  --background: var(--gray-950);
+    --background: var(--gray-999);
+  }
 }
 
 /* ========================================================= */
@@ -64,14 +66,16 @@
   --secondary-regular: #ffca28;
   --secondary-dark: #f57f17;
 }
-:root.theme-green.theme-dark {
-  --primary-light: #1b5e20;
-  --primary-regular: #4caf50;
-  --primary-dark: #64e284;
+@media not print {
+  :root.theme-green.theme-dark {
+    --primary-light: #1b5e20;
+    --primary-regular: #4caf50;
+    --primary-dark: #64e284;
 
-  --secondary-light: #f57f17;
-  --secondary-regular: #ffca28;
-  --secondary-dark: #fff59d;
+    --secondary-light: #f57f17;
+    --secondary-regular: #ffca28;
+    --secondary-dark: #fff59d;
+  }
 }
 
 /* === PURPLE–ORANGE === */
@@ -84,14 +88,16 @@
   --secondary-regular: #ff9800;
   --secondary-dark: #e65100;
 }
-:root.theme-purple.theme-dark {
-  --primary-light: #3a0063;
-  --primary-regular: #7611a6;
-  --primary-dark: #d1a1f9;
+@media not print {
+  :root.theme-purple.theme-dark {
+    --primary-light: #3a0063;
+    --primary-regular: #7611a6;
+    --primary-dark: #d1a1f9;
 
-  --secondary-light: #e65100;
-  --secondary-regular: #ff9800;
-  --secondary-dark: #ffcc80;
+    --secondary-light: #e65100;
+    --secondary-regular: #ff9800;
+    --secondary-dark: #ffcc80;
+  }
 }
 
 /* === RED–YELLOW === */
@@ -104,14 +110,16 @@
   --secondary-regular: #ffca28;
   --secondary-dark: #f57f17;
 }
-:root.theme-red.theme-dark {
-  --primary-light: #b71c1c;
-  --primary-regular: #ff5252;
-  --primary-dark: #ff9a8b;
+@media not print {
+  :root.theme-red.theme-dark {
+    --primary-light: #b71c1c;
+    --primary-regular: #ff5252;
+    --primary-dark: #ff9a8b;
 
-  --secondary-light: #f57f17;
-  --secondary-regular: #ffca28;
-  --secondary-dark: #fff59d;
+    --secondary-light: #f57f17;
+    --secondary-regular: #ffca28;
+    --secondary-dark: #fff59d;
+  }
 }
 
 /* === BLUE–CYAN === */
@@ -124,14 +132,16 @@
   --secondary-regular: #00bcd4;
   --secondary-dark: #006064;
 }
-:root.theme-blue.theme-dark {
-  --primary-light: #0a3fa0;
-  --primary-regular: #1e6fff;
-  --primary-dark: #6ea8ff;
+@media not print {
+  :root.theme-blue.theme-dark {
+    --primary-light: #0a3fa0;
+    --primary-regular: #1e6fff;
+    --primary-dark: #6ea8ff;
 
-  --secondary-light: #006064;
-  --secondary-regular: #00bcd4;
-  --secondary-dark: #80deea;
+    --secondary-light: #006064;
+    --secondary-regular: #00bcd4;
+    --secondary-dark: #80deea;
+  }
 }
 
 /* === PINK–PURPLE === */
@@ -144,14 +154,16 @@
   --secondary-regular: #7611a6;
   --secondary-dark: #3a0063;
 }
-:root.theme-pink.theme-dark {
-  --primary-light: #880e4f;
-  --primary-regular: #e91e63;
-  --primary-dark: #f8bbd0;
+@media not print {
+  :root.theme-pink.theme-dark {
+    --primary-light: #880e4f;
+    --primary-regular: #e91e63;
+    --primary-dark: #f8bbd0;
 
-  --secondary-light: #3a0063;
-  --secondary-regular: #7611a6;
-  --secondary-dark: #d1a1f9;
+    --secondary-light: #3a0063;
+    --secondary-regular: #7611a6;
+    --secondary-dark: #d1a1f9;
+  }
 }
 
 /* === TEAL–ORANGE === */
@@ -164,14 +176,16 @@
   --secondary-regular: #ff9800;
   --secondary-dark: #e65100;
 }
-:root.theme-teal.theme-dark {
-  --primary-light: #004d40;
-  --primary-regular: #009688;
-  --primary-dark: #80cbc4;
+@media not print {
+  :root.theme-teal.theme-dark {
+    --primary-light: #004d40;
+    --primary-regular: #009688;
+    --primary-dark: #80cbc4;
 
-  --secondary-light: #e65100;
-  --secondary-regular: #ff9800;
-  --secondary-dark: #ffcc80;
+    --secondary-light: #e65100;
+    --secondary-regular: #ff9800;
+    --secondary-dark: #ffcc80;
+  }
 }
 
 /* === MONOCHROME === */
@@ -184,12 +198,14 @@
   --secondary-regular: #999999;
   --secondary-dark: #cccccc;
 }
-:root.theme-bw.theme-dark {
-  --primary-light: #000000;
-  --primary-regular: #aaaaaa;
-  --primary-dark: #ffffff;
+@media not print {
+  :root.theme-bw.theme-dark {
+    --primary-light: #000000;
+    --primary-regular: #aaaaaa;
+    --primary-dark: #ffffff;
 
-  --secondary-light: #cccccc;
-  --secondary-regular: #999999;
-  --secondary-dark: #333333;
+    --secondary-light: #cccccc;
+    --secondary-regular: #999999;
+    --secondary-dark: #333333;
+  }
 }

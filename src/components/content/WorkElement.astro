@@ -1,0 +1,22 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+interface Props extends HTMLAttributes<"div"> {
+  company: string;
+  period: string;
+  link?: string;
+  title?: string;
+  description?: string;
+}
+
+const { company, period, link, title, description, ...props } = Astro.props;
+---
+
+<div {...props}>
+  <div class="flex">
+    <h3 class="flex-1"><a href={link} target="_blank">{company}</a></h3>
+    <span>{period}</span>
+  </div>
+  {title ? <div>{title}</div> : null}
+  {description ? <div>{description}</div> : null}
+</div>

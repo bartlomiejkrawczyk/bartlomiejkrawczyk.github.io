@@ -1,0 +1,36 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import WorkElement from "./WorkElement.astro";
+
+interface Props extends HTMLAttributes<"div"> {}
+
+const { ...props } = Astro.props;
+---
+
+<div {...props}>
+  <h2 class="pb-1">Work Experience</h2>
+  <WorkElement
+    class="py-1"
+    company="Sages"
+    period="July 2023 -"
+    link="https://www.sages.pl/"
+    title="Software Engineer"
+    description=""
+  />
+  <WorkElement
+    class="py-1"
+    company="Sages"
+    period="July 2022 - June 2023"
+    link="https://www.sages.pl/"
+    title="Junior Software Engineer"
+    description=""
+  />
+  <WorkElement
+    class="py-1"
+    company="Sages"
+    period="June 2022 - July 2022"
+    link="https://www.sages.pl/"
+    title="Trainee Software Engineer"
+    description=""
+  />
+</div>
