@@ -2,6 +2,7 @@
 import { getCollection } from "astro:content";
 import { getRelativeLocaleUrl } from "astro:i18n";
 import type { LanguageKey } from "@i18n/ui";
+import type { HTMLAttributes } from "astro/types";
 
 const projects = await getCollection("projects").then((projects) =>
   projects.sort((a, b) => a.id.localeCompare(b.id)),
@@ -9,23 +10,28 @@ const projects = await getCollection("projects").then((projects) =>
 
 const lang = Astro.currentLocale as LanguageKey;
 
-type Props = Record<string, never>;
+interface Props extends HTMLAttributes<"div"> {}
+
+const { ...props } = Astro.props;
 ---
 
-<!-- https://docs.astro.build/en/guides/content-collections/#filtering-collection-queries -->
-<ul>
-  {
-    Object.entries(projects).map(([, project]) => (
-      <li>
-        <a href={getRelativeLocaleUrl(lang, "/projects/" + project.id)}>
-          {project.id} - {project.data.title}
-        </a>
-      </li>
-    ))
-  }
-</ul>
+<div {...props}>
+  <h2 class="pb-1">Projects</h2>
+  <!-- https://docs.astro.build/en/guides/content-collections/#filtering-collection-queries -->
+  <ul>
+    {
+      Object.entries(projects).map(([, project]) => (
+        <li class="pt-1">
+          <a href={getRelativeLocaleUrl(lang, "/projects/" + project.id)}>
+            {project.id} - {project.data.title}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
 
-<!-- 
-May configure pagination of projects: 
-https://docs.astro.build/en/guides/routing/#pagination 
--->
+  <!-- 
+  May configure pagination of projects: 
+  https://docs.astro.build/en/guides/routing/#pagination 
+  -->
+</div>

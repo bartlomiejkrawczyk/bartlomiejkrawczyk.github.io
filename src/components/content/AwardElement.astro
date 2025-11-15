@@ -1,0 +1,17 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+interface Props extends HTMLAttributes<"div"> {
+  period: string;
+  description: string;
+}
+
+const { period, description, ...props } = Astro.props;
+---
+
+<div {...props}>
+  <div class="flex">
+    <span class="flex-1">{description}</span>
+    <span>{period}</span>
+  </div>
+</div>

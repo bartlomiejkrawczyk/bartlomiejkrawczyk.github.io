@@ -1,0 +1,18 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import AdditionalActivityElement from "./AdditionalActivityElement.astro";
+
+interface Props extends HTMLAttributes<"div"> {}
+
+const { ...props } = Astro.props;
+---
+
+<div {...props}>
+  <h2 class="pb-1">Additional Activity</h2>
+  <AdditionalActivityElement
+    class="pt-1"
+    period="2014 - 2017"
+    location="Anna Olszewska Hospice in Skierniewice"
+    type="Volunteering"
+  />
+</div>
