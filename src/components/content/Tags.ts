@@ -50,35 +50,44 @@ export const tagIds = [
   "django",
   "flask",
 
-  //   "tdd",
-  //   "agile",
-  //   "scrum",
-  //   "canban",
-
   "docker",
-  //   "ci_cd",
-  //   "kubernetes",
-  //   "s3",
-  //   "keycloak",
-  //   "liquibase",
-  //   "sonar_qube",
-  //   "wildfly"
-  //   "jersey",
-  //   "jetty",
-  //   "netty",
+  "kubernetes",
+  "ci_cd",
+  "s3",
+  "iac",
 
-  //   "iac", Infrastructure as Code
-  //   "puppet",
-  //   "ansible",
+  "ddd",
+  //   "tdd",
+  "agile",
+  "scrum",
+  "kanban",
+  //   "wcag",
+
+  "rest_api",
+  //   "graph_ql",
+  "grpc",
+  "cqrs",
+  "event_sourcing",
+  "dsl",
+
+  "replication",
+  "load_balancing",
+  "circuit_breaker",
+  "service_discovery",
+  "service_registry",
+
+  "basic_auth",
+  "oauth2",
+  "rbac",
+  "otp",
+
+  "ansible",
+  "puppet",
 
   "gradle",
   "maven",
   "sbt",
   "node_js",
-
-  //   "wcag"
-
-  //   "figma",
 
   "git",
   "github",
@@ -96,10 +105,48 @@ export const tagIds = [
   "certbot",
   "ssh",
 
+  //   "wildfly"
+  //   "jersey",
+  //   "jetty",
+  //   "netty",
+
+  //   "ai",
+  "chat_gpt",
+  //   "open_ai",
+  "gemini",
+  "copilot",
+  "rovo_dev",
+
+  "vscode",
+  "intellij",
+  "pycharm",
+  "go_land",
+  "rust_rover",
+  "c_lion",
+  "data_grip",
+
+  //   "figma",
+
+  "keycloak",
+  "liquibase",
+  "sonar_qube",
+
+  "ms_office",
+  "libre_office",
+  "google_workspace",
+
+  "open_api",
+  "swagger",
+
   "linux",
   "windows",
   "ubuntu",
   "wsl",
+
+  "azure",
+  "gcp",
+  "oci",
+  "ovh",
 
   //   "apache_active_mq",
   //   "apache_rabbit_mq",
@@ -135,9 +182,6 @@ export const tagIds = [
   //   "simple_java_mail",
   //   "kotest",
 
-  //   "open_api",
-  //   "swagger",
-
   // "tailwind",
   // "expressive-code",
   // "playwright",
@@ -156,16 +200,6 @@ export const tagIds = [
   //   "mockito",
   //   "spock"
 
-  //   k8s:
-  //   "azure",
-  //   "gcp"
-
-  //   vps:
-  //   "azure",
-  //   "gcp",
-  //   "oci" - oracle cloud
-  //   "ovh" - OVHcloud
-
   //   "spring_boot",
   //   "spring_aop",
   //   "spring_data",
@@ -174,14 +208,6 @@ export const tagIds = [
 
   //   "spring_mvc",
   //   "spring_webflux"
-
-  //   "vscode",
-  //   "intellij",
-  //   "pycharm",
-  //   "go_land",
-  //   "rust_rover",
-  //   "c_lion",
-  //   "data_grip"
 
   "apache_hive",
   "mongo_db",
@@ -196,27 +222,10 @@ export const tagIds = [
   "firebase",
   "h2",
 
-  //   "replication",
-  //   "load_balancing",
-
-  //   "ai",
-  //   "ChatGPT",
-  //   "OpenAI",
-  //   "Gemini",
-  //   "Copilot",
-  //   "RoboDev",
-
-  //   "basic_auth",
-  //   "oauth2",
-  //   "otp", // one-time password
-
-  //   "MS Office",
-  //   "Libre Office"
-
-  //   "driving",
-  //   "driving_AM",
-  //   "driving_B",
-  //   "driving_B1",
+  "driving",
+  "driving_am",
+  "driving_b",
+  "driving_b1",
 
   "english",
   "polish",
@@ -299,6 +308,12 @@ export const tags: Record<TagId, Tag> = {
     link: "https://kotlinlang.org/",
     translation: { en: "Kotlin" },
   },
+  groovy: {
+    id: "groovy",
+    type: "language",
+    link: "https://groovy-lang.org/",
+    translation: { en: "Groovy" },
+  },
   scala: {
     id: "scala",
     type: "language",
@@ -339,7 +354,7 @@ export const tags: Record<TagId, Tag> = {
     id: "go",
     type: "language",
     link: "https://go.dev/",
-    translation: { en: "Go" },
+    translation: { en: "Go Language" },
   },
   pl_sql: {
     id: "pl_sql",
@@ -388,12 +403,6 @@ export const tags: Record<TagId, Tag> = {
     type: "language",
     link: "https://www.gnu.org/software/bash/",
     translation: { en: "Bash" },
-  },
-  groovy: {
-    id: "groovy",
-    type: "language",
-    link: "https://groovy-lang.org/",
-    translation: { en: "Groovy" },
   },
   ampl: {
     id: "ampl",
@@ -539,6 +548,150 @@ export const tags: Record<TagId, Tag> = {
     link: "https://www.docker.com/",
     translation: { en: "Docker" },
   },
+  kubernetes: {
+    id: "kubernetes",
+    type: "technology",
+    link: "https://kubernetes.io/",
+    translation: { en: "Kubernetes" },
+  },
+  ci_cd: {
+    id: "ci_cd",
+    type: "technology",
+    link: "https://en.wikipedia.org/wiki/CI/CD",
+    translation: { en: "CI/CD" },
+  },
+  s3: {
+    id: "s3",
+    type: "technology",
+    link: "https://aws.amazon.com/s3/",
+    translation: { en: "Amazon S3" },
+  },
+  iac: {
+    id: "iac",
+    type: "technology",
+    link: "https://en.wikipedia.org/wiki/Infrastructure_as_code",
+    translation: { en: "Infrastructure as Code" },
+  },
+  ddd: {
+    id: "ddd",
+    type: "technology",
+    link: "https://en.wikipedia.org/wiki/Domain-driven_design",
+    translation: { en: "Domain Driven Design" },
+  },
+  agile: {
+    id: "agile",
+    type: "technology",
+    link: "https://en.wikipedia.org/wiki/Agile_software_development",
+    translation: { en: "Agile" },
+  },
+  scrum: {
+    id: "scrum",
+    type: "technology",
+    link: "https://en.wikipedia.org/wiki/Scrum_(project_management)",
+    translation: { en: "Scrum" },
+  },
+  kanban: {
+    id: "kanban",
+    type: "technology",
+    link: "https://en.wikipedia.org/wiki/Kanban",
+    translation: { en: "Kanban" },
+  },
+  rest_api: {
+    id: "rest_api",
+    type: "technology",
+    link: "https://en.wikipedia.org/wiki/REST",
+    translation: { en: "REST API" },
+  },
+  grpc: {
+    id: "grpc",
+    type: "technology",
+    link: "https://grpc.io/",
+    translation: { en: "gRPC" },
+  },
+  cqrs: {
+    id: "cqrs",
+    type: "technology",
+    link: "https://martinfowler.com/bliki/CQRS.html",
+    translation: { en: "CQRS" },
+  },
+  event_sourcing: {
+    id: "event_sourcing",
+    type: "technology",
+    link: "https://microservices.io/patterns/data/event-sourcing.html",
+    translation: { en: "Event Sourcing" },
+  },
+  dsl: {
+    id: "dsl",
+    type: "technology",
+    link: "https://en.wikipedia.org/wiki/Domain-specific_language",
+    translation: { en: "Domain Specific Language" },
+  },
+  replication: {
+    id: "replication",
+    type: "technology",
+    link: "https://en.wikipedia.org/wiki/Replication_(computing)",
+    translation: { en: "Replication" },
+  },
+  load_balancing: {
+    id: "load_balancing",
+    type: "technology",
+    link: "https://en.wikipedia.org/wiki/Load_balancing_(computing)",
+    translation: { en: "Load Balancing", pl: "Równoważenie obciążenia" },
+  },
+  circuit_breaker: {
+    id: "circuit_breaker",
+    type: "technology",
+    link: "https://en.wikipedia.org/wiki/Circuit_breaker_design_pattern",
+    translation: { en: "Circuit Breaker" },
+  },
+  service_discovery: {
+    id: "service_discovery",
+    type: "technology",
+    link: "https://en.wikipedia.org/wiki/Service_discovery",
+    translation: { en: "Service Discovery" },
+  },
+  service_registry: {
+    id: "service_registry",
+    type: "technology",
+    link: "https://microservices.io/patterns/service-registry.html",
+    translation: { en: "Service Registry" },
+  },
+  basic_auth: {
+    id: "basic_auth",
+    type: "technology",
+    link: "https://en.wikipedia.org/wiki/Basic_access_authentication",
+    translation: { en: "Basic Auth" },
+  },
+  oauth2: {
+    id: "oauth2",
+    type: "technology",
+    link: "https://oauth.net/2/",
+    translation: { en: "OAuth 2.0" },
+  },
+  rbac: {
+    id: "rbac",
+    type: "technology",
+    link: "https://en.wikipedia.org/wiki/Role-based_access_control",
+    translation: { en: "Role Based Access Control" },
+  },
+  otp: {
+    id: "otp",
+    type: "technology",
+    link: "https://en.wikipedia.org/wiki/One-time_password",
+    translation: { en: "One-Time Password" },
+  },
+  ansible: {
+    id: "ansible",
+    type: "tool",
+    link: "https://docs.ansible.com/",
+    translation: { en: "Ansible" },
+  },
+  puppet: {
+    id: "puppet",
+    type: "tool",
+    link: "https://www.puppet.com/",
+    translation: { en: "Puppet" },
+  },
   gradle: {
     id: "gradle",
     type: "tool",
@@ -653,6 +806,120 @@ export const tags: Record<TagId, Tag> = {
     link: "https://en.wikipedia.org/wiki/Secure_Shell",
     translation: { en: "SSH" },
   },
+  vscode: {
+    id: "vscode",
+    type: "tool",
+    link: "https://code.visualstudio.com/",
+    translation: { en: "VS Code" },
+  },
+  intellij: {
+    id: "intellij",
+    type: "tool",
+    link: "https://www.jetbrains.com/idea/",
+    translation: { en: "IntelliJ IDEA" },
+  },
+  pycharm: {
+    id: "pycharm",
+    type: "tool",
+    link: "https://www.jetbrains.com/pycharm/",
+    translation: { en: "PyCharm" },
+  },
+  go_land: {
+    id: "go_land",
+    type: "tool",
+    link: "https://www.jetbrains.com/go/",
+    translation: { en: "GoLand" },
+  },
+  rust_rover: {
+    id: "rust_rover",
+    type: "tool",
+    link: "https://www.jetbrains.com/rust/",
+    translation: { en: "RustRover" },
+  },
+  c_lion: {
+    id: "c_lion",
+    type: "tool",
+    link: "https://www.jetbrains.com/clion/",
+    translation: { en: "CLion" },
+  },
+  data_grip: {
+    id: "data_grip",
+    type: "tool",
+    link: "https://www.jetbrains.com/datagrip/",
+    translation: { en: "DataGrip" },
+  },
+  ms_office: {
+    id: "ms_office",
+    type: "tool",
+    link: "https://www.microsoft.com/microsoft-365",
+    translation: { en: "MS Office" },
+  },
+  libre_office: {
+    id: "libre_office",
+    type: "tool",
+    link: "https://www.libreoffice.org/",
+    translation: { en: "Libre Office" },
+  },
+  google_workspace: {
+    id: "google_workspace",
+    type: "tool",
+    link: "https://workspace.google.com/",
+    translation: { en: "Google Workspace" },
+  },
+  chat_gpt: {
+    id: "chat_gpt",
+    type: "tool",
+    link: "https://chatgpt.com/",
+    translation: { en: "ChatGPT" },
+  },
+  gemini: {
+    id: "gemini",
+    type: "tool",
+    link: "https://gemini.google.com/app",
+    translation: { en: "Gemini" },
+  },
+  copilot: {
+    id: "copilot",
+    type: "tool",
+    link: "https://copilot.microsoft.com/",
+    translation: { en: "Copilot" },
+  },
+  rovo_dev: {
+    id: "rovo_dev",
+    type: "tool",
+    link: "https://www.atlassian.com/software/rovo-dev",
+    translation: { en: "Rovo Dev" },
+  },
+  keycloak: {
+    id: "keycloak",
+    type: "tool",
+    link: "https://www.keycloak.org/",
+    translation: { en: "Keycloak" },
+  },
+  liquibase: {
+    id: "liquibase",
+    type: "tool",
+    link: "https://www.liquibase.com/",
+    translation: { en: "Liquibase" },
+  },
+  sonar_qube: {
+    id: "sonar_qube",
+    type: "tool",
+    link: "https://www.sonarsource.com/products/sonarqube/",
+    translation: { en: "SonarQube" },
+  },
+  open_api: {
+    id: "open_api",
+    type: "tool",
+    link: "https://www.openapis.org/",
+    translation: { en: "Open API" },
+  },
+  swagger: {
+    id: "swagger",
+    type: "tool",
+    link: "https://swagger.io/",
+    translation: { en: "Swagger" },
+  },
   linux: {
     id: "linux",
     type: "operating_system",
@@ -675,6 +942,30 @@ export const tags: Record<TagId, Tag> = {
     type: "operating_system",
     link: "https://learn.microsoft.com/en-us/windows/wsl/install",
     translation: { en: "WSL" },
+  },
+  azure: {
+    id: "azure",
+    type: "cloud",
+    link: "https://azure.microsoft.com/",
+    translation: { en: "Azure" },
+  },
+  gcp: {
+    id: "gcp",
+    type: "cloud",
+    link: "https://cloud.google.com/",
+    translation: { en: "Google Cloud" },
+  },
+  oci: {
+    id: "oci",
+    type: "cloud",
+    link: "https://www.oracle.com/cloud/",
+    translation: { en: "Oracle Cloud Infrastructure" },
+  },
+  ovh: {
+    id: "ovh",
+    type: "cloud",
+    link: "https://www.ovhcloud.com/pl/",
+    translation: { en: "OVH Cloud" },
   },
   pandas: {
     id: "pandas",
@@ -753,6 +1044,30 @@ export const tags: Record<TagId, Tag> = {
     type: "database",
     link: "https://www.h2database.com/html/main.html",
     translation: { en: "H2 Database" },
+  },
+  driving: {
+    id: "driving",
+    type: "other",
+    link: "https://www.gov.pl/web/gov/kategorie-prawa-jazdy",
+    translation: { en: "Driving License", pl: "Prawo Jazdy" },
+  },
+  driving_am: {
+    id: "driving_am",
+    type: "other",
+    link: "https://www.gov.pl/web/gov/kategorie-prawa-jazdy",
+    translation: { en: "Driving License - AM", pl: "Prawo Jazdy - AM" },
+  },
+  driving_b: {
+    id: "driving_b",
+    type: "other",
+    link: "https://www.gov.pl/web/gov/kategorie-prawa-jazdy",
+    translation: { en: "Driving License - B", pl: "Prawo Jazdy - B" },
+  },
+  driving_b1: {
+    id: "driving_b1",
+    type: "other",
+    link: "https://www.gov.pl/web/gov/kategorie-prawa-jazdy",
+    translation: { en: "Driving License - B1", pl: "Prawo Jazdy - B1" },
   },
   polish: {
     id: "polish",
