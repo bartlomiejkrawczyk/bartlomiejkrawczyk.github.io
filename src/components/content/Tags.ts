@@ -53,6 +53,7 @@ export const tagIds = [
   //   "tdd",
   //   "agile",
   //   "scrum",
+  //   "canban",
 
   "docker",
   //   "ci_cd",
@@ -85,6 +86,15 @@ export const tagIds = [
   "bitbucket",
   "jira",
   "trello",
+
+  "jenkins",
+  "github_actions",
+  "bitbucket_pipelines",
+  "gitlab_ci",
+  "nginx",
+  "apache",
+  "certbot",
+  "ssh",
 
   "linux",
   "windows",
@@ -208,9 +218,9 @@ export const tagIds = [
   //   "driving_B",
   //   "driving_B1",
 
-  //   "english",
-  //   "polish",
-  //   "russian",
+  "english",
+  "polish",
+  "russian",
 
   //   "arduino",
   //   "arduino", // TODO: this one course - from Spain
@@ -227,7 +237,7 @@ export const tagTypes = [
   "library",
   "database",
   "other",
-  "languages",
+  "linguistics",
 ] as const;
 
 export type TagId = (typeof tagIds)[number];
@@ -589,6 +599,60 @@ export const tags: Record<TagId, Tag> = {
     link: "https://trello.com/",
     translation: { en: "Trello" },
   },
+  makefile: {
+    id: "makefile",
+    type: "tool",
+    link: "https://www.gnu.org/software/make/manual/make.html",
+    translation: { en: "Makefile" },
+  },
+  jenkins: {
+    id: "jenkins",
+    type: "tool",
+    link: "https://www.jenkins.io/",
+    translation: { en: "Jenkins" },
+  },
+  github_actions: {
+    id: "github_actions",
+    type: "tool",
+    link: "https://github.com/features/actions",
+    translation: { en: "Github Actions" },
+  },
+  bitbucket_pipelines: {
+    id: "bitbucket_pipelines",
+    type: "tool",
+    link: "https://www.atlassian.com/software/bitbucket/features/pipelines",
+    translation: { en: "Bitbucket Pipelines" },
+  },
+  gitlab_ci: {
+    id: "gitlab_ci",
+    type: "tool",
+    link: "https://docs.gitlab.com/ci/",
+    translation: { en: "GitLab CI/CD" },
+  },
+  nginx: {
+    id: "nginx",
+    type: "tool",
+    link: "https://nginx.org/",
+    translation: { en: "NGINX" },
+  },
+  apache: {
+    id: "apache",
+    type: "tool",
+    link: "https://httpd.apache.org/",
+    translation: { en: "Apache" },
+  },
+  certbot: {
+    id: "certbot",
+    type: "tool",
+    link: "https://certbot.eff.org/",
+    translation: { en: "Certbot" },
+  },
+  ssh: {
+    id: "ssh",
+    type: "tool",
+    link: "https://en.wikipedia.org/wiki/Secure_Shell",
+    translation: { en: "SSH" },
+  },
   linux: {
     id: "linux",
     type: "operating_system",
@@ -690,10 +754,22 @@ export const tags: Record<TagId, Tag> = {
     link: "https://www.h2database.com/html/main.html",
     translation: { en: "H2 Database" },
   },
-  makefile: {
-    id: "makefile",
-    type: "tool",
-    link: "https://www.gnu.org/software/make/manual/make.html",
-    translation: { en: "Makefile" },
+  polish: {
+    id: "polish",
+    type: "linguistics",
+    link: "https://en.wikipedia.org/wiki/Polish_language",
+    translation: { en: "Polish - native", pl: "Polski - ojczysty" },
+  },
+  english: {
+    id: "english",
+    type: "linguistics",
+    link: "https://en.wikipedia.org/wiki/English_language",
+    translation: { en: "English - advanced", pl: "Angielski - zaawansowany" },
+  },
+  russian: {
+    id: "russian",
+    type: "linguistics",
+    link: "https://en.wikipedia.org/wiki/English_language",
+    translation: { en: "Russian - basic", pl: "Rosyjski - podstawowy" },
   },
 };
