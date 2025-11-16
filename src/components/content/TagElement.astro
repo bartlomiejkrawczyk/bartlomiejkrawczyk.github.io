@@ -9,10 +9,16 @@ interface Props extends HTMLAttributes<"li"> {
 const { tag, ...props } = Astro.props;
 ---
 
-<li class={`skill ${tag.type} ${props.class}`} {...props}>
-  <a href={tag.link} target="_blank">
-    {tag.translation.en}
-  </a>
+<li class={`skill ${tag.type} ${props.class ?? ""}`} {...props}>
+  {
+    tag.link ? (
+      <a href={tag.link} target="_blank">
+        {tag.translation.en}
+      </a>
+    ) : (
+      <span>{tag.translation.en}</span>
+    )
+  }
 </li>
 
 <style>
@@ -52,7 +58,8 @@ const { tag, ...props } = Astro.props;
   .operating_system {
     background-color: rgb(from var(--primary-dark) r g b / 25%);
   }
-  .operating_system a {
+  .operating_system a,
+  .operating_system span {
     color: var(--gray-950);
   }
   .operating_system a:hover,
@@ -75,5 +82,8 @@ const { tag, ...props } = Astro.props;
   }
   .other {
     background-color: rgb(from var(--primary-regular) r g b / 25%);
+  }
+  .linguistics {
+    background-color: rgb(from var(--secondary-regular) r g b / 25%);
   }
 </style>

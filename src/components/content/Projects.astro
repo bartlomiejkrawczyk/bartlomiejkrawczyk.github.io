@@ -28,13 +28,13 @@ const { ...props } = Astro.props;
             <span>
               <b>{project.data.title ?? project.id}</b>
             </span>
-            <pre>{project.data.description}</pre>
-            <ul class="project-tags">
-              {project.data.tags?.map((tag) => (
-                <TagElement tag={tags[tag]} />
-              ))}
-            </ul>
           </a>
+          <pre>{project.data.description}</pre>
+          <ul class="project-tags">
+            {project.data.tags?.map((tag) => (
+              <TagElement tag={tags[tag]} />
+            ))}
+          </ul>
         </li>
       ))
     }
