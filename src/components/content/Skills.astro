@@ -14,3 +14,9 @@ const { ...props } = Astro.props;
     {Object.entries(tags).map(([, tag]) => <TagElement tag={tag} />)}
   </ul>
 </div>
+
+<style>
+  .company {
+    display: none;
+  }
+</style>

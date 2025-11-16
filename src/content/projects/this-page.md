@@ -4,6 +4,7 @@ publishDate: 2025-11-16 00:00:00
 description: |
   Minimalist portfolio website with some cool features. Including: full github flavored markdown support, dynamic themes, multi-language support, search capabilities and more.
 tags:
+    - side_project
     - javascript
     - typescript
     - astro_js

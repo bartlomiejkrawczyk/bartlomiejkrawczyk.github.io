@@ -1,6 +1,5 @@
 ---
-import type { ImageMetadata } from "astro";
-import FallbackImage from "@public/assets/logo.jpg";
+import fallbackImage from "@assets/logo.jpg?url";
 import { SITE_TITLE, SITE_DESCRIPTION } from "@src/consts";
 import LanguageToggle from "@components/navigation/LanguageToggle.astro";
 import ThemeToggle from "@components/navigation/ThemeToggle.astro";
@@ -11,7 +10,7 @@ const SITE_URL = import.meta.env.URL;
 interface Props {
   title?: string | undefined;
   description?: string | undefined;
-  image?: ImageMetadata | undefined;
+  image?: string;
 }
 
 const lang = Astro.currentLocale as LanguageKey;
@@ -21,7 +20,7 @@ const canonicalURL = new URL(currentURL, SITE_URL);
 const {
   title = SITE_TITLE,
   description = SITE_DESCRIPTION,
-  image = FallbackImage,
+  image = fallbackImage,
   ...props
 } = Astro.props;
 ---
@@ -51,14 +50,14 @@ const {
   <meta property="og:url" content={SITE_URL} />
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
-  <meta property="og:image" content={new URL(image.src, SITE_URL)} />
+  <meta property="og:image" content={new URL(image, SITE_URL)} />
 
   <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image" />
   <meta property="twitter:url" content={SITE_URL} />
   <meta property="twitter:title" content={title} />
   <meta property="twitter:description" content={description} />
-  <meta property="twitter:image" content={new URL(image.src, SITE_URL)} />
+  <meta property="twitter:image" content={new URL(image, SITE_URL)} />
 
   <ThemeToggle />
   <LanguageToggle />
