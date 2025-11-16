@@ -10,10 +10,8 @@ interface Props extends HTMLAttributes<"div"> {}
 const { ...props } = Astro.props;
 ---
 
-<div {...props}>
-  <div class="only-print">
-    <span class="text-(--gray-700)">
-      {t("rodo")}
-    </span>
-  </div>
+<div class=`only-print ${props.class ?? ""}` {...props}>
+  <span class="text-(--gray-700)">
+    {t("rodo")}
+  </span>
 </div>
