@@ -22,140 +22,218 @@ export const tagIds = [
   "typescript",
   "haskell",
   "prolog",
-  //   "bash",
-  //   "groovy",
-  //   "ampl",
-  //   "tex",
-  //   "matlab",
-  //   "assembly_x86",
-  //   "assembly_mips",
-  //   "makefile",
-  //   "makefile",
+  "bash",
+  "groovy",
+  "ampl",
+  "tex",
+  "matlab",
+  "assembly_x86",
+  "assembly_mips",
+  "makefile",
 
-  //   "spring"
-  //   "ktor"
-  //   "helidon"
-  //   "micronaut"
-  //   "jsf"
-  //   "prime_faces"
-  //   "hibernate"
-  //   "jax_rs"
-  //   "jersey"
-  //   "jetty"
-  //   "netty"
-  //   "jboss_seam"
-  //   "apache_hadoop"
-  //   "apache_hive"
-  //   "axon"
-  //   "android"
-  //   "react_js"
-  //   "astro_js"
+  "spring",
+  "ktor",
+  "helidon",
+  "micronaut",
+  "jsf",
+  "prime_faces",
+  "hibernate",
+  "jakarta_ee",
+  "jax_rs",
+  "jakarta_cdi",
+  "jboss_seam",
+  "apache_hadoop",
+  "axon",
+  "android",
+  "react_js",
+  "astro_js",
+  "django",
+  "flask",
 
-  //   "django"
-  //   "flask"
-  //   "pandas"
-  //   "py_spark"
-  //   "py_torch"
-  //   "keras"
-  //   "num_py"
-  //   "matplotlib"
+  "docker",
+  "kubernetes",
+  "ci_cd",
+  "s3",
+  "iac",
 
-  //   "tdd"
-  //   "agile"
-  //   "scrum"
+  "ddd",
+  "tdd",
+  "agile",
+  "scrum",
+  "kanban",
+  "wcag",
 
-  //   "docker"
-  //   "ci_cd"
-  //   "kubernetes"
-  //   "s3"
-  //   "keycloak"
-  //   "liquibase"
-  //   "sonar_qube"
-  //   "wildfly"
+  "rest_api",
+  "graph_ql",
+  "grpc",
+  "cqrs",
+  "event_sourcing",
+  "dsl",
 
-  //   "gradle"
-  //   "maven"
+  "replication",
+  "load_balancing",
+  "circuit_breaker",
+  "service_discovery",
+  "service_registry",
 
-  //   "git"
-  //   "github"
-  //   "gitlab"
-  //   "bitbucket"
-  //   "jira"
-  //   "trello"
+  "basic_auth",
+  "oauth2",
+  "rbac",
+  "otp",
 
-  //   "linux"
-  //   "windows"
-  //   "ubuntu"
-  //   "wsl"
+  "ai",
 
-  //   "apache_active_mq"
-  //   "apache_kafka"
-  //   "apache_log4j"
-  //   "slf4j"
-  //   "apache_pdf_box"
-  //   "apache_poi"
-  //   "apache_solr"
-  //   "apache_spark"
-  //   "apache_flink"
-  //   "apache_tika"
-  //   "apache_tomcat"
-  //   "apache_zookeeper"
-  //   "bouncy_castle"
-  //   "deep_java_library"
-  //   "elastic_search"
-  //   "google_gson"
-  //   "google_guava"
-  //   "jackson"
-  //   "java_fx"
+  "ansible",
+  "puppet",
+
+  "gradle",
+  "maven",
+  "sbt",
+  "node_js",
+
+  "git",
+  "github",
+  "gitlab",
+  "bitbucket",
+  "jira",
+  "trello",
+
+  "jenkins",
+  "github_actions",
+  "bitbucket_pipelines",
+  "gitlab_ci",
+  "nginx",
+  "apache",
+  "certbot",
+  "ssh",
+
+  "tomcat",
+  "wildfly",
+  "jersey",
+  "jetty",
+  "netty",
+
+  "chat_gpt",
+  "open_ai",
+  "gemini",
+  "copilot",
+  "rovo_dev",
+
+  "vscode",
+  "intellij",
+  "pycharm",
+  "go_land",
+  "rust_rover",
+  "c_lion",
+  "data_grip",
+
+  "figma",
+
+  "keycloak",
+  "liquibase",
+  "sonar_qube",
+
+  "ms_office",
+  "libre_office",
+  "google_workspace",
+
+  "open_api",
+  "swagger",
+
+  "linux",
+  "windows",
+  "ubuntu",
+  "wsl",
+
+  "azure",
+  "gcp",
+  "oci",
+  "ovh",
+
+  //   "apache_active_mq",
+  //   "apache_rabbit_mq",
+  //   "apache_kafka",
+  //   "apache_log4j",
+  //   "slf4j",
+  //   "logback",
+  //   "apache_pdf_box",
+  //   "apache_poi",
+  //   "apache_solr",
+  //   "apache_spark",
+  //   "apache_flink",
+  //   "apache_tika",
+  //   "apache_tomcat",
+  //   "apache_zookeeper",
+  //   "bouncy_castle",
+  //   "deep_java_library",
+  //   "elastic_search",
+  //   "google_gson",
+  //   "google_guava",
+  //   "jackson",
+  //   "java_fx",
   //   "jaxb" - xml
-  //   "open_cv"
-  //   "quartz"
+  //   "open_cv",
+  //   "quartz",
+  //   "jetbrains_exposed",
+  //   "cas", // Central Authentication Service
+  //   "kotlin_arrow",
+  //   "fuel",
+  //   "hoplite",
+  //   "apache_commons",
+  //   "excel_kt",
+  //   "simple_java_mail",
 
-  //   "junit"
-  //   "mockito"
-  //   "spock"
+  "tailwind",
+  "expressive_code",
+  "playwright",
+  "rehype",
+  "remark",
 
-  //   k8s:
-  //   "azure"
-  //   "gcp"
+  "pandas",
+  "py_spark",
+  "py_torch",
+  "keras",
+  "num_py",
+  "matplotlib",
+  "pytest",
 
-  //   vps:
-  //   "azure"
-  //   "gcp"
-  //   "oci" - oracle cloud
-  //   "ovh" - OVHcloud
+  "junit",
+  "mockito",
+  "spock",
+  "kotest",
 
-  //   "spring_boot"
-  //   "spring_data"
-  //   "spring_security"
-  //   "spring_cloud"
+  "spring_boot",
+  "spring_aop",
+  "spring_data",
+  "spring_security",
+  "spring_cloud",
 
-  //   "spring_mvc"
-  //   "spring_webflux"
+  "spring_mvc",
+  "spring_webflux",
 
-  //   "vscode"
-  //   "intellij"
-  //   "pycharm"
-  //   "go_land"
-  //   "rust_rover"
-  //   "c_lion"
-  //   "data_grip"
+  "apache_hive",
+  "mongo_db",
+  "arango_db",
+  "postgres",
+  "oracle",
+  "mysql",
+  "mariadb",
+  "sqlite",
+  "redis",
+  "ms_access",
+  "firebase",
+  "h2",
 
-  //   "mongo_db"
-  //   "arango_db"
-  //   "postgres"
-  //   "oracle"
-  //   "mysql"
-  //   "mariadb"
-  //   "sqlite"
+  "driving",
+  "driving_am",
+  "driving_b",
+  "driving_b1",
 
-  //   "MS Office"
-  //   "Libre Office"
+  "english",
+  "polish",
+  "russian",
 
-  //   "driving",
-  //   "driving_AM",
-  //   "driving_B",
-  //   "driving_B1",
+  "arduino",
 ] as const;
 
 export const tagTypes = [
@@ -163,16 +241,19 @@ export const tagTypes = [
   "language",
   "framework",
   "technology",
+  "tool",
+  "operating_system",
   "cloud",
   "library",
   "database",
   "other",
+  "linguistics",
 ] as const;
 
-type TagId = (typeof tagIds)[number];
-type TagType = (typeof tagTypes)[number];
+export type TagId = (typeof tagIds)[number];
+export type TagType = (typeof tagTypes)[number];
 
-interface Tag {
+export interface Tag {
   id: TagId;
   type: TagType;
   link?: string;
@@ -228,6 +309,12 @@ export const tags: Record<TagId, Tag> = {
     link: "https://kotlinlang.org/",
     translation: { en: "Kotlin" },
   },
+  groovy: {
+    id: "groovy",
+    type: "language",
+    link: "https://groovy-lang.org/",
+    translation: { en: "Groovy" },
+  },
   scala: {
     id: "scala",
     type: "language",
@@ -268,7 +355,7 @@ export const tags: Record<TagId, Tag> = {
     id: "go",
     type: "language",
     link: "https://go.dev/",
-    translation: { en: "Go" },
+    translation: { en: "Go Language" },
   },
   pl_sql: {
     id: "pl_sql",
@@ -311,5 +398,900 @@ export const tags: Record<TagId, Tag> = {
     type: "language",
     link: "https://www.swi-prolog.org/",
     translation: { en: "Prolog" },
+  },
+  bash: {
+    id: "bash",
+    type: "language",
+    link: "https://www.gnu.org/software/bash/",
+    translation: { en: "Bash" },
+  },
+  ampl: {
+    id: "ampl",
+    type: "language",
+    link: "https://ampl.com/",
+    translation: { en: "AMPL" },
+  },
+  tex: {
+    id: "tex",
+    type: "language",
+    link: "https://www.latex-project.org/get/",
+    translation: { en: "LaTeX" },
+  },
+  matlab: {
+    id: "matlab",
+    type: "language",
+    link: "https://www.mathworks.com/products/matlab.html",
+    translation: { en: "Matlab" },
+  },
+  assembly_x86: {
+    id: "assembly_x86",
+    type: "language",
+    link: "https://en.wikipedia.org/wiki/X86_assembly_language",
+    translation: { en: "x86 assembly" },
+  },
+  assembly_mips: {
+    id: "assembly_mips",
+    type: "language",
+    link: "https://en.wikibooks.org/wiki/MIPS_Assembly/MIPS_Instructions",
+    translation: { en: "MIPS assembly" },
+  },
+  spring: {
+    id: "spring",
+    type: "framework",
+    link: "https://spring.io/projects/spring-framework",
+    translation: { en: "Spring" },
+  },
+  ktor: {
+    id: "ktor",
+    type: "framework",
+    link: "https://ktor.io/",
+    translation: { en: "Ktor" },
+  },
+  helidon: {
+    id: "helidon",
+    type: "framework",
+    link: "https://helidon.io/",
+    translation: { en: "Helidon" },
+  },
+  micronaut: {
+    id: "micronaut",
+    type: "framework",
+    link: "https://micronaut.io/",
+    translation: { en: "Micronaut" },
+  },
+  jsf: {
+    id: "jsf",
+    type: "framework",
+    link: "https://github.com/jakartaee/faces",
+    translation: { en: "Java Server Faces" },
+  },
+  prime_faces: {
+    id: "prime_faces",
+    type: "framework",
+    link: "https://www.primefaces.org/",
+    translation: { en: "Prime Faces" },
+  },
+  hibernate: {
+    id: "hibernate",
+    type: "framework",
+    link: "https://hibernate.org/",
+    translation: { en: "Hibernate" },
+  },
+  jakarta_ee: {
+    id: "jakarta_ee",
+    type: "framework",
+    link: "https://jakarta.ee/specifications/",
+    translation: { en: "Jakarta CDI" },
+  },
+  jax_rs: {
+    id: "jax_rs",
+    type: "framework",
+    link: "https://projects.eclipse.org/projects/ee4j.rest",
+    translation: { en: "Jakarta RESTful Web Services" },
+  },
+  jakarta_cdi: {
+    id: "jakarta_cdi",
+    type: "framework",
+    link: "https://www.cdi-spec.org/",
+    translation: { en: "Jakarta CDI" },
+  },
+  jboss_seam: {
+    id: "jboss_seam",
+    type: "framework",
+    link: "https://www.seamframework.org/",
+    translation: { en: "JBoss Seam" },
+  },
+  apache_hadoop: {
+    id: "apache_hadoop",
+    type: "framework",
+    link: "https://hadoop.apache.org/",
+    translation: { en: "Apache Hadoop" },
+  },
+  axon: {
+    id: "axon",
+    type: "framework",
+    link: "https://www.axoniq.io/framework",
+    translation: { en: "AXON Framework" },
+  },
+  android: {
+    id: "android",
+    type: "framework",
+    link: "https://developer.android.com/",
+    translation: { en: "Android" },
+  },
+  react_js: {
+    id: "react_js",
+    type: "framework",
+    link: "https://react.dev/",
+    translation: { en: "React.js" },
+  },
+  astro_js: {
+    id: "astro_js",
+    type: "framework",
+    link: "https://astro.build/",
+    translation: { en: "Astro.js" },
+  },
+  django: {
+    id: "django",
+    type: "framework",
+    link: "https://www.djangoproject.com/",
+    translation: { en: "Django" },
+  },
+  flask: {
+    id: "flask",
+    type: "framework",
+    link: "https://flask.palletsprojects.com/en/stable/",
+    translation: { en: "Flask" },
+  },
+  docker: {
+    id: "docker",
+    type: "technology",
+    link: "https://www.docker.com/",
+    translation: { en: "Docker" },
+  },
+  kubernetes: {
+    id: "kubernetes",
+    type: "technology",
+    link: "https://kubernetes.io/",
+    translation: { en: "Kubernetes" },
+  },
+  ci_cd: {
+    id: "ci_cd",
+    type: "technology",
+    link: "https://en.wikipedia.org/wiki/CI/CD",
+    translation: { en: "CI/CD" },
+  },
+  s3: {
+    id: "s3",
+    type: "technology",
+    link: "https://aws.amazon.com/s3/",
+    translation: { en: "Amazon S3" },
+  },
+  iac: {
+    id: "iac",
+    type: "technology",
+    link: "https://en.wikipedia.org/wiki/Infrastructure_as_code",
+    translation: { en: "Infrastructure as Code" },
+  },
+  ddd: {
+    id: "ddd",
+    type: "technology",
+    link: "https://en.wikipedia.org/wiki/Domain-driven_design",
+    translation: { en: "Domain Driven Design" },
+  },
+  agile: {
+    id: "agile",
+    type: "technology",
+    link: "https://en.wikipedia.org/wiki/Agile_software_development",
+    translation: { en: "Agile" },
+  },
+  scrum: {
+    id: "scrum",
+    type: "technology",
+    link: "https://en.wikipedia.org/wiki/Scrum_(project_management)",
+    translation: { en: "Scrum" },
+  },
+  kanban: {
+    id: "kanban",
+    type: "technology",
+    link: "https://en.wikipedia.org/wiki/Kanban",
+    translation: { en: "Kanban" },
+  },
+  rest_api: {
+    id: "rest_api",
+    type: "technology",
+    link: "https://en.wikipedia.org/wiki/REST",
+    translation: { en: "REST API" },
+  },
+  grpc: {
+    id: "grpc",
+    type: "technology",
+    link: "https://grpc.io/",
+    translation: { en: "gRPC" },
+  },
+  cqrs: {
+    id: "cqrs",
+    type: "technology",
+    link: "https://martinfowler.com/bliki/CQRS.html",
+    translation: { en: "CQRS" },
+  },
+  event_sourcing: {
+    id: "event_sourcing",
+    type: "technology",
+    link: "https://microservices.io/patterns/data/event-sourcing.html",
+    translation: { en: "Event Sourcing" },
+  },
+  dsl: {
+    id: "dsl",
+    type: "technology",
+    link: "https://en.wikipedia.org/wiki/Domain-specific_language",
+    translation: { en: "Domain Specific Language" },
+  },
+  replication: {
+    id: "replication",
+    type: "technology",
+    link: "https://en.wikipedia.org/wiki/Replication_(computing)",
+    translation: { en: "Replication" },
+  },
+  load_balancing: {
+    id: "load_balancing",
+    type: "technology",
+    link: "https://en.wikipedia.org/wiki/Load_balancing_(computing)",
+    translation: { en: "Load Balancing", pl: "Równoważenie obciążenia" },
+  },
+  circuit_breaker: {
+    id: "circuit_breaker",
+    type: "technology",
+    link: "https://en.wikipedia.org/wiki/Circuit_breaker_design_pattern",
+    translation: { en: "Circuit Breaker" },
+  },
+  service_discovery: {
+    id: "service_discovery",
+    type: "technology",
+    link: "https://en.wikipedia.org/wiki/Service_discovery",
+    translation: { en: "Service Discovery" },
+  },
+  service_registry: {
+    id: "service_registry",
+    type: "technology",
+    link: "https://microservices.io/patterns/service-registry.html",
+    translation: { en: "Service Registry" },
+  },
+  basic_auth: {
+    id: "basic_auth",
+    type: "technology",
+    link: "https://en.wikipedia.org/wiki/Basic_access_authentication",
+    translation: { en: "Basic Auth" },
+  },
+  oauth2: {
+    id: "oauth2",
+    type: "technology",
+    link: "https://oauth.net/2/",
+    translation: { en: "OAuth 2.0" },
+  },
+  rbac: {
+    id: "rbac",
+    type: "technology",
+    link: "https://en.wikipedia.org/wiki/Role-based_access_control",
+    translation: { en: "Role Based Access Control" },
+  },
+  otp: {
+    id: "otp",
+    type: "technology",
+    link: "https://en.wikipedia.org/wiki/One-time_password",
+    translation: { en: "One-Time Password" },
+  },
+  tdd: {
+    id: "tdd",
+    type: "technology",
+    link: "https://en.wikipedia.org/wiki/Test-driven_development",
+    translation: {
+      en: "Test Driven Development",
+    },
+  },
+  wcag: {
+    id: "wcag",
+    type: "technology",
+    link: "https://www.w3.org/WAI/standards-guidelines/wcag/",
+    translation: { en: "WCAG" },
+  },
+  graph_ql: {
+    id: "graph_ql",
+    type: "technology",
+    link: "https://graphql.org/",
+    translation: { en: "GraphQL" },
+  },
+  ai: {
+    id: "ai",
+    type: "technology",
+    link: "https://en.wikipedia.org/wiki/Artificial_intelligence",
+    translation: { en: "Artificial Intelligence", pl: "Sztuczna Inteligencja" },
+  },
+  ansible: {
+    id: "ansible",
+    type: "tool",
+    link: "https://docs.ansible.com/",
+    translation: { en: "Ansible" },
+  },
+  puppet: {
+    id: "puppet",
+    type: "tool",
+    link: "https://www.puppet.com/",
+    translation: { en: "Puppet" },
+  },
+  gradle: {
+    id: "gradle",
+    type: "tool",
+    link: "https://gradle.org/",
+    translation: { en: "Gradle" },
+  },
+  maven: {
+    id: "maven",
+    type: "tool",
+    link: "https://maven.apache.org/",
+    translation: { en: "Maven" },
+  },
+  sbt: {
+    id: "sbt",
+    type: "tool",
+    link: "https://www.scala-sbt.org/",
+    translation: { en: "SBT" },
+  },
+  node_js: {
+    id: "node_js",
+    type: "tool",
+    link: "https://nodejs.org/",
+    translation: { en: "Node.js" },
+  },
+  git: {
+    id: "git",
+    type: "tool",
+    link: "https://git-scm.com/",
+    translation: { en: "git" },
+  },
+  github: {
+    id: "github",
+    type: "tool",
+    link: "https://github.com/",
+    translation: { en: "Github" },
+  },
+  gitlab: {
+    id: "gitlab",
+    type: "tool",
+    link: "https://about.gitlab.com/",
+    translation: { en: "GitLab" },
+  },
+  bitbucket: {
+    id: "bitbucket",
+    type: "tool",
+    link: "https://bitbucket.org/product/",
+    translation: { en: "Bitbucket" },
+  },
+  jira: {
+    id: "jira",
+    type: "tool",
+    link: "https://www.atlassian.com/software/jira",
+    translation: { en: "Jira" },
+  },
+  trello: {
+    id: "trello",
+    type: "tool",
+    link: "https://trello.com/",
+    translation: { en: "Trello" },
+  },
+  makefile: {
+    id: "makefile",
+    type: "tool",
+    link: "https://www.gnu.org/software/make/manual/make.html",
+    translation: { en: "Makefile" },
+  },
+  jenkins: {
+    id: "jenkins",
+    type: "tool",
+    link: "https://www.jenkins.io/",
+    translation: { en: "Jenkins" },
+  },
+  github_actions: {
+    id: "github_actions",
+    type: "tool",
+    link: "https://github.com/features/actions",
+    translation: { en: "Github Actions" },
+  },
+  bitbucket_pipelines: {
+    id: "bitbucket_pipelines",
+    type: "tool",
+    link: "https://www.atlassian.com/software/bitbucket/features/pipelines",
+    translation: { en: "Bitbucket Pipelines" },
+  },
+  gitlab_ci: {
+    id: "gitlab_ci",
+    type: "tool",
+    link: "https://docs.gitlab.com/ci/",
+    translation: { en: "GitLab CI/CD" },
+  },
+  nginx: {
+    id: "nginx",
+    type: "tool",
+    link: "https://nginx.org/",
+    translation: { en: "NGINX" },
+  },
+  apache: {
+    id: "apache",
+    type: "tool",
+    link: "https://httpd.apache.org/",
+    translation: { en: "Apache" },
+  },
+  certbot: {
+    id: "certbot",
+    type: "tool",
+    link: "https://certbot.eff.org/",
+    translation: { en: "Certbot" },
+  },
+  ssh: {
+    id: "ssh",
+    type: "tool",
+    link: "https://en.wikipedia.org/wiki/Secure_Shell",
+    translation: { en: "SSH" },
+  },
+  tomcat: {
+    id: "tomcat",
+    type: "tool",
+    link: "https://tomcat.apache.org/",
+    translation: { en: "Apache Tomcat" },
+  },
+  wildfly: {
+    id: "wildfly",
+    type: "tool",
+    link: "https://wildfly.org/",
+    translation: { en: "WildFly" },
+  },
+  jersey: {
+    id: "jersey",
+    type: "tool",
+    link: "https://eclipse-ee4j.github.io/jersey/",
+    translation: { en: "Jersey" },
+  },
+  jetty: {
+    id: "jetty",
+    type: "tool",
+    link: "https://www.eclipse.org/jetty/",
+    translation: { en: "Jetty" },
+  },
+  netty: {
+    id: "netty",
+    type: "tool",
+    link: "https://netty.io/",
+    translation: { en: "Netty" },
+  },
+  vscode: {
+    id: "vscode",
+    type: "tool",
+    link: "https://code.visualstudio.com/",
+    translation: { en: "VS Code" },
+  },
+  intellij: {
+    id: "intellij",
+    type: "tool",
+    link: "https://www.jetbrains.com/idea/",
+    translation: { en: "IntelliJ IDEA" },
+  },
+  pycharm: {
+    id: "pycharm",
+    type: "tool",
+    link: "https://www.jetbrains.com/pycharm/",
+    translation: { en: "PyCharm" },
+  },
+  go_land: {
+    id: "go_land",
+    type: "tool",
+    link: "https://www.jetbrains.com/go/",
+    translation: { en: "GoLand" },
+  },
+  rust_rover: {
+    id: "rust_rover",
+    type: "tool",
+    link: "https://www.jetbrains.com/rust/",
+    translation: { en: "RustRover" },
+  },
+  c_lion: {
+    id: "c_lion",
+    type: "tool",
+    link: "https://www.jetbrains.com/clion/",
+    translation: { en: "CLion" },
+  },
+  data_grip: {
+    id: "data_grip",
+    type: "tool",
+    link: "https://www.jetbrains.com/datagrip/",
+    translation: { en: "DataGrip" },
+  },
+  ms_office: {
+    id: "ms_office",
+    type: "tool",
+    link: "https://www.microsoft.com/microsoft-365",
+    translation: { en: "MS Office" },
+  },
+  libre_office: {
+    id: "libre_office",
+    type: "tool",
+    link: "https://www.libreoffice.org/",
+    translation: { en: "Libre Office" },
+  },
+  google_workspace: {
+    id: "google_workspace",
+    type: "tool",
+    link: "https://workspace.google.com/",
+    translation: { en: "Google Workspace" },
+  },
+  chat_gpt: {
+    id: "chat_gpt",
+    type: "tool",
+    link: "https://chatgpt.com/",
+    translation: { en: "ChatGPT" },
+  },
+  open_ai: {
+    id: "open_ai",
+    type: "tool",
+    link: "https://openai.com/",
+    translation: { en: "OpenAI" },
+  },
+  gemini: {
+    id: "gemini",
+    type: "tool",
+    link: "https://gemini.google.com/app",
+    translation: { en: "Gemini" },
+  },
+  copilot: {
+    id: "copilot",
+    type: "tool",
+    link: "https://copilot.microsoft.com/",
+    translation: { en: "Copilot" },
+  },
+  rovo_dev: {
+    id: "rovo_dev",
+    type: "tool",
+    link: "https://www.atlassian.com/software/rovo-dev",
+    translation: { en: "Rovo Dev" },
+  },
+  keycloak: {
+    id: "keycloak",
+    type: "tool",
+    link: "https://www.keycloak.org/",
+    translation: { en: "Keycloak" },
+  },
+  liquibase: {
+    id: "liquibase",
+    type: "tool",
+    link: "https://www.liquibase.com/",
+    translation: { en: "Liquibase" },
+  },
+  sonar_qube: {
+    id: "sonar_qube",
+    type: "tool",
+    link: "https://www.sonarsource.com/products/sonarqube/",
+    translation: { en: "SonarQube" },
+  },
+  open_api: {
+    id: "open_api",
+    type: "tool",
+    link: "https://www.openapis.org/",
+    translation: { en: "Open API" },
+  },
+  swagger: {
+    id: "swagger",
+    type: "tool",
+    link: "https://swagger.io/",
+    translation: { en: "Swagger" },
+  },
+  figma: {
+    id: "figma",
+    type: "tool",
+    link: "https://www.figma.com/",
+    translation: { en: "Figma" },
+  },
+  linux: {
+    id: "linux",
+    type: "operating_system",
+    translation: { en: "Linux" },
+  },
+  ubuntu: {
+    id: "ubuntu",
+    type: "operating_system",
+    link: "https://ubuntu.com/",
+    translation: { en: "Ubuntu" },
+  },
+  windows: {
+    id: "windows",
+    type: "operating_system",
+    link: "https://www.microsoft.com/windows",
+    translation: { en: "Windows" },
+  },
+  wsl: {
+    id: "wsl",
+    type: "operating_system",
+    link: "https://learn.microsoft.com/en-us/windows/wsl/install",
+    translation: { en: "WSL" },
+  },
+  azure: {
+    id: "azure",
+    type: "cloud",
+    link: "https://azure.microsoft.com/",
+    translation: { en: "Azure" },
+  },
+  gcp: {
+    id: "gcp",
+    type: "cloud",
+    link: "https://cloud.google.com/",
+    translation: { en: "Google Cloud" },
+  },
+  oci: {
+    id: "oci",
+    type: "cloud",
+    link: "https://www.oracle.com/cloud/",
+    translation: { en: "Oracle Cloud Infrastructure" },
+  },
+  ovh: {
+    id: "ovh",
+    type: "cloud",
+    link: "https://www.ovhcloud.com/pl/",
+    translation: { en: "OVH Cloud" },
+  },
+  spring_boot: {
+    id: "spring_boot",
+    type: "library",
+    link: "https://spring.io/projects/spring-boot",
+    translation: { en: "Spring Boot" },
+  },
+  spring_aop: {
+    id: "spring_aop",
+    type: "library",
+    link: "https://spring.io/projects/spring-framework",
+    translation: { en: "Spring AOP" },
+  },
+  spring_data: {
+    id: "spring_data",
+    type: "library",
+    link: "https://spring.io/projects/spring-data",
+    translation: { en: "Spring Data" },
+  },
+  spring_security: {
+    id: "spring_security",
+    type: "library",
+    link: "https://spring.io/projects/spring-security",
+    translation: { en: "Spring Security" },
+  },
+  spring_cloud: {
+    id: "spring_cloud",
+    type: "library",
+    link: "https://spring.io/projects/spring-cloud",
+    translation: { en: "Spring Cloud" },
+  },
+  spring_mvc: {
+    id: "spring_mvc",
+    type: "library",
+    link: "https://spring.io/guides/gs/serving-web-content/",
+    translation: { en: "Spring MVC" },
+  },
+  spring_webflux: {
+    id: "spring_webflux",
+    type: "library",
+    link: "https://docs.spring.io/spring-framework/reference/web/webflux.html",
+    translation: { en: "Spring WebFlux" },
+  },
+  junit: {
+    id: "junit",
+    type: "library",
+    link: "https://junit.org/",
+    translation: { en: "JUnit" },
+  },
+  mockito: {
+    id: "mockito",
+    type: "library",
+    link: "https://site.mockito.org/",
+    translation: { en: "Mockito" },
+  },
+  spock: {
+    id: "spock",
+    type: "library",
+    link: "https://spockframework.org/",
+    translation: { en: "Spock" },
+  },
+  kotest: {
+    id: "kotest",
+    type: "library",
+    link: "https://kotest.io/",
+    translation: { en: "Kotest" },
+  },
+  pytest: {
+    id: "pytest",
+    type: "library",
+    link: "https://docs.pytest.org/en/stable/",
+    translation: { en: "pytest" },
+  },
+  pandas: {
+    id: "pandas",
+    type: "library",
+    link: "https://pandas.pydata.org/",
+    translation: { en: "Pandas" },
+  },
+  py_spark: {
+    id: "py_spark",
+    type: "library",
+    link: "https://spark.apache.org/docs/latest/api/python/",
+    translation: { en: "PySpark" },
+  },
+  py_torch: {
+    id: "py_torch",
+    type: "library",
+    link: "https://pytorch.org/",
+    translation: { en: "PyTorch" },
+  },
+  keras: {
+    id: "keras",
+    type: "library",
+    link: "https://keras.io/",
+    translation: { en: "Keras" },
+  },
+  num_py: {
+    id: "num_py",
+    type: "library",
+    link: "https://numpy.org/",
+    translation: { en: "NumPy" },
+  },
+  matplotlib: {
+    id: "matplotlib",
+    type: "library",
+    link: "https://matplotlib.org/",
+    translation: { en: "Matplotlib" },
+  },
+  tailwind: {
+    id: "tailwind",
+    type: "library",
+    link: "https://tailwindcss.com/",
+    translation: { en: "Tailwind CSS" },
+  },
+  expressive_code: {
+    id: "expressive_code",
+    type: "library",
+    link: "https://expressive-code.com/",
+    translation: { en: "Expressive Code" },
+  },
+  playwright: {
+    id: "playwright",
+    type: "library",
+    link: "https://playwright.dev/",
+    translation: { en: "Playwright" },
+  },
+  rehype: {
+    id: "rehype",
+    type: "library",
+    link: "https://github.com/rehypejs/rehype",
+    translation: { en: "Rehype" },
+  },
+  remark: {
+    id: "remark",
+    type: "library",
+    link: "https://remark.js.org/",
+    translation: { en: "Remark" },
+  },
+  apache_hive: {
+    id: "apache_hive",
+    type: "database",
+    link: "https://hive.apache.org/",
+    translation: { en: "Apache Hive" },
+  },
+  mongo_db: {
+    id: "mongo_db",
+    type: "database",
+    link: "https://www.mongodb.com/",
+    translation: { en: "MongoDB" },
+  },
+  arango_db: {
+    id: "arango_db",
+    type: "database",
+    link: "https://www.arangodb.com",
+    translation: { en: "ArangoDB" },
+  },
+  postgres: {
+    id: "postgres",
+    type: "database",
+    link: "https://www.postgresql.org",
+    translation: { en: "PostgreSQL" },
+  },
+  oracle: {
+    id: "oracle",
+    type: "database",
+    link: "https://www.oracle.com/database/technologies/",
+    translation: { en: "Oracle Database" },
+  },
+  mysql: {
+    id: "mysql",
+    type: "database",
+    link: "https://www.mysql.com/",
+    translation: { en: "MySQL" },
+  },
+  mariadb: {
+    id: "mariadb",
+    type: "database",
+    link: "https://mariadb.org/",
+    translation: { en: "MariaDB" },
+  },
+  sqlite: {
+    id: "sqlite",
+    type: "database",
+    link: "https://sqlite.org/",
+    translation: { en: "SQLite" },
+  },
+  redis: {
+    id: "redis",
+    type: "database",
+    link: "https://redis.io/",
+    translation: { en: "Redis" },
+  },
+  ms_access: {
+    id: "ms_access",
+    type: "database",
+    link: "https://www.microsoft.com/microsoft-365/access",
+    translation: { en: "Microsoft Access" },
+  },
+  firebase: {
+    id: "firebase",
+    type: "database",
+    link: "https://firebase.google.com/",
+    translation: { en: "Firebase" },
+  },
+  h2: {
+    id: "h2",
+    type: "database",
+    link: "https://www.h2database.com/html/main.html",
+    translation: { en: "H2 Database" },
+  },
+  arduino: {
+    id: "arduino",
+    type: "other",
+    link: "https://www.arduino.cc/",
+    translation: { en: "Arduino" },
+  },
+  driving: {
+    id: "driving",
+    type: "other",
+    link: "https://www.gov.pl/web/gov/kategorie-prawa-jazdy",
+    translation: { en: "Driving License", pl: "Prawo Jazdy" },
+  },
+  driving_am: {
+    id: "driving_am",
+    type: "other",
+    link: "https://www.gov.pl/web/gov/kategorie-prawa-jazdy",
+    translation: { en: "Driving License - AM", pl: "Prawo Jazdy - AM" },
+  },
+  driving_b: {
+    id: "driving_b",
+    type: "other",
+    link: "https://www.gov.pl/web/gov/kategorie-prawa-jazdy",
+    translation: { en: "Driving License - B", pl: "Prawo Jazdy - B" },
+  },
+  driving_b1: {
+    id: "driving_b1",
+    type: "other",
+    link: "https://www.gov.pl/web/gov/kategorie-prawa-jazdy",
+    translation: { en: "Driving License - B1", pl: "Prawo Jazdy - B1" },
+  },
+  polish: {
+    id: "polish",
+    type: "linguistics",
+    link: "https://en.wikipedia.org/wiki/Polish_language",
+    translation: { en: "Polish - native", pl: "Polski - ojczysty" },
+  },
+  english: {
+    id: "english",
+    type: "linguistics",
+    link: "https://en.wikipedia.org/wiki/English_language",
+    translation: { en: "English - advanced", pl: "Angielski - zaawansowany" },
+  },
+  russian: {
+    id: "russian",
+    type: "linguistics",
+    link: "https://en.wikipedia.org/wiki/English_language",
+    translation: { en: "Russian - basic", pl: "Rosyjski - podstawowy" },
   },
 };

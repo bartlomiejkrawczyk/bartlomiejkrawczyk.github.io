@@ -5,7 +5,7 @@ interface Props extends HTMLAttributes<"div"> {
   university: string;
   period: string;
   city?: string;
-  link?: string;
+  link: string;
   subject?: string;
   degree?: string;
   specialization?: string;
@@ -31,7 +31,7 @@ const {
 
 <div {...props}>
   <div class="flex">
-    <h4 class="flex-1"><a href={link} target="_blank">{university}</a></h4>
+    <h3 class="flex-1"><a href={link} target="_blank">{university}</a></h3>
     <span>{period}</span>
   </div>
   {subject ? <div>{subject}</div> : null}

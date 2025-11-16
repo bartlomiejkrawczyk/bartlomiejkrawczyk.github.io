@@ -1,6 +1,7 @@
 import { defineCollection, z } from "astro:content";
 import { glob } from "astro/loaders";
 import type { CollectionEntry } from "astro:content";
+import { tagIds } from "./components/content/Tags";
 
 export type ExtendedProjectEntry = CollectionEntry<"projects"> & {
   filePath?: string;
@@ -31,7 +32,7 @@ export const collections = {
         description: z.string().optional(),
         repository: z.string().optional(),
         publishDate: z.coerce.date().optional(),
-        tags: z.array(z.string()).optional(),
+        tags: z.array(z.enum(tagIds)).optional(),
         image: image().optional(),
         imageAlt: z.string().optional(),
         img: z.string().optional(),

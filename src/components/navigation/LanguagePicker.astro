@@ -14,7 +14,6 @@ type Props = Record<string, never>;
 
 <script>
   import { languages, type LanguageKey } from "@i18n/ui";
-  import { navigate } from "astro:transitions/client";
 
   function setLanguage(targetLang: LanguageKey) {
     const supportedLangs = ["en", "pl"];
@@ -64,7 +63,7 @@ type Props = Record<string, never>;
 
     if (targetLang !== currentLang) {
       const newPath = buildPath(targetLang);
-      navigate(newPath);
+      window.location.href = newPath;
     }
   }
 

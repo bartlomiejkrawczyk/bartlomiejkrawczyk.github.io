@@ -3,6 +3,8 @@ import { getCollection } from "astro:content";
 import { getRelativeLocaleUrl } from "astro:i18n";
 import type { LanguageKey } from "@i18n/ui";
 import type { HTMLAttributes } from "astro/types";
+import TagElement from "./TagElement.astro";
+import { tags } from "@components/content/Tags";
 
 const projects = await getCollection("projects").then((projects) =>
   projects.sort((a, b) => a.id.localeCompare(b.id)),
@@ -16,15 +18,23 @@ const { ...props } = Astro.props;
 ---
 
 <div {...props}>
-  <h2 class="pb-1">Projects</h2>
+  <h2 id="projects" class="pb-1">Projects</h2>
   <!-- https://docs.astro.build/en/guides/content-collections/#filtering-collection-queries -->
-  <ul>
+  <ul class="projects-ul">
     {
       Object.entries(projects).map(([, project]) => (
-        <li class="pt-1">
+        <li class="pt-1 projects-li">
           <a href={getRelativeLocaleUrl(lang, "/projects/" + project.id)}>
-            {project.id} - {project.data.title}
+            <span>
+              <b>{project.data.title ?? project.id}</b>
+            </span>
           </a>
+          <pre>{project.data.description}</pre>
+          <ul class="project-tags">
+            {project.data.tags?.map((tag) => (
+              <TagElement tag={tags[tag]} />
+            ))}
+          </ul>
         </li>
       ))
     }
@@ -35,3 +45,33 @@ const { ...props } = Astro.props;
   https://docs.astro.build/en/guides/routing/#pagination 
   -->
 </div>
+
+<style>
+  .projects-ul {
+    display: grid;
+    gap: var(--spacing);
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-auto-rows: auto;
+    grid-auto-flow: dense;
+
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .projects-li {
+    border: 1px solid var(--gray-900);
+    border-radius: var(--radius-lg);
+    padding: calc(var(--spacing) * 1.5);
+  }
+
+  pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+
+  /* TODO: consider using this class along with a button to reveal all tags */
+  /* .project-tags li:nth-of-type(1n + 6) {
+    display: none;
+  } */
+</style>

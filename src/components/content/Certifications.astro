@@ -1,0 +1,39 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import CertificationElement from "./CertificationElement.astro";
+
+interface Props extends HTMLAttributes<"div"> {}
+
+const { ...props } = Astro.props;
+---
+
+<div {...props}>
+  <h2 id="certifications" class="pb-1">Certifications</h2>
+  <CertificationElement
+    class="py-1"
+    period="2025"
+    description="Master's degree in Computer Science with distinction"
+    link="https://www.elka.pw.edu.pl/"
+    organization="Warsaw University of Technology"
+  />
+  <CertificationElement
+    class="py-1"
+    period="2024"
+    description="Engineering/Bachlor's degree in Computer Science with distinction"
+    link="https://www.elka.pw.edu.pl/"
+    organization="Warsaw University of Technology"
+  />
+  <CertificationElement
+    class="py-1"
+    period="2021"
+    description="ACERT Certificate | English B2"
+    link="https://www.sermo.org.pl/"
+    organization="Association of Academic Centers for Foreign Language Teaching in Poland"
+  />
+  <CertificationElement
+    class="py-1"
+    period="2016"
+    description="Programowanie w języku JAVA | JSystems"
+    link="https://jsystems.pl/"
+  />
+</div>

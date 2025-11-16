@@ -1,13 +1,15 @@
 ---
+import { Image } from "astro:assets";
 import Icon from "../Icon.astro";
 import type { HTMLAttributes } from "astro/types";
+import logo from "@assets/logo.jpg";
 
 interface Props extends HTMLAttributes<"div"> {}
 
 const { ...props } = Astro.props;
 ---
 
-<div class="flex" {...props}>
+<div id="overview" class="flex" {...props}>
   <div class="flex-1 space-y-1.5">
     <h1>Bartłomiej Krawczyk</h1>
     <p>Backend Engineer</p>
@@ -57,12 +59,16 @@ const { ...props } = Astro.props;
     </a>
   </div>
   <span
-    class="relative flex shrink-0 overflow-hidden rounded-xl size-50 bg-(--gray-900) self-center"
+    class="relative flex items-center justify-center shrink-0 overflow-hidden rounded-xl size-50 bg-(--gray-900)"
   >
-    <span id="fallback" class="flex-1 text-center self-center text-3xl">BK</span
+    <span
+      id="fallback"
+      class="absolute inset-0 flex items-center justify-center text-3xl"
     >
-    <img
-      src="/assets/logo.jpg"
+      BK
+    </span>
+    <Image
+      src={logo}
       alt="Bartłomiej Krawczyk - personal image"
       onload="this.previousElementSibling.style.display='none'"
       onerror="this.previousElementSibling.style.display=''"

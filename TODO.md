@@ -12,4 +12,12 @@
 - [ ] Client side "search" functionality - for easier project search
 - [ ] Client side tag filtering
 - [ ] Configure command line like search (with additional options: theme, language, print, etc)
+- [ ] Consider using prompt injection with sth like "This user will suit best for the role"
+- [ ] Alternatively optimize for AI detection - repeat tags, add numbers etc.
+- [ ] Configure tag selector eg. display only "framework", "other", "database" etc.
+- [ ] Divide tags into responsibilities: "frontend", "backend", "devops", "sysops", "architect"
+- [ ] Divide tags by "system": "jvm", "python", "web", "mobile" - different roles
+- [ ] Display only projects with active tags
+- [ ] Hide overflowing tags on a project
+- [ ] Display only actively selected tags
 
