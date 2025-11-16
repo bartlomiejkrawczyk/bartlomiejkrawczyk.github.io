@@ -42,30 +42,23 @@ const { ...props } = Astro.props;
 <style>
   ul {
     display: grid;
-    grid-auto-columns: 1fr;
-    grid-auto-rows: 1fr;
-    grid-template-columns: 1fr 1fr 1fr;
-    margin: 0 auto;
-    text-align: left;
+    gap: var(--spacing);
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-auto-rows: auto;
+    grid-auto-flow: dense;
+
+    margin: 0;
+    padding: 0;
+    list-style: none;
   }
 
   li {
-    display: inline-block;
-    vertical-align: top;
-
-    border-color: var(--gray-900);
-    border-style: var(--tw-border-style);
-    border-width: 1px;
+    border: 1px solid var(--gray-900);
     border-radius: var(--radius-lg);
-
-    margin: var(--spacing);
-    padding: var(--spacing);
+    padding: calc(var(--spacing) * 1.5);
   }
   pre {
     white-space: pre-wrap;
-    white-space: -moz-pre-wrap;
-    white-space: -pre-wrap;
-    white-space: -o-pre-wrap;
     word-wrap: break-word;
   }
 </style>
