@@ -7,10 +7,14 @@ tags:
     - side_project
     - javascript
     - typescript
-    - astro_js
     - html
     - css
+    - astro_js
     - node_js
+    - tailwind
+    - expressive_code
+    - rehype
+    - remark
 ---
 
 # This page

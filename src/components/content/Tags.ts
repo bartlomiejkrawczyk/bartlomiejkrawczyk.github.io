@@ -57,14 +57,14 @@ export const tagIds = [
   "iac",
 
   "ddd",
-  //   "tdd",
+  "tdd",
   "agile",
   "scrum",
   "kanban",
-  //   "wcag",
+  "wcag",
 
   "rest_api",
-  //   "graph_ql",
+  "graph_ql",
   "grpc",
   "cqrs",
   "event_sourcing",
@@ -80,6 +80,8 @@ export const tagIds = [
   "oauth2",
   "rbac",
   "otp",
+
+  "ai",
 
   "ansible",
   "puppet",
@@ -105,14 +107,14 @@ export const tagIds = [
   "certbot",
   "ssh",
 
-  //   "wildfly"
-  //   "jersey",
-  //   "jetty",
-  //   "netty",
+  "tomcat",
+  "wildfly",
+  "jersey",
+  "jetty",
+  "netty",
 
-  //   "ai",
   "chat_gpt",
-  //   "open_ai",
+  "open_ai",
   "gemini",
   "copilot",
   "rovo_dev",
@@ -125,7 +127,7 @@ export const tagIds = [
   "c_lion",
   "data_grip",
 
-  //   "figma",
+  "figma",
 
   "keycloak",
   "liquibase",
@@ -180,34 +182,34 @@ export const tagIds = [
   //   "apache_commons",
   //   "excel_kt",
   //   "simple_java_mail",
-  //   "kotest",
 
-  // "tailwind",
-  // "expressive-code",
-  // "playwright",
-  // "polyglot",
-  // "rehype",
-  // "remark",
+  "tailwind",
+  "expressive_code",
+  "playwright",
+  "rehype",
+  "remark",
 
   "pandas",
-  //   "py_spark",
-  //   "py_torch",
-  //   "keras",
-  //   "num_py",
-  //   "matplotlib"
+  "py_spark",
+  "py_torch",
+  "keras",
+  "num_py",
+  "matplotlib",
+  "pytest",
 
-  //   "junit",
-  //   "mockito",
-  //   "spock"
+  "junit",
+  "mockito",
+  "spock",
+  "kotest",
 
-  //   "spring_boot",
-  //   "spring_aop",
-  //   "spring_data",
-  //   "spring_security",
-  //   "spring_cloud"
+  "spring_boot",
+  "spring_aop",
+  "spring_data",
+  "spring_security",
+  "spring_cloud",
 
-  //   "spring_mvc",
-  //   "spring_webflux"
+  "spring_mvc",
+  "spring_webflux",
 
   "apache_hive",
   "mongo_db",
@@ -231,8 +233,7 @@ export const tagIds = [
   "polish",
   "russian",
 
-  //   "arduino",
-  //   "arduino", // TODO: this one course - from Spain
+  "arduino",
 ] as const;
 
 export const tagTypes = [
@@ -680,6 +681,32 @@ export const tags: Record<TagId, Tag> = {
     link: "https://en.wikipedia.org/wiki/One-time_password",
     translation: { en: "One-Time Password" },
   },
+  tdd: {
+    id: "tdd",
+    type: "technology",
+    link: "https://en.wikipedia.org/wiki/Test-driven_development",
+    translation: {
+      en: "Test Driven Development",
+    },
+  },
+  wcag: {
+    id: "wcag",
+    type: "technology",
+    link: "https://www.w3.org/WAI/standards-guidelines/wcag/",
+    translation: { en: "WCAG" },
+  },
+  graph_ql: {
+    id: "graph_ql",
+    type: "technology",
+    link: "https://graphql.org/",
+    translation: { en: "GraphQL" },
+  },
+  ai: {
+    id: "ai",
+    type: "technology",
+    link: "https://en.wikipedia.org/wiki/Artificial_intelligence",
+    translation: { en: "Artificial Intelligence", pl: "Sztuczna Inteligencja" },
+  },
   ansible: {
     id: "ansible",
     type: "tool",
@@ -806,6 +833,36 @@ export const tags: Record<TagId, Tag> = {
     link: "https://en.wikipedia.org/wiki/Secure_Shell",
     translation: { en: "SSH" },
   },
+  tomcat: {
+    id: "tomcat",
+    type: "tool",
+    link: "https://tomcat.apache.org/",
+    translation: { en: "Apache Tomcat" },
+  },
+  wildfly: {
+    id: "wildfly",
+    type: "tool",
+    link: "https://wildfly.org/",
+    translation: { en: "WildFly" },
+  },
+  jersey: {
+    id: "jersey",
+    type: "tool",
+    link: "https://eclipse-ee4j.github.io/jersey/",
+    translation: { en: "Jersey" },
+  },
+  jetty: {
+    id: "jetty",
+    type: "tool",
+    link: "https://www.eclipse.org/jetty/",
+    translation: { en: "Jetty" },
+  },
+  netty: {
+    id: "netty",
+    type: "tool",
+    link: "https://netty.io/",
+    translation: { en: "Netty" },
+  },
   vscode: {
     id: "vscode",
     type: "tool",
@@ -872,6 +929,12 @@ export const tags: Record<TagId, Tag> = {
     link: "https://chatgpt.com/",
     translation: { en: "ChatGPT" },
   },
+  open_ai: {
+    id: "open_ai",
+    type: "tool",
+    link: "https://openai.com/",
+    translation: { en: "OpenAI" },
+  },
   gemini: {
     id: "gemini",
     type: "tool",
@@ -920,6 +983,12 @@ export const tags: Record<TagId, Tag> = {
     link: "https://swagger.io/",
     translation: { en: "Swagger" },
   },
+  figma: {
+    id: "figma",
+    type: "tool",
+    link: "https://www.figma.com/",
+    translation: { en: "Figma" },
+  },
   linux: {
     id: "linux",
     type: "operating_system",
@@ -967,11 +1036,143 @@ export const tags: Record<TagId, Tag> = {
     link: "https://www.ovhcloud.com/pl/",
     translation: { en: "OVH Cloud" },
   },
+  spring_boot: {
+    id: "spring_boot",
+    type: "library",
+    link: "https://spring.io/projects/spring-boot",
+    translation: { en: "Spring Boot" },
+  },
+  spring_aop: {
+    id: "spring_aop",
+    type: "library",
+    link: "https://spring.io/projects/spring-framework",
+    translation: { en: "Spring AOP" },
+  },
+  spring_data: {
+    id: "spring_data",
+    type: "library",
+    link: "https://spring.io/projects/spring-data",
+    translation: { en: "Spring Data" },
+  },
+  spring_security: {
+    id: "spring_security",
+    type: "library",
+    link: "https://spring.io/projects/spring-security",
+    translation: { en: "Spring Security" },
+  },
+  spring_cloud: {
+    id: "spring_cloud",
+    type: "library",
+    link: "https://spring.io/projects/spring-cloud",
+    translation: { en: "Spring Cloud" },
+  },
+  spring_mvc: {
+    id: "spring_mvc",
+    type: "library",
+    link: "https://spring.io/guides/gs/serving-web-content/",
+    translation: { en: "Spring MVC" },
+  },
+  spring_webflux: {
+    id: "spring_webflux",
+    type: "library",
+    link: "https://docs.spring.io/spring-framework/reference/web/webflux.html",
+    translation: { en: "Spring WebFlux" },
+  },
+  junit: {
+    id: "junit",
+    type: "library",
+    link: "https://junit.org/",
+    translation: { en: "JUnit" },
+  },
+  mockito: {
+    id: "mockito",
+    type: "library",
+    link: "https://site.mockito.org/",
+    translation: { en: "Mockito" },
+  },
+  spock: {
+    id: "spock",
+    type: "library",
+    link: "https://spockframework.org/",
+    translation: { en: "Spock" },
+  },
+  kotest: {
+    id: "kotest",
+    type: "library",
+    link: "https://kotest.io/",
+    translation: { en: "Kotest" },
+  },
+  pytest: {
+    id: "pytest",
+    type: "library",
+    link: "https://docs.pytest.org/en/stable/",
+    translation: { en: "pytest" },
+  },
   pandas: {
     id: "pandas",
     type: "library",
     link: "https://pandas.pydata.org/",
     translation: { en: "Pandas" },
+  },
+  py_spark: {
+    id: "py_spark",
+    type: "library",
+    link: "https://spark.apache.org/docs/latest/api/python/",
+    translation: { en: "PySpark" },
+  },
+  py_torch: {
+    id: "py_torch",
+    type: "library",
+    link: "https://pytorch.org/",
+    translation: { en: "PyTorch" },
+  },
+  keras: {
+    id: "keras",
+    type: "library",
+    link: "https://keras.io/",
+    translation: { en: "Keras" },
+  },
+  num_py: {
+    id: "num_py",
+    type: "library",
+    link: "https://numpy.org/",
+    translation: { en: "NumPy" },
+  },
+  matplotlib: {
+    id: "matplotlib",
+    type: "library",
+    link: "https://matplotlib.org/",
+    translation: { en: "Matplotlib" },
+  },
+  tailwind: {
+    id: "tailwind",
+    type: "library",
+    link: "https://tailwindcss.com/",
+    translation: { en: "Tailwind CSS" },
+  },
+  expressive_code: {
+    id: "expressive_code",
+    type: "library",
+    link: "https://expressive-code.com/",
+    translation: { en: "Expressive Code" },
+  },
+  playwright: {
+    id: "playwright",
+    type: "library",
+    link: "https://playwright.dev/",
+    translation: { en: "Playwright" },
+  },
+  rehype: {
+    id: "rehype",
+    type: "library",
+    link: "https://github.com/rehypejs/rehype",
+    translation: { en: "Rehype" },
+  },
+  remark: {
+    id: "remark",
+    type: "library",
+    link: "https://remark.js.org/",
+    translation: { en: "Remark" },
   },
   apache_hive: {
     id: "apache_hive",
@@ -1044,6 +1245,12 @@ export const tags: Record<TagId, Tag> = {
     type: "database",
     link: "https://www.h2database.com/html/main.html",
     translation: { en: "H2 Database" },
+  },
+  arduino: {
+    id: "arduino",
+    type: "other",
+    link: "https://www.arduino.cc/",
+    translation: { en: "Arduino" },
   },
   driving: {
     id: "driving",
