@@ -208,6 +208,10 @@ export const tagIds = [
   //   "driving_B",
   //   "driving_B1",
 
+  //   "english",
+  //   "polish",
+  //   "russian",
+
   //   "arduino",
   //   "arduino", // TODO: this one course - from Spain
 ] as const;
@@ -223,12 +227,13 @@ export const tagTypes = [
   "library",
   "database",
   "other",
+  "languages",
 ] as const;
 
 export type TagId = (typeof tagIds)[number];
 export type TagType = (typeof tagTypes)[number];
 
-interface Tag {
+export interface Tag {
   id: TagId;
   type: TagType;
   link?: string;
