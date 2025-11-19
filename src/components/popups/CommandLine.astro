@@ -1,0 +1,191 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+interface Props extends HTMLAttributes<"div"> {}
+
+const { ...props } = Astro.props;
+---
+
+<dialog
+  id="command-dialog"
+  class={`command-line ${props.class ?? ""}`}
+  {...props}
+>
+  <div class="modal">
+    <div class="search-icon">⌘</div>
+    <input id="command-input" type="text" placeholder="Search..." />
+    <div class="suggestions">
+      <!-- TODO: commands -->
+      <button class="cmd">Go to /about</button>
+      <button class="cmd">Open GitHub</button>
+    </div>
+  </div>
+</dialog>
+
+<script>
+  const dialog = document.getElementById("command-dialog") as HTMLDialogElement;
+  const input = document.getElementById("command-input") as HTMLInputElement;
+  const suggestions = dialog.querySelector(".suggestions") as HTMLDivElement;
+
+  const items = (): HTMLButtonElement[] =>
+    Array.from(suggestions.querySelectorAll(".cmd")) as HTMLButtonElement[];
+
+  let activeIndex: number = -1;
+
+  // --- Helpers --------------------------------------------------------------
+
+  function highlight(index: number): void {
+    const cmds = items();
+
+    cmds.forEach((cmd, i) => {
+      if (i === index) cmd.classList.add("active");
+      else cmd.classList.remove("active");
+    });
+
+    activeIndex = index;
+  }
+
+  function move(delta: number): void {
+    const cmds = items();
+    if (cmds.length === 0) return;
+
+    let next = activeIndex + delta;
+
+    if (next < 0) next = cmds.length - 1;
+    if (next >= cmds.length) next = 0;
+
+    highlight(next);
+  }
+
+  function selectActive(): void {
+    const cmds = items();
+    if (activeIndex < 0 || activeIndex >= cmds.length) return;
+
+    const cmd = cmds[activeIndex];
+
+    if (!cmd) return;
+
+    console.log("Selected:", cmd.textContent ?? "");
+    dialog.close();
+  }
+
+  // --- ESC toggle -----------------------------------------------------------
+
+  document.addEventListener("keydown", (ev: KeyboardEvent): void => {
+    if (ev.key === "Escape") {
+      ev.preventDefault();
+
+      if (!dialog.open) {
+        dialog.showModal();
+        input.focus();
+      } else {
+        dialog.close();
+      }
+    }
+  });
+
+  // --- Close when clicking outside -----------------------------------------
+
+  dialog.addEventListener("click", (ev: MouseEvent): void => {
+    const modal = dialog.querySelector(".modal") as HTMLDivElement;
+    const rect = modal.getBoundingClientRect();
+
+    const outside =
+      ev.clientX < rect.left ||
+      ev.clientX > rect.right ||
+      ev.clientY < rect.top ||
+      ev.clientY > rect.bottom;
+
+    if (outside) dialog.close();
+  });
+
+  // --- Mouse select ---------------------------------------------------------
+
+  suggestions.addEventListener("click", (ev: MouseEvent): void => {
+    const target = ev.target as HTMLElement;
+
+    if (target.matches(".cmd")) {
+      console.log("Selected:", target.textContent ?? "");
+      dialog.close();
+    }
+  });
+
+  // --- Keyboard inside input ------------------------------------------------
+
+  input.addEventListener("keydown", (ev: KeyboardEvent): void => {
+    const cmds = items();
+
+    if (ev.key === "ArrowDown") {
+      ev.preventDefault();
+      if (cmds.length > 0) {
+        if (activeIndex === -1) highlight(0);
+        else move(1);
+      }
+      return;
+    }
+
+    if (ev.key === "ArrowUp") {
+      ev.preventDefault();
+      if (cmds.length > 0) {
+        if (activeIndex === -1) highlight(cmds.length - 1);
+        else move(-1);
+      }
+      return;
+    }
+
+    if (ev.key === "Enter") {
+      ev.preventDefault();
+      // only valid when an item is highlighted
+      if (activeIndex >= 0) {
+        selectActive();
+      }
+      return;
+    }
+
+    // If typing, reset highlight
+    if (ev.key.length === 1 || ev.key === "Backspace" || ev.key === "Delete") {
+      highlight(-1);
+    }
+  });
+</script>
+
+<style>
+  dialog.command-line {
+    border: none;
+    background: transparent;
+    padding: 0;
+  }
+
+  dialog::backdrop {
+    background: rgba(0, 0, 0, 0.4);
+  }
+
+  .modal {
+    background: var(--background, white);
+    padding: 1rem;
+    border-radius: 12px;
+    min-width: 380px;
+    margin: 0 auto;
+  }
+
+  .suggestions .cmd {
+    display: block;
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    text-align: left;
+    border: none;
+    border-radius: 6px;
+    margin: 0.25rem 0;
+    cursor: pointer;
+    background: var(--color-surface, #f2f2f2);
+  }
+
+  .suggestions .cmd:hover {
+    background: var(--color-hover, #e6e6e6);
+  }
+
+  .cmd.active {
+    background: var(--color-hover, #ddd);
+    outline: 2px solid var(--color-accent, #888);
+  }
+</style>

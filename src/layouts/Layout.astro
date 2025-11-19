@@ -6,6 +6,7 @@ import Header from "@components/navigation/Header.astro";
 import LeftSidebar from "@components/layout/LeftSidebar.astro";
 import RightSidebar from "@components/layout/RightSidebar.astro";
 import { type LanguageKey } from "@i18n/ui";
+import CommandLine from "@src/components/popups/CommandLine.astro";
 
 interface Props {
   title?: string | undefined;
@@ -24,6 +25,7 @@ const lang = Astro.currentLocale as LanguageKey;
     <slot name="head" slot="head" />
   </Head>
   <body>
+    <CommandLine />
     <Header />
     <div class="page-container">
       <LeftSidebar />
