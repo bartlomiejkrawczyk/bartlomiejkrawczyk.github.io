@@ -1,0 +1,24 @@
+---
+import Icon from "../Icon.astro";
+---
+
+<button class="command-button">
+  <Icon icon="terminal-window" size="32px" />Terminal
+</button>
+
+<script>
+  const button = document.querySelector(".command-button");
+  button?.addEventListener("click", () => {
+    const dialog = document.getElementById(
+      "command-dialog",
+    ) as HTMLDialogElement;
+
+    if (dialog) {
+      if (typeof dialog.showModal === "function") {
+        dialog.showModal();
+      } else {
+        alert("The <dialog> API is not supported by this browser");
+      }
+    }
+  });
+</script>

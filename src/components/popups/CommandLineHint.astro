@@ -1,0 +1,48 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+interface Props extends HTMLAttributes<"div"> {}
+
+const { ...props } = Astro.props;
+---
+
+<div {...props}>
+  <p id="cmd-hint" class="command-hint no-print">
+    <key class="key">esc</key>&nbsp;&nbsp;&nbsp;or&nbsp;&nbsp;
+    <key class="key">ctrl</key> +
+    <key class="key">shift</key> +
+    <key class="key">p</key>
+    &nbsp;- command line
+  </p>
+</div>
+
+<style>
+  .command-hint {
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--primary-dark);
+    z-index: 5000;
+
+    transition:
+      transform 0.4s ease-out,
+      opacity 0.4s ease-out;
+  }
+
+  .key {
+    display: inline-flex;
+    align-items: center;
+    padding: 0 0.4rem;
+    height: 1.25rem;
+    font-family: monospace;
+    font-size: 0.7rem;
+    border-radius: 4px;
+    background: var(--primary-dark);
+    color: var(--background);
+  }
+
+  @media (max-width: 800px), print {
+    .command-hint {
+      display: none;
+    }
+  }
+</style>

@@ -82,6 +82,18 @@ const { ...props } = Astro.props;
         dialog.close();
       }
     }
+
+    if (
+      (ev.key === "P" || ev.key === "p") &&
+      ev.shiftKey &&
+      (ev.ctrlKey || ev.metaKey)
+    ) {
+      ev.preventDefault();
+      if (!dialog.open) {
+        dialog.showModal();
+        input.focus();
+      }
+    }
   });
 
   // --- Close when clicking outside -----------------------------------------
@@ -150,20 +162,32 @@ const { ...props } = Astro.props;
 </script>
 
 <style>
+  dialog {
+    color: var(--gray-200);
+  }
   dialog.command-line {
-    border: none;
+    position: fixed; /* ensure it floats above content */
+    top: 35%; /* vertical center reference */
+    left: 50%; /* horizontal center reference */
+    transform: translate(-50%, -50%); /* shift origin to center */
+    z-index: 10000;
+    max-width: 90%;
+    max-height: 90%;
+    overflow: auto;
+    border-radius: 8px;
+    border-width: 1px;
+    border-color: var(--gray-900);
     background: transparent;
     padding: 0;
   }
 
   dialog::backdrop {
-    background: rgba(0, 0, 0, 0.4);
+    background: rgba(0, 0, 0, 0.2);
   }
 
   .modal {
-    background: var(--background, white);
+    background: var(--background);
     padding: 1rem;
-    border-radius: 12px;
     min-width: 380px;
     margin: 0 auto;
   }
@@ -177,15 +201,15 @@ const { ...props } = Astro.props;
     border-radius: 6px;
     margin: 0.25rem 0;
     cursor: pointer;
-    background: var(--color-surface, #f2f2f2);
+    background: var(--background, #f2f2f2);
   }
 
   .suggestions .cmd:hover {
-    background: var(--color-hover, #e6e6e6);
+    background: var(--gray-950, #e6e6e6);
   }
 
   .cmd.active {
-    background: var(--color-hover, #ddd);
-    outline: 2px solid var(--color-accent, #888);
+    background: var(--gray-950);
+    outline: 2px solid var(--secondary-regular);
   }
 </style>
