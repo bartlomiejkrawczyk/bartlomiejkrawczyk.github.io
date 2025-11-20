@@ -20,4 +20,4 @@
 - [ ] Display only projects with active tags
 - [ ] Hide overflowing tags on a project
 - [ ] Display only actively selected tags
-
+- [ ] Finish page translation
