@@ -1,0 +1,12 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+interface Props extends HTMLAttributes<"button"> {
+  id: string;
+  text: string;
+}
+
+const { id, text, ...props } = Astro.props;
+---
+
+<button id={id} class="cmd" onclick="" {...props}>{text}</button>

@@ -1,5 +1,7 @@
 ---
 import type { HTMLAttributes } from "astro/types";
+import Command from "./Command.astro";
+import { commands } from "./Commands";
 
 interface Props extends HTMLAttributes<"div"> {}
 
@@ -15,14 +17,19 @@ const { ...props } = Astro.props;
     <div class="search-icon">⌘</div>
     <input id="command-input" type="text" placeholder="Search..." />
     <div class="suggestions">
-      <!-- TODO: commands -->
-      <button class="cmd">Go to /about</button>
-      <button class="cmd">Open GitHub</button>
+      {
+        Object.entries(commands).map(([, cmd]) => {
+          return <Command id={cmd.id} text={cmd.name.en} />;
+        })
+      }
     </div>
   </div>
 </dialog>
 
 <script>
+  import type { CommandId } from "./Commands";
+  import { commands } from "./Commands";
+
   const dialog = document.getElementById("command-dialog") as HTMLDialogElement;
   const input = document.getElementById("command-input") as HTMLInputElement;
   const suggestions = dialog.querySelector(".suggestions") as HTMLDivElement;
@@ -65,7 +72,7 @@ const { ...props } = Astro.props;
 
     if (!cmd) return;
 
-    console.log("Selected:", cmd.textContent ?? "");
+    commands[cmd.id as CommandId]?.execute?.();
     dialog.close();
   }
 
@@ -117,7 +124,7 @@ const { ...props } = Astro.props;
     const target = ev.target as HTMLElement;
 
     if (target.matches(".cmd")) {
-      console.log("Selected:", target.textContent ?? "");
+      commands[target.id as CommandId]?.execute?.();
       dialog.close();
     }
   });
