@@ -5,6 +5,11 @@ export const commandIds = [
   "open-github",
   "open-instagram",
   "open-discord",
+  // "project-search",
+  // "language",
+  // "themes",
+  // "tag-filter",
+  // "tag-type-filter",
 ] as const;
 
 export type CommandId = (typeof commandIds)[number];
