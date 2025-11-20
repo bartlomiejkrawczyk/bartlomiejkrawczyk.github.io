@@ -10,7 +10,7 @@ const { ...props } = Astro.props;
 
 <dialog
   id="command-dialog"
-  class={`command-line ${props.class ?? ""}`}
+  class={`command-line no-print ${props.class ?? ""}`}
   {...props}
 >
   <div class="modal">
