@@ -1,5 +1,6 @@
 ---
 import Icon from "@components/Icon.astro";
+import CommandLineHint from "../popups/CommandLineHint.astro";
 
 const currentYear = new Date().getFullYear();
 
@@ -7,36 +8,41 @@ type Props = Record<string, never>;
 ---
 
 <footer class="no-print">
-  <p>&copy; 2024-{currentYear} Bartłomiej Krawczyk</p>
-  <p class="socials">
-    <a
-      href="https://github.com/bartlomiejkrawczyk"
-      target="_blank"
-      class="link"
-    >
-      <Icon icon="github-logo" gradient={true} size="20px" /><span
-        class="link-text">GitHub</span
+  <div>
+    <CommandLineHint />
+  </div>
+  <div class="footer">
+    <p>&copy; 2024-{currentYear} Bartłomiej Krawczyk</p>
+    <p class="socials">
+      <a
+        href="https://github.com/bartlomiejkrawczyk"
+        target="_blank"
+        class="link"
       >
-    </a>
-    <a
-      href="https://discordapp.com/users/384450810547011584"
-      target="_blank"
-      class="link"
-    >
-      <Icon icon="discord-logo" gradient={true} size="20px" /><span
-        class="link-text">Discord</span
+        <Icon icon="github-logo" gradient={true} size="20px" /><span
+          class="link-text">GitHub</span
+        >
+      </a>
+      <a
+        href="https://discordapp.com/users/384450810547011584"
+        target="_blank"
+        class="link"
       >
-    </a>
-    <a
-      href="https://www.instagram.com/bartlomiejkrawczyk_"
-      target="_blank"
-      class="link"
-    >
-      <Icon icon="instagram-logo" gradient={true} size="20px" /><span
-        class="link-text">Instagram</span
+        <Icon icon="discord-logo" gradient={true} size="20px" /><span
+          class="link-text">Discord</span
+        >
+      </a>
+      <a
+        href="https://www.instagram.com/bartlomiejkrawczyk_"
+        target="_blank"
+        class="link"
       >
-    </a>
-  </p>
+        <Icon icon="instagram-logo" gradient={true} size="20px" /><span
+          class="link-text">Instagram</span
+        >
+      </a>
+    </p>
+  </div>
 </footer>
 
 <style>

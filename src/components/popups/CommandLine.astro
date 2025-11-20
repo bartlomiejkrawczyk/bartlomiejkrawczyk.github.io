@@ -1,0 +1,222 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import Command from "./Command.astro";
+import { commands } from "./Commands";
+
+interface Props extends HTMLAttributes<"div"> {}
+
+const { ...props } = Astro.props;
+---
+
+<dialog
+  id="command-dialog"
+  class={`command-line no-print ${props.class ?? ""}`}
+  {...props}
+>
+  <div class="modal">
+    <div class="search-icon">⌘</div>
+    <input id="command-input" type="text" placeholder="Search..." />
+    <div class="suggestions">
+      {
+        Object.entries(commands).map(([, cmd]) => {
+          return <Command id={cmd.id} text={cmd.name.en} />;
+        })
+      }
+    </div>
+  </div>
+</dialog>
+
+<script>
+  import type { CommandId } from "./Commands";
+  import { commands } from "./Commands";
+
+  const dialog = document.getElementById("command-dialog") as HTMLDialogElement;
+  const input = document.getElementById("command-input") as HTMLInputElement;
+  const suggestions = dialog.querySelector(".suggestions") as HTMLDivElement;
+
+  const items = (): HTMLButtonElement[] =>
+    Array.from(suggestions.querySelectorAll(".cmd")) as HTMLButtonElement[];
+
+  let activeIndex: number = -1;
+
+  // --- Helpers --------------------------------------------------------------
+
+  function highlight(index: number): void {
+    const cmds = items();
+
+    cmds.forEach((cmd, i) => {
+      if (i === index) cmd.classList.add("active");
+      else cmd.classList.remove("active");
+    });
+
+    activeIndex = index;
+  }
+
+  function move(delta: number): void {
+    const cmds = items();
+    if (cmds.length === 0) return;
+
+    let next = activeIndex + delta;
+
+    if (next < 0) next = cmds.length - 1;
+    if (next >= cmds.length) next = 0;
+
+    highlight(next);
+  }
+
+  function selectActive(): void {
+    const cmds = items();
+    if (activeIndex < 0 || activeIndex >= cmds.length) return;
+
+    const cmd = cmds[activeIndex];
+
+    if (!cmd) return;
+
+    commands[cmd.id as CommandId]?.execute?.();
+    dialog.close();
+  }
+
+  // --- ESC toggle -----------------------------------------------------------
+
+  document.addEventListener("keydown", (ev: KeyboardEvent): void => {
+    if (ev.key === "Escape") {
+      ev.preventDefault();
+
+      if (!dialog.open) {
+        dialog.showModal();
+        input.focus();
+      } else {
+        dialog.close();
+      }
+    }
+
+    if (
+      (ev.key === "P" || ev.key === "p") &&
+      ev.shiftKey &&
+      (ev.ctrlKey || ev.metaKey)
+    ) {
+      ev.preventDefault();
+      if (!dialog.open) {
+        dialog.showModal();
+        input.focus();
+      }
+    }
+  });
+
+  // --- Close when clicking outside -----------------------------------------
+
+  dialog.addEventListener("click", (ev: MouseEvent): void => {
+    const modal = dialog.querySelector(".modal") as HTMLDivElement;
+    const rect = modal.getBoundingClientRect();
+
+    const outside =
+      ev.clientX < rect.left ||
+      ev.clientX > rect.right ||
+      ev.clientY < rect.top ||
+      ev.clientY > rect.bottom;
+
+    if (outside) dialog.close();
+  });
+
+  // --- Mouse select ---------------------------------------------------------
+
+  suggestions.addEventListener("click", (ev: MouseEvent): void => {
+    const target = ev.target as HTMLElement;
+
+    if (target.matches(".cmd")) {
+      commands[target.id as CommandId]?.execute?.();
+      dialog.close();
+    }
+  });
+
+  // --- Keyboard inside input ------------------------------------------------
+
+  input.addEventListener("keydown", (ev: KeyboardEvent): void => {
+    const cmds = items();
+
+    if (ev.key === "ArrowDown") {
+      ev.preventDefault();
+      if (cmds.length > 0) {
+        if (activeIndex === -1) highlight(0);
+        else move(1);
+      }
+      return;
+    }
+
+    if (ev.key === "ArrowUp") {
+      ev.preventDefault();
+      if (cmds.length > 0) {
+        if (activeIndex === -1) highlight(cmds.length - 1);
+        else move(-1);
+      }
+      return;
+    }
+
+    if (ev.key === "Enter") {
+      ev.preventDefault();
+      // only valid when an item is highlighted
+      if (activeIndex >= 0) {
+        selectActive();
+      }
+      return;
+    }
+
+    // If typing, reset highlight
+    if (ev.key.length === 1 || ev.key === "Backspace" || ev.key === "Delete") {
+      highlight(-1);
+    }
+  });
+</script>
+
+<style>
+  dialog {
+    color: var(--gray-200);
+  }
+  dialog.command-line {
+    position: fixed; /* ensure it floats above content */
+    top: 35%; /* vertical center reference */
+    left: 50%; /* horizontal center reference */
+    transform: translate(-50%, -50%); /* shift origin to center */
+    z-index: 10000;
+    max-width: 90%;
+    max-height: 90%;
+    overflow: auto;
+    border-radius: 8px;
+    border-width: 1px;
+    border-color: var(--gray-900);
+    background: transparent;
+    padding: 0;
+  }
+
+  dialog::backdrop {
+    background: rgba(0, 0, 0, 0.2);
+  }
+
+  .modal {
+    background: var(--background);
+    padding: 1rem;
+    min-width: 380px;
+    margin: 0 auto;
+  }
+
+  .suggestions .cmd {
+    display: block;
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    text-align: left;
+    border: none;
+    border-radius: 6px;
+    margin: 0.25rem 0;
+    cursor: pointer;
+    background: var(--background, #f2f2f2);
+  }
+
+  .suggestions .cmd:hover {
+    background: var(--gray-950, #e6e6e6);
+  }
+
+  .cmd.active {
+    background: var(--gray-950);
+    outline: 2px solid var(--secondary-regular);
+  }
+</style>

@@ -4,6 +4,7 @@ import LanguagePicker from "./LanguagePicker.astro";
 import { type LanguageKey } from "@i18n/ui";
 import { useTranslations } from "@i18n/utils";
 import ThemePicker from "./ThemePicker.astro";
+import CommandButton from "../popups/CommandButton.astro";
 
 const lang = Astro.currentLocale as LanguageKey;
 const t = useTranslations(lang);
@@ -25,6 +26,7 @@ type Props = Record<string, never>;
     </li>
   </ul>
   <LanguagePicker />
+  <CommandButton />
   <ThemePicker />
 </header>
 
