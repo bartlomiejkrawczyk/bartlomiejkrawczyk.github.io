@@ -21,3 +21,7 @@
 - [ ] Hide overflowing tags on a project
 - [ ] Display only actively selected tags
 - [ ] Finish page translation
+- [ ] Animate tag hover - on hover expand tag and increase font
+- [ ] Add animated background
+- [ ] Add animated text on the page
+
