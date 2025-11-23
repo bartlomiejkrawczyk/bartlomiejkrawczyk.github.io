@@ -1,0 +1,71 @@
+---
+title: GCP Login
+description: |
+  Application that generates one time logon passwords for Grupa Polsat in accordance with the mOTP.
+externalUrl: https://play.google.com/store/apps/details?id=pl.grupapolsat
+tags:
+  - java
+  - android
+  - android_material
+  - play_services_vision
+  - retrofit
+  - junit
+  - google_gson
+  - room
+---
+
+import { Image } from "astro:assets";
+import mainScreen from "../../assets/content/gcp/1.png";
+import selectionScreen from "../../assets/content/gcp/2.png";
+import manualPasswordAddition from "../../assets/content/gcp/3.png";
+import passwordGeneration from "../../assets/content/gcp/4.png";
+
+# GCP Login
+
+Application that generates one time logon passwords for Grupa Polsat in accordance with the mOTP.
+
+<Image
+  src={mainScreen}
+  alt="Main Screen"
+  style={"width: 50%; display: inline-block;"}
+/>
+<Image
+  src={selectionScreen}
+  alt="Main Screen"
+  style={"width: 50%; display: inline-block;"}
+/>
+
+## Mobile One Time passwords
+
+{/* TODO: describe what mOTP is and how it works */}
+
+## Profile Provisioning
+
+It allows for 2 methods of profile provisioning:
+
+1. Manual - you need to manually copy Secret from mobile app to web application to map profile to domain account.
+2. Using QR code - after scanning the QR code from web application profile will be connected with specific domain account that is automatically created.
+
+<Image
+  src={manualPasswordAddition}
+  alt="Manual Password Provisioning"
+  style={"width: 50%; margin: auto;"}
+/>
+
+## Temporary Password Generation
+
+{/* TODO: the screen allows to generate one-time password that is valid for 60s from the moment of generation */}
+{/* First you input simple 4 digit pin to generate the password - then you copy the generated password and input it to external services to login */}
+
+<Image
+  src={passwordGeneration}
+  alt="Password Generation"
+  style={"width: 50%; margin: auto;"}
+/>
+
+## Story
+
+{/* TODO: add story behind implementation */}
+{/* one of my first projects that made me some money */}
+{/* I've been studying computer science for about a year */}
+{/* My dad has been working at Grupa Polsat and through this connection I've made my first paid application */}
