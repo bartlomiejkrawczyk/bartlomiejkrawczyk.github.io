@@ -1,22 +1,26 @@
 ---
 import type { HTMLAttributes } from "astro/types";
 import AwardElement from "./AwardElement.astro";
+import { getTranslations } from "@src/i18n/ui";
 
 interface Props extends HTMLAttributes<"div"> {}
 
 const { ...props } = Astro.props;
+
+const lang = Astro.currentLocale;
+const t = getTranslations(lang);
 ---
 
 <div {...props}>
-  <h2 id="awards" class="pb-1">Awards</h2>
+  <h2 id="awards" class="pb-1">{t.awards.header}</h2>
   <AwardElement
     period="2021 - 2025"
-    description="Scholarships from the Rector of the Warsaw University of Technology for high academic achievements"
+    description={t.awards.pw.description}
     class="pt-1"
   />
   <AwardElement
     period="2016 - 2020"
-    description="Scholarships from the President of Skierniewice for high academic achievements"
+    description={t.awards.skc.description}
     class="pt-1"
   />
 </div>

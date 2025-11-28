@@ -10,5 +10,23 @@
   "about": {
     "header": "About",
     "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam nec dui non neque lobortis scelerisque. Aliquam lectus ex, interdum quis tellus ut, consequat fermentum lacus. Proin laoreet sodales turpis, rhoncus facilisis nulla finibus sed. Sed non lorem gravida, porttitor lectus et, vulputate justo. Fusce interdum neque justo, non finibus libero ornare ac. Ut id porta dui. Praesent id odio sit amet quam ultricies lobortis id congue lectus. Ut vulputate dui felis. Proin id cursus ante, a interdum leo. Cras eu mattis sapien, at malesuada lorem. Maecenas accumsan urna sit amet nisl pretium, id venenatis augue cursus. Nunc eu ante ornare, blandit lectus molestie, porttitor nisl. Praesent tincidunt vel lacus ut viverra. Nam malesuada nisl eget gravida iaculis. In malesuada dolor eu urna pulvinar, et hendrerit massa placerat."
+  },
+  "additionalActivity": {
+    "header": "Additional Activity",
+    "volunteering": {
+      "location": "Anna Olszewska Hospice in Skierniewice",
+      "type": "Volunteering"
+    },
+    "location1": "Anna Olszewska Hospice in Skierniewice",
+    "type1": "Volunteering"
+  },
+  "awards": {
+    "header": "Awards",
+    "pw": {
+      "description": "Scholarships from the Rector of the Warsaw University of Technology for high academic achievements"
+    },
+    "skc": {
+      "description": "Scholarships from the President of Skierniewice for high academic achievements"
+    }
   }
 }
