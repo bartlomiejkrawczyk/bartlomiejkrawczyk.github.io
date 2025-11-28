@@ -69,7 +69,6 @@ export default defineConfig({
           behavior: "wrap",
           properties: {
             className: ["heading-link"],
-            ariaHidden: true,
           },
           content: {
             type: "element",
@@ -98,8 +97,10 @@ export default defineConfig({
       //  "github-dark-default",
       //  "material-theme-darker",
       //  "min-dark",
+      //  "ayu-dark",
+      //  "github-dark-default",
       // ],
-      // themes: ["dark-plus"],
+      themes: ["min-dark"],
       shiki: {},
       frames: {
         showCopyToClipboardButton: true,

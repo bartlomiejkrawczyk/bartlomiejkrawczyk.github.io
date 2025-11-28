@@ -281,3 +281,8 @@ h5:not(.prose h5) {
 @page {
   size: A4 portrait;
 }
+
+.ln {
+  color: #aaa !important;
+  opacity: 1 !important;
+}
