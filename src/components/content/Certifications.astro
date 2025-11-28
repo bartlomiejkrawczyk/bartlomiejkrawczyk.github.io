@@ -1,39 +1,43 @@
 ---
 import type { HTMLAttributes } from "astro/types";
 import CertificationElement from "./CertificationElement.astro";
+import { getTranslations } from "@src/i18n/ui";
 
 interface Props extends HTMLAttributes<"div"> {}
 
 const { ...props } = Astro.props;
+
+const lang = Astro.currentLocale;
+const t = getTranslations(lang);
 ---
 
 <div {...props}>
-  <h2 id="certifications" class="pb-1">Certifications</h2>
+  <h2 id="certifications" class="pb-1">{t.certifications.header}</h2>
   <CertificationElement
     class="py-1"
     period="2025"
-    description="Master's degree in Computer Science with distinction"
+    description={t.certifications.master.description}
     link="https://www.elka.pw.edu.pl/"
-    organization="Warsaw University of Technology"
+    organization={t.certifications.master.organization}
   />
   <CertificationElement
     class="py-1"
     period="2024"
-    description="Engineering/Bachlor's degree in Computer Science with distinction"
+    description={t.certifications.engineer.description}
     link="https://www.elka.pw.edu.pl/"
-    organization="Warsaw University of Technology"
+    organization={t.certifications.engineer.organization}
   />
   <CertificationElement
     class="py-1"
     period="2021"
-    description="ACERT Certificate | English B2"
+    description={t.certifications.english.description}
     link="https://www.sermo.org.pl/"
-    organization="Association of Academic Centers for Foreign Language Teaching in Poland"
+    organization={t.certifications.english.organization}
   />
   <CertificationElement
     class="py-1"
     period="2016"
-    description="Programowanie w języku JAVA | JSystems"
+    description={t.certifications.jsystems.description}
     link="https://jsystems.pl/"
   />
 </div>

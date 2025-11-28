@@ -3,7 +3,8 @@
     "home": "Strona Główna",
     "about": "O Mnie"
   },
-  "portfolio": {
+  "overview": {
+    "role": "Backend Engineer",
     "city": "Warszawa, Polska"
   },
   "about": {
@@ -26,6 +27,96 @@
     },
     "skc": {
       "description": "Stypendia prezydenta miasta Skierniewice za wysokie wyniki w nauce"
+    }
+  },
+  "certifications": {
+    "header": "Certyfikacje",
+    "master": {
+      "description": "Stopień Magistra Informatyki z wyróżnieniem",
+      "organization": "Politechnika Warszawska"
+    },
+    "engineer": {
+      "description": "Stopień Inżyniera Informatyki z wyróżnieniem",
+      "organization": "Politechnika Warszawska"
+    },
+    "english": {
+      "description": "Certyfikat ACERT | Angielski B2",
+      "organization": "Stowarzyszenie Akademickich Ośrodków Nauczania Języków Obcych"
+    },
+    "jsystems": {
+      "description": "Programowanie w języku Java | JSystems"
+    }
+  },
+  "education": {
+    "header": "Edukacja",
+    "master": {
+      "university": "Politechnika Warszawska",
+      "period": "Luty 2024 - Wrzesień 2025",
+      "subject": "Informatyka",
+      "degree": "Stopień Magistra",
+      "specialization": "Inteligentne Systemy",
+      "subjects": [
+        "Niezawdone, Skalowalne i Łatwe w Utrzymaniu Systemy Informatyczne",
+        "Programowanie Równoległe i Rozproszone",
+        "Architektura i Integracja Systemów",
+        "Sieci Inteligentnych Urządzeń",
+        "Wirtualne Środowiska Obliczeniowe",
+        "Robotyka"
+      ]
+    },
+    "engineer": {
+      "university": "Politechnika Warszawska",
+      "period": "Październik 2020 - Luty 2024",
+      "subject": "Informatyka",
+      "degree": "Stopień Inżyniera",
+      "specialization": "Wytwarzanie Oprogramowania",
+      "subjects": [
+        "Algorytmy i Struktury Danych",
+        "Systemy Oepracyjne",
+        "Programowanie Aplikacyjne - Java",
+        "Programowanie Obiektowe - C++",
+        "Wprowadzenie do Sztucznych Inteligencji",
+        "Inżynieria Uczenia Maszynowego",
+        "Bazy Danych",
+        "Sztuka Wytwarzania Oprogramowania",
+        "Sterowniki Programowalne",
+        "System UNIX",
+        "Paradygmaty Programowania",
+        "Programowanie Aplikacji Internetowych",
+        "Techniki Kompilacji",
+        "Programowanie Sieciowe",
+        "Wdrażanie i Utrzymanie Systemów Informatycznych"
+      ]
+    },
+    "highschool": {
+      "university": "Liceum Ogółnokształcące im. Bolesława Prusa",
+      "period": "September 2017 - June 2020",
+      "specialization": "Informatyka, Matematyka, Angielski, Fizyka"
+    }
+  },
+  "interests": {
+    "movies": "Filmy i Seriale",
+    "bicycle": "Rower",
+    "rollerblades": "Rolki",
+    "snowboard": "Snowboard"
+  },
+  "projects": {
+    "header": "Projekty"
+  },
+  "rodo": "Wyrażam zgodę na przetwarzanie moich danych osobowych dla potrzeb niezbędnych do realizacji procesu rekrutacji (zgodnie z ustawą z dnia 10 maja 2018 roku o ochronie danych osobowych (Dz. Ustaw z 2018, poz. 1000) oraz zgodnie z Rozporządzeniem Parlamentu Europejskiego i Rady (UE) 2016/679 z dnia 27 kwietnia 2016 r. w sprawie ochrony osób fizycznych w związku z przetwarzaniem danych osobowych i w sprawie swobodnego przepływu takich danych oraz uchylenia dyrektywy 95/46/WE (RODO).",
+  "skills": {
+    "header": "Umiejętności"
+  },
+  "work": {
+    "header": "Doświadczenie Zawodowe",
+    "sagesTrain": {
+      "period": "Czerwiec 2022 - Lipiec 2022"
+    },
+    "sagesJunior": {
+      "period": "Lipiec 2022 - Czerwiec 2023"
+    },
+    "sagesMid": {
+      "period": "Lipiec 2023 -"
     }
   }
 }

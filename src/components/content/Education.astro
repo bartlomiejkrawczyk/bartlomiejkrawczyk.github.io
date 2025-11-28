@@ -1,64 +1,45 @@
 ---
 import type { HTMLAttributes } from "astro/types";
 import EducationElement from "./EducationElement.astro";
+import { getTranslations } from "@src/i18n/ui";
 
 interface Props extends HTMLAttributes<"div"> {}
 
 const { ...props } = Astro.props;
+
+const lang = Astro.currentLocale;
+const t = getTranslations(lang);
 ---
 
 <div {...props}>
-  <h2 id="education" class="pb-1">Education</h2>
+  <h2 id="education" class="pb-1">{t.education.header}</h2>
   <EducationElement
     class="py-1"
-    university="Warsaw University of Technology"
-    period="February 2024 - September 2025"
+    university={t.education.master.university}
+    period={t.education.master.period}
     link="https://www.elka.pw.edu.pl/Wydzial"
-    subject="Computer Science"
-    degree="Master's Degree"
-    specialization="Intelligent Systems"
+    subject={t.education.master.subject}
+    degree={t.education.master.degree}
+    specialization={t.education.master.specialization}
     average={4.92}
-    subjects={[
-      "Niezawdone, Skalowalne i Łatwe w Utrzymaniu Systemy Informatyczne",
-      "Programowanie Równoległe i Rozproszone",
-      "Architektura i Integracja Systemów",
-      "Sieci Inteligentnych Urządzeń",
-      "Wirtualne Środowiska Obliczeniowe",
-      "Robotyka",
-    ]}
+    subjects={t.education.master.subjects}
   />
   <EducationElement
     class="py-1"
-    university="Warsaw University of Technology"
-    period="October 2020 - February 2024"
+    university={t.education.engineer.university}
+    period={t.education.engineer.period}
     link="https://www.elka.pw.edu.pl/Wydzial"
-    subject="Computer Science"
-    degree="Bachelor's Degree"
-    specialization="Software Engineering"
+    subject={t.education.engineer.subject}
+    degree={t.education.engineer.degree}
+    specialization={t.education.engineer.specialization}
     average={4.96}
-    subjects={[
-      "Algorytmy i Struktury Danych",
-      "Systemy Oepracyjne",
-      "Programowanie Aplikacyjne - Java",
-      "Programowanie Obiektowe - C++",
-      "Wprowadzenie do Sztucznych Inteligencji",
-      "Inżynieria Uczenia Maszynowego",
-      "Bazy Danych",
-      "Sztuka Wytwarzania Oprogramowania",
-      "Sterowniki Programowalne",
-      "System UNIX",
-      "Paradygmaty Programowania",
-      "Programowanie Aplikacji Internetowych",
-      "Techniki Kompilacji",
-      "Programowanie Sieciowe",
-      "Wdrażanie i Utrzymanie Systemów Informatycznych",
-    ]}
+    subjects={t.education.engineer.subjects}
   />
   <EducationElement
     class="py-1"
-    university="Bolesław Prus High School"
-    period="September 2017 - June 2020"
+    university={t.education.highschool.university}
+    period={t.education.highschool.period}
     link="https://loprus.pl/"
-    specialization="Computer Science, Math, English, Physics"
+    specialization={t.education.highschool.specialization}
   />
 </div>

@@ -59,6 +59,5 @@ export function getTranslations(lang: string | undefined) {
   const english = dictionaries.en;
   const local = dictionaries[safeLang];
 
-  // Deep merge local over English → fallback for missing keys
   return deepMerge(english, local);
 }

@@ -1,7 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import { getRelativeLocaleUrl } from "astro:i18n";
-import type { LanguageKey } from "@i18n/ui";
+import { getTranslations, type LanguageKey } from "@i18n/ui";
 import type { HTMLAttributes } from "astro/types";
 import TagElement from "./TagElement.astro";
 import { tags } from "@components/content/Tags";
@@ -15,10 +15,12 @@ const lang = Astro.currentLocale as LanguageKey;
 interface Props extends HTMLAttributes<"div"> {}
 
 const { ...props } = Astro.props;
+
+const t = getTranslations(lang);
 ---
 
 <div {...props}>
-  <h2 id="projects" class="pb-1">Projects</h2>
+  <h2 id="projects" class="pb-1">{t.projects.header}</h2>
   <!-- https://docs.astro.build/en/guides/content-collections/#filtering-collection-queries -->
   <ul class="projects-ul">
     {
