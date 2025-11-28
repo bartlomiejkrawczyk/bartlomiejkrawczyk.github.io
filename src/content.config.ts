@@ -31,6 +31,7 @@ export const collections = {
         title: z.string().optional(),
         description: z.string().optional(),
         repository: z.string().optional(),
+        externalUrl: z.string().optional(),
         publishDate: z.coerce.date().optional(),
         tags: z.array(z.enum(tagIds)).optional(),
         image: image().optional(),

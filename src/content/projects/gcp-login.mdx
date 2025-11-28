@@ -1,0 +1,109 @@
+---
+title: GCP Login
+description: |
+  Official Grupa Polsat mobile app for mOTP one-time password generation. Deployed company-wide and trusted by employees, with more than 10,000 downloads.
+externalUrl: https://play.google.com/store/apps/details?id=pl.grupapolsat
+tags:
+  - java
+  - android
+  - otp
+  - android_material
+  - play_services_vision
+  - retrofit
+  - junit
+  - google_gson
+  - room
+---
+
+import { Image } from "astro:assets";
+import mainScreen from "../../assets/content/gcp/1.png";
+import selectionScreen from "../../assets/content/gcp/2.png";
+import manualPasswordAddition from "../../assets/content/gcp/3.png";
+import passwordGeneration from "../../assets/content/gcp/4.png";
+
+# GCP Login
+
+[Application](https://play.google.com/store/apps/details?id=pl.grupapolsat) that generates one-time logon passwords for Grupa Polsat in accordance with the mOTP protocol.  
+The app provides a secure, offline method of generating time-based access codes using a shared secret and a short user PIN.
+
+<Image src={mainScreen} alt="Main Screen" style={"width: 40%; margin: auto;"} />
+
+## Mobile One-Time Passwords (mOTP)
+
+mOTP (Mobile One-Time Password) is a lightweight authentication protocol designed for mobile devices.  
+It generates temporary passwords based on three elements:
+
+1. **User PIN** - a short, memorable code known only to the user.
+2. **Shared Secret** - a cryptographic token exchanged during profile provisioning.
+3. **Current Timestamp** - ensures the password is valid only for a very short window (typically 60 seconds).
+
+The generation algorithm combines these values and produces a hash that is truncated into an 8-digit one-time password.  
+Because the process is entirely offline and relies only on local computations, the app does **not require internet access** to function.  
+This makes it extremely secure and resilient against network-based attacks.
+
+## Profile Provisioning
+
+The application supports two methods of provisioning user profiles:
+
+1. **QR Code Provisioning** -  
+   The recommended and user-friendly approach.  
+   The user scans a QR code displayed on the company’s web application.  
+   This code contains all necessary provisioning data, automatically linking the generated profile to the correct domain account.  
+   The app uses _Google Play Services Vision_ to perform QR decoding with high accuracy and speed.
+
+2. **Manual Entry** -  
+   The user manually copies a Secret from the mobile app into the web application.  
+   This Secret becomes the link between the device and the user’s domain account in Grupa Polsat systems.  
+   It is a reliable fallback method when QR code provisioning is not available.
+
+<div style="width: 50%; display: inline-block; ">
+  <Image
+    src={selectionScreen}
+    alt="Selection Screen"
+    style={"width: 80%; margin: auto;"}
+  />
+</div>
+<div style="width: 50%; display: inline-block; ">
+  <Image
+    src={manualPasswordAddition}
+    alt="Manual Password Provisioning"
+    style={"width: 80%; margin: auto;"}
+  />
+</div>
+
+## Temporary Password Generation
+
+The temporary password generation screen allows the user to generate a valid one-time password with just a few taps.
+
+- First, the user enters a **simple 4-digit PIN**.
+- The application combines the PIN with the securely stored Secret and the current timestamp.
+- A one-time password is generated, valid for **60 seconds** from the moment of creation.
+
+This generated password can then be copied and used to log in to supported Grupa Polsat services.  
+The process is fast, offline, and protected by device-level encryption and the Android keystore.
+
+<Image
+  src={passwordGeneration}
+  alt="Password Generation"
+  style={"width: 40%; margin: auto;"}
+/>
+
+## Story
+
+This project has a personal origin story and marks a milestone in my development journey.
+
+GCP Login was one of my **first real-world, paid software projects**.  
+At the time, I had been studying computer science for about a year and was actively experimenting with Android development, eager to build something practical.
+
+My dad was working at Grupa Polsat, and through his connection, I had the opportunity to take on this contract.  
+What started as a small assignment for them turned into a complete Android application involving cryptography, secure storage, QR code processing, UI design, and backend integration.
+
+It was the first time I built a product that became part of an actual company workflow, and it helped shape my interest in mobile security and clean, maintainable Android architecture.
+
+Today, it is **actively used by employees across the entire Grupa Polsat organization** and has accumulated **10,000+ downloads**, becoming an important part of the company's authentication workflow.
+
+Looking back, GCP Login played an important role in:
+
+- giving me my first experience delivering a production-ready application for a real client,
+- teaching me how to translate requirements into practical features,
+- and building confidence to take on more complex and ambitious work.

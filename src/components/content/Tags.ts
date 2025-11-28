@@ -211,6 +211,13 @@ export const tagIds = [
   "spring_mvc",
   "spring_webflux",
 
+  "androidx",
+  "android_material",
+  "play_services_vision",
+  "room",
+  "lombok",
+  "retrofit",
+
   "apache_hive",
   "mongo_db",
   "arango_db",
@@ -1138,6 +1145,12 @@ export const tags: Record<TagId, Tag> = {
     link: "https://docs.spring.io/spring-framework/reference/web/webflux.html",
     translation: { en: "Spring WebFlux" },
   },
+  lombok: {
+    id: "lombok",
+    type: "library",
+    link: "https://projectlombok.org/",
+    translation: { en: "Project Lombok" },
+  },
   junit: {
     id: "junit",
     type: "library",
@@ -1359,6 +1372,36 @@ export const tags: Record<TagId, Tag> = {
     type: "library",
     link: "https://www.simplejavamail.org/",
     translation: { en: "Simple Java Mail" },
+  },
+  androidx: {
+    id: "androidx",
+    type: "library",
+    link: "https://developer.android.com/jetpack/androidx",
+    translation: { en: "AndroidX" },
+  },
+  android_material: {
+    id: "android_material",
+    type: "library",
+    link: "https://github.com/material-components/material-components-android",
+    translation: { en: "Material Components for Android" },
+  },
+  play_services_vision: {
+    id: "play_services_vision",
+    type: "library",
+    link: "https://developers.google.com/android/guides/setup",
+    translation: { en: "Play Services Vision" },
+  },
+  retrofit: {
+    id: "retrofit",
+    type: "library",
+    link: "https://square.github.io/retrofit/",
+    translation: { en: "Retrofit" },
+  },
+  room: {
+    id: "room",
+    type: "library",
+    link: "https://developer.android.com/training/data-storage/room",
+    translation: { en: "Retrofit" },
   },
   apache_hive: {
     id: "apache_hive",
