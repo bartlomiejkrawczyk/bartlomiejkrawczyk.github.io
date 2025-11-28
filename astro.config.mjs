@@ -131,7 +131,7 @@ export default defineConfig({
       },
       plugins: [pluginLineNumbers()],
     }),
-    mdx({ extendMarkdownConfig: true, rehypePlugins: [rehypePresetMinify] }),
+    mdx({ extendMarkdownConfig: true }),
     sitemap({
       i18n: {
         defaultLocale: "en",
