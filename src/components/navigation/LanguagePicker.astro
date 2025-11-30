@@ -1,25 +1,49 @@
 ---
 import { languages } from "@i18n/ui";
+import Icon from "../Icon.astro";
 
 type Props = Record<string, never>;
 ---
 
-{
-  Object.entries(languages).map(([lang, label]) => (
-    <button id={"language-btn-" + lang}>
-      {label} - {lang}
-    </button>
-  ))
-}
+<div class="lang-wrapper">
+  <button class="lang-trigger" id="lang-trigger" aria-label="Select language">
+    <Icon icon="translate" gradient={true} size="24" />
+  </button>
+
+  <div id="lang-menu" class="lang-menu hidden">
+    {
+      Object.entries(languages).map(([lang, label]) => (
+        <button data-lang={lang}>
+          {label} - {lang}
+        </button>
+      ))
+    }
+  </div>
+</div>
 
 <script>
-  import { languages, type LanguageKey } from "@i18n/ui";
+  import { type LanguageKey, languages } from "@src/i18n/ui";
+
+  const trigger = document.querySelector("#lang-trigger");
+  const menu = document.querySelector("#lang-menu");
+
+  trigger?.addEventListener("click", () => {
+    menu?.classList.toggle("hidden");
+  });
+
+  document.addEventListener("click", (e) => {
+    if (!menu || !trigger || !e || !e.target || !(e.target instanceof Node)) {
+      return;
+    }
+
+    if (!menu.contains(e.target) && !trigger.contains(e.target)) {
+      menu.classList.add("hidden");
+    }
+  });
 
   function setLanguage(targetLang: LanguageKey) {
-    const supportedLangs = ["en", "pl"];
+    const supportedLangs = Object.keys(languages);
     const defaultLang = "en";
-
-    console.log("Target lang: ", targetLang);
 
     if (!supportedLangs.includes(targetLang)) return;
 
@@ -27,7 +51,6 @@ type Props = Record<string, never>;
 
     const path = window.location.pathname;
     const pathParts = path.split("/").filter(Boolean);
-    console.log(pathParts);
 
     let currentLang = defaultLang;
 
@@ -42,8 +65,6 @@ type Props = Record<string, never>;
     }
 
     localStorage.setItem("preferredLang", targetLang);
-
-    console.log("Current lang: ", currentLang);
 
     function buildPath(targetLang: LanguageKey) {
       const parts = pathParts.slice();
@@ -62,13 +83,69 @@ type Props = Record<string, never>;
     }
 
     if (targetLang !== currentLang) {
-      const newPath = buildPath(targetLang);
-      window.location.href = newPath;
+      window.location.href = buildPath(targetLang);
     }
   }
 
-  Object.entries(languages).forEach(([lang]) => {
-    const button = document.querySelector("#language-btn-" + lang);
-    button?.addEventListener("click", () => setLanguage(lang as LanguageKey));
+  document.querySelectorAll("#lang-menu button").forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      if (!e.target || !menu) return;
+      const target = e.target as HTMLElement;
+      const lang = target.dataset.lang;
+      if (!lang) return;
+      if (lang) {
+        setLanguage(lang as LanguageKey);
+        menu.classList.add("hidden");
+      }
+    });
   });
 </script>
+
+<style>
+  .lang-wrapper {
+    position: relative;
+    display: inline-block;
+  }
+
+  .lang-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    background: var(--background);
+    border-radius: 8px;
+    padding: 6px 0;
+    margin-top: 6px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+  }
+
+  .lang-menu.hidden {
+    display: none;
+  }
+
+  .lang-menu button {
+    text-align: left;
+    padding: 8px 14px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    white-space: nowrap;
+  }
+
+  .lang-menu button:hover {
+    background: var(--gray-950);
+  }
+
+  .lang-trigger {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+  }
+</style>

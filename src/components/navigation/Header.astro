@@ -2,12 +2,11 @@
 import { getRelativeLocaleUrl } from "astro:i18n";
 import LanguagePicker from "./LanguagePicker.astro";
 import { type LanguageKey } from "@i18n/ui";
-import { useTranslations } from "@i18n/utils";
 import ThemePicker from "./ThemePicker.astro";
 import CommandButton from "../popups/CommandButton.astro";
+import Icon from "../Icon.astro";
 
 const lang = Astro.currentLocale as LanguageKey;
-const t = useTranslations(lang);
 
 type Props = Record<string, never>;
 ---
@@ -16,12 +15,7 @@ type Props = Record<string, never>;
   <ul>
     <li>
       <a href={getRelativeLocaleUrl(lang, "/")}>
-        {t("nav.home")}
-      </a>
-    </li>
-    <li>
-      <a href={getRelativeLocaleUrl(lang, "/") + "#about"}>
-        {t("nav.about")}
+        <Icon icon="home" gradient={true} size="32px" />
       </a>
     </li>
   </ul>

@@ -2,16 +2,14 @@
 import Icon from "../Icon.astro";
 ---
 
-<button class="command-button" aria-label="Open Terminal Window">
-  <Icon icon="terminal-window" gradient={true} size="24" />
+<button class="theme-button">
+  <Icon icon="color-palette-3" size="32px" />
 </button>
 
 <script>
-  const button = document.querySelector(".command-button");
+  const button = document.querySelector(".theme-button");
   button?.addEventListener("click", () => {
-    const dialog = document.getElementById(
-      "command-dialog",
-    ) as HTMLDialogElement;
+    const dialog = document.getElementById("theme-dialog") as HTMLDialogElement;
 
     if (dialog) {
       if (typeof dialog.showModal === "function") {

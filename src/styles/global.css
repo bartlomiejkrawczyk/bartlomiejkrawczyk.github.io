@@ -148,6 +148,17 @@ a:focus svg {
   fill: var(--link-color);
 }
 
+button:hover,
+button:focus {
+  color: var(--link-color);
+}
+
+button:hover svg,
+button:focus svg {
+  stroke: var(--link-color);
+  fill: var(--link-color);
+}
+
 .heading-link {
   color: inherit;
   text-decoration: none;
