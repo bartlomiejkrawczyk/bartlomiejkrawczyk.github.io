@@ -13,9 +13,7 @@ type Props = Record<string, never>;
   <div id="lang-menu" class="lang-menu hidden">
     {
       Object.entries(languages).map(([lang, label]) => (
-        <button data-lang={lang}>
-          {label} - {lang}
-        </button>
+        <button data-lang={lang}>{label}</button>
       ))
     }
   </div>
@@ -29,6 +27,27 @@ type Props = Record<string, never>;
 
   trigger?.addEventListener("click", () => {
     menu?.classList.toggle("hidden");
+
+    if (!menu || !(menu instanceof HTMLElement)) return;
+
+    const rect = trigger.getBoundingClientRect();
+    const menuRect = menu.getBoundingClientRect();
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
+
+    if (rect.right + menuRect.width > viewportWidth) {
+      menu.style.left = "auto";
+      menu.style.right = "0";
+    } else {
+      menu.style.left = rect.left.toString();
+      menu.style.right = "auto";
+    }
+
+    if (rect.bottom + menuRect.height > viewportHeight) {
+      menu.style.top = (rect.top - menuRect.height).toString();
+    } else {
+      menu.style.top = rect.bottom.toString();
+    }
   });
 
   document.addEventListener("click", (e) => {
@@ -118,7 +137,7 @@ type Props = Record<string, never>;
     border-radius: 8px;
     padding: 6px 0;
     margin-top: 6px;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 6px 10px color-mix(in srgb, var(--gray-50) 10%, transparent);
   }
 
   .lang-menu.hidden {
