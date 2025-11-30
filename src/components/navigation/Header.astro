@@ -12,16 +12,18 @@ type Props = Record<string, never>;
 ---
 
 <header class="no-print">
-  <ul>
-    <li>
-      <a href={getRelativeLocaleUrl(lang, "/")}>
-        <Icon icon="home" gradient={true} size="18" />
-      </a>
-    </li>
-  </ul>
-  <LanguagePicker />
-  <CommandButton />
-  <ThemePicker />
+  <div class="header-wrapper">
+    <a
+      href={getRelativeLocaleUrl(lang, "/")}
+      class="pr-5 pl-4"
+      aria-label="Go to Home Page"
+    >
+      <Icon icon="home" gradient={true} size="18" />
+    </a>
+    <LanguagePicker class="pr-5" />
+    <CommandButton class="pr-5" />
+    <ThemePicker class="pr-5" />
+  </div>
 </header>
 
 <style>
@@ -29,14 +31,14 @@ type Props = Record<string, never>;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 1rem 0;
+    align-items: center;
   }
-
-  ul {
+  .header-wrapper {
+    width: min(100%, 1200px);
+    margin: 0 auto;
     display: flex;
-    gap: 1rem;
-    list-style: none;
-    margin: 0;
-    padding: 0;
+    flex-direction: row;
+    align-items: center;
+    padding: 1rem;
   }
 </style>

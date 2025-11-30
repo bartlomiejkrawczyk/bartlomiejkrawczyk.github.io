@@ -1,8 +1,17 @@
 ---
+import type { HTMLAttributes } from "astro/types";
 import Icon from "../Icon.astro";
+
+interface Props extends HTMLAttributes<"div"> {}
+
+const { ...props } = Astro.props;
 ---
 
-<button class="command-button" aria-label="Open Terminal Window">
+<button
+  class={`command-button ${props.class ?? ""}`}
+  {...props}
+  aria-label="Open Terminal Window"
+>
   <Icon icon="terminal-window" gradient={true} size="24" />
 </button>
 

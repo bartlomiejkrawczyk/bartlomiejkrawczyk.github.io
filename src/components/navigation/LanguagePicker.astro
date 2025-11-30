@@ -1,11 +1,14 @@
 ---
 import { languages } from "@i18n/ui";
 import Icon from "../Icon.astro";
+import type { HTMLAttributes } from "astro/types";
 
-type Props = Record<string, never>;
+interface Props extends HTMLAttributes<"div"> {}
+
+const { ...props } = Astro.props;
 ---
 
-<div class="lang-wrapper">
+<div class={`lang-wrapper ${props.class ?? ""}`} {...props}>
   <button class="lang-trigger" id="lang-trigger" aria-label="Select language">
     <Icon icon="translate" gradient={true} size="24" />
   </button>
