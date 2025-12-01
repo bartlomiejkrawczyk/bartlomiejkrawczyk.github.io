@@ -6,6 +6,12 @@
     "terminal": "Terminal",
     "theme": "Motyw"
   },
+  "markdown": {
+    "read": "czytania",
+    "estimatedTime": "Szacowany Czas: ",
+    "published": "Opublikowano: ",
+    "lastModified": "Ostatnia Modyfikacja: "
+  },
   "overview": {
     "role": "Backend Engineer",
     "city": "Warszawa, Polska"

@@ -6,6 +6,12 @@
     "terminal": "Terminal",
     "theme": "Theme"
   },
+  "markdown": {
+    "read": "read",
+    "estimatedTime": "Estimated Time: ",
+    "published": "Published: ",
+    "lastModified": "Last Modified: "
+  },
   "overview": {
     "role": "Backend Engineer",
     "city": "Warsaw, Poland"
