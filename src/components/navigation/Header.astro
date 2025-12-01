@@ -3,10 +3,12 @@ import { getRelativeLocaleUrl } from "astro:i18n";
 import LanguagePicker from "./LanguagePicker.astro";
 import { type LanguageKey } from "@i18n/ui";
 import ThemePicker from "./ThemePicker.astro";
-import CommandButton from "../popups/CommandButton.astro";
+import CommandButton from "./CommandButton.astro";
 import Icon from "../Icon.astro";
+import { getTranslations } from "@i18n/ui";
 
 const lang = Astro.currentLocale as LanguageKey;
+const t = getTranslations(lang);
 
 type Props = Record<string, never>;
 ---
@@ -15,10 +17,11 @@ type Props = Record<string, never>;
   <div class="header-wrapper">
     <a
       href={getRelativeLocaleUrl(lang, "/")}
-      class="pr-5 pl-4"
+      class="reveal-parent pr-5 pl-4 flex justify-items-center"
       aria-label="Go to Home Page"
     >
       <Icon icon="home" gradient={true} size="18" />
+      <p class="reveal-item">{t.nav.home}</p>
     </a>
     <LanguagePicker class="pr-5" />
     <CommandButton class="pr-5" />
@@ -40,5 +43,32 @@ type Props = Record<string, never>;
     flex-direction: row;
     align-items: center;
     padding: 1rem;
+  }
+
+  :global(.reveal-parent) {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+
+  :global(.reveal-item) {
+    opacity: 0;
+    max-width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    transform: translateX(-4px);
+
+    transition:
+      max-width 0.3s ease,
+      opacity 0.3s ease,
+      transform 0.3s ease;
+  }
+
+  :global(.reveal-parent:hover .reveal-item),
+  :global(.reveal-parent:focus .reveal-item) {
+    opacity: 1;
+    max-width: 150px;
+    transform: translateX(0);
+    color: var(--link-color);
   }
 </style>

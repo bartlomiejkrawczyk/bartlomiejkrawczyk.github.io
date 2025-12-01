@@ -1,6 +1,10 @@
 ---
 import type { HTMLAttributes } from "astro/types";
 import Icon from "../Icon.astro";
+import { getTranslations, type LanguageKey } from "@src/i18n/ui";
+
+const lang = Astro.currentLocale as LanguageKey;
+const t = getTranslations(lang);
 
 interface Props extends HTMLAttributes<"div"> {}
 
@@ -8,11 +12,12 @@ const { ...props } = Astro.props;
 ---
 
 <button
-  class={`command-button ${props.class ?? ""}`}
+  class={`reveal-parent command-button ${props.class ?? ""}`}
   {...props}
   aria-label="Open Terminal Window"
 >
   <Icon icon="terminal-window" gradient={true} size="24" />
+  <p class="reveal-item">{t.nav.terminal}</p>
 </button>
 
 <script>

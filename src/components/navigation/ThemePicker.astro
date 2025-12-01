@@ -3,6 +3,10 @@ import { modes, colors, gradients } from "./Themes";
 import { icons } from "../Icons";
 import Icon from "../Icon.astro";
 import type { HTMLAttributes } from "astro/types";
+import { getTranslations, type LanguageKey } from "@src/i18n/ui";
+
+const lang = Astro.currentLocale as LanguageKey;
+const t = getTranslations(lang);
 
 interface Props extends HTMLAttributes<"div"> {}
 
@@ -10,8 +14,13 @@ const { ...props } = Astro.props;
 ---
 
 <div class={`theme-wrapper ${props.class ?? ""}`} {...props}>
-  <button class="theme-trigger" id="theme-trigger" aria-label="Select theme">
+  <button
+    class="theme-trigger reveal-parent"
+    id="theme-trigger"
+    aria-label="Select theme"
+  >
     <Icon icon="color-palette-3" size="24" gradient={true} />
+    <p class="reveal-item">{t.nav.theme}</p>
   </button>
 
   <div id="theme-menu" class="theme-menu hidden">
@@ -102,8 +111,14 @@ const { ...props } = Astro.props;
     .forEach(({ color, mode }) => {
       const button = document.querySelector(`#theme-${color}-${mode}`);
       button?.addEventListener("click", () => {
-        window.setTheme?.(color, mode, true);
+        window.setTheme?.(color, mode);
         menu?.classList.add("hidden");
+      });
+      button?.addEventListener("mouseover", () => {
+        window.setTheme?.(color, mode, false, false);
+      });
+      button?.addEventListener("mouseout", () => {
+        window.resetTheme?.();
       });
     });
 </script>

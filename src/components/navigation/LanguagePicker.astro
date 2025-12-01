@@ -1,7 +1,10 @@
 ---
-import { languages } from "@i18n/ui";
+import { getTranslations, languages, type LanguageKey } from "@i18n/ui";
 import Icon from "../Icon.astro";
 import type { HTMLAttributes } from "astro/types";
+
+const lang = Astro.currentLocale as LanguageKey;
+const t = getTranslations(lang);
 
 interface Props extends HTMLAttributes<"div"> {}
 
@@ -9,8 +12,13 @@ const { ...props } = Astro.props;
 ---
 
 <div class={`lang-wrapper ${props.class ?? ""}`} {...props}>
-  <button class="lang-trigger" id="lang-trigger" aria-label="Select language">
+  <button
+    class="reveal-parent lang-trigger"
+    id="lang-trigger"
+    aria-label="Select language"
+  >
     <Icon icon="translate" gradient={true} size="24" />
+    <p class="reveal-item">{t.nav.language}</p>
   </button>
 
   <div id="lang-menu" class="lang-menu hidden">
