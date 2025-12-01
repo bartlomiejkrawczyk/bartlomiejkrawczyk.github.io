@@ -69,7 +69,7 @@ const { ...props } = Astro.props;
 </div>
 
 <script>
-  import { modes, colors } from "./Themes";
+  import { modes, colors, type Color, type Mode } from "./Themes";
 
   const trigger = document.querySelector("#theme-trigger");
   const menu = document.querySelector("#theme-menu");
@@ -106,6 +106,32 @@ const { ...props } = Astro.props;
     }
   });
 
+  let hoverTimeout: ReturnType<typeof setTimeout> | null = null;
+
+  function previewTheme(color: Color, mode: Mode) {
+    if (hoverTimeout) {
+      clearTimeout(hoverTimeout);
+      hoverTimeout = null;
+    }
+
+    hoverTimeout = setTimeout(() => {
+      window.setTheme?.(color, mode, false, false);
+      hoverTimeout = null;
+    }, 80);
+  }
+
+  function cancelPreview() {
+    if (hoverTimeout) {
+      clearTimeout(hoverTimeout);
+      hoverTimeout = null;
+    }
+
+    hoverTimeout = setTimeout(() => {
+      window.resetTheme?.();
+      hoverTimeout = null;
+    }, 80);
+  }
+
   colors
     .flatMap((color) => modes.map((mode) => ({ color, mode })))
     .forEach(({ color, mode }) => {
@@ -115,10 +141,16 @@ const { ...props } = Astro.props;
         menu?.classList.add("hidden");
       });
       button?.addEventListener("mouseover", () => {
-        window.setTheme?.(color, mode, false, false);
+        previewTheme(color, mode);
       });
       button?.addEventListener("mouseout", () => {
-        window.resetTheme?.();
+        cancelPreview();
+      });
+      button?.addEventListener("focus", () => {
+        previewTheme(color, mode);
+      });
+      button?.addEventListener("blur", () => {
+        cancelPreview();
       });
     });
 </script>

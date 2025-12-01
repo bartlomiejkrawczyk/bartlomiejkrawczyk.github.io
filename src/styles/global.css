@@ -298,6 +298,21 @@ h5:not(.prose h5) {
   opacity: 1 !important;
 }
 
+:root {
+  --theme-transition-duration: 0.2s;
+  --theme-transition-easing: ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --theme-transition-duration: 0s;
+  }
+}
+
 html.theme-transition * {
-  transition: all 1s ease !important;
+  transition-property:
+    background-color, color, border-color, box-shadow, stroke, fill;
+  transition-duration: var(--theme-transition-duration);
+  transition-timing-function: var(--theme-transition-easing);
+  transition-delay: 0s;
 }
