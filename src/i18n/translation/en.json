@@ -1,7 +1,10 @@
 {
   "nav": {
     "home": "Home",
-    "about": "About"
+    "about": "About",
+    "language": "Language",
+    "terminal": "Terminal",
+    "theme": "Theme"
   },
   "overview": {
     "role": "Backend Engineer",

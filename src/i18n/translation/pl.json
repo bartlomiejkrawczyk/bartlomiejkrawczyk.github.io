@@ -1,7 +1,10 @@
 {
   "nav": {
     "home": "Strona Główna",
-    "about": "O Mnie"
+    "about": "O Mnie",
+    "language": "Język",
+    "terminal": "Terminal",
+    "theme": "Motyw"
   },
   "overview": {
     "role": "Backend Engineer",
