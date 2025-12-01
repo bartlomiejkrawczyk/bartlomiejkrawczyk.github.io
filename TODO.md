@@ -24,4 +24,5 @@
 - [ ] Animate tag hover - on hover expand tag and increase font
 - [ ] Add animated background
 - [ ] Add animated text on the page
+- [ ] Add transition to language and theme dialogs / modals
 
