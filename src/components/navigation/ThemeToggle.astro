@@ -19,40 +19,37 @@ type Props = Record<string, never>;
 
   document.documentElement.className = `theme-${color} ${mode === "dark" ? "theme-dark" : ""}`;
 
-  if (typeof localStorage !== "undefined") {
-    const observer = new MutationObserver(() => {
-      const html = document.documentElement;
-      const isDark = html.classList.contains("theme-dark");
-
-      const colorClass = Array.from(html.classList).find(
-        (cls) => cls.startsWith("theme-") && cls !== "theme-dark",
-      );
-      const colorName = colorClass
-        ? colorClass.replace("theme-", "")
-        : "purple";
-
-      localStorage.setItem(
-        "theme",
-        `${colorName}-${isDark ? "dark" : "light"}`,
-      );
-    });
-
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ["class"],
-    });
-  }
-
   window.setTheme = function (
     color = "purple",
     mode = "light",
     reload = false,
+    updateStorage = true,
   ) {
-    document.documentElement.className = `theme-${color} ${mode === "dark" ? "theme-dark" : ""}`;
-    localStorage.setItem("theme", `${color}-${mode}`);
+    // Add temporary transition class
+    document.documentElement.classList.add("theme-transition");
+
+    // Force browser to apply the class before changing the theme
+    requestAnimationFrame(() => {
+      document.documentElement.className = `theme-${color} ${mode === "dark" ? "theme-dark" : ""}`;
+
+      if (updateStorage) {
+        localStorage.setItem("theme", `${color}-${mode}`);
+      }
+
+      // Remove transition class after transition completes
+      setTimeout(() => {
+        document.documentElement.classList.remove("theme-transition");
+      }, 1000); // must match CSS duration
+    });
 
     if (reload) {
       window.location.reload();
     }
+  };
+
+  window.resetTheme = function () {
+    const storedTheme = getThemePreference();
+    const [color, mode] = storedTheme.split("-");
+    document.documentElement.className = `theme-${color} ${mode === "dark" ? "theme-dark" : ""}`;
   };
 </script>

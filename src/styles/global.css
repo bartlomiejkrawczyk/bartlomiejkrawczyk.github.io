@@ -297,3 +297,7 @@ h5:not(.prose h5) {
   color: #aaa !important;
   opacity: 1 !important;
 }
+
+html.theme-transition * {
+  transition: all 1s ease !important;
+}
