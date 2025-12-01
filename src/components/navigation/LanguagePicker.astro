@@ -1,25 +1,79 @@
 ---
-import { languages } from "@i18n/ui";
+import { getTranslations, languages, type LanguageKey } from "@i18n/ui";
+import Icon from "../Icon.astro";
+import type { HTMLAttributes } from "astro/types";
 
-type Props = Record<string, never>;
+const lang = Astro.currentLocale as LanguageKey;
+const t = getTranslations(lang);
+
+interface Props extends HTMLAttributes<"div"> {}
+
+const { ...props } = Astro.props;
 ---
 
-{
-  Object.entries(languages).map(([lang, label]) => (
-    <button id={"language-btn-" + lang}>
-      {label} - {lang}
-    </button>
-  ))
-}
+<div class={`lang-wrapper ${props.class ?? ""}`} {...props}>
+  <button
+    class="reveal-parent lang-trigger"
+    id="lang-trigger"
+    aria-label="Select language"
+  >
+    <Icon icon="translate" gradient={true} size="24" />
+    <p class="reveal-item">{t.nav.language}</p>
+  </button>
+
+  <div id="lang-menu" class="lang-menu hidden">
+    {
+      Object.entries(languages).map(([lang, label]) => (
+        <button data-lang={lang}>{label}</button>
+      ))
+    }
+  </div>
+</div>
 
 <script>
-  import { languages, type LanguageKey } from "@i18n/ui";
+  import { type LanguageKey, languages } from "@src/i18n/ui";
+
+  const trigger = document.querySelector("#lang-trigger");
+  const menu = document.querySelector("#lang-menu");
+
+  trigger?.addEventListener("click", () => {
+    menu?.classList.toggle("hidden");
+
+    if (!menu || !(menu instanceof HTMLElement)) return;
+
+    const rect = trigger.getBoundingClientRect();
+    const menuRect = menu.getBoundingClientRect();
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
+
+    if (rect.right + menuRect.width > viewportWidth) {
+      menu.style.left = "auto";
+      menu.style.right = "0";
+    } else {
+      menu.style.left = rect.left.toString();
+      menu.style.right = "auto";
+    }
+
+    if (rect.bottom + menuRect.height > viewportHeight) {
+      menu.style.top = (rect.top - menuRect.height).toString();
+    } else {
+      menu.style.top = rect.bottom.toString();
+    }
+  });
+
+  document.addEventListener("click", (e) => {
+    if (!menu || !trigger || !e || !e.target || !(e.target instanceof Node)) {
+      return;
+    }
+
+    if (!menu.contains(e.target) && !trigger.contains(e.target)) {
+      menu.classList.add("hidden");
+    }
+  });
 
   function setLanguage(targetLang: LanguageKey) {
-    const supportedLangs = ["en", "pl"];
+    const supportedLangs = Object.keys(languages);
     const defaultLang = "en";
-
-    console.log("Target lang: ", targetLang);
 
     if (!supportedLangs.includes(targetLang)) return;
 
@@ -27,7 +81,6 @@ type Props = Record<string, never>;
 
     const path = window.location.pathname;
     const pathParts = path.split("/").filter(Boolean);
-    console.log(pathParts);
 
     let currentLang = defaultLang;
 
@@ -42,8 +95,6 @@ type Props = Record<string, never>;
     }
 
     localStorage.setItem("preferredLang", targetLang);
-
-    console.log("Current lang: ", currentLang);
 
     function buildPath(targetLang: LanguageKey) {
       const parts = pathParts.slice();
@@ -62,13 +113,70 @@ type Props = Record<string, never>;
     }
 
     if (targetLang !== currentLang) {
-      const newPath = buildPath(targetLang);
-      window.location.href = newPath;
+      window.location.href = buildPath(targetLang);
     }
   }
 
-  Object.entries(languages).forEach(([lang]) => {
-    const button = document.querySelector("#language-btn-" + lang);
-    button?.addEventListener("click", () => setLanguage(lang as LanguageKey));
+  document.querySelectorAll("#lang-menu button").forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      if (!e.target || !menu) return;
+      const target = e.target as HTMLElement;
+      const lang = target.dataset.lang;
+      if (!lang) return;
+      if (lang) {
+        setLanguage(lang as LanguageKey);
+        menu.classList.add("hidden");
+      }
+    });
   });
 </script>
+
+<style>
+  .lang-wrapper {
+    position: relative;
+    display: inline-block;
+  }
+
+  .lang-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    background: var(--background);
+    border-radius: 8px;
+    padding: 6px 0;
+    margin-top: 6px;
+    box-shadow: 0 6px 10px color-mix(in srgb, black 10%, transparent);
+    border: 1px solid var(--gray-900);
+  }
+
+  .lang-menu.hidden {
+    display: none;
+  }
+
+  .lang-menu button {
+    text-align: left;
+    padding: 8px 14px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    white-space: nowrap;
+  }
+
+  .lang-menu button:hover {
+    background: var(--gray-950);
+  }
+
+  .lang-trigger {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+  }
+</style>

@@ -1,0 +1,131 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "language": "Language",
+    "terminal": "Terminal",
+    "theme": "Theme"
+  },
+  "markdown": {
+    "read": "read",
+    "estimatedTime": "Estimated Time: ",
+    "published": "Published: ",
+    "lastModified": "Last Modified: "
+  },
+  "overview": {
+    "role": "Backend Engineer",
+    "city": "Warsaw, Poland"
+  },
+  "about": {
+    "header": "About",
+    "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam nec dui non neque lobortis scelerisque. Aliquam lectus ex, interdum quis tellus ut, consequat fermentum lacus. Proin laoreet sodales turpis, rhoncus facilisis nulla finibus sed. Sed non lorem gravida, porttitor lectus et, vulputate justo. Fusce interdum neque justo, non finibus libero ornare ac. Ut id porta dui. Praesent id odio sit amet quam ultricies lobortis id congue lectus. Ut vulputate dui felis. Proin id cursus ante, a interdum leo. Cras eu mattis sapien, at malesuada lorem. Maecenas accumsan urna sit amet nisl pretium, id venenatis augue cursus. Nunc eu ante ornare, blandit lectus molestie, porttitor nisl. Praesent tincidunt vel lacus ut viverra. Nam malesuada nisl eget gravida iaculis. In malesuada dolor eu urna pulvinar, et hendrerit massa placerat."
+  },
+  "additionalActivity": {
+    "header": "Additional Activity",
+    "volunteering": {
+      "location": "Anna Olszewska Hospice in Skierniewice",
+      "type": "Volunteering"
+    },
+    "location1": "Anna Olszewska Hospice in Skierniewice",
+    "type1": "Volunteering"
+  },
+  "awards": {
+    "header": "Awards",
+    "pw": {
+      "description": "Scholarships from the Rector of the Warsaw University of Technology for high academic achievements"
+    },
+    "skc": {
+      "description": "Scholarships from the President of Skierniewice for high academic achievements"
+    }
+  },
+  "certifications": {
+    "header": "Certifications",
+    "master": {
+      "description": "Master's degree in Computer Science with distinction",
+      "organization": "Warsaw University of Technology"
+    },
+    "engineer": {
+      "description": "Engineering/Bachlor's degree in Computer Science with distinction",
+      "organization": "Warsaw University of Technology"
+    },
+    "english": {
+      "description": "ACERT Certificate | English B2",
+      "organization": "Association of Academic Centers for Foreign Language Teaching in Poland"
+    },
+    "jsystems": {
+      "description": "Programming in Java Language | JSystems"
+    }
+  },
+  "education": {
+    "header": "Education",
+    "master": {
+      "university": "Warsaw University of Technology",
+      "period": "February 2024 - September 2025",
+      "subject": "Computer Science",
+      "degree": "Master's Degree",
+      "specialization": "Intelligent Systems",
+      "subjects": [
+        "Niezawdone, Skalowalne i Łatwe w Utrzymaniu Systemy Informatyczne",
+        "Programowanie Równoległe i Rozproszone",
+        "Architektura i Integracja Systemów",
+        "Sieci Inteligentnych Urządzeń",
+        "Wirtualne Środowiska Obliczeniowe",
+        "Robotyka"
+      ]
+    },
+    "engineer": {
+      "university": "Warsaw University of Technology",
+      "period": "October 2020 - February 2024",
+      "subject": "Computer Science",
+      "degree": "Bachelor's Degree",
+      "specialization": "Software Engineering",
+      "subjects": [
+        "Algorytmy i Struktury Danych",
+        "Systemy Oepracyjne",
+        "Programowanie Aplikacyjne - Java",
+        "Programowanie Obiektowe - C++",
+        "Wprowadzenie do Sztucznych Inteligencji",
+        "Inżynieria Uczenia Maszynowego",
+        "Bazy Danych",
+        "Sztuka Wytwarzania Oprogramowania",
+        "Sterowniki Programowalne",
+        "System UNIX",
+        "Paradygmaty Programowania",
+        "Programowanie Aplikacji Internetowych",
+        "Techniki Kompilacji",
+        "Programowanie Sieciowe",
+        "Wdrażanie i Utrzymanie Systemów Informatycznych"
+      ]
+    },
+    "highschool": {
+      "university": "Bolesław Prus High School",
+      "period": "September 2017 - June 2020",
+      "specialization": "Computer Science, Math, English, Physics"
+    }
+  },
+  "interests": {
+    "movies": "Movies and Series",
+    "bicycle": "Bicycle",
+    "rollerblades": "Rollerblades",
+    "snowboard": "Snowboard"
+  },
+  "projects": {
+    "header": "Projects"
+  },
+  "rodo": "I agree to the processing of personal data provided in this document for realising the recruitment process pursuant to the Personal Data Protection Act of 10 May 2018 (Journal of Laws 2018, item 1000) and in agreement with Regulation (EU) 2016/679 of the European Parliament and of the Council of 27 April 2016 on the protection of natural persons with regard to the processing of personal data and on the free movement of such data, and repealing Directive 95/46/EC (General Data Protection Regulation).",
+  "skills": {
+    "header": "Skills"
+  },
+  "work": {
+    "header": "Work Experience",
+    "sagesTrain": {
+      "period": "June 2022 - July 2022"
+    },
+    "sagesJunior": {
+      "period": "July 2022 - June 2023"
+    },
+    "sagesMid": {
+      "period": "July 2023 -"
+    }
+  }
+}

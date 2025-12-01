@@ -2,32 +2,31 @@
 import { getRelativeLocaleUrl } from "astro:i18n";
 import LanguagePicker from "./LanguagePicker.astro";
 import { type LanguageKey } from "@i18n/ui";
-import { useTranslations } from "@i18n/utils";
 import ThemePicker from "./ThemePicker.astro";
-import CommandButton from "../popups/CommandButton.astro";
+import CommandButton from "./CommandButton.astro";
+import Icon from "../Icon.astro";
+import { getTranslations } from "@i18n/ui";
 
 const lang = Astro.currentLocale as LanguageKey;
-const t = useTranslations(lang);
+const t = getTranslations(lang);
 
 type Props = Record<string, never>;
 ---
 
 <header class="no-print">
-  <ul>
-    <li>
-      <a href={getRelativeLocaleUrl(lang, "/")}>
-        {t("nav.home")}
-      </a>
-    </li>
-    <li>
-      <a href={getRelativeLocaleUrl(lang, "/") + "#about"}>
-        {t("nav.about")}
-      </a>
-    </li>
-  </ul>
-  <LanguagePicker />
-  <CommandButton />
-  <ThemePicker />
+  <div class="header-wrapper">
+    <a
+      href={getRelativeLocaleUrl(lang, "/")}
+      class="reveal-parent pr-5 pl-4 flex justify-items-center"
+      aria-label="Go to Home Page"
+    >
+      <Icon icon="home" gradient={true} size="18" />
+      <p class="reveal-item">{t.nav.home}</p>
+    </a>
+    <LanguagePicker class="pr-5" />
+    <CommandButton class="pr-5" />
+    <ThemePicker class="pr-5" />
+  </div>
 </header>
 
 <style>
@@ -35,14 +34,41 @@ type Props = Record<string, never>;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 1rem 0;
+    align-items: center;
+  }
+  .header-wrapper {
+    width: min(100%, 1200px);
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 1rem;
   }
 
-  ul {
+  :global(.reveal-parent) {
     display: flex;
-    gap: 1rem;
-    list-style: none;
-    margin: 0;
-    padding: 0;
+    align-items: center;
+    gap: 0.35rem;
+  }
+
+  :global(.reveal-item) {
+    opacity: 0;
+    max-width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    transform: translateX(-4px);
+
+    transition:
+      max-width 0.3s ease,
+      opacity 0.3s ease,
+      transform 0.3s ease;
+  }
+
+  :global(.reveal-parent:hover .reveal-item),
+  :global(.reveal-parent:focus .reveal-item) {
+    opacity: 1;
+    max-width: 150px;
+    transform: translateX(0);
+    color: var(--link-color);
   }
 </style>

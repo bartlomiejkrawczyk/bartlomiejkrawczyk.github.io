@@ -1,11 +1,13 @@
 ---
 import { getCollection, render } from "astro:content";
-import Icon from "@components/Icon.astro";
 import Prose from "@components/markdown/Prose.astro";
 import Layout from "@layouts/Layout.astro";
+import TagElement from "@components/content/TagElement.astro";
+import { tags as allTags } from "@components/content/Tags";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import type { ExtendedProjectEntry } from "@src/content.config";
+import { getTranslations } from "@src/i18n/ui";
 
 dayjs.extend(utc);
 
@@ -31,9 +33,21 @@ const { data } = project;
 const lastModified = dayjs(remarkPluginFrontmatter.lastModified).format(
   "YYYY-MM-DD HH:mm Z[Z]",
 );
+const publishDate = data.publishDate
+  ? dayjs(data.publishDate).format("YYYY-MM-DD")
+  : null;
+
+const projectTags =
+  data.tags?.map((tagId) => allTags[tagId]).filter(Boolean) ?? [];
+
+const lang = Astro.currentLocale;
+const t = getTranslations(lang);
+
+const printHeaderClass =
+  data.printHeader === undefined || data.printHeader ? "" : "no-print";
 ---
 
-<Layout title={data.title}>
+<Layout title={data.title ?? "Project"}>
   <Fragment slot="head">
     <script
       async
@@ -55,13 +69,83 @@ const lastModified = dayjs(remarkPluginFrontmatter.lastModified).format(
     </script>
   </Fragment>
 
-  <Icon icon="discord-logo" gradient={true} size="100px" />
-  <p>{remarkPluginFrontmatter.minutesRead}</p>
-  <p>Last Modified: {lastModified}</p>
+  <div class={`mb-6 ${printHeaderClass}`}>
+    {data.title && <h1 class="text-3xl font-bold">{data.title}</h1>}
+    {data.description && <p class="mt-2">{data.description}</p>}
+
+    <div class="mt-4 flex flex-wrap gap-2">
+      {projectTags.map((tag) => <TagElement tag={tag} />)}
+    </div>
+
+    <div class="mt-2 text-sm">
+      {
+        publishDate && (
+          <span class="mr-4">
+            {t.markdown.published}
+            {publishDate}
+          </span>
+        )
+      }
+      {
+        remarkPluginFrontmatter.minutesRead && (
+          <span class="mr-4">
+            {t.markdown.estimatedTime}
+            {remarkPluginFrontmatter.minutesRead.replace(
+              "read",
+              t.markdown.read,
+            )}
+          </span>
+        )
+      }
+      <span class="mr-4">{t.markdown.lastModified}{lastModified}</span>
+    </div>
+
+    <div class="mt-2 flex gap-4">
+      {
+        data.repository && (
+          <a href={data.repository} target="_blank">
+            Repository
+          </a>
+        )
+      }
+      {
+        data.externalUrl && (
+          <a href={data.externalUrl} target="_blank">
+            Visit
+          </a>
+        )
+      }
+    </div>
+
+    {
+      data.image && (
+        <img
+          src={data.image.src}
+          alt={data.imageAlt ?? data.title ?? "Project image"}
+          class="mt-4 rounded-lg shadow-md max-w-full"
+        />
+      )
+    }
+
+    {
+      data.img && (
+        <img
+          src={data.img}
+          alt={data.imgAlt ?? data.title ?? "Project image"}
+          class="mt-4 rounded-lg shadow-md max-w-full"
+        />
+      )
+    }
+  </div>
 
   <Prose>
     <Content />
   </Prose>
 </Layout>
 
-<style></style>
+<style>
+  header img {
+    display: block;
+    margin-top: 1rem;
+  }
+</style>

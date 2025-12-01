@@ -148,6 +148,17 @@ a:focus svg {
   fill: var(--link-color);
 }
 
+button:hover,
+button:focus {
+  color: var(--link-color);
+}
+
+button:hover svg,
+button:focus svg {
+  stroke: var(--link-color);
+  fill: var(--link-color);
+}
+
 .heading-link {
   color: inherit;
   text-decoration: none;
@@ -280,4 +291,28 @@ h5:not(.prose h5) {
 
 @page {
   size: A4 portrait;
+}
+
+.ln {
+  color: #aaa !important;
+  opacity: 1 !important;
+}
+
+:root {
+  --theme-transition-duration: 0.2s;
+  --theme-transition-easing: ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --theme-transition-duration: 0s;
+  }
+}
+
+html.theme-transition * {
+  transition-property:
+    background-color, color, border-color, box-shadow, stroke, fill;
+  transition-duration: var(--theme-transition-duration);
+  transition-timing-function: var(--theme-transition-easing);
+  transition-delay: 0s;
 }

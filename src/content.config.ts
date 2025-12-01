@@ -38,6 +38,7 @@ export const collections = {
         imageAlt: z.string().optional(),
         img: z.string().optional(),
         imgAlt: z.string().optional(),
+        printHeader: z.boolean().optional(),
       }),
   }),
 };

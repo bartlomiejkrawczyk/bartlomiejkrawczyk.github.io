@@ -9,8 +9,8 @@ export const colors = [
   "bw",
 ] as const;
 
-type Mode = (typeof modes)[number];
-type Color = (typeof colors)[number];
+export type Mode = (typeof modes)[number];
+export type Color = (typeof colors)[number];
 
 export const gradients: Record<Mode, Record<Color, string[]>> = {
   // primary-light, primary-regular, secondary-light

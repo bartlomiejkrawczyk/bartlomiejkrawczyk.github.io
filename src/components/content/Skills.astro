@@ -2,14 +2,17 @@
 import type { HTMLAttributes } from "astro/types";
 import { tags } from "@components/content/Tags";
 import TagElement from "@components/content/TagElement.astro";
+import { getTranslations, type LanguageKey } from "@src/i18n/ui";
 
 interface Props extends HTMLAttributes<"div"> {}
-// const lang = Astro.currentLocale as LanguageKey;
 const { ...props } = Astro.props;
+
+const lang = Astro.currentLocale as LanguageKey;
+const t = getTranslations(lang);
 ---
 
 <div {...props}>
-  <h2 id="skills" class="pb-1">Skills</h2>
+  <h2 id="skills" class="pb-1">{t.skills.header}</h2>
   <ul>
     {Object.entries(tags).map(([, tag]) => <TagElement tag={tag} />)}
   </ul>

@@ -1,8 +1,17 @@
 ---
-
 tags:
-    - arduino
+  - java
+  - cpp
+  - arduino
 ---
+
+import { Image } from "astro:assets";
+import Figure from "@components/markdown/Figure.astro";
+import radar from "@assets/content/athens/radar.png";
+import schema from "@assets/content/athens/schema.png";
+import setup from "@assets/content/athens/setup.png";
+import sensor from "@assets/content/athens/sensor-close-up.png";
+import gui from "@assets/content/athens/gui.png";
 
 # Idea
 
@@ -10,16 +19,19 @@ Our initial idea was to create a rotating lidar system designed to measure 2D sp
 create a functional, simple, and visually appealing system capable of collecting spatial data and displaying it in
 an interactive graphical user interface, that would be heavily inspired by systems that look like this:
 
-![Radar inspiration](../../assets/content/athens/radar.png)
+<Figure src={radar} alt="Radar inspiration" />
 
 # Implementation
+
 ## High-level overview
 
 We have decided to break the system into 2 main parts: the GUI would run on a PC, and the radar would
 be controlled by a microcontroller. Communication between the 2 components would be accomplished using a
 serial connection over USB. Using a USB connection to the microcontroller also automatically provides power
 to the microcontroller.
+
 ## Microcontroller component
+
 For the microcontroller component, we have decided to use the Arduino Nano Every board, as we have used it
 in the course introduction, and we should not need anything more powerful for our components.
 To implement the radar we have decided to use two components: a lidar time-of-flight distance sensor mounted
@@ -29,7 +41,8 @@ to the desired position and takes a distance reading.
 To drive the components we are using common libraries available for the Arduino ecosystem: Adafruit VL53L0X
 for the lidar sensor and Servo for the servo motor.
 
-### Encountered issues 
+### Encountered issues
+
 There were a couple of issues with the microcontroller implementation.
 Initially, we have left the XSHUT pin of the lidar sensor unconnected, which has caused the sensor to randomly
 reboot. We have later realized that XSHUT needs to be tied high (through a resistor); who would have thought
@@ -46,15 +59,19 @@ started connecting our laptops to chargers to ensure more power is available, an
 board at some point, to no avail. In the end we have deleted all our Arduino code and rewrote it from scratch.
 This seemed to help, but the board still crashes, although very rarely.
 
-![Schema](../../assets/content/athens/schema.png)
-![Setup](../../assets/content/athens/setup.png)
-![Sensor Closeup](../../assets/content/athens/sensor-close-up.png)
+<Figure src={schema} alt="Schema" width="100%" />
+
+<Figure src={setup} alt="Setup" />
+
+<Figure src={sensor} alt="Sensor Closeup" />
 
 # Final result
+
 ## PC component
+
 The UI program displays the distance measurements as properly-scaled lines on a half-circle (the servo mechanism range is 180 degrees).
 
-![GUI](../../assets/content/athens/gui.png)
+<Figure src={gui} alt="GUI" width="80%" />
 
 Older readings are faded dynamically, and they appear dimmer.
 The GUI starts sweeping the radar back and forth, but there is also a manual mode available. Pressing space
@@ -77,10 +94,12 @@ microcontroller simply reads `Serial.parseInt() - 1`, thus error conditions can 
 requests.
 
 # Conclusion
+
 We were able to accomplish what we have set out at the beginning of the project, even if we have encountered
 a lot of issues during the implementation. The two components successfully display distance measurements.
 
 # Code
+
 ## Microcontroller
 
 ```cpp title="microcontroller.cpp"

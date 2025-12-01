@@ -1,0 +1,38 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import Icon from "../Icon.astro";
+import { getTranslations, type LanguageKey } from "@src/i18n/ui";
+
+const lang = Astro.currentLocale as LanguageKey;
+const t = getTranslations(lang);
+
+interface Props extends HTMLAttributes<"div"> {}
+
+const { ...props } = Astro.props;
+---
+
+<button
+  class={`reveal-parent command-button ${props.class ?? ""}`}
+  {...props}
+  aria-label="Open Terminal Window"
+>
+  <Icon icon="terminal-window" gradient={true} size="24" />
+  <p class="reveal-item">{t.nav.terminal}</p>
+</button>
+
+<script>
+  const button = document.querySelector(".command-button");
+  button?.addEventListener("click", () => {
+    const dialog = document.getElementById(
+      "command-dialog",
+    ) as HTMLDialogElement;
+
+    if (dialog) {
+      if (typeof dialog.showModal === "function") {
+        dialog.showModal();
+      } else {
+        alert("The <dialog> API is not supported by this browser");
+      }
+    }
+  });
+</script>

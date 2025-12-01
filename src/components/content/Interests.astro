@@ -1,12 +1,14 @@
 ---
+import { getTranslations } from "@src/i18n/ui";
 
+const lang = Astro.currentLocale;
+const t = getTranslations(lang);
 ---
 
+<!-- TODO: improve styling -->
 <div>
-  <div>Movies and Series</div>
-  <div>Bicycle</div>
-  <div>Rollerblades</div>
-  <div>Snowboard</div>
+  <div>{t.interests.movies}</div>
+  <div>{t.interests.bicycle}</div>
+  <div>{t.interests.rollerblades}</div>
+  <div>{t.interests.snowboard}</div>
 </div>
-
-<!-- TODO -->

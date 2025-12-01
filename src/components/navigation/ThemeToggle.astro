@@ -19,40 +19,92 @@ type Props = Record<string, never>;
 
   document.documentElement.className = `theme-${color} ${mode === "dark" ? "theme-dark" : ""}`;
 
-  if (typeof localStorage !== "undefined") {
-    const observer = new MutationObserver(() => {
-      const html = document.documentElement;
-      const isDark = html.classList.contains("theme-dark");
+  const TRANSITION_DURATION_MS =
+    Math.round(
+      parseFloat(
+        getComputedStyle(document.documentElement).getPropertyValue(
+          "--theme-transition-duration",
+        ) || "0.2",
+      ) * 1000,
+    ) || 200;
 
-      const colorClass = Array.from(html.classList).find(
-        (cls) => cls.startsWith("theme-") && cls !== "theme-dark",
-      );
-      const colorName = colorClass
-        ? colorClass.replace("theme-", "")
-        : "purple";
-
-      localStorage.setItem(
-        "theme",
-        `${colorName}-${isDark ? "dark" : "light"}`,
-      );
-    });
-
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ["class"],
-    });
+  function clearExistingTransition() {
+    if (window._themeTransitionCleanup) {
+      try {
+        window._themeTransitionCleanup();
+      } catch (e) {
+        // ignore
+      }
+      window._themeTransitionCleanup = null;
+    }
   }
 
   window.setTheme = function (
     color = "purple",
     mode = "light",
     reload = false,
+    updateStorage = true,
   ) {
-    document.documentElement.className = `theme-${color} ${mode === "dark" ? "theme-dark" : ""}`;
-    localStorage.setItem("theme", `${color}-${mode}`);
+    clearExistingTransition();
+
+    const el = document.documentElement;
+    const transitionClass = "theme-transition";
+
+    el.classList.add(transitionClass);
+
+    void el.offsetWidth;
+
+    el.className = `theme-${color} ${mode === "dark" ? "theme-dark" : ""} ${el.classList.contains(transitionClass) ? transitionClass : ""}`;
+
+    if (updateStorage) {
+      try {
+        localStorage.setItem("theme", `${color}-${mode}`);
+      } catch (e) {
+        // storage may be unavailable in some environments
+      }
+    }
+
+    let finished = false;
+
+    function cleanup() {
+      if (finished) return;
+      finished = true;
+      el.classList.remove(transitionClass);
+      el.removeEventListener("transitionend", onTransitionEnd, true);
+      if (fallbackTimer) {
+        clearTimeout(fallbackTimer);
+        fallbackTimer = null;
+      }
+    }
+
+    function onTransitionEnd(e) {
+      const prop = e.propertyName;
+      if (
+        prop === "background-color" ||
+        prop === "color" ||
+        prop === "border-color" ||
+        prop === "box-shadow"
+      ) {
+        cleanup();
+      }
+    }
+
+    el.addEventListener("transitionend", onTransitionEnd, true);
+
+    let fallbackTimer = setTimeout(() => {
+      cleanup();
+    }, TRANSITION_DURATION_MS + 100);
+
+    window._themeTransitionCleanup = cleanup;
 
     if (reload) {
-      window.location.reload();
+      setTimeout(() => window.location.reload(), 50);
     }
+  };
+
+  window.resetTheme = function () {
+    const storedTheme = getThemePreference();
+    const [color, mode] = storedTheme.split("-");
+    window?.setTheme(color, mode, false, false);
   };
 </script>

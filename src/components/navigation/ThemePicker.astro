@@ -1,68 +1,203 @@
 ---
 import { modes, colors, gradients } from "./Themes";
 import { icons } from "../Icons";
+import Icon from "../Icon.astro";
+import type { HTMLAttributes } from "astro/types";
+import { getTranslations, type LanguageKey } from "@src/i18n/ui";
+
+const lang = Astro.currentLocale as LanguageKey;
+const t = getTranslations(lang);
+
+interface Props extends HTMLAttributes<"div"> {}
+
+const { ...props } = Astro.props;
 ---
 
-{
-  colors.map((color) =>
-    modes.map((mode) => {
-      const gradientId =
-        "icon-gradient-" + Math.round(Math.random() * 10e12).toString(36);
-      const gradient = gradients[mode][color] ?? ["", "", ""];
-      return (
-        <div
-          id={`div-${color}-${mode}`}
-          class={`theme-${color} theme-${mode} ${mode} theme-button`}
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="40"
-            height="40"
-            viewBox="0 0 256 256"
-            aria-hidden="true"
-            stroke={`url(#${gradientId})`}
-            fill={`url(#${gradientId})`}
-          >
-            <g set:html={icons["color-palette-3"]} />
-            <linearGradient
-              id={gradientId}
-              x1="23"
-              x2="235"
-              y1="43"
-              y2="202"
-              gradientUnits="userSpaceOnUse"
+<div class={`theme-wrapper ${props.class ?? ""}`} {...props}>
+  <button
+    class="theme-trigger reveal-parent"
+    id="theme-trigger"
+    aria-label="Select theme"
+  >
+    <Icon icon="color-palette-3" size="24" gradient={true} />
+    <p class="reveal-item">{t.nav.theme}</p>
+  </button>
+
+  <div id="theme-menu" class="theme-menu hidden">
+    {
+      colors.flatMap((color) =>
+        modes.map((mode) => {
+          const gradientId =
+            "theme-gradient-" + Math.round(Math.random() * 10e12).toString(36);
+          const gradient = gradients[mode][color] ?? ["#000", "#000", "#000"];
+          return (
+            <button
+              id={`theme-${color}-${mode}`}
+              class={`theme-button theme-${color} theme-${mode}`}
+              title={`${color} ${mode}`}
             >
-              <stop stop-color={gradient[0]} />
-              <stop offset=".5" stop-color={gradient[1]} />
-              <stop offset="1" stop-color={gradient[2]} />
-            </linearGradient>
-          </svg>
-        </div>
-      );
-    }),
-  )
-}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="40"
+                height="40"
+                viewBox="0 0 256 256"
+                aria-hidden="true"
+                stroke={`url(#${gradientId})`}
+                fill={`url(#${gradientId})`}
+                color={gradient[1]}
+              >
+                <g set:html={icons["color-palette-3"]} />
+                <linearGradient
+                  id={gradientId}
+                  x1="23"
+                  x2="235"
+                  y1="43"
+                  y2="202"
+                  gradientUnits="userSpaceOnUse"
+                >
+                  <stop stop-color={gradient[0]} />
+                  <stop offset=".5" stop-color={gradient[1]} />
+                  <stop offset="1" stop-color={gradient[2]} />
+                </linearGradient>
+              </svg>
+            </button>
+          );
+        }),
+      )
+    }
+  </div>
+</div>
 
 <script>
-  import { modes, colors } from "./Themes";
+  import { modes, colors, type Color, type Mode } from "./Themes";
 
-  modes.forEach((mode) => {
-    colors.forEach((color) => {
-      const button = document.querySelector(`#div-${color}-${mode}`);
-      button?.addEventListener("click", () =>
-        window.setTheme?.(color, mode, true),
-      );
-    });
+  const trigger = document.querySelector("#theme-trigger");
+  const menu = document.querySelector("#theme-menu");
+
+  trigger?.addEventListener("click", () => {
+    menu?.classList.toggle("hidden");
+
+    if (!menu || !(menu instanceof HTMLElement)) return;
+
+    const rect = trigger.getBoundingClientRect();
+    const menuRect = menu.getBoundingClientRect();
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
+
+    if (rect.left + menuRect.width > viewportWidth) {
+      menu.style.left = "auto";
+      menu.style.right = "0";
+    } else {
+      menu.style.left = "0";
+      menu.style.right = "auto";
+    }
+
+    if (rect.bottom + menuRect.height > viewportHeight) {
+      menu.style.top = `-${menuRect.height}px`;
+    } else {
+      menu.style.top = `100%`;
+    }
   });
+
+  document.addEventListener("click", (e) => {
+    if (!menu || !trigger || !(e.target instanceof Node)) return;
+    if (!menu.contains(e.target) && !trigger.contains(e.target)) {
+      menu.classList.add("hidden");
+    }
+  });
+
+  let hoverTimeout: ReturnType<typeof setTimeout> | null = null;
+
+  function previewTheme(color: Color, mode: Mode) {
+    if (hoverTimeout) {
+      clearTimeout(hoverTimeout);
+      hoverTimeout = null;
+    }
+
+    hoverTimeout = setTimeout(() => {
+      window.setTheme?.(color, mode, false, false);
+      hoverTimeout = null;
+    }, 80);
+  }
+
+  function cancelPreview() {
+    if (hoverTimeout) {
+      clearTimeout(hoverTimeout);
+      hoverTimeout = null;
+    }
+
+    hoverTimeout = setTimeout(() => {
+      window.resetTheme?.();
+      hoverTimeout = null;
+    }, 80);
+  }
+
+  colors
+    .flatMap((color) => modes.map((mode) => ({ color, mode })))
+    .forEach(({ color, mode }) => {
+      const button = document.querySelector(`#theme-${color}-${mode}`);
+      button?.addEventListener("click", () => {
+        window.setTheme?.(color, mode);
+        menu?.classList.add("hidden");
+      });
+      button?.addEventListener("mouseover", () => {
+        previewTheme(color, mode);
+      });
+      button?.addEventListener("mouseout", () => {
+        cancelPreview();
+      });
+      button?.addEventListener("focus", () => {
+        previewTheme(color, mode);
+      });
+      button?.addEventListener("blur", () => {
+        cancelPreview();
+      });
+    });
 </script>
 
 <style>
+  .theme-wrapper {
+    position: relative;
+    display: inline-block;
+  }
+
+  .theme-trigger {
+    cursor: pointer;
+    border: none;
+    background: none;
+    padding: 0;
+    display: flex;
+    align-items: center;
+  }
+
+  .theme-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 9999;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    background: var(--background);
+    border-radius: 8px;
+    padding: 12px;
+    box-shadow: 0 6px 10px color-mix(in srgb, black 10%, transparent);
+    border: 1px solid var(--gray-900);
+  }
+
+  .theme-menu.hidden {
+    display: none;
+  }
+
   .theme-button {
     padding: calc(var(--spacing) * 1);
     border-radius: var(--radius-xl);
-    margin: 8px;
+    cursor: pointer;
+    width: 48px;
+    height: 48px;
   }
-  .dark {
+
+  .theme-dark {
     background-color: #0a0a0a;
     display: inline-block;
     width: fit-content;
@@ -70,12 +205,23 @@ import { icons } from "../Icons";
     border-width: 1px;
     border-color: var(--gray-900);
   }
-  .light {
+  .theme-light {
     background-color: #ffffff;
     display: inline-block;
     width: fit-content;
     height: fit-content;
     border-width: 1px;
     border-color: var(--gray-900);
+  }
+
+  button:hover,
+  button:focus {
+    color: currentColor;
+  }
+
+  button:hover svg,
+  button:focus svg {
+    stroke: currentColor;
+    fill: currentColor;
   }
 </style>

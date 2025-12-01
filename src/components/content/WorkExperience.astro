@@ -1,18 +1,22 @@
 ---
 import type { HTMLAttributes } from "astro/types";
 import WorkElement from "./WorkElement.astro";
+import { getTranslations, type LanguageKey } from "@src/i18n/ui";
 
 interface Props extends HTMLAttributes<"div"> {}
 
 const { ...props } = Astro.props;
+
+const lang = Astro.currentLocale as LanguageKey;
+const t = getTranslations(lang);
 ---
 
 <div {...props}>
-  <h2 class="pb-1">Work Experience</h2>
+  <h2 class="pb-1">{t.work.header}</h2>
   <WorkElement
     class="py-1"
     company="Sages"
-    period="July 2023 -"
+    period={t.work.sagesMid.period}
     link="https://www.sages.pl/"
     title="Software Engineer"
     description=""
@@ -20,7 +24,7 @@ const { ...props } = Astro.props;
   <WorkElement
     class="py-1"
     company="Sages"
-    period="July 2022 - June 2023"
+    period={t.work.sagesJunior.period}
     link="https://www.sages.pl/"
     title="Junior Software Engineer"
     description=""
@@ -28,7 +32,7 @@ const { ...props } = Astro.props;
   <WorkElement
     class="py-1"
     company="Sages"
-    period="June 2022 - July 2022"
+    period={t.work.sagesTrain.period}
     link="https://www.sages.pl/"
     title="Trainee Software Engineer"
     description=""

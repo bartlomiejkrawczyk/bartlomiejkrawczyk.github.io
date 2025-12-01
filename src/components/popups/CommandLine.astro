@@ -1,7 +1,10 @@
 ---
 import type { HTMLAttributes } from "astro/types";
-import Command from "./Command.astro";
 import { commands } from "./Commands";
+import Icon from "../Icon.astro";
+import type { LanguageKey } from "@src/i18n/ui";
+
+const lang = Astro.currentLocale as LanguageKey;
 
 interface Props extends HTMLAttributes<"div"> {}
 
@@ -14,17 +17,96 @@ const { ...props } = Astro.props;
   {...props}
 >
   <div class="modal">
-    <div class="search-icon">⌘</div>
-    <input id="command-input" type="text" placeholder="Search..." />
+    <div class="search-bar">
+      <div class="search-icon">
+        <Icon icon="mag" />
+      </div>
+      <input
+        id="command-input"
+        type="text"
+        placeholder="Search..."
+        autocomplete="off"
+      />
+    </div>
     <div class="suggestions">
       {
         Object.entries(commands).map(([, cmd]) => {
-          return <Command id={cmd.id} text={cmd.name.en} />;
+          return (
+            <button id={cmd.id} class="cmd" onclick="" {...props}>
+              {cmd.name[lang]}
+            </button>
+          );
         })
       }
     </div>
   </div>
 </dialog>
+
+<style>
+  dialog {
+    color: var(--gray-200);
+    box-shadow: 0 6px 10px color-mix(in srgb, black 10%, transparent);
+  }
+  dialog.command-line {
+    position: fixed;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10000;
+    max-width: 90%;
+    max-height: 90%;
+    overflow: auto;
+    border-radius: 8px;
+    border-width: 1px;
+    border-color: var(--gray-900);
+    background: transparent;
+    padding: 0;
+  }
+
+  dialog::backdrop {
+    background: rgba(0, 0, 0, 0.2);
+  }
+
+  .modal {
+    background: var(--background);
+    padding: 1rem;
+    min-width: 380px;
+    margin: 0 auto;
+  }
+
+  .suggestions .cmd {
+    display: block;
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    text-align: left;
+    border: none;
+    border-radius: 6px;
+    margin: 0.25rem 0;
+    cursor: pointer;
+  }
+
+  button.cmd.active {
+    background-color: var(--gray-950);
+    outline: 2px solid var(--secondary-regular);
+  }
+
+  .search-bar {
+    display: flex;
+  }
+
+  .search-icon {
+    padding: var(--spacing);
+    align-items: center;
+    display: flex;
+    justify-content: center;
+  }
+
+  #command-input {
+    padding: var(--spacing);
+    flex: 1;
+    outline: none;
+  }
+</style>
 
 <script>
   import type { CommandId } from "./Commands";
@@ -38,6 +120,10 @@ const { ...props } = Astro.props;
     Array.from(suggestions.querySelectorAll(".cmd")) as HTMLButtonElement[];
 
   let activeIndex: number = -1;
+  let lastInput: "mouse" | "keyboard" = "mouse";
+  let mouseIsMoving = false;
+  let lastMouseX = 0;
+  let lastMouseY = 0;
 
   // --- Helpers --------------------------------------------------------------
 
@@ -118,105 +204,115 @@ const { ...props } = Astro.props;
     if (outside) dialog.close();
   });
 
-  // --- Mouse select ---------------------------------------------------------
+  // --- Mouse hover / unhover: highlight item --------------------------------
+
+  suggestions.addEventListener("mouseover", (ev) => {
+    const target = ev.target as HTMLElement;
+    if (!target.matches(".cmd")) return;
+
+    // Mouse only wins when actually moving
+    if (lastInput !== "mouse" || !mouseIsMoving) return;
+
+    const cmds = items();
+    const index = cmds.indexOf(target as HTMLButtonElement);
+    highlight(index);
+  });
+
+  suggestions.addEventListener("mouseout", (ev) => {
+    const target = ev.target as HTMLElement;
+    if (!target.matches(".cmd")) return;
+
+    // Only clear highlight if mouse is currently the active input
+    if (lastInput === "mouse") {
+      target.classList.remove("active");
+      activeIndex = -1;
+    }
+  });
+
+  // --- Mouse click select ---------------------------------------------------
 
   suggestions.addEventListener("click", (ev: MouseEvent): void => {
     const target = ev.target as HTMLElement;
+    if (!target.matches(".cmd")) return;
 
-    if (target.matches(".cmd")) {
-      commands[target.id as CommandId]?.execute?.();
-      dialog.close();
+    commands[target.id as CommandId]?.execute?.();
+    dialog.close();
+  });
+
+  // --- Filter commands live -------------------------------------------------
+
+  function filterCommands() {
+    const search = input.value.toLowerCase();
+
+    for (const btn of items()) {
+      const name = btn.textContent?.toLowerCase() ?? "";
+      btn.style.display = name.includes(search) ? "" : "none";
     }
+
+    const visible = items().filter((b) => b.style.display !== "none");
+    if (visible.length > 0) {
+      const first = visible[0];
+      if (!first) return;
+      highlight(items().indexOf(first));
+    } else {
+      highlight(-1);
+    }
+  }
+
+  input.addEventListener("input", () => {
+    filterCommands();
   });
 
   // --- Keyboard inside input ------------------------------------------------
 
   input.addEventListener("keydown", (ev: KeyboardEvent): void => {
-    const cmds = items();
+    const cmds = items().filter((b) => b.style.display !== "none");
 
     if (ev.key === "ArrowDown") {
       ev.preventDefault();
+      lastInput = "keyboard";
+      mouseIsMoving = false;
       if (cmds.length > 0) {
-        if (activeIndex === -1) highlight(0);
-        else move(1);
+        if (activeIndex === -1) {
+          const first = cmds[0];
+          if (!first) return;
+          highlight(items().indexOf(first));
+        } else {
+          move(1);
+        }
       }
       return;
     }
 
     if (ev.key === "ArrowUp") {
       ev.preventDefault();
+      lastInput = "keyboard";
+      mouseIsMoving = false;
       if (cmds.length > 0) {
-        if (activeIndex === -1) highlight(cmds.length - 1);
-        else move(-1);
+        if (activeIndex === -1) {
+          const last = cmds[cmds.length - 1];
+          if (!last) return;
+          highlight(items().indexOf(last));
+        } else {
+          move(-1);
+        }
       }
       return;
     }
 
     if (ev.key === "Enter") {
       ev.preventDefault();
-      // only valid when an item is highlighted
-      if (activeIndex >= 0) {
-        selectActive();
-      }
+      if (activeIndex >= 0) selectActive();
       return;
     }
+  });
 
-    // If typing, reset highlight
-    if (ev.key.length === 1 || ev.key === "Backspace" || ev.key === "Delete") {
-      highlight(-1);
+  document.addEventListener("mousemove", (ev) => {
+    if (ev.clientX !== lastMouseX || ev.clientY !== lastMouseY) {
+      mouseIsMoving = true;
+      lastInput = "mouse";
+      lastMouseX = ev.clientX;
+      lastMouseY = ev.clientY;
     }
   });
 </script>
-
-<style>
-  dialog {
-    color: var(--gray-200);
-  }
-  dialog.command-line {
-    position: fixed; /* ensure it floats above content */
-    top: 35%; /* vertical center reference */
-    left: 50%; /* horizontal center reference */
-    transform: translate(-50%, -50%); /* shift origin to center */
-    z-index: 10000;
-    max-width: 90%;
-    max-height: 90%;
-    overflow: auto;
-    border-radius: 8px;
-    border-width: 1px;
-    border-color: var(--gray-900);
-    background: transparent;
-    padding: 0;
-  }
-
-  dialog::backdrop {
-    background: rgba(0, 0, 0, 0.2);
-  }
-
-  .modal {
-    background: var(--background);
-    padding: 1rem;
-    min-width: 380px;
-    margin: 0 auto;
-  }
-
-  .suggestions .cmd {
-    display: block;
-    width: 100%;
-    padding: 0.5rem 0.75rem;
-    text-align: left;
-    border: none;
-    border-radius: 6px;
-    margin: 0.25rem 0;
-    cursor: pointer;
-    background: var(--background, #f2f2f2);
-  }
-
-  .suggestions .cmd:hover {
-    background: var(--gray-950, #e6e6e6);
-  }
-
-  .cmd.active {
-    background: var(--gray-950);
-    outline: 2px solid var(--secondary-regular);
-  }
-</style>

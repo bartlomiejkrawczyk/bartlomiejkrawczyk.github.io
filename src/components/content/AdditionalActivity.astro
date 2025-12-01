@@ -1,18 +1,22 @@
 ---
 import type { HTMLAttributes } from "astro/types";
 import AdditionalActivityElement from "./AdditionalActivityElement.astro";
+import { getTranslations } from "@src/i18n/ui";
 
 interface Props extends HTMLAttributes<"div"> {}
 
 const { ...props } = Astro.props;
+
+const lang = Astro.currentLocale;
+const t = getTranslations(lang);
 ---
 
 <div {...props}>
-  <h2 id="additional-activity" class="pb-1">Additional Activity</h2>
+  <h2 id="additional-activity" class="pb-1">{t.additionalActivity.header}</h2>
   <AdditionalActivityElement
     class="pt-1"
     period="2014 - 2017"
-    location="Anna Olszewska Hospice in Skierniewice"
-    type="Volunteering"
+    location={t.additionalActivity.volunteering.location}
+    type={t.additionalActivity.volunteering.type}
   />
 </div>

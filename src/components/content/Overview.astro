@@ -3,23 +3,27 @@ import { Image } from "astro:assets";
 import Icon from "../Icon.astro";
 import type { HTMLAttributes } from "astro/types";
 import logo from "@assets/logo.jpg";
+import { getTranslations } from "@src/i18n/ui";
 
 interface Props extends HTMLAttributes<"div"> {}
 
 const { ...props } = Astro.props;
+
+const lang = Astro.currentLocale;
+const t = getTranslations(lang);
 ---
 
 <div id="overview" class="flex" {...props}>
   <div class="flex-1 space-y-1.5">
     <h1>Bartłomiej Krawczyk</h1>
-    <p>Backend Engineer</p>
+    <p>{t.overview.role}</p>
     <a
       href="https://maps.app.goo.gl/UhjS3b31uSSrucAj8"
       target="_blank"
       class="flex"
     >
       <Icon gradient icon="globe-world" size="22px" />
-      <span class="ml-1">Warsaw, Poland</span>
+      <span class="ml-1">{t.overview.city}</span>
     </a>
     <a
       href="tel:+48691177733"
