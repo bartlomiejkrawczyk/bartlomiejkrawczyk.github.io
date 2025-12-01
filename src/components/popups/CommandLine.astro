@@ -45,6 +45,7 @@ const { ...props } = Astro.props;
 <style>
   dialog {
     color: var(--gray-200);
+    box-shadow: 0 6px 10px color-mix(in srgb, black 10%, transparent);
   }
   dialog.command-line {
     position: fixed;
@@ -84,12 +85,7 @@ const { ...props } = Astro.props;
     cursor: pointer;
   }
 
-  .suggestions .cmd:hover {
-    background: var(--gray-950);
-  }
-
   button.cmd.active {
-    background-color: var(--gray-950);
     background-color: var(--gray-950);
     outline: 2px solid var(--secondary-regular);
   }
@@ -124,6 +120,10 @@ const { ...props } = Astro.props;
     Array.from(suggestions.querySelectorAll(".cmd")) as HTMLButtonElement[];
 
   let activeIndex: number = -1;
+  let lastInput: "mouse" | "keyboard" = "mouse";
+  let mouseIsMoving = false;
+  let lastMouseX = 0;
+  let lastMouseY = 0;
 
   // --- Helpers --------------------------------------------------------------
 
@@ -204,52 +204,115 @@ const { ...props } = Astro.props;
     if (outside) dialog.close();
   });
 
-  // --- Mouse select ---------------------------------------------------------
+  // --- Mouse hover / unhover: highlight item --------------------------------
+
+  suggestions.addEventListener("mouseover", (ev) => {
+    const target = ev.target as HTMLElement;
+    if (!target.matches(".cmd")) return;
+
+    // Mouse only wins when actually moving
+    if (lastInput !== "mouse" || !mouseIsMoving) return;
+
+    const cmds = items();
+    const index = cmds.indexOf(target as HTMLButtonElement);
+    highlight(index);
+  });
+
+  suggestions.addEventListener("mouseout", (ev) => {
+    const target = ev.target as HTMLElement;
+    if (!target.matches(".cmd")) return;
+
+    // Only clear highlight if mouse is currently the active input
+    if (lastInput === "mouse") {
+      target.classList.remove("active");
+      activeIndex = -1;
+    }
+  });
+
+  // --- Mouse click select ---------------------------------------------------
 
   suggestions.addEventListener("click", (ev: MouseEvent): void => {
     const target = ev.target as HTMLElement;
+    if (!target.matches(".cmd")) return;
 
-    if (target.matches(".cmd")) {
-      commands[target.id as CommandId]?.execute?.();
-      dialog.close();
+    commands[target.id as CommandId]?.execute?.();
+    dialog.close();
+  });
+
+  // --- Filter commands live -------------------------------------------------
+
+  function filterCommands() {
+    const search = input.value.toLowerCase();
+
+    for (const btn of items()) {
+      const name = btn.textContent?.toLowerCase() ?? "";
+      btn.style.display = name.includes(search) ? "" : "none";
     }
+
+    const visible = items().filter((b) => b.style.display !== "none");
+    if (visible.length > 0) {
+      const first = visible[0];
+      if (!first) return;
+      highlight(items().indexOf(first));
+    } else {
+      highlight(-1);
+    }
+  }
+
+  input.addEventListener("input", () => {
+    filterCommands();
   });
 
   // --- Keyboard inside input ------------------------------------------------
 
   input.addEventListener("keydown", (ev: KeyboardEvent): void => {
-    const cmds = items();
+    const cmds = items().filter((b) => b.style.display !== "none");
 
     if (ev.key === "ArrowDown") {
       ev.preventDefault();
+      lastInput = "keyboard";
+      mouseIsMoving = false;
       if (cmds.length > 0) {
-        if (activeIndex === -1) highlight(0);
-        else move(1);
+        if (activeIndex === -1) {
+          const first = cmds[0];
+          if (!first) return;
+          highlight(items().indexOf(first));
+        } else {
+          move(1);
+        }
       }
       return;
     }
 
     if (ev.key === "ArrowUp") {
       ev.preventDefault();
+      lastInput = "keyboard";
+      mouseIsMoving = false;
       if (cmds.length > 0) {
-        if (activeIndex === -1) highlight(cmds.length - 1);
-        else move(-1);
+        if (activeIndex === -1) {
+          const last = cmds[cmds.length - 1];
+          if (!last) return;
+          highlight(items().indexOf(last));
+        } else {
+          move(-1);
+        }
       }
       return;
     }
 
     if (ev.key === "Enter") {
       ev.preventDefault();
-      // only valid when an item is highlighted
-      if (activeIndex >= 0) {
-        selectActive();
-      }
+      if (activeIndex >= 0) selectActive();
       return;
     }
+  });
 
-    // If typing, reset highlight
-    if (ev.key.length === 1 || ev.key === "Backspace" || ev.key === "Delete") {
-      highlight(-1);
+  document.addEventListener("mousemove", (ev) => {
+    if (ev.clientX !== lastMouseX || ev.clientY !== lastMouseY) {
+      mouseIsMoving = true;
+      lastInput = "mouse";
+      lastMouseX = ev.clientX;
+      lastMouseY = ev.clientY;
     }
   });
 </script>
