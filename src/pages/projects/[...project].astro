@@ -83,8 +83,8 @@ const printHeaderClass =
           </p>
         )
       }
-      <div class="flex flex-wrap gap-1">
-        {projectTags.map((tag) => <TagElement tag={tag} />)}
+      <div class="flex flex-wrap gap-1.5">
+        {projectTags.map((tag) => <TagElement tag={tag} class="tag-style" />)}
       </div>
     </div>
 
@@ -166,4 +166,13 @@ const printHeaderClass =
   </Prose>
 </Layout>
 
-<style></style>
+<style>
+  .tag-style {
+    font-size: var(--text-sm);
+    padding-left: calc(3 * var(--spacing));
+    padding-right: calc(3 * var(--spacing));
+    padding-top: calc(0.5 * var(--spacing));
+    padding-bottom: calc(0.5 * var(--spacing));
+    border-radius: 1rem;
+  }
+</style>

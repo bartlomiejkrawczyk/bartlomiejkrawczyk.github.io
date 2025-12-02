@@ -7,6 +7,7 @@ import LeftSidebar from "@components/layout/LeftSidebar.astro";
 import RightSidebar from "@components/layout/RightSidebar.astro";
 import { type LanguageKey } from "@i18n/ui";
 import CommandLine from "@src/components/popups/CommandLine.astro";
+import CommandLineHint from "@src/components/popups/CommandLineHint.astro";
 
 interface Props {
   title?: string | undefined;
@@ -33,10 +34,13 @@ const lang = Astro.currentLocale as LanguageKey;
         <div class="content p-8" transition:animate="fade">
           <slot />
         </div>
-        <Footer />
       </div>
       <RightSidebar />
     </div>
+    <div class="md:mt-8">
+      <CommandLineHint />
+    </div>
+    <Footer />
   </body>
 </html>
 
@@ -70,7 +74,14 @@ const lang = Astro.currentLocale as LanguageKey;
     justify-content: space-between;
   }
 
+  footer {
+    display: flex;
+    justify-content: center;
+  }
+
   .footer {
+    max-width: min(100%, 1200px);
+    flex: 0 1 min(100%, 1200px);
     display: flex;
     margin-top: auto;
     flex-direction: row;

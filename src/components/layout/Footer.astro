@@ -1,6 +1,5 @@
 ---
 import Icon from "@components/Icon.astro";
-import CommandLineHint from "../popups/CommandLineHint.astro";
 
 const currentYear = new Date().getFullYear();
 
@@ -8,9 +7,6 @@ type Props = Record<string, never>;
 ---
 
 <footer class="no-print">
-  <div>
-    <CommandLineHint />
-  </div>
   <div class="footer">
     <p>&copy; 2024-{currentYear} Bartłomiej Krawczyk</p>
     <p class="socials">

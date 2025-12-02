@@ -15,12 +15,27 @@ const { src, alt, caption = alt, width = "50%" } = Astro.props;
 <figure
   style={`display: flex; flex-direction: column; align-items: center; margin: 1.5rem auto;`}
 >
-  <Image src={src} alt={alt} style={`width: ${width}; border-radius: 8px;`} />
-  {
-    caption && (
-      <figcaption style="margin-top: 0.5rem; text-align: center;">
-        {caption}
-      </figcaption>
-    )
-  }
+  <Image
+    src={src}
+    alt={alt}
+    class={"figure-image"}
+    style={`
+      width: ${width}; 
+    `}
+  />
+  {caption && <figcaption class="figure-caption">{caption}</figcaption>}
 </figure>
+
+<style>
+  .figure-image {
+    border-radius: 0.5rem;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--gray-800);
+  }
+
+  .figure-caption {
+    margin-top: 0.5rem;
+    text-align: center;
+    font-size: var(--text-md);
+  }
+</style>
