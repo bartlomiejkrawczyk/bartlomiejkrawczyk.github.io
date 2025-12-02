@@ -25,4 +25,5 @@
 - [ ] Add animated background
 - [ ] Add animated text on the page
 - [ ] Add transition to language and theme dialogs / modals
-
+- [ ] Update checkmark style
+- [ ] Define tag filtering in cli
