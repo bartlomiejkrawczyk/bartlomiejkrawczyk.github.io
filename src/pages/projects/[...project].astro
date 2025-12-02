@@ -83,14 +83,14 @@ const printHeaderClass =
           </p>
         )
       }
-      <div class="flex flex-wrap gap-2">
+      <div class="flex flex-wrap gap-1">
         {projectTags.map((tag) => <TagElement tag={tag} />)}
       </div>
     </div>
 
     <div class="mt-2 text-sm flex flex-row items-center">
-      <span class="mr-4 flex flex-row items-center">
-        <div class="mr-1">
+      <span class="mr-4 flex flex-row items-center gap-1">
+        <div>
           <Icon icon="pencil" gradient={true} size="1.5rem" />
         </div>
         <div style="color: var(--primary-dark)">
@@ -99,8 +99,8 @@ const printHeaderClass =
       </span>
       {
         remarkPluginFrontmatter.minutesRead && (
-          <span class="mr-4 flex flex-row items-center">
-            <div class="mr-1">
+          <span class="mr-4 flex flex-row items-center gap-1">
+            <div>
               <Icon icon="book" gradient={true} size="1.5rem" />
             </div>
             <div style="color: var(--primary-dark)">
@@ -112,24 +112,33 @@ const printHeaderClass =
           </span>
         )
       }
-    </div>
-
-    <div class="mt-2 flex gap-4">
       {
         data.repository && (
-          <a href={data.repository} target="_blank">
+          <a
+            href={data.repository}
+            target="_blank"
+            class="flex flex-row items-center gap-1"
+          >
+            <Icon icon="git-fork" gradient={true} size="1.5rem" />
             {data.repositoryName ?? "Repository"}
           </a>
         )
       }
       {
         data.externalUrl && (
-          <a href={data.externalUrl} target="_blank">
+          <a
+            href={data.externalUrl}
+            target="_blank"
+            class="flex flex-row items-center gap-1"
+          >
+            <Icon icon="globe" gradient={true} size="1.5rem" />
             {data.externalUrlName ?? "Visit"}
           </a>
         )
       }
     </div>
+
+    <div class="mt-2 flex gap-4"></div>
 
     {
       data.image && (

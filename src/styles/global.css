@@ -311,7 +311,9 @@ h5:not(.prose h5) {
 
 html.theme-transition * {
   transition-property:
-    background-color, color, border-color, box-shadow, stroke, fill;
+    background-color, color, border-color, box-shadow, stroke, fill,
+    text-decoration, outline, text-decoration-color, font-color,
+    text-decoration-style;
   transition-duration: var(--theme-transition-duration);
   transition-timing-function: var(--theme-transition-easing);
   transition-delay: 0s;

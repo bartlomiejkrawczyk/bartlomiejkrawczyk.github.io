@@ -31,14 +31,28 @@ const { tag, ...props } = Astro.props;
     initial-value: solid;
     padding-left: var(--spacing);
     padding-right: var(--spacing);
-    margin-top: var(--spacing);
-    margin-bottom: var(--spacing);
-    margin-right: calc(var(--spacing) * 1);
     font-size: var(--text-sm);
+  }
+  .skill a {
+    color: var(--gray-300);
   }
   .skill a:hover,
   .skill a:focus {
-    color: var(--gray-50);
+    color: var(--primary-dark);
+  }
+  .skill.company a:hover,
+  .skill.company a:focus,
+  .skill.framework a:hover,
+  .skill.framework a:focus,
+  .skill.tool a:hover,
+  .skill.tool a:focus,
+  .skill.cloud a:hover,
+  .skill.cloud a:focus,
+  .skill.database a:hover,
+  .skill.database,
+  .skill.linguistics a:hover,
+  .skill.linguistics a:focus a:focus {
+    color: var(--secondary-dark);
   }
   .company {
     background-color: rgb(from var(--secondary-dark) r g b / 25%);
@@ -58,21 +72,8 @@ const { tag, ...props } = Astro.props;
   .operating_system {
     background-color: rgb(from var(--primary-dark) r g b / 25%);
   }
-  .operating_system a,
-  .operating_system span {
-    color: var(--gray-950);
-  }
-  .operating_system a:hover,
-  .operating_system a:focus {
-    color: var(--primary-regular);
-  }
   .cloud {
     background-color: rgb(from var(--secondary-dark) r g b / 25%);
-    color: var(--gray-950);
-  }
-  .cloud a:hover,
-  .cloud a:focus {
-    color: var(--secondary-regular);
   }
   .library {
     background-color: rgb(from var(--primary-light) r g b / 25%);
