@@ -9,17 +9,226 @@ interface Props extends HTMLAttributes<"li"> {
 const { tag, ...props } = Astro.props;
 ---
 
-<li class={`skill ${tag.type} ${props.class ?? ""}`} {...props}>
+<style>
+  .tag-check {
+    display: none;
+  }
+  .tag-check.show-in-edit {
+    display: inline-block;
+  }
+  li.hidden {
+    display: none !important;
+  }
+</style>
+
+<li
+  id={`tag-${tag.id}`}
+  class={`skill ${tag.type} ${props.class ?? ""}`}
+  data-tag-id={String(tag.id)}
+  {...props}
+>
   {
     tag.link ? (
-      <a href={tag.link} target="_blank">
+      <a href={tag.link} target="_blank" rel="noopener noreferrer">
         {tag.translation.en}
       </a>
     ) : (
       <span>{tag.translation.en}</span>
     )
   }
+  <input
+    type="checkbox"
+    class="tag-check"
+    data-tag-id={String(tag.id)}
+    aria-label={`Toggle ${tag.translation.en}`}
+  />
 </li>
+
+<script>
+  type ID = string;
+  type HiddenSet = Set<ID>;
+
+  const STORAGE_KEY = "hiddenTags";
+  const MODE_KEY = "editMode";
+
+  // -------------------------
+  // --- Storage helpers -----
+  // -------------------------
+  function loadHiddenTags(): HiddenSet {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return new Set();
+      const arr = JSON.parse(raw);
+      if (!Array.isArray(arr)) return new Set();
+      return new Set(arr.map((v) => String(v)));
+    } catch (e) {
+      return new Set();
+    }
+  }
+
+  function saveHiddenTags(set: HiddenSet): void {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify([...set]));
+    } catch (e) {
+      // ignore
+    }
+  }
+
+  function loadEditMode(): boolean {
+    return localStorage.getItem(MODE_KEY) === "true";
+  }
+
+  function saveEditMode(enabled: boolean): void {
+    try {
+      localStorage.setItem(MODE_KEY, enabled ? "true" : "false");
+    } catch (e) {
+      // ignore
+    }
+  }
+
+  // -------------------------
+  // --- DOM utilities ------
+  // -------------------------
+  function getListItemById(id: ID): HTMLLIElement | null {
+    return document.querySelector<HTMLLIElement>(`li[data-tag-id="${id}"]`);
+  }
+
+  function getCheckboxById(id: ID): HTMLInputElement | null {
+    return document.querySelector<HTMLInputElement>(
+      `input.tag-check[data-tag-id="${id}"]`,
+    );
+  }
+
+  // -------------------------
+  // --- Mode API -----------
+  // -------------------------
+  (window as any).enableEditMode = function enableEditMode() {
+    setEditMode(true);
+  };
+  (window as any).disableEditMode = function disableEditMode() {
+    setEditMode(false);
+  };
+  (window as any).toggleEditMode = function toggleEditMode() {
+    setEditMode(!loadEditMode());
+  };
+
+  (window as any).setEditMode = function setEditMode(enabled: boolean) {
+    saveEditMode(enabled);
+    applyHiddenTags();
+  };
+
+  // -------------------------
+  // --- Tag visibility API -
+  // -------------------------
+  (window as any).toggleTag = function toggleTag(id: ID) {
+    const hidden = loadHiddenTags();
+    const sid = String(id);
+    if (hidden.has(sid)) hidden.delete(sid);
+    else hidden.add(sid);
+    saveHiddenTags(hidden);
+    applyHiddenTags();
+  };
+
+  (window as any).setTagVisibility = function setTagVisibility(
+    id: ID,
+    visible: boolean,
+  ) {
+    const hidden = loadHiddenTags();
+    const sid = String(id);
+    if (visible) hidden.delete(sid);
+    else hidden.add(sid);
+    saveHiddenTags(hidden);
+    applyHiddenTags();
+  };
+
+  (window as any).setTagChecked = function setTagChecked(
+    id: ID,
+    checked: boolean,
+  ) {
+    (window as any).setTagVisibility(id, checked);
+  };
+
+  (window as any).setTagsChecked = function setTagsChecked(
+    ids: ID[] | readonly ID[],
+    checked: boolean,
+  ) {
+    const hidden = loadHiddenTags();
+    for (const raw of ids) {
+      const sid = String(raw);
+      if (checked) hidden.delete(sid);
+      else hidden.add(sid);
+    }
+    saveHiddenTags(hidden);
+    applyHiddenTags();
+  };
+
+  (window as any).hideTags = function hideTags(ids: ID[] | readonly ID[]) {
+    (window as any).setTagsChecked(ids, false);
+  };
+
+  (window as any).showTags = function showTags(ids: ID[] | readonly ID[]) {
+    (window as any).setTagsChecked(ids, true);
+  };
+
+  // -------------------------
+  // --- Apply state to DOM --
+  // -------------------------
+  (window as any).applyHiddenTags = function applyHiddenTags() {
+    const hidden = loadHiddenTags();
+    const editMode = loadEditMode();
+
+    document.body.classList.toggle("edit-mode", editMode);
+
+    document
+      .querySelectorAll<HTMLInputElement>("input.tag-check")
+      .forEach((cb) => {
+        const id = String(cb.dataset.tagId ?? "");
+        if (!id) return;
+        cb.classList.toggle("show-in-edit", editMode);
+        cb.checked = !hidden.has(id);
+      });
+
+    document
+      .querySelectorAll<HTMLLIElement>("li[data-tag-id]")
+      .forEach((li) => {
+        const id = String(li.dataset.tagId ?? "");
+        if (!id) return;
+        const isHidden = hidden.has(id);
+
+        if (!editMode && isHidden) li.classList.add("hidden");
+        else li.classList.remove("hidden");
+      });
+
+    setupCheckboxListeners();
+  };
+
+  // -------------------------
+  // --- Wire up checkboxes --
+  // -------------------------
+  function onCheckboxChange(this: HTMLInputElement, e: Event) {
+    const cb = this;
+    const id = String(cb.dataset.tagId ?? "");
+    if (!id) return;
+    (window as any).setTagVisibility(id, cb.checked);
+  }
+
+  function setupCheckboxListeners() {
+    document
+      .querySelectorAll<HTMLInputElement>("input.tag-check")
+      .forEach((cb) => {
+        cb.removeEventListener("change", onCheckboxChange as EventListener);
+        cb.addEventListener("change", onCheckboxChange as EventListener);
+      });
+  }
+
+  // -------------------------
+  // --- Init on DOM ready ---
+  // -------------------------
+  window.addEventListener("DOMContentLoaded", () => {
+    applyHiddenTags();
+    setupCheckboxListeners();
+  });
+</script>
 
 <style>
   .skill {
