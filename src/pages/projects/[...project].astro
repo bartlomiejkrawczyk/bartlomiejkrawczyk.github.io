@@ -8,6 +8,7 @@ import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import type { ExtendedProjectEntry } from "@src/content.config";
 import { getTranslations } from "@src/i18n/ui";
+import Icon from "@src/components/Icon.astro";
 
 dayjs.extend(utc);
 
@@ -31,11 +32,8 @@ const { Content, remarkPluginFrontmatter } = await render(project);
 const { data } = project;
 
 const lastModified = dayjs(remarkPluginFrontmatter.lastModified).format(
-  "YYYY-MM-DD HH:mm Z[Z]",
+  "YYYY-MM-DD HH:mm",
 );
-const publishDate = data.publishDate
-  ? dayjs(data.publishDate).format("YYYY-MM-DD")
-  : null;
 
 const projectTags =
   data.tags?.map((tagId) => allTags[tagId]).filter(Boolean) ?? [];
@@ -90,41 +88,44 @@ const printHeaderClass =
       </div>
     </div>
 
-    <div class="mt-2 text-sm">
-      {
-        publishDate && (
-          <span class="mr-4">
-            {t.markdown.published}
-            {publishDate}
-          </span>
-        )
-      }
+    <div class="mt-2 text-sm flex flex-row items-center">
+      <span class="mr-4 flex flex-row items-center">
+        <div class="mr-1">
+          <Icon icon="pencil" gradient={true} size="1.5rem" />
+        </div>
+        <div style="color: var(--primary-dark)">
+          {lastModified}
+        </div>
+      </span>
       {
         remarkPluginFrontmatter.minutesRead && (
-          <span class="mr-4">
-            {t.markdown.estimatedTime}
-            {remarkPluginFrontmatter.minutesRead.replace(
-              "read",
-              t.markdown.read,
-            )}
+          <span class="mr-4 flex flex-row items-center">
+            <div class="mr-1">
+              <Icon icon="book" gradient={true} size="1.5rem" />
+            </div>
+            <div style="color: var(--primary-dark)">
+              {remarkPluginFrontmatter.minutesRead.replace(
+                "read",
+                t.markdown.read,
+              )}
+            </div>
           </span>
         )
       }
-      <span class="mr-4">{t.markdown.lastModified}{lastModified}</span>
     </div>
 
     <div class="mt-2 flex gap-4">
       {
         data.repository && (
           <a href={data.repository} target="_blank">
-            Repository
+            {data.repositoryName ?? "Repository"}
           </a>
         )
       }
       {
         data.externalUrl && (
           <a href={data.externalUrl} target="_blank">
-            Visit
+            {data.externalUrlName ?? "Visit"}
           </a>
         )
       }
