@@ -68,7 +68,7 @@ export const commands: Record<CommandId, Command> = {
     id: "toggle-tag-filter",
     name: { en: "Toggle Tag Filter", pl: "Przełącz Tryb Filtrowania Tagów" },
     execute: () => {
-      window?.toggleTagEditMode();
+      window?.toggleTagEditMode?.();
     },
   },
 };
