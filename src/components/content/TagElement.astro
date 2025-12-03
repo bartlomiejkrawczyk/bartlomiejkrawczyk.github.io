@@ -74,11 +74,11 @@ const { tag, ...props } = Astro.props;
     }
   }
 
-  function loadEditMode(): boolean {
+  function loadTagEditMode(): boolean {
     return localStorage.getItem(MODE_KEY) === "true";
   }
 
-  function saveEditMode(enabled: boolean): void {
+  function saveTagEditMode(enabled: boolean): void {
     try {
       localStorage.setItem(MODE_KEY, enabled ? "true" : "false");
     } catch (e) {
@@ -102,18 +102,18 @@ const { tag, ...props } = Astro.props;
   // -------------------------
   // --- Mode API -----------
   // -------------------------
-  (window as any).enableEditMode = function enableEditMode() {
-    setEditMode(true);
+  (window as any).enableTagEditMode = function enableTagEditMode() {
+    setTagEditMode(true);
   };
-  (window as any).disableEditMode = function disableEditMode() {
-    setEditMode(false);
+  (window as any).disableTagEditMode = function disableTagEditMode() {
+    setTagEditMode(false);
   };
-  (window as any).toggleEditMode = function toggleEditMode() {
-    setEditMode(!loadEditMode());
+  (window as any).toggleTagEditMode = function toggleTagEditMode() {
+    setTagEditMode(!loadTagEditMode());
   };
 
-  (window as any).setEditMode = function setEditMode(enabled: boolean) {
-    saveEditMode(enabled);
+  (window as any).setTagEditMode = function setTagEditMode(enabled: boolean) {
+    saveTagEditMode(enabled);
     applyHiddenTags();
   };
 
@@ -175,7 +175,7 @@ const { tag, ...props } = Astro.props;
   // -------------------------
   (window as any).applyHiddenTags = function applyHiddenTags() {
     const hidden = loadHiddenTags();
-    const editMode = loadEditMode();
+    const editMode = loadTagEditMode();
 
     document.body.classList.toggle("edit-mode", editMode);
 

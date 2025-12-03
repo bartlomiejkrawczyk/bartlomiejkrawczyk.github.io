@@ -28,5 +28,6 @@ declare global {
       updateStorage: Boolean = true,
     ) => void;
     resetTheme?: () => void;
+    toggleTagEditMode?: () => void;
   }
 }
