@@ -256,13 +256,27 @@ const { tag, ...props } = Astro.props;
     padding-left: var(--spacing);
     padding-right: var(--spacing);
     font-size: var(--text-sm);
+    transition:
+      transform 1s ease,
+      box-shadow 1s ease;
   }
   .skill a {
     color: var(--gray-300);
+    transition: color 1s ease;
   }
   .skill a:hover,
   .skill a:focus {
     color: var(--primary-dark);
+    transition: color 0.3s ease;
+  }
+  .skill:hover,
+  .skill:focus-within {
+    transform: scale(1.05);
+    z-index: 1;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    transition:
+      transform 0.3s ease,
+      box-shadow 0.3s ease;
   }
   .skill.company a:hover,
   .skill.company a:focus,
