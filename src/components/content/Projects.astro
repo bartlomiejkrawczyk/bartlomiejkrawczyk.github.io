@@ -25,7 +25,7 @@ const t = getTranslations(lang);
   <ul class="projects-ul">
     {
       Object.entries(projects).map(([, project]) => (
-        <li class="pt-1 projects-li">
+        <li class="pt-1 projects-li" data-project-id={project.id}>
           <div class="flex flex-row items-center">
             <input
               type="checkbox"
