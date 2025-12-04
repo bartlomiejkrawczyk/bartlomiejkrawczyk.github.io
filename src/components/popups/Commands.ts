@@ -6,6 +6,7 @@ export const commandIds = [
   "open-instagram",
   "open-discord",
   "toggle-tag-filter",
+  "toggle-project-filter",
   // "project-search",
   // "language",
   // "themes",
@@ -66,9 +67,19 @@ export const commands: Record<CommandId, Command> = {
   },
   "toggle-tag-filter": {
     id: "toggle-tag-filter",
-    name: { en: "Toggle Tag Filter", pl: "Przełącz Tryb Filtrowania Tagów" },
+    name: { en: "Toggle Tag Filter", pl: "Filtrowanie Tagów" },
     execute: () => {
       window?.toggleTagEditMode?.();
+    },
+  },
+  "toggle-project-filter": {
+    id: "toggle-project-filter",
+    name: {
+      en: "Toggle Project Filter",
+      pl: "Filtrowanie Projektów",
+    },
+    execute: () => {
+      window?.toggleProjectEditMode?.();
     },
   },
 };

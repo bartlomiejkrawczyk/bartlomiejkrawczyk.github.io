@@ -29,5 +29,6 @@ declare global {
     ) => void;
     resetTheme?: () => void;
     toggleTagEditMode?: () => void;
+    toggleProjectEditMode?: () => void;
   }
 }

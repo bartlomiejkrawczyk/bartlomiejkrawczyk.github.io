@@ -26,11 +26,20 @@ const t = getTranslations(lang);
     {
       Object.entries(projects).map(([, project]) => (
         <li class="pt-1 projects-li">
-          <a href={getRelativeLocaleUrl(lang, "/projects/" + project.id)}>
-            <span>
-              <b>{project.data.title ?? project.id}</b>
-            </span>
-          </a>
+          <div class="flex flex-row items-center">
+            <input
+              type="checkbox"
+              class="project-check styled-checkbox"
+              data-project-id={project.id}
+              aria-label={`Toggle project ${project.id}`}
+            />
+
+            <a href={getRelativeLocaleUrl(lang, "/projects/" + project.id)}>
+              <span>
+                <b>{project.data.title ?? project.id}</b>
+              </span>
+            </a>
+          </div>
           <div>{project.data.description}</div>
           <ul class="project-tags">
             {project.data.tags?.map((tag) => (
@@ -82,4 +91,200 @@ const t = getTranslations(lang);
   /* .project-tags li:nth-of-type(1n + 6) {
     display: none;
   } */
+  .project-check {
+    display: none;
+  }
+
+  .project-check.show-in-edit {
+    display: inline-block;
+    margin-right: 0.5rem;
+  }
+
+  .projects-li.hidden {
+    display: none !important;
+  }
+
+  body.edit-mode .projects-li.hidden {
+    display: block !important;
+  }
+
+  .styled-checkbox {
+    appearance: none;
+    width: 1rem;
+    height: 1rem;
+    border: 2px solid var(--gray-600);
+    border-radius: 3px;
+    cursor: pointer;
+    position: relative;
+  }
+  .styled-checkbox:checked {
+    background-color: var(--primary-light);
+    border-color: var(--primary-light);
+  }
+  .styled-checkbox:checked::before {
+    content: "✓";
+    font-size: 1rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+  }
 </style>
+
+<script>
+  // ================================
+  // Project Edit Mode (Independent)
+  // ================================
+
+  const PROJECT_MODE_KEY = "projectEditMode";
+  const PROJECT_HIDDEN_KEY = "hiddenProjects";
+
+  // ----------------------------
+  // Load/save edit mode
+  // ----------------------------
+  function loadProjectEditMode() {
+    return localStorage.getItem(PROJECT_MODE_KEY) === "true";
+  }
+
+  function saveProjectEditMode(enabled: boolean) {
+    localStorage.setItem(PROJECT_MODE_KEY, enabled ? "true" : "false");
+  }
+
+  // ----------------------------
+  // Load/save hidden projects
+  // ----------------------------
+  function loadHiddenProjects(): Set<string> {
+    try {
+      const raw = localStorage.getItem(PROJECT_HIDDEN_KEY);
+      if (!raw) return new Set();
+      const arr = JSON.parse(raw);
+      if (!Array.isArray(arr)) return new Set();
+      return new Set(arr.map(String));
+    } catch {
+      return new Set();
+    }
+  }
+
+  function saveHiddenProjects(set: Set<string>) {
+    try {
+      localStorage.setItem(PROJECT_HIDDEN_KEY, JSON.stringify([...set]));
+    } catch {}
+  }
+
+  // ----------------------------
+  // Apply state to DOM
+  // ----------------------------
+  function applyProjectState() {
+    const editMode = loadProjectEditMode();
+    const hidden = loadHiddenProjects();
+
+    // Add class to body
+    document.body.classList.toggle("project-edit-mode", editMode);
+
+    // Update checkboxes
+    document
+      .querySelectorAll<HTMLInputElement>("input.project-check")
+      .forEach((cb) => {
+        const id = cb.dataset.projectId;
+        if (!id) return;
+
+        // Show/hide checkbox in edit mode
+        cb.classList.toggle("show-in-edit", editMode);
+
+        // Checkbox reflects visibility
+        cb.checked = !hidden.has(id);
+      });
+
+    // Update each project <li>
+    document
+      .querySelectorAll<HTMLLIElement>(".projects-li[data-project-id]")
+      .forEach((li) => {
+        const id = li.dataset.projectId;
+        if (!id) return;
+
+        const isHidden = hidden.has(id);
+
+        // Hidden only when NOT in edit mode
+        if (!editMode && isHidden) li.classList.add("hidden");
+        else li.classList.remove("hidden");
+      });
+
+    setupProjectCheckboxListeners();
+  }
+
+  // ----------------------------
+  // Checkbox handler
+  // ----------------------------
+  function onProjectCheckboxChange(this: HTMLInputElement) {
+    const id = this.dataset.projectId;
+    if (!id) return;
+
+    const hidden = loadHiddenProjects();
+
+    if (this.checked) hidden.delete(id);
+    else hidden.add(id);
+
+    saveHiddenProjects(hidden);
+    applyProjectState();
+  }
+
+  function setupProjectCheckboxListeners() {
+    document
+      .querySelectorAll<HTMLLIElement>("input.project-check")
+      .forEach((cb) => {
+        cb.removeEventListener(
+          "change",
+          onProjectCheckboxChange as EventListener,
+        );
+        cb.addEventListener("change", onProjectCheckboxChange as EventListener);
+      });
+  }
+
+  // ----------------------------
+  // Public API (global)
+  // ----------------------------
+  (window as any).toggleProjectEditMode = function () {
+    const enabled = !loadProjectEditMode();
+    saveProjectEditMode(enabled);
+    applyProjectState();
+  };
+
+  (window as any).enableProjectEditMode = function () {
+    saveProjectEditMode(true);
+    applyProjectState();
+  };
+
+  (window as any).disableProjectEditMode = function () {
+    saveProjectEditMode(false);
+    applyProjectState();
+  };
+
+  (window as any).setProjectVisibility = function (
+    id: string,
+    visible: boolean,
+  ) {
+    const hidden = loadHiddenProjects();
+
+    if (visible) hidden.delete(String(id));
+    else hidden.add(String(id));
+
+    saveHiddenProjects(hidden);
+    applyProjectState();
+  };
+
+  (window as any).toggleProject = function (id: string) {
+    const hidden = loadHiddenProjects();
+
+    if (hidden.has(String(id))) hidden.delete(String(id));
+    else hidden.add(String(id));
+
+    saveHiddenProjects(hidden);
+    applyProjectState();
+  };
+
+  // ----------------------------
+  // Initialize
+  // ----------------------------
+  window.addEventListener("DOMContentLoaded", applyProjectState);
+</script>
