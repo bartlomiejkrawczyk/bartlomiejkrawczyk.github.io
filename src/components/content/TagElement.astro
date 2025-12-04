@@ -19,6 +19,28 @@ const { tag, ...props } = Astro.props;
   li.hidden {
     display: none !important;
   }
+  .styled-checkbox {
+    appearance: none;
+    width: 0.9rem;
+    height: 0.9rem;
+    border: 2px solid var(--gray-600);
+    border-radius: 3px;
+    cursor: pointer;
+    position: relative;
+  }
+  .styled-checkbox:checked {
+    background-color: var(--primary-light);
+    border-color: var(--primary-light);
+  }
+  .styled-checkbox:checked::before {
+    content: "✓";
+    font-size: 0.9rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+  }
 </style>
 
 <li
@@ -38,15 +60,16 @@ const { tag, ...props } = Astro.props;
   }
   <input
     type="checkbox"
-    class="tag-check"
+    class="tag-check styled-checkbox"
     data-tag-id={String(tag.id)}
     aria-label={`Toggle ${tag.translation.en}`}
   />
 </li>
 
 <script>
-  type ID = string;
-  type HiddenSet = Set<ID>;
+  import { type TagId } from "./Tags";
+
+  type HiddenSet = Set<TagId>;
 
   const STORAGE_KEY = "hiddenTags";
   const MODE_KEY = "editMode";
@@ -60,7 +83,7 @@ const { tag, ...props } = Astro.props;
       if (!raw) return new Set();
       const arr = JSON.parse(raw);
       if (!Array.isArray(arr)) return new Set();
-      return new Set(arr.map((v) => String(v)));
+      return new Set(arr.map((v) => String(v) as TagId));
     } catch (e) {
       return new Set();
     }
@@ -87,21 +110,14 @@ const { tag, ...props } = Astro.props;
   }
 
   // -------------------------
-  // --- DOM utilities ------
-  // -------------------------
-  function getListItemById(id: ID): HTMLLIElement | null {
-    return document.querySelector<HTMLLIElement>(`li[data-tag-id="${id}"]`);
-  }
-
-  function getCheckboxById(id: ID): HTMLInputElement | null {
-    return document.querySelector<HTMLInputElement>(
-      `input.tag-check[data-tag-id="${id}"]`,
-    );
-  }
-
-  // -------------------------
   // --- Mode API -----------
   // -------------------------
+  function setTagEditMode(enabled: boolean) {
+    saveTagEditMode(enabled);
+    applyHiddenTags();
+  }
+  (window as any).setTagEditMode = setTagEditMode;
+
   (window as any).enableTagEditMode = function enableTagEditMode() {
     setTagEditMode(true);
   };
@@ -112,49 +128,42 @@ const { tag, ...props } = Astro.props;
     setTagEditMode(!loadTagEditMode());
   };
 
-  (window as any).setTagEditMode = function setTagEditMode(enabled: boolean) {
-    saveTagEditMode(enabled);
-    applyHiddenTags();
-  };
-
   // -------------------------
   // --- Tag visibility API -
   // -------------------------
-  (window as any).toggleTag = function toggleTag(id: ID) {
+  (window as any).toggleTag = function toggleTag(id: TagId) {
     const hidden = loadHiddenTags();
-    const sid = String(id);
-    if (hidden.has(sid)) hidden.delete(sid);
-    else hidden.add(sid);
+    if (hidden.has(id)) hidden.delete(id);
+    else hidden.add(id);
     saveHiddenTags(hidden);
     applyHiddenTags();
   };
 
   (window as any).setTagVisibility = function setTagVisibility(
-    id: ID,
+    id: TagId,
     visible: boolean,
   ) {
     const hidden = loadHiddenTags();
-    const sid = String(id);
-    if (visible) hidden.delete(sid);
-    else hidden.add(sid);
+    if (visible) hidden.delete(id);
+    else hidden.add(id);
     saveHiddenTags(hidden);
     applyHiddenTags();
   };
 
   (window as any).setTagChecked = function setTagChecked(
-    id: ID,
+    id: TagId,
     checked: boolean,
   ) {
     (window as any).setTagVisibility(id, checked);
   };
 
   (window as any).setTagsChecked = function setTagsChecked(
-    ids: ID[] | readonly ID[],
+    ids: TagId[] | readonly TagId[],
     checked: boolean,
   ) {
     const hidden = loadHiddenTags();
     for (const raw of ids) {
-      const sid = String(raw);
+      const sid = String(raw) as TagId;
       if (checked) hidden.delete(sid);
       else hidden.add(sid);
     }
@@ -162,18 +171,22 @@ const { tag, ...props } = Astro.props;
     applyHiddenTags();
   };
 
-  (window as any).hideTags = function hideTags(ids: ID[] | readonly ID[]) {
+  (window as any).hideTags = function hideTags(
+    ids: TagId[] | readonly TagId[],
+  ) {
     (window as any).setTagsChecked(ids, false);
   };
 
-  (window as any).showTags = function showTags(ids: ID[] | readonly ID[]) {
+  (window as any).showTags = function showTags(
+    ids: TagId[] | readonly TagId[],
+  ) {
     (window as any).setTagsChecked(ids, true);
   };
 
   // -------------------------
   // --- Apply state to DOM --
   // -------------------------
-  (window as any).applyHiddenTags = function applyHiddenTags() {
+  function applyHiddenTags() {
     const hidden = loadHiddenTags();
     const editMode = loadTagEditMode();
 
@@ -182,30 +195,30 @@ const { tag, ...props } = Astro.props;
     document
       .querySelectorAll<HTMLInputElement>("input.tag-check")
       .forEach((cb) => {
-        const id = String(cb.dataset.tagId ?? "");
+        const id = cb.dataset.tagId;
         if (!id) return;
         cb.classList.toggle("show-in-edit", editMode);
-        cb.checked = !hidden.has(id);
+        cb.checked = !hidden.has(id as TagId);
       });
 
     document
       .querySelectorAll<HTMLLIElement>("li[data-tag-id]")
       .forEach((li) => {
-        const id = String(li.dataset.tagId ?? "");
+        const id = li.dataset.tagId;
         if (!id) return;
-        const isHidden = hidden.has(id);
+        const isHidden = hidden.has(id as TagId);
 
         if (!editMode && isHidden) li.classList.add("hidden");
         else li.classList.remove("hidden");
       });
 
     setupCheckboxListeners();
-  };
+  }
 
   // -------------------------
   // --- Wire up checkboxes --
   // -------------------------
-  function onCheckboxChange(this: HTMLInputElement, e: Event) {
+  function onCheckboxChange(this: HTMLInputElement) {
     const cb = this;
     const id = String(cb.dataset.tagId ?? "");
     if (!id) return;
@@ -232,7 +245,9 @@ const { tag, ...props } = Astro.props;
 
 <style>
   .skill {
-    display: inline-block;
+    display: flex;
+    gap: var(--spacing);
+    align-items: center;
     border-color: var(--gray-900);
     border-style: var(--tw-border-style);
     border-width: 1px;
