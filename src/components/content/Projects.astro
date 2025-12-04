@@ -26,26 +26,31 @@ const t = getTranslations(lang);
     {
       Object.entries(projects).map(([, project]) => (
         <li class="pt-1 projects-li" data-project-id={project.id}>
-          <div class="flex flex-row items-center">
-            <input
-              type="checkbox"
-              class="project-check styled-checkbox"
-              data-project-id={project.id}
-              aria-label={`Toggle project ${project.id}`}
-            />
+          <div class="project-wrapper">
+            <div class="flex flex-row items-center">
+              <input
+                type="checkbox"
+                class="project-check styled-checkbox"
+                data-project-id={project.id}
+                aria-label={`Toggle project ${project.id}`}
+              />
 
-            <a href={getRelativeLocaleUrl(lang, "/projects/" + project.id)}>
-              <span>
-                <b>{project.data.title ?? project.id}</b>
-              </span>
-            </a>
+              <a
+                href={getRelativeLocaleUrl(lang, "/projects/" + project.id)}
+                class="full-link"
+              >
+                <span>
+                  <b>{project.data.title ?? project.id}</b>
+                </span>
+              </a>
+            </div>
+            <div>{project.data.description}</div>
+            <ul class="project-tags">
+              {project.data.tags?.map((tag) => (
+                <TagElement tag={tags[tag]} />
+              ))}
+            </ul>
           </div>
-          <div>{project.data.description}</div>
-          <ul class="project-tags">
-            {project.data.tags?.map((tag) => (
-              <TagElement tag={tags[tag]} />
-            ))}
-          </ul>
         </li>
       ))
     }
@@ -60,7 +65,7 @@ const t = getTranslations(lang);
 <style>
   .projects-ul {
     display: grid;
-    gap: var(--spacing);
+    gap: calc(2 * var(--spacing));
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     grid-auto-rows: auto;
     grid-auto-flow: dense;
@@ -71,9 +76,32 @@ const t = getTranslations(lang);
   }
 
   .projects-li {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing);
     border: 1px solid var(--gray-900);
     border-radius: var(--radius-lg);
     padding: calc(var(--spacing) * 1.5);
+    background-color: var(--background);
+    transition:
+      transform 1s ease,
+      box-shadow 1s ease;
+  }
+
+  .projects-li:hover {
+    transform: scale(1.025);
+    z-index: 10;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    transition:
+      transform 0.3s ease,
+      box-shadow 0.3s ease;
+    cursor: pointer;
+  }
+
+  .project-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
   }
 
   pre {
@@ -131,6 +159,26 @@ const t = getTranslations(lang);
     color: white;
   }
 </style>
+
+<script>
+  document.querySelectorAll<HTMLDivElement>(".projects-li").forEach((li) => {
+    const backgroundArea = li.querySelector(
+      ".project-wrapper",
+    ) as HTMLDivElement;
+    const link = backgroundArea?.querySelector<HTMLAnchorElement>(".full-link");
+
+    if (!backgroundArea || !link) return;
+
+    backgroundArea.addEventListener("click", (ev) => {
+      // Prevent clicks on interactive children from triggering navigation
+      const interactiveSelectors = "a, button, input";
+      if ((ev.target as HTMLElement).closest(interactiveSelectors)) return;
+
+      // Navigate to the link
+      window.location.href = link.href;
+    });
+  });
+</script>
 
 <script>
   // ================================
