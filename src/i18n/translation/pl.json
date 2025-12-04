@@ -58,6 +58,8 @@
   },
   "education": {
     "header": "Edukacja",
+    "specialization": "Specjalizacja",
+    "average": "Średnia",
     "master": {
       "university": "Politechnika Warszawska",
       "period": "Luty 2024 - Wrzesień 2025",
