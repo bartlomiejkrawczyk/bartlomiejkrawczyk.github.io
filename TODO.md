@@ -27,4 +27,4 @@
 - [ ] Add transition to language and theme dialogs / modals
 - [x] Update checkmark style
 - [ ] Define tag filtering in cli
-
+- [ ] Start adding more project descriptions
