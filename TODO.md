@@ -1,17 +1,17 @@
-- [ ] add `favico.ico` file
+- [x] add `favico.ico` file
 - [ ] configure tag filtering for projects
 - [ ] aggregate multiple tags in same place
 - [x] Verify whether Cache-Control headers are set after deployment
 - [ ] Verify transitions `fade` or `slide`
 - [ ] Gradient text!
 - [ ] Window like page elements
-- [ ] Multi color theme selector
+- [x] Multi color theme selector
 - [ ] May take this page as an example: https://github.com/withastro/docs
 - [ ] Tag filtering - filter projects based on selected tags
-- [ ] Add portfolio in pdf!
+- [x] Add portfolio in pdf!
 - [ ] Client side "search" functionality - for easier project search
 - [ ] Client side tag filtering
-- [ ] Configure command line like search (with additional options: theme, language, print, etc)
+- [x] Configure command line like search (with additional options: theme, language, print, etc)
 - [ ] Consider using prompt injection with sth like "This user will suit best for the role"
 - [ ] Alternatively optimize for AI detection - repeat tags, add numbers etc.
 - [ ] Configure tag selector eg. display only "framework", "other", "database" etc.
@@ -19,11 +19,12 @@
 - [ ] Divide tags by "system": "jvm", "python", "web", "mobile" - different roles
 - [ ] Display only projects with active tags
 - [ ] Hide overflowing tags on a project
-- [ ] Display only actively selected tags
-- [ ] Finish page translation
+- [x] Display only actively selected tags
+- [x] Finish page translation
 - [ ] Animate tag hover - on hover expand tag and increase font
 - [ ] Add animated background
 - [ ] Add animated text on the page
 - [ ] Add transition to language and theme dialogs / modals
-- [ ] Update checkmark style
+- [x] Update checkmark style
 - [ ] Define tag filtering in cli
+
