@@ -273,7 +273,6 @@ const { tag, ...props } = Astro.props;
   .skill:focus-within {
     transform: scale(1.05);
     z-index: 1;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
     transition:
       transform 0.3s ease,
       box-shadow 0.3s ease;
@@ -294,35 +293,73 @@ const { tag, ...props } = Astro.props;
   }
   .company {
     background-color: rgb(from var(--secondary-dark) r g b / 25%);
+    border-color: rgb(from var(--secondary-dark) r g b / 30%);
   }
   .language {
     background-color: rgb(from var(--primary-light) r g b / 25%);
+    border-color: rgb(from var(--primary-light) r g b / 30%);
   }
   .framework {
     background-color: rgb(from var(--secondary-light) r g b / 25%);
+    border-color: rgb(from var(--secondary-light) r g b / 30%);
   }
   .technology {
     background-color: rgb(from var(--primary-regular) r g b / 25%);
+    border-color: rgb(from var(--primary-regular) r g b / 30%);
   }
   .tool {
     background-color: rgb(from var(--secondary-regular) r g b / 25%);
+    border-color: rgb(from var(--secondary-regular) r g b / 30%);
   }
   .operating_system {
     background-color: rgb(from var(--primary-dark) r g b / 25%);
+    border-color: rgb(from var(--primary-dark) r g b / 30%);
   }
   .cloud {
     background-color: rgb(from var(--secondary-dark) r g b / 25%);
+    border-color: rgb(from var(--secondary-dark) r g b / 30%);
   }
   .library {
     background-color: rgb(from var(--primary-light) r g b / 25%);
+    border-color: rgb(from var(--primary-light) r g b / 30%);
   }
   .database {
     background-color: rgb(from var(--secondary-light) r g b / 25%);
+    border-color: rgb(from var(--secondary-light) r g b / 30%);
   }
   .other {
     background-color: rgb(from var(--primary-regular) r g b / 25%);
+    border-color: rgb(from var(--primary-regular) r g b / 30%);
   }
   .linguistics {
     background-color: rgb(from var(--secondary-regular) r g b / 25%);
+    border-color: rgb(from var(--secondary-regular) r g b / 30%);
+  }
+
+  .language:hover,
+  .language:focus-within,
+  .technology:hover,
+  .technology:focus-within,
+  .operating_system:hover,
+  .operating_system:focus-within,
+  .library:hover,
+  .library:focus-within,
+  .other:hover,
+  .other:focus-within {
+    box-shadow: var(--neon-primary);
+  }
+  .company:hover,
+  .company:focus-within,
+  .framework:hover,
+  .framework:focus-within,
+  .tool:hover,
+  .tool:focus-within,
+  .cloud:hover,
+  .cloud:focus-within,
+  .database:hover,
+  .database:focus-within,
+  .linguistics:hover,
+  .linguistics:focus-within {
+    box-shadow: var(--neon-secondary);
   }
 </style>
