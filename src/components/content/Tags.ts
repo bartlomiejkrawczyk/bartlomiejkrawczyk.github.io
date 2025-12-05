@@ -1436,7 +1436,7 @@ export const tags: Record<TagId, Tag> = {
     id: "room",
     type: "library",
     link: "https://developer.android.com/training/data-storage/room",
-    translation: { en: "Retrofit" },
+    translation: { en: "Room" },
   },
   apache_hive: {
     id: "apache_hive",
