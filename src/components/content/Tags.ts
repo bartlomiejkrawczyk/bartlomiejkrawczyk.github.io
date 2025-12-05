@@ -51,6 +51,12 @@ export const tagIds = [
   "flask",
   "java_fx",
 
+  // "object_oriented",
+  // "functional",
+  // "logic",
+  "linear_programming",
+  "mip",
+
   "docker",
   "kubernetes",
   "ci_cd",
@@ -117,6 +123,7 @@ export const tagIds = [
   "apache_zookeeper",
   "elastic_search",
   "cas",
+  // "liquibase",
 
   "tomcat",
   "wildfly",
@@ -132,17 +139,20 @@ export const tagIds = [
 
   "vscode",
   "intellij",
+  // "android_studio",
   "pycharm",
   "go_land",
   "rust_rover",
   "c_lion",
   "data_grip",
+  // "docker_swarm",
 
   "figma",
 
   "keycloak",
   "liquibase",
   "sonar_qube",
+  // "nexus",
 
   "ms_office",
   "libre_office",
@@ -155,6 +165,9 @@ export const tagIds = [
   "windows",
   "ubuntu",
   "wsl",
+  // "kvm",
+  // "virtual_box",
+  // "vmware",
 
   "azure",
   "gcp",
@@ -182,6 +195,7 @@ export const tagIds = [
   "apache_commons",
   "excel_kt",
   "simple_java_mail",
+  "or_tools",
 
   "tailwind",
   "expressive_code",
@@ -242,11 +256,6 @@ export const tagIds = [
 
   "arduino",
 ] as const;
-
-// "docker_swarm",
-// "android_studio",
-// "liquibase",
-// "nexus",
 
 export const tagTypes = [
   "company",
@@ -560,6 +569,21 @@ export const tags: Record<TagId, Tag> = {
     type: "framework",
     link: "https://openjfx.io/",
     translation: { en: "JavaFX" },
+  },
+  linear_programming: {
+    id: "linear_programming",
+    type: "technology",
+    link: "https://en.wikipedia.org/wiki/Linear_programming",
+    translation: { en: "Linear Programming", pl: "Programowanie Liniowe" },
+  },
+  mip: {
+    id: "mip",
+    type: "technology",
+    link: "https://en.wikipedia.org/wiki/Integer_programming",
+    translation: {
+      en: "Mixed Integer Programming",
+      pl: "Programowanie Mieszane Całkowitoliczbowe",
+    },
   },
   docker: {
     id: "docker",
@@ -1377,6 +1401,12 @@ export const tags: Record<TagId, Tag> = {
     type: "library",
     link: "https://www.simplejavamail.org/",
     translation: { en: "Simple Java Mail" },
+  },
+  or_tools: {
+    id: "or_tools",
+    type: "library",
+    link: "https://developers.google.com/optimization",
+    translation: { en: "OR-Tools" },
   },
   androidx: {
     id: "androidx",
