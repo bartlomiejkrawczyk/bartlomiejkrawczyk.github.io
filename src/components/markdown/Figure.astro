@@ -3,26 +3,46 @@ import type { ImageMetadata } from "astro";
 import { Image } from "astro:assets";
 
 interface Props {
-  src: ImageMetadata;
+  src?: ImageMetadata;
+  srcLocation?: string;
   alt: string;
   caption?: string;
   width?: string;
+  optimize: boolean;
 }
 
-const { src, alt, caption = alt, width = "50%" } = Astro.props;
+const {
+  src,
+  srcLocation,
+  alt,
+  caption = alt,
+  width = "50%",
+  optimize = true,
+} = Astro.props;
 ---
 
 <figure
   style={`display: flex; flex-direction: column; align-items: center; margin: 1.5rem auto;`}
 >
-  <Image
-    src={src}
-    alt={alt}
-    class={"figure-image"}
-    style={`
-      width: ${width}; 
-    `}
-  />
+  {
+    optimize ? (
+      src && (
+        <Image
+          src={src}
+          alt={alt}
+          class="figure-image"
+          style={`width:${width};`}
+        />
+      )
+    ) : (
+      <img
+        src={srcLocation}
+        alt={alt}
+        class="figure-image"
+        style={`width:${width};`}
+      />
+    )
+  }
   {caption && <figcaption class="figure-caption">{caption}</figcaption>}
 </figure>
 

@@ -1,0 +1,368 @@
+---
+title: Match Optimizer
+description: |
+  TODO
+tags:
+  - side_project
+  - kotlin
+  - spring
+  - mip
+  - docker
+  - liquibase
+  - oauth2
+  - rbac
+  - gradle
+  - apache
+  - swagger
+  - ubuntu
+  - ovh
+  - or_tools
+  - spring_boot
+  - spring_security
+  - spring_mvc
+  - jetbrains_exposed
+  - postgres
+---
+
+import Figure from "@components/markdown/Figure.astro";
+import swagger from "@public/assets/match/swagger.png";
+
+# Role Based Access control
+
+- admin
+- team
+- referee
+
+Scoped permissions eg. `READ:TEAM:1`, `WRITE:REFEREE:2` and unscoped like `READ:ADMIN` or `WRITE:ADMIN`
+
+admin has all the roles (teams, and referees)
+
+```kotlin
+@Component
+@Profile("!no-security")
+class ScopedRolePermissionEvaluator : PermissionEvaluator {
+
+    private val logger = LoggerFactory.getLogger(this.javaClass)
+
+    override fun hasPermission(
+        authentication: Authentication,
+        targetDomainObject: Any?,
+        permission: Any?
+    ): Boolean {
+        val authorities = authentication.authorities.map { it.authority }.toSet()
+        val action = permission.toString() // e.g. "write:teams"
+
+        logger.info(
+            "Verifying $action ($targetDomainObject) permission for $authentication"
+        )
+
+        if (action.startsWith(Action.READ) && authorities.contains("${Action.READ}:${ResourceType.ADMINISTRATION}")) {
+            return true
+        }
+
+        if (action.startsWith(Action.WRITE) && authorities.contains("${Action.WRITE}:${ResourceType.ADMINISTRATION}")) {
+            return true
+        }
+
+        // Null target (global check)
+        if (targetDomainObject == null) {
+            return action in authorities
+        }
+
+        return when (targetDomainObject) {
+            is IntIdentifier -> hasSinglePermission(authorities, action, targetDomainObject.value)
+            is Long -> hasSinglePermission(authorities, action, targetDomainObject.toInt())
+            is Int -> hasSinglePermission(authorities, action, targetDomainObject)
+            is Collection<*> -> hasCollectionPermission(authorities, action, targetDomainObject)
+            else -> false
+        }
+    }
+
+    private fun hasSinglePermission(authorities: Set<String>, action: String, id: Int): Boolean {
+        return action in authorities || "$action:$id" in authorities
+    }
+
+    private fun hasCollectionPermission(authorities: Set<String>, action: String, ids: Collection<*>): Boolean {
+        for (id in ids) {
+            val intId = (id as? Number)?.toInt() ?: return false
+            if (!hasSinglePermission(authorities, action, intId)) {
+                return false // deny if any id not covered
+            }
+        }
+        return true
+    }
+
+    override fun hasPermission(
+        authentication: Authentication,
+        targetId: Serializable?,
+        targetType: String?,
+        permission: Any?
+    ): Boolean {
+        // unused, you can delegate to the other one
+        return hasPermission(authentication, targetId, permission)
+    }
+}
+```
+
+# OAuth2
+
+oauth with google
+
+```properties
+spring:
+  config:
+    activate:
+      on-profile: google
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: ${GOOGLE_CLIENT_ID}
+            client-secret: ${GOOGLE_CLIENT_SECRET}
+            scope:
+              - email
+              - profile
+        provider:
+          google:
+            authorization-uri: https://accounts.google.com/o/oauth2/auth
+            token-uri: https://oauth2.googleapis.com/token
+            user-info-uri: https://www.googleapis.com/oauth2/v3/userinfo
+            user-name-attribute: sub
+      resourceserver:
+        jwt:
+          jwk-set-uri: https://www.googleapis.com/oauth2/v3/certs
+```
+
+# Swagger
+
+<Figure
+  srcLocation={"/assets/match/swagger.png"}
+  optimize={false}
+  alt="Open API Definition"
+  width="98%"
+/>
+
+# Rough overview
+
+# Match Optimization
+
+This project takes a set of _planned_ meetings (matches) and a pool of `fields`, `teams` and `referees` (together with
+their availability, costs and preferences) and produces an optimized schedule (assigning times, fields and referees)
+that respects hard constraints and maximizes a configurable objective function.
+
+# How it works - quick summary
+
+1. **Input (Problem)** - contains:
+   - known `teams`, `referees`, `fields`;
+   - `scheduledMeetings` (already placed, treated as fixed);
+   - `plannedMeetings` (unscheduled matches needing assignment);
+   - availability windows for teams/referees;
+   - preference vectors and referee costs;
+   - solver-weight parameters.
+
+2. **Solver** - the optimizer builds variables and constraints (one variable per candidate meeting start/field/referees
+   assignment or uses a time-slot encoding), enforces hard constraints (no double bookings, availability, required
+   referee count, durations match), and optimizes the objective (preferences, cost, early start coefficient, etc.).
+
+3. **Output (Solution)** - `Solution` contains an `objective` (numeric value the solver produced) and a list of
+   `MeetingUpdateRequest` objects that represent the scheduled meetings (field, start/end, referee assignment).
+
+### Field
+
+A **Field** represents a **physical location** where a match can take place - such as a football pitch, tennis court, or
+basketball hall.
+Each field can host only one meeting at a time, and its characteristics (e.g., surface type or location) may influence
+**team** or **referee preferences**.
+
+**Key ideas:**
+
+- Fields are limited resources shared across matches.
+- Teams and referees can express _preferences_ for specific fields.
+- Meetings assigned to the same field must not overlap in time.
+
+### Planned Meeting
+
+A **Planned Meeting** (sometimes called a _fixture request_) represents a **match that is intended to happen**, but not
+yet assigned to:
+
+- a specific field,
+- referees,
+- or a start time.
+
+It defines:
+
+- which **teams** are playing,
+- how long the match should last,
+- and how many **referees** are required.
+
+Think of it as a **match template** awaiting scheduling.
+
+### Meeting (Scheduled Match)
+
+A **Meeting** is a **Planned Meeting that has been scheduled** - i.e., it now has:
+
+- a **field** where it will be played,
+- a **start and end time**,
+- a specific set of **referees**.
+
+**Constraints:**
+
+- Teams, referees, and fields cannot be double-booked.
+- The duration matches the planned meeting.
+- Must fit within availability windows.
+
+Meetings can come from:
+
+- `scheduledMeetings` -> already fixed (cannot be moved),
+- or from `plannedMeetings` -> to be scheduled by the optimizer.
+
+### Team
+
+A **Team** represents a **participant in the competition**.
+Teams are assigned to matches and can specify:
+
+- when they are available,
+- which referees or fields they prefer.
+
+**Conceptually:**
+
+- A team’s **availability** defines when they can play.
+- Their **preferences** influence soft optimization (e.g., avoid disliked referees or prefer home fields).
+
+### Referee
+
+A **Referee** is a **person who officiates matches**.
+They can:
+
+- specify availability windows,
+- have an associated **cost** (e.g., fee per match),
+- and express **preferences** for certain teams or fields.
+
+**Constraints:**
+
+- Referees can’t officiate overlapping matches.
+- A match must assign the number of referees requested by its plan.
+
+### Availability
+
+Both **Teams** and **Referees** have **Availability** entries, defining when they can participate.
+A meeting can only be scheduled if:
+
+- All its teams are available during its time slot.
+- Enough referees are available to meet the required count.
+
+These act as **hard constraints** for the optimizer.
+
+### Cost and Preferences
+
+The optimization process isn’t just about feasibility - it also aims for _quality_ based on **costs** and **preferences
+**.
+
+#### Referee Costs
+
+Each referee has an associated **cost** (e.g., per match).
+The optimizer minimizes total referee cost (weighted by `REFEREE_COST_MULTIPLIER`).
+
+#### Preferences
+
+Teams and referees can each express **preferences**:
+
+- **Team -> Referee Preference** - which referees a team prefers to be officiated by.
+- **Team -> Field Preference** - which fields a team prefers to play on.
+- **Referee -> Team Preference** - which teams a referee prefers to officiate.
+- **Referee -> Field Preference** - which fields a referee prefers to work at.
+
+Preferences are **soft constraints** - breaking them isn’t forbidden, but it reduces the total score.
+
+### Parameters and Weights
+
+Optimization parameters control the **relative importance** of objectives such as:
+
+- Early start times,
+- Referee cost minimization,
+- Team–referee or field preferences,
+- Referee–team or field preferences.
+
+Each parameter has a **multiplier** value. Increasing a multiplier makes that factor more influential in the final
+solution.
+
+Example:
+
+- Setting a high `REFEREE_COST_MULTIPLIER` makes the solver favor cheaper referees.
+- Setting a high `TEAM_FIELD_PREFERENCE_MULTIPLIER` prioritizes team comfort with specific fields.
+
+These can be dynamically tuned via API or configuration.
+
+### Problem (Scheduling Request)
+
+A **Problem** bundles together everything the optimizer needs to generate a schedule:
+
+- Entities (teams, referees, fields),
+- Planned and already scheduled meetings,
+- Availabilities,
+- Preferences,
+- Costs,
+- And optimization parameters.
+
+It defines both the **constraints** and **objectives** of the optimization run.
+
+### Solution (Scheduling Result)
+
+A **Solution** represents the **optimized schedule** generated by the system.
+It includes:
+
+- An **objective score** - a numeric representation of how good the schedule is (the higher the better).
+- A list of **meeting updates** - the planned meetings that now have assigned fields, referees, and time slots.
+
+Each solution is consistent with all hard constraints and tries to maximize total preference satisfaction while
+minimizing costs.
+
+## Optimization Goals
+
+The solver tries to **maximize** the total objective, a weighted sum of several factors:
+
+```
+Objective =
+  (+) Preference satisfaction (teams + referees)
+  (-) Total referee cost
+  (+) Early start time benefit
+```
+
+All weighted by user-configurable parameters.
+
+**Hard constraints** (must always hold):
+
+- No double-booking of fields, referees, or teams.
+- Availability respected for all participants.
+- Meeting durations and referee counts satisfied.
+
+**Soft constraints** (optimized, not mandatory):
+
+- Match preferences (team/referee/field).
+- Cost efficiency.
+- Schedule compactness or fairness.
+
+## Relationships Overview
+
+## End-to-End Flow Example
+
+1. The organizer defines:
+   - All teams, referees, and fields.
+   - Which matches need to be scheduled (Planned Meetings).
+   - Availabilities, preferences, and costs.
+
+2. The system constructs a `Problem` object with these details.
+
+3. The optimization engine runs, evaluating feasible combinations.
+
+4. It outputs a `Solution`:
+   - Each `Planned Meeting` now has assigned field, time, and referees.
+   - The resulting schedule has the highest objective score possible.
+
+## Key Benefits
+
+- Ensures **conflict-free schedules** respecting availability and duration.
+- Optimizes for **preferences and fairness**, not just feasibility.
+- Provides **flexible tuning parameters** to reflect organizer priorities.
+- Produces **transparent, explainable** outputs (objective score and component weights).
