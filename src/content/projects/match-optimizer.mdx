@@ -29,6 +29,7 @@ import Figure from "@components/markdown/Figure.astro";
 import panel1 from "@assets/content/match/panel-1.png";
 import panel2 from "@assets/content/match/panel-2.png";
 import login1 from "@assets/content/match/login-1.png";
+import exampleEndpoint from "@assets/content/match/example-endpoint.png";
 
 # Overview
 
@@ -214,6 +215,8 @@ Swagger provides full visibility into requests such as:
 - Creating teams/referees/fields
 - Submitting a scheduling request (`Problem`)
 - Retrieving the generated schedule (`Solution`)
+
+<Figure src={exampleEndpoint} alt="Example GET /teams endpoint" width="80%" />
 
 <Figure
   srcLocation={"/assets/match/swagger.png"}
