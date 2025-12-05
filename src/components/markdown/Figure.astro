@@ -31,6 +31,16 @@ const { src, alt, caption = alt, width = "50%" } = Astro.props;
     border-radius: 0.5rem;
     box-shadow: var(--shadow-sm);
     border: 1px solid var(--gray-800);
+    transition:
+      transform 1s ease,
+      box-shadow 1s ease;
+  }
+
+  .figure-image:hover {
+    transition:
+      transform 0.3s ease,
+      box-shadow 0.3s ease;
+    box-shadow: var(--shadow-md);
   }
 
   .figure-caption {

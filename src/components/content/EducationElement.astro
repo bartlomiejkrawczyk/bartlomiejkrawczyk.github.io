@@ -64,9 +64,22 @@ const t = getTranslations(lang);
   .subject {
     font-size: var(--text-sm);
     line-height: var(--tw-leading, var(--text-sm--line-height));
-    padding-left: calc(var(--spacing) * 1);
-    padding-right: calc(var(--spacing) * 1);
-    border: 1px solid var(--primary-light);
+    padding-top: calc(var(--spacing) * 0.25);
+    padding-bottom: calc(var(--spacing) * 0.25);
+    padding-left: calc(var(--spacing) * 1.5);
+    padding-right: calc(var(--spacing) * 1.5);
+    border: 1px solid rgb(from var(--primary-regular) r g b / 25%);
     border-radius: var(--radius-lg);
+    transition:
+      transform 1s ease,
+      box-shadow 1s ease;
+  }
+  .subject:hover,
+  .subject:focus-within {
+    transform: scale(1.01);
+    transition:
+      transform 0.3s ease,
+      box-shadow 0.3s ease;
+    box-shadow: var(--neon-primary);
   }
 </style>
