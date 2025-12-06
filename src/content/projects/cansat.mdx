@@ -69,7 +69,7 @@ We were a small team-but motivated, curious, and very inexperienced. This projec
 Every CanSat must complete a **primary mission** and a self-designed **secondary mission**.
 Our secondary mission was ambitious-far more ambitious than we realized at the time.
 
-### 1. Primary Mission: Telemetry & Environment Data
+## 1. Primary Mission: Telemetry & Environment Data
 
 The CanSat needed to measure:
 
@@ -80,7 +80,7 @@ The CanSat needed to measure:
 
 Data had to be sent live to the ground station via an ATSAMD21G18-based microcontroller and stored on an SD card for post-flight analysis.
 
-### 2. Secondary Mission: Real-Time Landing Site Classification
+## 2. Secondary Mission: Real-Time Landing Site Classification
 
 Our bold plan was to classify terrain beneath the CanSat during descent to detect areas that were:
 
@@ -109,7 +109,7 @@ The idea was to:
 
 It was an early exposure to computer vision and embedded ML-long before “edge AI” became mainstream.
 
-### 3. Attempted Tertiary Mission: Guided Landing
+## 3. Attempted Tertiary Mission: Guided Landing
 
 Initially, we even wanted to **steer** the payload toward the best landing site using a **parafoil parachute** controlled by servos. This required:
 
@@ -126,14 +126,14 @@ While the idea was scientifically solid, reality reminded us that engineering is
 
 Our CanSat was effectively a two-computer system:
 
-### Microcontroller (ATSAMD21G18)
+## Microcontroller (ATSAMD21G18)
 
 - Reads temperature & pressure
 - Sends telemetry every second via LoRa
 - Stores data on microSD
 - Runs the entire primary mission independently
 
-### Raspberry Pi Zero
+## Raspberry Pi Zero
 
 - Captures images
 - Processes IMU + GPS data
@@ -159,7 +159,7 @@ Despite the tiny form factor, it was a surprisingly complete embedded system.
 
 Fitting a Raspberry Pi, camera, parachute mount, servos, and a full power system into a soda-can-sized shell was a miniature engineering challenge.
 
-### CanSat Case
+## CanSat Case
 
 Designed in **Autodesk Fusion 360**, our case used:
 
@@ -178,7 +178,7 @@ This modular design allowed fast inspections and repairs-something we quickly le
 <Figure src={design_3d_2} alt="3D design - bottom view" width="80%" />
 <Figure src={design_3d_3} alt="3D design - case" width="80%" />
 
-### Vertical Mount for Raspberry Pi
+## Vertical Mount for Raspberry Pi
 
 We created a dedicated 3D-printed vertical frame to hold the Pi Zero and extension boards.
 Given the tiny footprint and strict volume limits, this was the only feasible orientation.
@@ -189,7 +189,7 @@ Given the tiny footprint and strict volume limits, this was the only feasible or
 
 This was my part of the project-and the steepest learning curve.
 
-### Prototype 1: Parafoil (Clark-Y Profile)
+## Prototype 1: Parafoil (Clark-Y Profile)
 
 Our first goal was to build a controllable parafoil with:
 
@@ -202,7 +202,7 @@ It deployed-but didn't glide. It simply descended like a normal parachute.
 
 We realized we had incorrectly adapted round-parachute formulas to a parafoil, which behaves completely differently aerodynamically.
 
-### Prototype 2: Parafoil (Based on Academic Research)
+## Prototype 2: Parafoil (Based on Academic Research)
 
 We rebuilt everything using aerodynamic equations from:
 
@@ -228,7 +228,7 @@ The updated parachute flew much better-but had problems:
 
 Ultimately, we determined the design wasn't reliable enough for the competition constraints.
 
-### Final Design: Round Parachute
+## Final Design: Round Parachute
 
 Based on NASA and CanSat training materials, we switched to a round parachute-simple, reliable, predictable.
 
@@ -240,7 +240,7 @@ And most importantly: it fit inside the can.
 
 We tested each subsystem separately before integrating:
 
-### Primary Mission Tests
+## Primary Mission Tests
 
 We verified telemetry accuracy by reading:
 
@@ -250,7 +250,7 @@ We verified telemetry accuracy by reading:
 
 Comparing DS18B20 and BMP280 validated sensor accuracy.
 
-### Secondary Mission Tests
+## Secondary Mission Tests
 
 Testing the parafoil prototypes took weeks:
 
