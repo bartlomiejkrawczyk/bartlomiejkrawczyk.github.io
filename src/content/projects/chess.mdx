@@ -1,7 +1,7 @@
 ---
 title: Chess App
 description: |
-  TODO
+  This engineering thesis project delivers a full mobile application and backend ecosystem enabling real-time online gameplay for chess, checkers, and fully custom rule-based board games. The system supports dynamic board sizes, non-standard shapes, multiple players, and user-defined rules-all backed by a reactive cloud-based architecture.
 tags:
   - university
   - thesis
@@ -20,208 +20,290 @@ tags:
   - spring_data
   - spring_security
   - androidx
+  - postgres
+  - mongo_db
 ---
 
-A mobile application that allows you to play
-logic games on-line on a chessboard
-Abstract. The aim of the work is to design a multi-layer mobile application that allows you
-to play on a chessboard and its implementation.
-The application should allow you to play basic types of games such as chess and checkers.
-In addition, the solution should allow the definition of other types of games (e.g. based
-on changed rules of play, unusual size of the board or more than two players).
-Keywords: Java, Kotlin, reactive programming, Spring, Android, Docker, NoSQL, SQL,
-chess
+import Figure from "@components/markdown/Figure.astro";
+import board8x8 from "@assets/content/chess/8x8.jpg";
+import board8x12 from "@assets/content/chess/8x12.jpg";
+import board10x10 from "@assets/content/chess/10x10.jpg";
+import image1 from "@assets/content/chess/image1.jpg";
+import image2 from "@assets/content/chess/image2.jpg";
+import image3 from "@assets/content/chess/image3.jpg";
+import image4 from "@assets/content/chess/image4.jpg";
 
-4. Konfigurowalne aspekty gier
-   Aplikacja powinna udost˛epnia´c formularz pozwalaj ˛acy na konfigurowanie zasad rozgrywki.
-   4.1. Figury
-   Przygotowane ikony zostały zaprojektowane specjalnie na potrzeby aplikacji. Wykorzystanie SVG2 pozwala na modyfikacj˛e koloru figur z poziomu kodu. Dzi˛eki takiemu
-   rozwi ˛azaniu mozliwy jest wybór przez u ˙ zytkownika stylu aplikacji jaki mu si˛e podoba. ˙
-   Aktualnie dost˛epne s ˛a figury pozwalaj ˛ace na rozgrywk˛e w szachy: pion, król, hetman,
-   goniec, skoczek i wieza oraz w warcaby: pion i dama. W przyszło´sci po przygotowaniu ˙
-   odpowiednich grafik b˛edzie mozna prosto rozszerzy´c zbiór figur. ˙
-   4.2. Plansza
-   W ramach aplikacji mobilnej dost˛epny jest formularz umozliwiaj ˛acy ustalanie nie- ˙
-   standardowych rozmiarów planszy. Mozliwe jest ustalenie rozmiaru poprzez podanie ˙
-   szeroko´sci i wysoko´sci planszy, a takze ustalenie kształtu. ˙
-   Rysunek 4.1. Ekran wyboru rozmiaru
-   2 SVG – Scalable Vector Graphics
-   33
-5. Konfigurowalne aspekty gier
-   4.2.1. Rozmiary
-   Plansza moze wyst˛epowa´c w dowolnym rozmiarze z zakresu od 4 do 14 pozycji. Rozmiar ˙
-   mozna ustali´c niezale ˙ znie dla ka ˙ zdego wymiaru. ˙
-   Rysunek 4.2. Szachownica o
-   rozmiarze 8x8
-   Rysunek 4.3. Prostok ˛atna szachownica o rozmiarze 8x12
-   Rysunek 4.4. Szachownica o
-   rozmiarze 10x10
-   4.2.2. Kształt
-   Formularz wspiera plansze w kształcie prostok ˛ata lub krzyza greckiego. ˙
-   Rysunek 4.5. Szachownica w kształcie krzyza 9x9 ˙
-   Rysunek 4.6. Szachownica w kształcie krzyza˙
-   14x14
-   34
-6. Konfigurowalne aspekty gier
-   4.3. Ilo´s´c graczy
-   Gra pozwala na rozgrywk˛e od 2 do 4 graczy.
-   Rysunek 4.7. Szachownica w kształcie krzyza, dla 4 graczy ˙
-   4.4. Czas rozgrywki
-   W aplikacji dost˛epne do wyboru s ˛a cztery z najpopularniejszych trybów czasowych:
-7. Bullet – minuta podstawowego czasu i zwi˛ekszanie czasu co ruch o dwie sekundy.
-8. Drugi wariant Bullet – dwie minuty podstawowego czasu i zwi˛ekszanie czasu co ruch
-   o sekund˛e.
-9. Blitz – trzy minuty podstawowego czasu i zwi˛ekszanie czasu co ruch o dwie sekundy.
-10. Szachy szybkie – dziesi˛e´c minut podstawowego czasu i zwi˛ekszanie go co ruch o
-    dziesi˛e´c sekund.
+import account_options from "@assets/content/chess/account_options.jpg";
+import board_customization_1 from "@assets/content/chess/board_customization_1.jpg";
+import board_customization_2 from "@assets/content/chess/board_customization_2.jpg";
+import board_customization_3 from "@assets/content/chess/board_customization_3.jpg";
+import checkers_gameplay from "@assets/content/chess/checkers_gameplay.jpg";
+import checkers from "@assets/content/chess/checkers.jpg";
+import chess_gameplay from "@assets/content/chess/chess_gameplay.jpg";
+import chess_gameplay_jpg from "@assets/content/chess/chess-gameplay.jpg";
+import chess_gameplay_png from "@assets/content/chess/chess-gameplay.png";
+import chess_security from "@assets/content/chess/chess-security.png";
+import chess from "@assets/content/chess/chess.jpg";
+import cross_9x9 from "@assets/content/chess/cross-9x9.jpg";
+import cross_14x14 from "@assets/content/chess/cross-14x14.jpg";
+import cross from "@assets/content/chess/cross.jpg";
+import custom_games from "@assets/content/chess/custom_games.jpg";
+import email from "@assets/content/chess/email.jpg";
+import language_en from "@assets/content/chess/language_en.jpg";
+import language_pl from "@assets/content/chess/language_pl.jpg";
+import layout_customization_1 from "@assets/content/chess/layout_customization_1.jpg";
+import layout_customization_2 from "@assets/content/chess/layout_customization_2.jpg";
+import login from "@assets/content/chess/login.jpg";
+import main_game_customization from "@assets/content/chess/main_game_customization.jpg";
+import main_screen from "@assets/content/chess/main_screen.jpg";
+import move_customization_1 from "@assets/content/chess/move_customization_1.jpg";
+import move_customization_2 from "@assets/content/chess/move_customization_2.jpg";
+import password from "@assets/content/chess/password.jpg";
+import piece_customization from "@assets/content/chess/piece_customization.jpg";
+import piece_placement from "@assets/content/chess/piece_placement.jpg";
+import piece_promotion_customization from "@assets/content/chess/piece_promotion_customization.jpg";
+import piece_types from "@assets/content/chess/piece_types.jpg";
+import rule_customization from "@assets/content/chess/rule_customization.jpg";
+import rule_options from "@assets/content/chess/rule_options.jpg";
+import session_item from "@assets/content/chess/session_item.png";
+import settings from "@assets/content/chess/settings.jpg";
+import sound from "@assets/content/chess/sound.jpg";
+import theme_1 from "@assets/content/chess/theme_1.jpg";
+import theme_2 from "@assets/content/chess/theme_2.jpg";
+import theme_3 from "@assets/content/chess/theme_3.jpg";
+import theme_4 from "@assets/content/chess/theme_4.jpg";
 
-11. Funkcjonalno´s´c aplikacji
-    5.1. Wymagania funkcjonalne
-    Głównym celem pracy jest przygotowanie pełnej aplikacji, która pozwoli na róznorodne ˙
-    rozgrywki w gry logiczne na szachownicy. W ramach pracy dyplomowej został zrealizowany pełnoprawny system obsługuj ˛acy gr˛e on-line, pozwalaj ˛acy na zarz ˛adzanie kontami
-    uzytkowników oraz definiowanie własnych reguł rozgrywki. ˙
-    Zaimplementowano zasady rozgrywki w szachy oraz warcaby. Aplikacja dodatkowo
-    udost˛epnia mozliwo´s´c konfiguracji reguł rozgrywki na podstawie zaprojektowanych zasad. ˙
-    Rozwi ˛azanie pozwala na rózne modyfikacje standardowych zasad: ˙
-    • zmiany zasad rozgrywki,
-    • nietypowy rozmiar planszy,
-    • liczb˛e graczy wi˛eksz ˛a niz dwóch.
+# Overview
 
-- rozgrywka lokalna
-- rozgrywka przez internet
+This project implements a multi-layer mobile application (Android, Kotlin) with a cloud backend (Java, Spring WebFlux) that allows users to play classic and custom logic games on a chessboard grid. Beyond standard chess and checkers, the platform enables players to design and play entirely new board-based games by modifying rules, board shapes, and piece behaviors.
 
-  6.7. Sposób realizacji współbiezno´sci ˙
-  Z waznych aspektów wartych poruszenia jest realizacja współbie ˙ zno´sci i natychmiasto- ˙
-  wej komunikacji mi˛edzy aplikacjami. Na wykresie 6.8 przedstawiono obsług˛e zgłaszania
-  zdarze´n w ramach rozgrywki.
+<div class="flex flex-row">
+  <Figure src={image3} alt="Chess" width="90%" />
+  <Figure
+    src={image1}
+    alt="Chess - in the middle of the gameplay"
+    width="90%"
+  />
+  <Figure src={image4} alt="Checkers" width="90%" />
+  <Figure src={image2} alt="Four player chess" width="90%" />
+</div>
 
-1. Uzytkownicy w ramach sesji mog ˛a przesyła´c zdarzenia powoduj ˛ace kolejne przej´scia ˙
-   w stanie rozgrywki.
-2. Serwisy s ˛a bezstanowe, wi˛ec wszystkie informacje o dotychczasowym stanie s ˛a wyci ˛agane z bazy danych.
-3. Informacja jest zwrócona z bazy w postaci danych sesji, reguł rozgrywki oraz ruchów
-   wykonanych w czasie sesji.
-4. Nast˛epnie wyst˛epuje weryfikacja czy w aktualnym stanie, ruch który został przesłany
-   prowadzi do poprawnego stanu.
-5. Je´sli ruch jest mozliwy do wykonania to nast˛epuje aktualizacja ruchów wykonanych ˙
-   w bazie. Moze si˛e zdarzy´c sytuacja, ˙ ze jakie´s zdarzenia wykonane w ramach tej ˙
-   samej sesji równolegle trafi ˛a do serwisu. Musimy w tym przypadku si˛e zabezpieczy´c
-   i zastosowa´c transakcj˛e. Do bazy mozna zapisa´c tylko jedno z nich. Nie mo ˙ zna ˙
-   nadpisywa´c ruchów, je´sli w bazie b˛edzie zapisany juz ruch o danym numerze. ˙
-6. Baza danych sygnalizuje poprawny zapis zdarzenia.
-7. Je´sli zapis transakcyjny si˛e powiódł, to oznacza, ze mo ˙ zna propagowa´c ruch dalej ˙
-   przesyłaj ˛ac go do kolejki komunikatów.
+# Key Features
 
-8. Na starcie rozgrywki uzytkownik nawi ˛azuje poł ˛aczenie z sesj ˛a. ˙
-9. W tym momencie subskrybowany jest temat w kolejce komunikatów, aby zadne ˙
-   zdarzenie nie umkn˛eło. Zapobiegamy w ten sposób mozliwej sytuacji jednoczesnego ˙
-   przesłania zdarzenia w momencie mi˛edzy pobraniem zdarzenia z bazy danych, a
-   subskrypcj ˛a zdarze´n w kolejce.
-10. Nast˛epnie z bazy danych pobierane s ˛a wszystkie dotychczasowe zdarzenia.
-11. Serwis odbiera przesyłane zdarzenia.
-12. Zdarzenia te s ˛a zwracane uzytkownikowi. ˙
-13. Wszystkie zdarzenia trafiaj ˛ace do kolejki s ˛a przesyłane do serwisu subskrybuj ˛acego
-    temat powi ˛azany z aktualn ˛a sesj ˛a.
-14. Dopóki uzytkownik utrzymuje poł ˛aczenie - ma otwarty port, wszystkie zdarzenia tra- ˙
-    fiaj ˛ace do tematu s ˛a przesyłane do uzytkownika. Mo ˙ zliwe jest to dzi˛eki zastosowaniu ˙
-    SSE25 oraz specjalnego formatu danych text/event-stream.
-15. Na koniec po przerwaniu poł ˛aczenia nast˛epuje anulowanie subskrypcji i czyszczenie
-    zajmowanych zasobów.
-    Zastosowane zdarze´n przezyłanych z serwera SSE to techonlogia, która pozwala na
-    przesył wiadomo´sci push w czasie rzeczywistym z serwera do klienta. SSE pozwala serwerowi na inicjacj˛e komunikacji i przesłanie strumienia zdarze´n w postaci tekstowej. W
-    przypadku, gdy zdarzenia nie s ˛a bardzo cz˛este, konieczny jest przesył takze wiadomo´sci, ˙
-    które b˛ed ˛a utrzymywały poł ˛aczenie.
-    Fragment kodu 31. Endpoint udost˛epniaj ˛acy wykonane ruchy
-    1 private static final String KEEP_ALIVE = "keep - alive ";
-    2 private static final Duration KEEP_ALIVE_DURATION = Duration . of (
-    3 15 ,
-    4 ChronoUnit . SECONDS
-    5 ) ;
-    6
-    7 @Override
-    8 @GetMapping (
-    9 path = "{ sessionId }",
-    10 produces = MediaType . TEXT_EVENT_STREAM_VALUE
-    11 )
-    12 public Flux < ServerSentEvent < EventDto > > listenForEvents (
-    13 @PathVariable long sessionId
-    14 ) {
-    15 var moves = sessionService . listenForEvents ( sessionId )
-    16 . map ( eventMappers :: map )
-    17 . map ( it ->
-    18 ServerSentEvent . < EventDto > builder ()
-    19 . data ( it )
-    20 . build ()
-    21 ) ;
-    22 var keepAlive = Flux . interval ( KEEP_ALIVE_DURATION )
-    23 . map ( it -> ServerSentEvent . < EventDto > builder ()
-    25SSE – ang. Server-Sent Events
-    81
-16. Model rozwi ˛azania
-    24 . event ( KEEP_ALIVE )
-    25 . build ()
-    26 ) ;
-    27 return Flux . merge (
-    28 moves ,
-    29 keepAlive
-    30 ) ;
-    31 }
-    Obsługa przesyłanego strumienia sprowadza si˛e do rozpoznania typu odebranego
-    zdarzenia i odpowiedniej obsługi. Otrzymany tekst jest parsowany do odpowiednich
-    obiektów i zwracany w postaci przepływu stanu - StateFlow.
-    Fragment kodu 32. Metoda pozwalaj ˛aca na odbiór zdarze´n
-    1 override fun listenForEvents ( sessionId : Long ) : Flow <Event > = flow {
-    2 coroutineScope {
-    3 sessionApi . listenForEvents ( sessionId )
-    4 . byteStream ()
-    5 . bufferedReader ()
-    6 . useLines { sequence ->
-    7 sequence . filter { it. startsWith ( SSE_DATA_PREFIX ) }
-    8 . filter { isActive }
-    9 .map {
-    10 it. removePrefix ( SSE_DATA_PREFIX ) . trim ()
-    11 }
-    12 .map {
-    13 objectMapper . readValue (
-    14 it , EventDto :: class . java
-    15 )
-    16 }
-    17 .map { eventMapper . map (it) }
-    18 . forEach { emit (it) }
-    19 }
-    20 }
-    21 }. flowOn ( ioDispatcher )
+- **Online and local gameplay** for chess, checkers, and custom games.
+- **Configurable rules**, including piece movement, special effects, or custom constraints.
+- **Board customization:** arbitrary sizes, rectangular boards, cross-shaped boards.
+- **2–4 player support**.
+- **Time controls:** Bullet, Blitz, Rapid variants.
+- **User accounts, authentication (OAuth2)**, and match history.
+- **Reactive real-time communication** using Server-Sent Events (SSE).
+- **Cloud-hosted backend** using Spring WebFlux, NoSQL/SQL, and RabbitMQ.
+- **CI/CD deployment** to Ubuntu servers on OVH.
 
-17. Podsumowanie
-    W ramach pracy powstała aplikacja mobilna wraz z cał ˛a niezb˛edn ˛a infrastruktur ˛a przeznaczon ˛a dla internetowych gier szachowych – w szczególno´sci pozwalaj ˛aca na gr˛e w
-    klasyczne szachy i warcaby. To co j ˛a wyróznia, to mo ˙ zliwo´s´c definiowania innych gier ˙
-    opartych na planszy szachownicy. Gracze s ˛a w stanie samodzielnie, kreuj ˛ac własne reguły,
-    tworzy´c zupełnie nowe warianty gier, a nawet całkowicie nowe gry.
-    Rozgrywki maj ˛a pewne podobie´nstwa, takie jak plansza podzielona na kwadraty, cel
-    gry polegaj ˛acy na obezwładnieniu króla przeciwnika oraz uzywanie ró ˙ znych figur. Ró ˙ z-˙
-    nice lez ˛a w szczegółach zasad, takich jak sposoby poruszania si˛e figur, specjalne efekty ˙
-    eksploduj ˛acych figur, czy wprowadzanie nowych figur w trakcie gry.
-    7.1. Wnioski
-    Mozliwo´s´c dostosowywania zasad gry, wprowadzania niestandardowych wariacji oraz ˙
-    korzystanie z innowacyjnych mechanizmów programowania reaktywnego stanowiły kluczowe elementy, które podnosz ˛a jako´s´c rozgrywki i sprawiaj ˛a, ze aplikacja staje si˛e atrak- ˙
-    cyjn ˛a propozycj ˛a dla róznych grup graczy. Nowoczesny i jednocze´snie prosty interfejs wraz ˙
-    z opracowanymi ikonami znacznie ułatwia obsług˛e aplikacji. Definiowanie rozmiarów
-    planszy do gry (dowolne rozmiary kwadratów, prostok ˛atów lub forma krzyza) równie ˙ z˙
-    wspiera tworzenie nowych typów gier. Rozbudowa systemu do obsługi nawet czterech
-    graczy zapewnia zupełnie nowy poziom gry w szachy, przez co sama rozgrywka staje si˛e
-    ciekawsza. System uzywa najnowszych technologii chmurowych, co pozwala na dalsz ˛a ˙
-    rozbudow˛e.
-    7.2. Perspektywy wdrozenia ˙
-    W najblizszym czasie planowane jest wprowadzenie aplikacji mobilnej do sklepu Go- ˙
-    ogle Play, co umozliwi łatwy dost˛ep dla u ˙ zytkowników korzystaj ˛acych z systemu Android. ˙
-    Ponadto, infrastruktura jest obecnie hostowana na platformie Azure, wykorzystuj ˛ac najbardziej ekonomiczn ˛a maszyn˛e. W miar˛e wzrostu popularno´sci aplikacji, monitorowana
-    b˛edzie jej wydajno´s´c. W razie potrzeby zwi˛ekszana b˛edzie ilo´s´c zasobów dost˛epnych dla
-    tej maszyny, co pozwoli na efektywne skalowanie wertykalne. W dłuzszej perspektywie, ˙
-    rozwazana jest równie ˙ z mo ˙ zliwo´s´c skalowania horyzontalnego, aby sprosta´c rosn ˛acym ˙
-    wymaganiom i liczbie uzytkowników. ˙
-    7.3. Perspektywy kontynuacji
-    Kontynuacja prac nad aplikacj ˛a moze obejmowa´c rozwijanie biblioteki gier, wprowa- ˙
-    dzenie kolejnych niestandardowych wariacji oraz dostosowanie interfejsu uzytkownika do ˙
-    ewentualnych nowych trendów. Do tego mozna wprowadzi´c nowe wersje j˛ezykowe, doda´c ˙
-    moduł wsparcia twórcy. Kolejnymi obszarami, które mog ˛a zwi˛ekszy´c atrakcyjno´s´c pracy,
-    jest mozliwo´s´c integracji z platformami społeczno´sciowymi, organizacja turniejów on-line ˙
-    czy dodanie elementów sztucznej inteligencji.
+# Game Customization
+
+The application exposes a full configuration panel that allows users to design their own variants before the match begins.
+
+## 1. Piece Sets
+
+The game uses custom-designed SVG icons, allowing dynamic recoloring to match the selected theme. Out of the box, it supports:
+
+- Chess: pawn, king, queen, bishop, knight, rook
+- Checkers: man, king
+
+The system is prepared for future extension-adding new icons automatically integrates them into customization menus.
+
+<Figure src={piece_customization} alt="Piece customization" />
+
+## 2. Board Configuration
+
+Users can set:
+
+- **Custom board dimensions** (4×4 to 14×14 for each axis).
+- **Board shapes:** rectangle or Greek cross.
+
+## Example Sizes
+
+<div class="flex flex-row">
+  <Figure src={board8x8} alt="8x8 board" width="90%" />
+  <Figure src={board8x12} alt="8x12 board" width="90%" />
+  <Figure src={board10x10} alt="10x10 board" width="90%" />
+</div>
+
+## Example Shapes
+
+<div class="flex flex-row">
+  <Figure src={cross_9x9} alt="9x9 cross board" width="90%" />
+  <Figure src={cross_14x14} alt="14x14 cross board" width="90%" />
+</div>
+
+## 3. Player Count
+
+Games can involve **2 to 4 players**, enabling non-standard multiplayer variants.
+
+<Figure src={cross} alt="Cross board for 4 players" />
+
+## 4. Time Controls
+
+Available presets:
+
+- Bullet: 1+2 (1 minute + 2s increment)
+- Bullet: 2+1
+- Blitz: 3+2
+- Rapid: 10+10
+
+# Core Application Functionality
+
+The goal of the thesis was to build a complete online gaming system with:
+
+- Accounts and authentication
+- Matchmaking and session management
+- Real-time move synchronization
+- Configurable rule engine for designing new game types
+
+Built-in games include:
+
+- **Chess**
+- **Checkers**
+- **Atomic Chess**
+- **Mini Chess**
+- **Progressive Chess**
+- **Anti Chess**
+- **Four Player Chess**
+
+But players can also define entirely new variants using the rules interface:
+
+<div class="flex flex-row">
+  <Figure
+    src={piece_placement}
+    alt="Piece placement customization"
+    width="90%"
+  />
+  <Figure src={move_customization_2} alt="Move customization" width="90%" />
+  <Figure
+    src={piece_promotion_customization}
+    alt="Piece promotion customization"
+    width="90%"
+  />
+</div>
+
+<div class="flex flex-row">
+  <Figure src={rule_customization} alt="Rule customization" width="80%" />
+  <Figure src={piece_customization} alt="Piece customization" width="80%" />
+</div>
+
+Supported customizations include:
+
+- Altered movement rules
+- Special effects
+- Non-standard board sizes and shapes
+- Additional players
+
+This system effectively becomes a _board-game creation platform_.
+
+# Real-Time Architecture & Concurrency
+
+A critical part of the system is real-time synchronization between players. Events flow through:
+
+1. User sends an action (move event).
+2. Stateless backend retrieves the current session state from the database.
+3. The move is validated.
+4. A transactional update ensures no conflicting writes occur.
+5. The event is published to RabbitMQ.
+6. Clients subscribe to a dedicated SSE channel.
+7. All new events are pushed live to connected players.
+
+This guarantees consistency even when multiple users send simultaneous actions.
+
+<Figure src={session_item} alt="Session events" />
+
+SSE (Server-Sent Events) enables lightweight, real-time push communication. The backend emits both move events and keep-alive signals to maintain connection stability.
+
+<div class="flex flex-row">
+  <Figure src={checkers_gameplay} alt="Checkers gameplay" width="80%" />
+  <Figure src={chess_gameplay} alt="Chess gameplay" width="80%" />
+</div>
+
+# Example Backend SSE Endpoint
+
+```java
+@GetMapping(path = "{sessionId}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+public Flux<ServerSentEvent<EventDto>> listenForEvents(@PathVariable long sessionId) {
+    var moves = sessionService.listenForEvents(sessionId)
+        .map(eventMappers::map)
+        .map(it -> ServerSentEvent.<EventDto>builder().data(it).build());
+
+    var keepAlive = Flux.interval(Duration.of(15, ChronoUnit.SECONDS))
+        .map(it -> ServerSentEvent.<EventDto>builder().event("keep-alive").build());
+
+    return Flux.merge(moves, keepAlive);
+}
+```
+
+<br />
+
+# Example Android Client Listener
+
+```kotlin
+override fun listenForEvents(sessionId: Long): Flow<Event> = flow {
+    coroutineScope {
+        sessionApi.listenForEvents(sessionId)
+            .byteStream()
+            .bufferedReader()
+            .useLines { sequence ->
+                sequence.filter { it.startsWith("data:") }
+                    .filter { isActive }
+                    .map { it.removePrefix("data:").trim() }
+                    .map { objectMapper.readValue(it, EventDto::class.java) }
+                    .map { eventMapper.map(it) }
+                    .forEach { emit(it) }
+            }
+    }
+}.flowOn(ioDispatcher)
+```
+
+<br />
+
+# Settings & Personalization
+
+<Figure src={settings} alt="Settings screen" />
+
+A key part of the application is its extensive customization module, allowing players to tailor the entire experience to their preferences. Users can switch between interface languages, enable or disable sound effects, and choose from multiple visual themes that completely change the look and feel of the board. The app also supports dynamic board scaling—regardless of device or orientation, the layout automatically adjusts tile sizes, piece proportions, and UI elements to maintain clarity and comfort during gameplay.
+
+<div class="flex flex-row">
+  <Figure src={language_en} alt="Language settings - English" width="80%" />
+  <Figure src={language_pl} alt="Language settings - Polish" width="80%" />
+  <Figure src={sound} alt="Sound settings" width="80%" />
+</div>
+
+<div class="flex flex-row">
+  <Figure src={theme_1} alt="Theme example 1" width="90%" />
+  <Figure src={theme_2} alt="Theme example 2" width="90%" />
+  <Figure src={theme_3} alt="Theme example 3" width="90%" />
+  <Figure src={theme_4} alt="Theme example 4" width="90%" />
+</div>
+
+# Summary
+
+The final product is a complete, cloud-driven mobile system for online board games. It supports:
+
+- Standard chess & checkers
+- Fully custom rule-based games
+- Custom boards and shapes
+- Multiplayer beyond two players
+- Real-time gameplay via SSE
+
+The combination of reactive programming, scalable architecture, and flexible gameplay design makes the system a strong foundation for future extensions.
+
+# Future Work
+
+Planned or possible expansions:
+
+- Publishing the Android app to Google Play.
+- Vertical or horizontal scaling in Cloud environment.
+- Additional languages and themes.
+- More game types and rule sets.
+- Social features and tournaments.
+- AI-driven opponents.
+
+This architecture allows seamless extension with new game mechanics, cloud capabilities, or interface improvements.
