@@ -153,6 +153,8 @@ export const tagIds = [
   "liquibase",
   "sonar_qube",
   // "nexus",
+  "autodesk_fusion",
+  "3d_printing",
 
   "ms_office",
   "libre_office",
@@ -255,6 +257,7 @@ export const tagIds = [
   "russian",
 
   "arduino",
+  "raspberry_pi",
 ] as const;
 
 export const tagTypes = [
@@ -1067,6 +1070,18 @@ export const tags: Record<TagId, Tag> = {
     link: "https://www.sonarsource.com/products/sonarqube/",
     translation: { en: "SonarQube" },
   },
+  autodesk_fusion: {
+    id: "autodesk_fusion",
+    type: "tool",
+    link: "https://www.autodesk.com/products/fusion-360/overview",
+    translation: { en: "Autodesk Fusion 360" },
+  },
+  "3d_printing": {
+    id: "3d_printing",
+    type: "tool",
+    link: "https://en.wikipedia.org/wiki/3D_printing",
+    translation: { en: "3D printing" },
+  },
   open_api: {
     id: "open_api",
     type: "tool",
@@ -1515,6 +1530,12 @@ export const tags: Record<TagId, Tag> = {
     type: "other",
     link: "https://www.arduino.cc/",
     translation: { en: "Arduino" },
+  },
+  raspberry_pi: {
+    id: "raspberry_pi",
+    type: "other",
+    link: "https://www.raspberrypi.com/",
+    translation: { en: "Raspberry Pi" },
   },
   driving: {
     id: "driving",

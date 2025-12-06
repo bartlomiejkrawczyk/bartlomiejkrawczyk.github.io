@@ -2,7 +2,7 @@
 - [ ] configure tag filtering for projects
 - [ ] aggregate multiple tags in same place
 - [x] Verify whether Cache-Control headers are set after deployment
-- [ ] Verify transitions `fade` or `slide`
+- [x] Verify transitions `fade` or `slide`
 - [ ] Gradient text!
 - [ ] Window like page elements
 - [x] Multi color theme selector
