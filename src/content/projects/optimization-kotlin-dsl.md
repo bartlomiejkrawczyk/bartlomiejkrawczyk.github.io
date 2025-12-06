@@ -11,6 +11,7 @@ tags:
     - side_project
     - kotlin
     - linear_programming
+    - ci_cd
     - mip
     - or_tools
 ---
