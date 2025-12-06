@@ -97,6 +97,7 @@ export const tagIds = [
   "maven",
   "sbt",
   "node_js",
+  "cargo",
 
   "git",
   "github",
@@ -233,6 +234,9 @@ export const tagIds = [
   "room",
   "lombok",
   "retrofit",
+  "rocket",
+  "burn",
+  "rayon",
 
   "apache_hive",
   "mongo_db",
@@ -525,6 +529,12 @@ export const tags: Record<TagId, Tag> = {
     link: "https://www.seamframework.org/",
     translation: { en: "JBoss Seam" },
   },
+  rocket: {
+    id: "rocket",
+    type: "framework",
+    link: "https://rocket.rs/",
+    translation: { en: "Rocket.rs" },
+  },
   apache_hadoop: {
     id: "apache_hadoop",
     type: "framework",
@@ -787,6 +797,12 @@ export const tags: Record<TagId, Tag> = {
     type: "tool",
     link: "https://nodejs.org/",
     translation: { en: "Node.js" },
+  },
+  cargo: {
+    id: "cargo",
+    type: "tool",
+    link: "https://doc.rust-lang.org/cargo/",
+    translation: { en: "Cargo" },
   },
   git: {
     id: "git",
@@ -1446,6 +1462,18 @@ export const tags: Record<TagId, Tag> = {
     type: "library",
     link: "https://square.github.io/retrofit/",
     translation: { en: "Retrofit" },
+  },
+  burn: {
+    id: "burn",
+    type: "library",
+    link: "https://burn.dev/",
+    translation: { en: "Burn" },
+  },
+  rayon: {
+    id: "rayon",
+    type: "library",
+    link: "https://github.com/rayon-rs/rayon",
+    translation: { en: "Rayon" },
   },
   room: {
     id: "room",
