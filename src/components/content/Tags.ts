@@ -124,6 +124,7 @@ export const tagIds = [
   "apache_zookeeper",
   "elastic_search",
   "cas",
+  "hazelcast",
 
   "tomcat",
   "wildfly",
@@ -946,6 +947,12 @@ export const tags: Record<TagId, Tag> = {
     type: "tool",
     link: "https://www.apereo.org/projects/cas",
     translation: { en: "CAS" },
+  },
+  hazelcast: {
+    id: "hazelcast",
+    type: "tool",
+    link: "https://hazelcast.com/",
+    translation: { en: "Hazelcast" },
   },
   tomcat: {
     id: "tomcat",
