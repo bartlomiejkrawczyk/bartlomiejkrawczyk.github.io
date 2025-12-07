@@ -1,0 +1,1899 @@
+---
+title: Introduction to Artificial Intelligence
+description: |
+  TODO: mention perfect marks. Laboratories: 50/50 and exam 46/50
+repositoryName: Introduction to AI - laboratories
+repository: https://github.com/bartlomiejkrawczyk/WSI-21Z
+tags:
+  - university
+  - python
+  - ai
+  - pandas
+  - py_torch
+  - keras
+  - matplotlib
+---
+
+import Figure from "@components/markdown/Figure.astro";
+
+import actions from "@assets/content/wsi/animation.gif";
+import marks from "@assets/content/wsi/marks.png";
+
+# Wprowadzenie do sztucznej inteligencji - ćwiczenie 1
+
+## Student
+
+Imię: Bartłomiej
+
+Nazwisko: Krawczyk
+
+Numer indeksu: 310774
+
+## Zadanie na pierwsze spotkanie:
+
+Mamy problem plecakowy jak na wykładzie:
+
+```python
+w = [8, 3, 5, 2] # waga przedmiotów
+W = 9 # maksymalna waga plecaka
+p = [16, 8, 9, 6] # wartość przedmiotów
+```
+
+1. Znaleźć rozwiązanie optymalne przez przegląd wyczerpujący
+2. Rozwiązać problem przy użyciu heurystyki:
+   - do plecaka pakujemy przedmioty według kolejności wynikającej ze stosunku p/w
+
+## Pytania
+
+- Czy uzyskano takie same rozwiązania? Jakie wnioski można z tego wyciągnąć?
+- Jakie wnioski można z tego wyciągnąć?
+- Jak dużą instancję problemu (liczba przedmiotów) da się rozwiązać w około minutę metodą zachłanną?
+- Jak bardzo wydłuży obliczenia dodanie jeszcze jednego przedmiotu?
+
+## Rozwiązanie
+
+```python
+from typing import List, Tuple
+from itertools import product
+
+
+def backpack_problem_comprehensive(weights: List[int], max_weight: int, values: List[int]) -> Tuple[List[int], int]:
+    max_value = 0
+    backpack = [0] * len(weights)
+
+    for binary in product([0, 1], repeat=len(weights)):
+        value = 0
+        weight = 0
+        for j, n in enumerate(binary):
+            if n == 1:
+                weight += weights[j]
+                value += values[j]
+        if weight <= max_weight:
+            if max_value < value:
+                max_value = value
+                backpack = list(binary)
+
+    return backpack, max_value
+
+
+def backpack_problem_heuristics(weights: List[int], max_weight: int, values: List[int]) -> Tuple[List[int], int]:
+    value_to_weight = [p/w for p, w in zip(values, weights)]
+    value_to_weight, weights, values, indexes = zip(  # type: ignore
+        *sorted(
+            zip(value_to_weight, weights, values, range(len(weights))),
+            reverse=True
+        )
+    )
+
+    backpack_value = 0
+    backpack_weight = 0
+    backpack: List[int] = [0] * len(weights)
+
+    for weight, value, i in zip(weights, values, indexes):
+        if weight + backpack_weight <= max_weight:
+            backpack[i] = 1  # type: ignore
+            backpack_value += value
+            backpack_weight += weight
+
+    return backpack, backpack_value
+
+
+def format_solution(result: Tuple[List[int], int]) -> str:
+    return f'Total value: {result[1]}\nChoosen items: {[i for i, digit in enumerate(result[0], 1) if digit == 1]}'
+
+
+def main():
+    w = [8, 3, 5, 2]  # waga przedmiotów
+    W = 9  # maksymalna waga plecaka
+    p = [16, 8, 9, 6]  # wartość przedmiotów
+
+    results = [
+        backpack_problem_comprehensive(w, W, p),
+        backpack_problem_heuristics(w, W, p)
+    ]
+
+    for r in results:
+        print(format_solution(r), '\n')
+
+
+if __name__ == '__main__':
+    main()
+```
+
+### 1. Przegląd wyczerpujący
+
+W tej metodzie przechodzimy po wszystkich kombinacjach przedmiotów, można to osiągnąć przechodząc przez wszystkie wartości liczb binarnych od 0 do 2 ^ n. Dla 1 przedmiot dodajemy do plecaka, a dla 0 omijamy go. Cały czas śledzimy maksymalną wartość spełniającą warunki zadania i na koniec je zwracamy.
+
+### 2. Rozwiązanie wykorzystujące heurystykę
+
+W tej metodzie rozpoczynamy od stworzenia listy złożonej z liczb odpowiadających wartości/wagę poszczególnych przedmiotów. Sortujemy 4 listy wartość/wagę, wagę, wartość oraz indeksy w pierwszej kolejności biorąc pod uwagę wartość/wagę i kolejno dodajemy przedmioty do plecaka pod warunkiem, że suma wag w plecaku nie będzie przekraczała maksymalnej wagi zadanej.
+
+### Odpowiedzi na pytania
+
+- ### Czy uzyskano takie same rozwiązania?
+
+  Uzyskane rozwiązania różnią się.
+
+  W przeglądzie wyczerpującym otrzymujemy wartość: 17 oraz wybieramy przedmioty 2 i 3.
+
+  W metodzie wykorzystującej heurystykę otrzymujemy wartość: 14 oraz wybieramy przedmioty 2 i 4.
+
+- ### Jakie wnioski można z tego wyciągnąć?
+
+  Oczywistym jest, że jeśli przejdziemy po wszystkich możliwych ustawieniach przedmiotów otrzymamy najlepsze możliwe dopasowanie.
+
+  Wykorzystując heurystykę możemy uzyskać rozwiązanie najlepsze, ale nie jest to gwarantowane, tak jak okazało się w przykładzie.
+
+  Jednak wykorzystanie heurystyki wykonujemy mniej obliczeń dla większych zbiorów przedmiotów. Złożoność obliczeniowa przeglądu zachłannego rośnie wykładniczo (2 ^ n), a złożoność obliczeniowa metody wykorzystującej heurystykę zależy głównie od wydajności użytej metody sortującej od ok. (n log n) do (n ^ 2).
+
+- ### Jak dużą instancję problemu (liczba przedmiotów) da się rozwiązać w około minutę metodą zachłanną?
+
+Wykonanie dla 24 przedmiotów zajeło: 45.128666162490845 sekund
+
+- ### Jak bardzo wydłuży obliczenia dodanie jeszcze jednego przedmiotu?
+
+Dodanie dodatkowego przedmiotu wydłuży obliczenia dwukrotnie, ponieważ będziemy brali pod uwagę 2^(n + 1) kombinacji przedmiotów, gdzie poprzednio braliśmy jedynie 2^n kombinacji.
+
+# Wprowadzenie do sztucznej inteligencji - ćwiczenie 1_2
+
+## Student
+
+Imię: Bartłomiej
+
+Nazwisko: Krawczyk
+
+Numer indeksu: 310774
+
+## Zadanie na drugie spotkanie:
+
+1. Zaimplementować metodę najszybszego wzrostu. Gradient wyliczamy numerycznie.
+
+2. Narysować zachowanie algorytmu (kolejne kroki algorytmu jako strzałki na tle poziomic funkcji celu).
+
+   Uwaga: w praktycznych zadaniach optymalizacji nie da się narysować funkcji celu ponieważ zadania mają wiele wymiarów (np. 100), oraz koszt wyznaczenia oceny jednego punktu jest duży.
+
+Zastosować metodę do znalezienia optimum funkcji booth, po czym do znalezienia optimum funkcji o numerach od 1 do 3 z CEC 2017.
+
+```python
+import numpy as np
+from cec2017.functions import f1, f2, f3
+from plot_3d import draw_3d_function_with_plot
+from plot_2d import draw_2d_function_with_arrows
+import operator
+from typing import Callable, List, TYPE_CHECKING, Any, Tuple
+
+if TYPE_CHECKING:
+    NDArrayFloat = np.ndarray[Any, np.dtype[np.float64]]
+else:
+    NDArrayFloat = Any
+
+
+def partial_derivative(
+        function: Callable[[NDArrayFloat], float],
+        point: NDArrayFloat,
+        i: int,
+        delta: float = 1e-10) -> float:
+
+    new_point = point.copy()
+    new_point[i] = point[i] + delta
+    return (function(new_point) - function(point)) / delta
+
+
+def gradient(
+        function: Callable[[NDArrayFloat], float],
+        point: NDArrayFloat) -> NDArrayFloat:
+
+    return np.array(   # type: ignore
+        [
+            partial_derivative(function, point, i)
+            for i in range(len(point))
+        ]
+    )
+
+
+def stop(
+        function: Callable[[NDArrayFloat], float],
+        points: List[NDArrayFloat],
+        step_factor: float,
+        delta: float = 1e-3) -> bool:
+
+    if len(points) > 1000:
+        print("Exceeded 1000 points")
+        print(points[-1])
+        return True
+
+    point = points[-1]
+    value = function(point)
+
+    comparison_function = operator.ge if step_factor > 0 else operator.le
+
+    if (
+        comparison_function(value, function(np.add(point, [0, delta]))) and
+        comparison_function(value, function(np.add(point, [0, -delta]))) and
+        comparison_function(value, function(np.add(point, [delta, 0]))) and
+        comparison_function(value, function(np.add(point, [-delta, 0])))
+    ):
+        print("Found with:", len(points), 'points')
+        print(points[-1])
+        return True
+
+    return False
+
+
+def steepest_ascent(
+        function: Callable[[NDArrayFloat], float],
+        point: NDArrayFloat,
+        step_factor: float) -> NDArrayFloat:
+
+    grad = gradient(function, point) * step_factor
+    return np.add(point, grad)
+
+
+def steepest_ascent_steps(
+        function: Callable[[NDArrayFloat], float],
+        starting_point: NDArrayFloat,
+        step_factor: float) -> List[NDArrayFloat]:
+
+    points = [starting_point]
+
+    while not stop(function, points, step_factor):
+        points.append(steepest_ascent(function, points[-1], step_factor))
+
+    return points
+
+
+def steepest_ascent_steps_advanced(
+        function: Callable[[NDArrayFloat], float],
+        starting_point: NDArrayFloat,
+        step_factor: float,
+        multiplier: float = 2) -> List[NDArrayFloat]:
+
+    points = [starting_point]
+    best = function(starting_point)
+    comparison_function = operator.le if step_factor > 0 else operator.ge
+
+    while not stop(function, points, step_factor):
+        point = steepest_ascent(function, points[-1], step_factor)
+        value = function(point)
+        if comparison_function(best, value):
+            best = value
+            points.append(point)
+            step_factor = step_factor * multiplier
+        else:
+            step_factor = step_factor / multiplier
+
+    return points
+
+
+def draw_3d_function(
+        function: Callable[[NDArrayFloat], float],
+        step_factor: float,
+        function_name: str,
+        advanced: bool = False) -> None:
+
+    starting_point = np.random.uniform(-10, 10, size=2)
+
+    if advanced:
+        points = steepest_ascent_steps_advanced(
+            function, starting_point, step_factor)
+    else:
+        points = steepest_ascent_steps(
+            function, starting_point, step_factor)
+
+    draw_3d_function_with_plot(function, points, function_name)
+
+
+def draw_2d_function(
+        function: Callable[[NDArrayFloat], float],
+        step_factor: float,
+        function_name: str,
+        advanced: bool = False) -> None:
+
+    starting_point = np.random.uniform(-10, 10, size=2)
+
+    if advanced:
+        points = steepest_ascent_steps_advanced(
+            function, starting_point, step_factor)
+    else:
+        points = steepest_ascent_steps(
+            function, starting_point, step_factor)
+
+    draw_2d_function_with_arrows(function, points, function_name)
+
+
+def main():
+    def booth_function(x: NDArrayFloat) -> float:
+        return (x[0] + 2 * x[1] - 7) ** 2 + (2 * x[0] + x[1] - 5) ** 2
+
+    functions: List[Tuple[Callable[[NDArrayFloat], float], float, str]] = [
+        (booth_function, -0.05, "Booth Function, beta = 0.05"),
+        (f1, -0.00000001, "F1 Function, beta = 0.00000001"),
+        (f1, -0.1, "F1 Function, beta = 0.1"),
+        (f2, -0.7, "F2 Function, beta = 0.7"),
+        (f3, -0.00005, "F3 Function, beta = 0.00005")
+    ]
+    for function, step_factor, function_name in functions:
+        draw_2d_function(function, step_factor, function_name, True)
+
+
+if __name__ == '__main__':
+    main()
+```
+
+### Pytania:
+
+### 1. Jak wartość parametru beta wpływa na szybkość dojścia do optimum i zachowanie algorytmu?
+
+Wartość parametru beta wpływa na wielkość wykonanego kroku w kierunku optimum.
+
+- Przy małym beta dojście do optimum wymaga większej ilości punktów, lecz zabezpiecza przed przeskoczeniem optimum i wyleceniem poza zakres.
+- Przy większym beta dojście do optimum następuje w mniejszej ilości kroków, lecz nie gwarantuje, że algorytm nie wyskoczy poza zakres.
+
+### 2. Zalety/wady algorytmu?
+
+### Zalety:
+
+- Algorytm skaluje się i działa dla różnych wymiarów
+- Implementacja jest prosta
+
+### Wady:
+
+- Algorytm nie wybiera najkrótszej trasy do optimum
+- Nie modyfikujemy wielkości kroku - dla stosunkowo dużych wartości gradientu wykonujemy wielkie skoki, a dla małych wartości małe, nie zależnie od wartości parametru beta
+- Algorytm nie gwarantuje, że w kolejnych krokach będzie zbliżał się od optimum
+
+### 3. Wnioski
+
+Algorytm najszybszego wzrostu jest łatwy w implementacji oraz jest w stanie znaleźć optimum nawet dla dużej ilości wymiarów, jednak należy ustalić odpowiedni współczynnik beta. Gdybyśmy byli w stanie modyfikować współczynnik beta w trakcie działania programu osiągnelibyśmy wynik w mniejszej ilości kroków.
+
+# Wprowadzenie do sztucznej inteligencji - ćwiczenie 2
+
+## Student
+
+Imię: Bartłomiej
+
+Nazwisko: Krawczyk
+
+Numer indeksu: 310774
+
+## Zadanie na trzecie spotkanie:
+
+Zaimplementować klasyczny algorytm ewolucyjny bez krzyżowania, z selekcją turniejową i sukcesją elitarną. Dostępny budżet to 10000 ewaluacji funkcji celu. Optymalizujemy funkcję numer 4 z CEC 2017.
+
+```python
+from typing import Callable, List, Tuple, Any
+from cec2017.functions import f4
+from random import choices, gauss, random
+from plot_2d import plot_contour_chart_2d
+from matplotlib import pyplot as plt
+from colour import Color  # type: ignore
+import heapq
+from functools import total_ordering
+
+
+"""
+Data:
+    q(x) - function,
+    P0 - starting_population,
+    µ - population_size,
+    σ - mutation_factor,
+    pc - cross_probability,
+    tmax - max_iterations
+Result:
+    xˆ∗ - best_subject,
+    oˆ∗ - best_rating
+
+"""
+
+
+@total_ordering
+class Point:
+    def __init__(self, point: List[float]) -> None:
+        self.point = point
+
+    def evaluate(self, function: Callable[[List[float]], float]):
+        self.rating = function(self.point)
+
+    def __lt__(self, other: 'Point'):
+        return self.rating < other.rating
+
+    def __eq__(self, other: Any):
+        return self.rating == other.rating
+
+
+def reproduction(population: List[Point],
+                 population_size: int) -> List[Point]:
+    """
+    Tournament Selection
+
+    From two points chosen at random the better one is chosen.
+    """
+
+    return [
+        min(
+            choices(population, k=2)
+        )
+        for _ in range(population_size)]
+
+
+def genetic_operations(population: List[Point],
+                       mutation_factor: float) -> List[Point]:
+    """
+    Mutation
+
+    For every point choose a random distance in every direction to move.
+    Choose closer distance with greater probability.
+    """
+
+    return [
+        Point([x + gauss(0, 1) * mutation_factor for x in subject.point])
+        for subject in population
+    ]
+
+
+def succesion(population: List[Point],
+              mutated: List[Point],
+              elite_count: int,
+              population_size: int) -> List[Point]:
+    """
+    Elitary Succesion
+
+    From previous population choose the best elite_count subjects.
+    Append to them mutated subjects and remove excess (worst)
+    individuals to match the population_size number.
+    """
+
+    best_population = heapq.nsmallest(elite_count, population)
+
+    return heapq.nsmallest(population_size, best_population + mutated)
+
+
+def evolve(function: Callable[[List[float]], float],
+           starting_population: List[List[float]],
+           mutation_factor: float,
+           population_size: int,
+           elite_count: int,
+           max_iterations: int) -> Tuple[List[float], float]:
+    """Classical evolutionary algorithm"""
+
+    population = [Point(point) for point in starting_population]
+    for p in population:
+        p.evaluate(function)
+    best = min(population)
+
+    for t in range(max_iterations):
+        reproduced = reproduction(population, population_size)
+
+        mutated = genetic_operations(reproduced, mutation_factor)
+
+        for p in mutated:
+            p.evaluate(function)
+
+        best_mutated = min(mutated)
+
+        best = min(best, best_mutated)
+
+        if __name__ == '__main__':
+            plt.scatter(  # type: ignore
+                *zip(*[p.point for p in population]),
+                c=COLORS[t].get_hex(),
+                marker='.'  # type: ignore
+            )
+
+        population = succesion(population, mutated,
+                               elite_count, population_size)
+
+    return best.point, best.rating
+
+
+MAX_FUNCTION_EVALUATIONS = 10_000
+
+MAX_BOUND = 100
+FUNCTION: Callable[[List[float]], float] = f4  # type: ignore
+
+MUTATION_FACTOR = 2.0
+POPULATION_SIZE = 100
+
+ELITE_COUNT = 5
+MAX_ITERATIONS = MAX_FUNCTION_EVALUATIONS // POPULATION_SIZE - 1
+
+POPULATION = [[random() * 200 - 100 for _ in range(2)]
+              for _ in range(POPULATION_SIZE)]
+
+
+def main():
+
+    print(
+        evolve(
+            FUNCTION,  # type: ignore
+            POPULATION,
+            MUTATION_FACTOR,
+            POPULATION_SIZE,
+            ELITE_COUNT,
+            MAX_ITERATIONS
+        )
+    )
+
+    plot_contour_chart_2d(FUNCTION, MAX_BOUND)  # type: ignore
+    plt.show()
+
+
+if __name__ == '__main__':
+    RED = Color("red")  # type: ignore
+    GREEN = Color("green")  # type: ignore
+    BLUE = Color("blue")  # type: ignore
+    COLORS = list(BLUE.range_to(GREEN, MAX_ITERATIONS // 2))  # type: ignore
+    COLORS += list(  # type: ignore
+        GREEN.range_to(  # type: ignore
+            RED,
+            MAX_ITERATIONS - MAX_ITERATIONS // 2
+        )
+    )
+
+    main()
+```
+
+## Działanie Algorytmu:
+
+![Gif](../../assets/content/wsi/animation.gif)
+
+## Badanie Wpływu:
+
+Badania wykonane dla domyślnych parametrów:
+
+- siła mutacji = 1.0
+- rozmiar elity = 5
+- wielkość populacji = 50
+
+## 1. Siły mutacji
+
+| Type            | Value | Min                | Average            | Std                    | Max                |
+| --------------- | ----- | ------------------ | ------------------ | ---------------------- | ------------------ |
+| mutation_factor | 0.1   | 400.00000004492546 | 400.5406481661391  | 0.854308724167775      | 403.2307143256784  |
+| mutation_factor | 1.0   | 400.00000003812943 | 400.00000225744736 | 2.1014582506487206e-06 | 400.00000744803475 |
+| mutation_factor | 2.0   | 400.0000000044616  | 400.00000810964883 | 1.0631792806760805e-05 | 400.00005227399447 |
+| mutation_factor | 3.0   | 400.00000008796025 | 400.0000118467875  | 1.0784572960930645e-05 | 400.00003540824616 |
+| mutation_factor | 4.0   | 400.00000099786166 | 400.0000215355624  | 2.19984540393364e-05   | 400.00007377099524 |
+| mutation_factor | 5.0   | 400.0000013398108  | 400.0000336794064  | 3.582937259524924e-05  | 400.000139368603   |
+| mutation_factor | 10.0  | 400.00000435619546 | 400.00021113418234 | 0.00017972166447058607 | 400.00064501196397 |
+| mutation_factor | 20.0  | 400.0000776106671  | 400.0009311557691  | 0.0007044010107806523  | 400.00248920395796 |
+| mutation_factor | 30.0  | 400.00013640194106 | 400.00194165250724 | 0.0020606623241182765  | 400.01009225341835 |
+| mutation_factor | 40.0  | 400.00030695179146 | 400.0029615578364  | 0.0024981516338288923  | 400.0104253469711  |
+| mutation_factor | 50.0  | 400.0003258418493  | 400.00438075539245 | 0.003637061791620829   | 400.01297088896195 |
+| mutation_factor | 100.0 | 400.00115551722143 | 400.0157379634939  | 0.009687836379298195   | 400.04061264552513 |
+
+## - Wpływ siły mutacji:
+
+Przy bardzo małej sile mutacji jesteśmy w stanie znaleźć minimum jedynie gdy się nam poszczęści. Algorytm o takim
+współczynniku ma niewielkie szanse na eksplorację. I dlatego też to tutaj osiągamy największe maksimum.
+
+Im większy współczynnik tym bardziej nasz algorytm preferuje eksplorację od eksploatacji znalezionych optimów.
+Dlatego też dla wyższej siły mutacji nie znajdujemy dokładnego optimum.
+
+Aby algorytm działał najlepiej dla danej funkcji powinniśmy wybrać pomiędzy eksploracją i eksploatacją wybierając siłę mutacji pomiędzy 1.0 - 2.0
+
+## 2. Rozmiaru elity
+
+| Type        | Value | Min                | Average            | Std                    | Max                |
+| ----------- | ----- | ------------------ | ------------------ | ---------------------- | ------------------ |
+| elite_count | 0     | 400.0000002404315  | 400.00093178205753 | 0.003459150107409316   | 400.0170985701036  |
+| elite_count | 1     | 400.0000000999859  | 400.0000048257121  | 4.917104673869166e-06  | 400.00002291680187 |
+| elite_count | 2     | 400.0000000728775  | 400.0000032135157  | 3.7006686319222794e-06 | 400.0000141858302  |
+| elite_count | 3     | 400.00000015429003 | 400.00000395220286 | 3.1951658740399884e-06 | 400.0000117888886  |
+| elite_count | 4     | 400.00000009874077 | 400.0000028883181  | 2.7867237101743585e-06 | 400.0000105361532  |
+| elite_count | 5     | 400.00000004589754 | 400.0000024841704  | 2.160633403650698e-06  | 400.00000765794147 |
+| elite_count | 10    | 400.000000178131   | 400.00005916104215 | 0.00028577282041542673 | 400.00143084002184 |
+| elite_count | 20    | 400.0000001278414  | 400.0000027885444  | 3.4403721044816832e-06 | 400.0000123899245  |
+| elite_count | 30    | 400.0000001036102  | 400.00169926618713 | 0.004678001648317394   | 400.0178281879155  |
+| elite_count | 40    | 400.00000012414085 | 400.00090955935565 | 0.0031891456497810462  | 400.01328428961796 |
+| elite_count | 50    | 400.0000000226477  | 400.00135730202703 | 0.0045081963993773445  | 400.0206889725324  |
+
+## - Wpływ rozmiaru elity:
+
+Wybranie zerowego rozmiaru elity wydaje się być słabym pomysłem, ponieważ jesteśmy w stanie zgubić najmniejszą wartość i tak również wynika z tabeli.
+
+Podobnie gdy wybierzemy wielki rozmiar elity osiągamy wartości odstające od tych wartości mniejszych.
+
+Optymalnym wyborem dla danej funkcji (przy wielkości populacji równej 50) wydaje się być rozmiar elity równy 5, jednak nie ma to większego wpływu na wynik.
+
+## 3. Liczby osobników w populacji
+
+| Type            | Value | Min                | Average            | Std                    | Max                |
+| --------------- | ----- | ------------------ | ------------------ | ---------------------- | ------------------ |
+| population_size | 5     | 400.0000000692429  | 400.000001100487   | 1.1787788987110282e-06 | 400.0000042188017  |
+| population_size | 10    | 400.00000004497804 | 400.0000015001062  | 1.5493200720349807e-06 | 400.0000069554199  |
+| population_size | 15    | 400.00000002379255 | 400.0000020135678  | 3.139242133938153e-06  | 400.00001306949173 |
+| population_size | 20    | 400.00000003136677 | 400.00000200151436 | 2.426285427870583e-06  | 400.0000104482362  |
+| population_size | 50    | 400.0000000751641  | 400.00000285018206 | 3.298924154146688e-06  | 400.0000165153286  |
+| population_size | 100   | 400.0000000148837  | 400.00076417911606 | 0.003435714897103905   | 400.01715866018526 |
+| population_size | 200   | 400.0000005980138  | 400.0009144067704  | 0.004534426594121134   | 400.0226796299264  |
+| population_size | 1000  | 400.00000045087035 | 400.00082624512567 | 0.0023627848837601867  | 400.0112773201329  |
+
+## - Wpływ wielkości populacji:
+
+Im większa liczba osobników w populacji tym lepsze jest początkowe rozrzucenie po przestrzeni i znalezienie potencjalnego minimum.
+Im większa liczba osobników w populacji tym więcej potencjalnych minimów można eksploatować.
+
+Jednak im większa liczba osobników tym mniej możemy wykonać iteracji algorytmu przy ograniczonym budżecie wykonywania funkcji.
+
+Z wyników wynika, że średnio dla danej funkcji lepiej wybierać jest mniejsze populacje.
+
+## Wnioski:
+
+- Algorytm całkiem prosty w implementacji
+- Dla niewielkich wymiarów działa bardzo dobrze
+- Łatwo zwiększyć wymiar działania algorytmu
+
+# Wprowadzenie do sztucznej inteligencji - ćwiczenie 3
+
+## Student
+
+Imię: Bartłomiej
+
+Nazwisko: Krawczyk
+
+Numer indeksu: 310774
+
+## Zadanie:
+
+Zaimplementować algorytm min-max z przycinaniem alfa-beta. Algorytm ten należy zastosować do gry w proste warcaby (checekers/draughts). Niech funkcja oceny planszy zwraca różnicę pomiędzy stanem planszy gracza a stanem przeciwnika. Za pion przyznajemy 1 punkt, za damkę 10 p.
+Przygotowałem dla Państwa kod, który powinien ułatwić wykonanie zadania. Zamiast mojego kodu, osoby chętne mogą napisać własny kod pomocniczy. Nie można używać kodu z Internetu, czy bardziej ogólnie, kodu, którego nie jest się autorem.
+
+Wiem co jest dostępne w Internecie, większość dostępnych implementacji ma cechy szczególne, po których łatwo je rozpoznać.
+
+Zasady gry (w skrócie: wszyscy ruszają się po 1 polu. Pionki tylko w kierunku wroga, damki w dowolnym) z następującymi modyfikacjami:
+
+- bicie nie jest wymagane
+- dozwolone jest tylko pojedyncze bicie (bez serii).
+
+Czy gracz sterowany przez AI zachowuje się rozsądnie z ludzkiego punktu widzenia? Jeśli nie to co jest nie tak?
+
+Niech komputer gra z komputerem (bez wizualizacji), zmieniamy parametry jednego z oponentów, badamy jak zmiany te wpłyną na liczbę jego wygranych. Należy zbadać wpływ:
+
+- Głębokości drzewa przeszukiwań
+- Alternatywnych funkcji oceny stanu, np.:
+  - nagrody jak w wersji podstawowej + nagroda za stopień zwartości grupy (jak wszyscy blisko siebie to OK, no chyba, że da się coś zabrać przeciwnikowi)
+  - za każdy pion na własnej połowie planszy otrzymuje się 5 nagrody, na połowie przeciwnika 7, a za każdą damkę 10.
+  - za każdy nasz pion otrzymuje się nagrodę w wysokości: (5 + numer wiersza, na którym stoi pion) (im jest bliżej wroga tym lepiej), a za każdą damkę: 10.
+
+```python
+from checkers import Board, Game, Player, EVALUATION_FUNCTION
+from math import inf
+from random import randint
+
+
+def evaluate_random(board: Board) -> float:
+    return randint(-100, 100)
+
+
+def evaluate_basic(board: Board) -> float:
+    evaluation: float = 0
+    pawns = board.get_pawns()
+
+    for pawn in pawns:
+        if pawn.player == Player.BLUE:
+            if pawn.king:
+                evaluation += 10
+            else:
+                evaluation += 1
+        else:
+            if pawn.king:
+                evaluation -= 10
+            else:
+                evaluation -= 1
+
+    return evaluation
+
+
+def evaluate_version_1(board: Board) -> float:
+    evaluation: float = 0
+    pawns = board.get_pawns()
+
+    b_max_x = 0
+    b_min_x = board.size
+    b_max_y = 0
+    b_min_y = board.size
+
+    w_max_x = 0
+    w_min_x = board.size
+    w_max_y = 0
+    w_min_y = board.size
+
+    for pawn in pawns:
+
+        if pawn.player == Player.BLUE:
+
+            b_max_x = max(b_max_x, pawn.x)
+            b_min_x = min(b_min_x, pawn.x)
+            b_max_y = max(b_max_y, pawn.y)
+            b_min_y = min(b_min_y, pawn.y)
+
+            if pawn.king:
+                evaluation += 10
+            else:
+                evaluation += 1
+        else:
+
+            w_max_x = max(w_max_x, pawn.x)
+            w_min_x = min(w_min_x, pawn.x)
+            w_max_y = max(w_max_y, pawn.y)
+            w_min_y = min(w_min_y, pawn.y)
+
+            if pawn.king:
+                evaluation -= 10
+            else:
+                evaluation -= 1
+
+    if board.blue == 0:
+        return -inf
+    elif board.white == 0:
+        return inf
+
+    evaluation -= 2 * ((b_max_x - b_min_x) * (b_max_y - b_min_y)) / board.blue
+    evaluation += 2 * ((w_max_x - w_min_x) * (w_max_y - w_min_y)) / board.white
+
+    return evaluation
+
+
+def evaluate_version_2(board: Board) -> float:
+    evaluation: float = 0
+    pawns = board.get_pawns()
+
+    for pawn in pawns:
+        if pawn.player == Player.BLUE:
+            if pawn.king:
+                evaluation += 10
+            else:
+                if pawn.y < board.size / 2:
+                    evaluation += 5
+                else:
+                    evaluation += 7
+        else:
+            if pawn.king:
+                evaluation -= 10
+            else:
+                if pawn.y > board.size / 2:
+                    evaluation -= 5
+                else:
+                    evaluation -= 7
+
+    return evaluation
+
+
+def evaluate_version_3(board: Board) -> float:
+    evaluation: float = 0
+    pawns = board.get_pawns()
+
+    for pawn in pawns:
+        if pawn.player == Player.BLUE:
+            if pawn.king:
+                evaluation += 10
+            else:
+                evaluation += 5 + pawn.y
+        else:
+            if pawn.king:
+                evaluation -= 10
+            else:
+                evaluation -= 5 + (board.size - pawn.y)
+
+    return evaluation
+
+
+def minimax_full(
+        board: Board,
+        depth: int,
+        evaluation_function: EVALUATION_FUNCTION) -> float:
+
+    moves = board.all_possible_moves()
+
+    if len(moves) == 0:
+        if board.player == Player.BLUE:
+            return -inf
+        else:
+            return inf
+    elif depth == 0:
+        return evaluation_function(board)
+
+    evaluation = [minimax_full(board.copy_and_perform_move(
+        move), depth - 1, evaluation_function) for move in moves]
+
+    if board.player == Player.BLUE:
+        return max(evaluation)
+    else:
+        return min(evaluation)
+
+
+def minimax_a_b(
+        board: Board,
+        depth: int,
+        evaluation_function: EVALUATION_FUNCTION,
+        alpha: float = -inf,
+        beta: float = inf) -> float:
+
+    moves = board.all_possible_moves()
+
+    if len(moves) == 0:
+        if board.player == Player.BLUE:
+            return -inf
+        else:
+            return inf
+    elif depth == 0:
+        return evaluation_function(board)
+
+    if board.player == Player.BLUE:
+        for move in moves:
+            new_board = board.copy_and_perform_move(move)
+            alpha = max(
+                alpha,
+                minimax_a_b(new_board,
+                            depth - 1,
+                            evaluation_function,
+                            alpha, beta)
+            )
+            if alpha >= beta:
+                return beta
+        return alpha
+    else:
+        for move in moves:
+            new_board = board.copy_and_perform_move(move)
+            beta = min(
+                beta,
+                minimax_a_b(new_board,
+                            depth - 1,
+                            evaluation_function,
+                            alpha, beta)
+            )
+            if alpha >= beta:
+                return alpha
+        return beta
+
+
+def main() -> None:
+    Game.player_contra_ai(evaluate_basic, minimax_a_b)
+
+
+if __name__ == '__main__':
+    main()
+```
+
+## Pytania
+
+### Czy gracz sterowany przez AI zachowuje się rozsądnie z ludzkiego punktu widzenia? Jeśli nie to co jest nie tak?
+
+- gracz sterowany przez AI nie zawsze zachowuje się rozsądnie
+- taki gracz stara się uzyskać jak najlepszą ewaluację i do tego dąży:
+  - np. w przypadku ewaluacji podstawowej, AI woli zdobyć damkę niż zbić kilka pionków gracza
+  - taki algorytm jeśli ma możliwość zbić pionek gracza, często pozostawia to potencjalne zbicie na później, ponieważ nadal będzie mogło uzyskać taką samą lub lepszą ewaluację (chyba, że ustawimy głębokość na 1 wtedy ai przewiduje jedynie ewaluację w kolejnym swoim ruchu)
+- ai vs ai bardzo często kończy remisem, ponieważ wpadają one w cykle i nie mogą zakończyć rozgrywki
+  - sytuacja ta występuje gdy więcej niż jeden ruch ma tę samą maksymalną wartość ewaluacji i w tym przypadku wybierana jest wartość pierwsza z listy ruchów o takiej wartości ewaluacji - rozgrywka kończy się wtedy remisem pomimo często znaczącej przewagi jednej ze stron
+- jednak, jak odpalam grę w wersji ja przeciwko AI, ciężko mi jest wygrać, chyba, że przyjmę taktykę zdobądź jedną damkę, i pozostaw 1 rząd pionów nie ruszony - zablokuj możliwość AI zdobycia damki i przez to ma jedynie ograniczoną liczbę ruchów - i przez to przegrywa
+
+### Porównianie głębokości na planszy 8x8 z 3 rzędami pionów
+
+| blue \ white | 1    | 2     | 3     | 4     | 5     |
+| ------------ | ---- | ----- | ----- | ----- | ----- |
+| 1            | blue | white | white | white | draw  |
+| 2            | blue | draw  | white | white | draw  |
+| 3            | draw | draw  | draw  | white | draw  |
+| 4            | blue | draw  | blue  | draw  | white |
+| 5            | blue | draw  | white | white | draw  |
+
+- z porównywania głębokości wynika, że im większa jest głębokość tym większa szansa na wygranie danego ai
+- można też zauważyć, że białe pionki są w nieco lepszej sytuacji
+
+### Gra na planszy 8x8 z 3 rzędami pionów na starcie vs przeciwnik z ustawioną funkcją ewaluującą podstawową i głębokością 3.
+
+Gracz biały:
+
+| evaluation \ depth | 1    | 2    | 3    | 4    | 5    |
+| ------------------ | ---- | ---- | ---- | ---- | ---- |
+| evaluate_random    | lose | lose | lose | lose | lose |
+| evaluate_basic     | draw | draw | draw | win  | draw |
+| evaluate_version_1 | lose | lose | draw | draw | draw |
+| evaluate_version_2 | lose | draw | draw | win  | draw |
+| evaluate_version_3 | lose | draw | draw | win  | draw |
+
+Gracz niebieski:
+
+| evaluation \ depth | 1    | 2    | 3    | 4    | 5    |
+| ------------------ | ---- | ---- | ---- | ---- | ---- |
+| evaluate_random    | lose | lose | lose | lose | lose |
+| evaluate_basic     | lose | lose | draw | win  | lose |
+| evaluate_version_1 | lose | win  | draw | draw | win  |
+| evaluate_version_2 | lose | lose | draw | draw | draw |
+| evaluate_version_3 | lose | lose | draw | draw | draw |
+
+### Gra na planszy 8x8 z 3 rzędami pionów na starcie, każdy z każdym.
+
+Gracz biały:
+
+| evaluation \ depth | 1           | 2           | 3           | 4           | 5           |
+| ------------------ | ----------- | ----------- | ----------- | ----------- | ----------- |
+| evaluate_random    | [1, 3, 21]  | [3, 6, 16]  | [3, 10, 12] | [5, 12, 8]  | [6, 13, 6]  |
+| evaluate_basic     | [7, 4, 14]  | [12, 13, 0] | [11, 11, 3] | [19, 6, 0]  | [11, 14, 0] |
+| evaluate_version_1 | [2, 11, 12] | [3, 14, 8]  | [6, 13, 6]  | [7, 16, 2]  | [12, 9, 4]  |
+| evaluate_version_2 | [5, 3, 17]  | [8, 16, 1]  | [8, 15, 2]  | [13, 12, 0] | [11, 13, 1] |
+| evaluate_version_3 | [2, 6, 17]  | [10, 11, 4] | [5, 17, 3]  | [11, 10, 4] | [7, 15, 3]  |
+
+Gracz niebieski:
+
+| evaluation \ depth | 1          | 2          | 3          | 4           | 5           |
+| ------------------ | ---------- | ---------- | ---------- | ----------- | ----------- |
+| evaluate_random    | [0, 2, 23] | [2, 2, 21] | [3, 7, 15] | [5, 8, 12]  | [5, 8, 12]  |
+| evaluate_basic     | [7, 11, 7] | [7, 8, 10] | [7, 15, 3] | [9, 15, 1]  | [10, 11, 4] |
+| evaluate_version_1 | [1, 5, 19] | [5, 9, 11] | [4, 18, 3] | [6, 15, 4]  | [7, 16, 2]  |
+| evaluate_version_2 | [6, 11, 8] | [6, 13, 6] | [9, 14, 2] | [12, 11, 2] | [11, 13, 1] |
+| evaluate_version_3 | [6, 11, 8] | [8, 11, 6] | [8, 11, 6] | [10, 14, 1] | [10, 14, 1] |
+
+### Gra na planszy 6x6 z 2 rzędami pionów na starcie, każdy z każdym.
+
+Gracz biały:
+
+| evaluation \ depth | 1          | 2          | 3           | 4           | 5           |
+| ------------------ | ---------- | ---------- | ----------- | ----------- | ----------- |
+| evaluate_random    | [1, 0, 24] | [3, 5, 17] | [3, 9, 13]  | [5, 11, 9]  | [6, 14, 5]  |
+| evaluate_basic     | [7, 4, 14] | [8, 14, 3] | [13, 5, 7]  | [15, 9, 1]  | [14, 11, 0] |
+| evaluate_version_1 | [1, 3, 21] | [4, 14, 7] | [13, 6, 6]  | [14, 8, 3]  | [11, 11, 3] |
+| evaluate_version_2 | [5, 8, 12] | [7, 15, 3] | [12, 10, 3] | [14, 10, 1] | [7, 16, 2]  |
+| evaluate_version_3 | [2, 8, 15] | [6, 14, 5] | [10, 11, 4] | [12, 12, 1] | [9, 15, 1]  |
+
+Gracz niebieski:
+
+| evaluation \ depth | 1           | 2          | 3           | 4           | 5           |
+| ------------------ | ----------- | ---------- | ----------- | ----------- | ----------- |
+| evaluate_random    | [2, 1, 22]  | [2, 4, 19] | [7, 3, 15]  | [7, 8, 10]  | [8, 10, 7]  |
+| evaluate_basic     | [2, 5, 18]  | [4, 13, 8] | [7, 11, 7]  | [11, 14, 0] | [14, 10, 1] |
+| evaluate_version_1 | [3, 4, 18]  | [3, 8, 14] | [7, 13, 5]  | [9, 14, 2]  | [8, 16, 1]  |
+| evaluate_version_2 | [3, 10, 12] | [7, 11, 7] | [12, 8, 5]  | [14, 10, 1] | [13, 9, 3]  |
+| evaluate_version_3 | [1, 8, 16]  | [5, 13, 7] | [10, 13, 2] | [10, 14, 1] | [11, 13, 1] |
+
+# Wprowadzenie do sztucznej inteligencji - ćwiczenie 4
+
+## Student
+
+Imię: Bartłomiej
+
+Nazwisko: Krawczyk
+
+Numer indeksu: 310774
+
+## Zadanie:
+
+- Zaimplementować klasyfikator ID3 (drzewo decyzyjne).
+- Atrybuty nominalne, testy tożsamościowe.
+- Podać dokładność i macierz pomyłek na zbiorach:
+  - Breast cancer
+  - mushroom
+- Sformułować i spisać w kilku zdaniach wnioski.
+
+```python
+from typing import List, NamedTuple, Union, Dict
+from collections import Counter
+from functools import partial
+from math import log
+
+
+class TrainingData(NamedTuple):
+    expected_class: str
+    values: List[str]
+
+
+class Leaf(NamedTuple):
+    predicted_class: str
+
+    def identify(self, _sample: List[str]) -> str:
+        return self.predicted_class
+
+
+class Node(NamedTuple):
+    attribute: int
+    children: Dict[str, Union['Node', Leaf]]
+
+    def identify(self, sample: List[str]) -> str:
+        if sample[self.attribute] in self.children:
+            return self.children[sample[self.attribute]].identify(sample)
+
+        classes: List[str] = [
+            child.identify(sample)
+            for child in self.children.values()
+        ]
+
+        class_counter = Counter(classes)
+
+        return class_counter.most_common(1)[0][0]
+
+
+def split_data(attribute: int, data: List[TrainingData]) -> Dict[str, List[TrainingData]]:
+    dictionary: Dict[str, List[TrainingData]] = {}
+    for sample in data:
+        dictionary.setdefault(sample.values[attribute], []).append(sample)
+    return dictionary
+
+
+def entropy(class_counter: "Counter[str]") -> float:
+    total = sum(class_counter.values())
+    return -sum(count / total * log(count / total) for count in class_counter.values())
+
+
+def inf(attribute: int, data: List[TrainingData]) -> float:
+    splitted_data = split_data(attribute, data)
+    return sum(
+        len(subset) / len(data) *
+        entropy(Counter(sample.expected_class for sample in subset))
+        for subset in splitted_data.values()
+    )
+
+
+def inf_gain(attribute: int, data: List[TrainingData], class_counter: "Counter[str]") -> float:
+    return entropy(class_counter) - inf(attribute, data)
+
+
+def id3(data: List[TrainingData], attributes: List[int]) -> Union[Node, Leaf]:
+    class_counter = Counter(sample.expected_class for sample in data)
+
+    if len(class_counter) == 1:
+        return Leaf(data[0].expected_class)
+
+    if len(attributes) == 0:
+        return Leaf(class_counter.most_common(1)[0][0])
+
+    attribute = max(
+        attributes,
+        key=partial(
+            inf_gain,
+            data=data,
+            class_counter=class_counter
+        )  # type: ignore
+    )
+    attributes = attributes.copy()
+    attributes.remove(attribute)
+
+    splitted_data = split_data(attribute, data)
+
+    return Node(attribute, {new_attribute: id3(new_data, attributes) for new_attribute, new_data in splitted_data.items()})
+
+
+def run_id3(data: List[TrainingData]) -> Union[Node, Leaf]:
+    return id3(data, list(range(len(data[0].values))))
+
+
+def main():
+
+    data = [
+        TrainingData('0', ['A', '1']),
+        TrainingData('1', ['B', '1']),
+        TrainingData('1', ['B', '2']),
+        TrainingData('0', ['B', '2']),
+        TrainingData('1', ['B', '3'])
+    ]
+
+    tree = run_id3(data)
+    print(tree)
+    print()
+
+    print(inf_gain(0, data, Counter(sample.expected_class for sample in data)))
+    print()
+
+    print(tree.identify(['A', '1']))
+    print(tree.identify(['B', '1']))
+    print(tree.identify(['B', '2']))
+    print(tree.identify(['B', '3']))
+
+
+if __name__ == '__main__':
+    main()
+```
+
+# Założenia
+
+- Atrybuty nominalne - każdy atrybut może przyjmować jedną z kilku dozwolonych wartości
+- Należy losowo podzielić zbiór danych na trenujący i testujący w stosunku 3:2
+
+# Dokładność
+
+Statystyki dokładności drzew wygenerowanych algorytmem ID3 dla 25 różnych zbiorów trenujących + testowych:
+
+| name             | min                 | mean                | max                 | stdev                |
+| ---------------- | ------------------- | ------------------- | ------------------- | -------------------- |
+| Agaricus Lepiota | 100.0 %             | 100.0 %             | 100.0 %             | 0.0 %                |
+| Breast Cancer    | 55.65217391304348 % | 64.38260869565218 % | 71.30434782608695 % | 4.173913043478261 %  |
+| Car              | 88.8728323699422 %  | 91.58381502890174 % | 93.64161849710982 % | 1.1749422881242075 % |
+| Tic-Tac-Toe      | 78.38541666666666 % | 83.33333333333333 % | 86.97916666666666 % | 2.3158544395753635 % |
+
+# Macierze Pomyłek
+
+## Zbiór Breast Cancer
+
+Przykładowa macierz pomyłek:
+
+| expected / predicted | no-recurrence-events | recurrence-events |
+| -------------------- | -------------------- | ----------------- |
+| no-recurrence-events | 62                   | 14                |
+| recurrence-events    | 24                   | 15                |
+
+## Zbiór Mushroom
+
+Przykładowa macierz pomyłek:
+
+| expected / predicted | p    | e    |
+| -------------------- | ---- | ---- |
+| p                    | 1562 | 0    |
+| e                    | 0    | 1688 |
+
+# Wnioski
+
+- Z wyników wychodzi, że algorytm radzi sobie lepiej dla większych zbiorów
+  - dla zbioru mushroom (4874 danych trenujących) dokładność dla danych testowych wyniosła aż 100 % we wszystkich 25 testach
+- Dla mniejszych zbiorów algorytm nie radzi sobie, aż tak dobrze
+
+- wyszło mi, że w głównej mierze wynik zależy od:
+  - ilości dostępnych atrybutów
+  - dobranych par trenujących
+
+# Wprowadzenie do sztucznej inteligencji - ćwiczenie 5
+
+## Studenci
+
+```
+Bartłomiej Krawczyk
+310774
+```
+
+```
+Mateusz Brzozowski
+310608
+```
+
+## Zadanie:
+
+Proszę zaimplementować perceptron dwuwarstwowy i nauczyć go reprezentować funkcję `J : [-5,5] → R`, daną wzorem:
+
+$$
+J(x) = \\sin(x*\\sqrt\{p[0]+1\})+\\cos(x*\\sqrt\{p[1]+1\})
+$$
+
+gdzie $p[0]$ i $p[1]$ to najmłodsze cyfry numerów indeksów wykonawców.
+
+W sprawozdaniu powinny znaleźć się wykresy funkcji aproksymowanej i jej aproksymacji. Powinny również znaleźć się wskaźniki jakości aproksymacji.
+
+```python
+import numpy as np
+from numpy import typing as npt
+from plotter import plot_functions
+from typing import List, Tuple
+
+
+INDEXES = [310774, 310608]
+INDEX_UNITS = [idx % 10 for idx in INDEXES]
+PARAMETERS: Tuple[float, float] = (
+    (INDEX_UNITS[0] + 1) ** 0.5, (INDEX_UNITS[1] + 1) ** 0.5
+)
+
+L_BOUND = -5
+U_BOUND = 5
+
+
+def function_to_approximate(x: npt.NDArray[np.float64]) -> npt.NDArray[np.float64]:
+    return (np.sin(x * PARAMETERS[0])  # type: ignore
+            + np.cos(x * PARAMETERS[1])
+            )
+
+
+EVAL_X: npt.NDArray[np.float64] = np.linspace(  # type: ignore
+    L_BOUND,
+    U_BOUND,
+    100
+)
+EVAL_Y = function_to_approximate(EVAL_X)
+
+np.random.seed(1)
+
+
+def sigmoid(x: npt.NDArray[np.float64]) -> npt.NDArray[np.float64]:
+    return 1 / (1 + np.exp(-x))
+
+
+def sigmoid_derivative(x: npt.NDArray[np.float64]) -> npt.NDArray[np.float64]:
+    s = 1 / (1 + np.exp(-x))
+    return s * (1 - s)
+
+
+def loss(approximated_y: npt.NDArray[np.float64],
+         expected_y: npt.NDArray[np.float64]) -> npt.NDArray[np.float64]:
+
+    return np.square(approximated_y - expected_y)
+
+
+def loss_derivative(approximated_y: npt.NDArray[np.float64],
+                    expected_y: npt.NDArray[np.float64]) -> npt.NDArray[np.float64]:
+
+    return 2 * (approximated_y - expected_y)
+
+
+def unison_shuffled_copies(a: npt.NDArray[np.float64], b: npt.NDArray[np.float64]) \
+        -> Tuple[npt.NDArray[np.float64], npt.NDArray[np.float64]]:
+    assert len(a) == len(b)
+    p: npt.NDArray[np.intc] = np.random.permutation(len(a))  # type: ignore
+    return a[p], b[p]
+
+
+class Network:
+    def __init__(self, hidden_layer_sizes: List[int] = []):
+        if len(hidden_layer_sizes) == 0:
+            hidden_layer_sizes = [13]
+
+        self.sizes = [1]
+        self.sizes.extend(hidden_layer_sizes)
+        self.sizes.append(1)
+
+        self.weights: List[npt.NDArray[np.float64]] = [
+            np.random.uniform(-1.0, 1.0,  # type: ignore
+                              size=(self.sizes[i+1], self.sizes[i]))
+            for i in range(len(self.sizes) - 2)
+        ]
+        self.weights.append(
+            np.zeros(shape=(self.sizes[-1], self.sizes[-2]))  # type: ignore
+        )
+
+        self.biases: List[npt.NDArray[np.float64]] = [
+            np.random.uniform(-1.0, 1.0, size=(self.sizes[i+1], 1))
+            for i in range(len(self.sizes) - 2)
+        ]
+        self.biases.append(np.zeros(shape=(self.sizes[-1], 1)))  # type: ignore
+
+    @staticmethod
+    def forward(x: npt.NDArray[np.float64],
+                weights: npt.NDArray[np.float64],
+                biases: npt.NDArray[np.float64],
+                activation: bool = True) -> npt.NDArray[np.float64]:
+
+        result = (weights @ x) + biases
+
+        if activation:
+            return sigmoid(result)
+        return result
+
+    def predict(self, x: float) -> float:
+        activations: npt.NDArray[np.float64] = np.array([[x]])  # type: ignore
+        for i, values in enumerate(zip(self.weights, self.biases), start=1):
+            weights, biases = values
+            activations = self.forward(
+                activations,
+                weights,
+                biases,
+                i != len(self.weights)
+            )
+
+        return activations[0][0]
+
+    def mean_loss(self) -> float:
+
+        return loss(
+            np.array([self.predict(x) for x in EVAL_X]),  # type: ignore
+            EVAL_Y).mean()  # type: ignore
+
+    def train(self,
+              x_set: npt.NDArray[np.float64],
+              y_set: npt.NDArray[np.float64],
+              iterations: int,
+              mini_batch_size: int,
+              learning_rate: float) -> None:
+
+        mean_loss_before = self.mean_loss()
+        for i in range(iterations):
+
+            self.batch(x_set, y_set, mini_batch_size, learning_rate)
+
+            if i % 100 == 0:
+                mean_loss_after = self.mean_loss()
+                print(
+                    f"Iteration: {i}\tDelta: {mean_loss_after - mean_loss_before}\tMean Loss: {mean_loss_after}"
+                )
+                mean_loss_before = mean_loss_after
+
+    def batch(self,
+              x_set: npt.NDArray[np.float64],
+              y_set: npt.NDArray[np.float64],
+              mini_batch_size: int,
+              learning_rate: float) -> None:
+
+        x_set, y_set = unison_shuffled_copies(x_set, y_set)
+
+        mini_batches = len(x_set) // mini_batch_size
+
+        for i in range(mini_batches):
+            start = mini_batch_size * i
+            end = start + mini_batch_size
+
+            self.mini_batch(x_set[start:end], y_set[start:end], learning_rate)
+
+    def mini_batch(self,
+                   x_set: npt.NDArray[np.float64],
+                   y_set: npt.NDArray[np.float64],
+                   learning_rate: float) -> None:
+
+        gradient_weights: List[npt.NDArray[np.float64]] = [
+            np.zeros(shape=weight.shape)  # type: ignore
+            for weight in self.weights
+        ]
+        gradient_biases: List[npt.NDArray[np.float64]] = [
+            np.zeros(shape=bias.shape)  # type: ignore
+            for bias in self.biases
+        ]
+        for x, y in zip(x_set, y_set):
+            delta_weights, delta_biases = self.backward(x, y)
+
+            for i, result in enumerate(zip(delta_weights, delta_biases)):
+                gradient_weights[i] += result[0]
+                gradient_biases[i] += result[1]
+
+        proportion = learning_rate / len(x_set)
+
+        gradient_weights = [
+            grad * proportion
+            for grad in gradient_weights
+        ]
+        gradient_biases = [
+            grad * proportion
+            for grad in gradient_biases
+        ]
+
+        self.weights = [
+            weight - grad
+            for weight, grad in zip(self.weights, gradient_weights)
+        ]
+        self.biases = [
+            bias - grad
+            for bias, grad in zip(self.biases, gradient_biases)
+        ]
+
+    def backward(self, x: float, expected_y: float) \
+            -> Tuple[List[npt.NDArray[np.float64]], List[npt.NDArray[np.float64]]]:
+
+        delta_biases: List[npt.NDArray[np.float64]] = [
+            np.zeros(shape=bias.shape)  # type: ignore
+            for bias in self.biases
+        ]
+        delta_weights: List[npt.NDArray[np.float64]] = [
+            np.zeros(shape=weight.shape)  # type: ignore
+            for weight in self.weights
+        ]
+
+        y: npt.NDArray[np.float64] = np.array([[expected_y]])  # type: ignore
+
+        activation: npt.NDArray[np.float64] = np.array([[x]])  # type: ignore
+        activations: List[npt.NDArray[np.float64]] = [activation]
+        vectors: List[npt.NDArray[np.float64]] = []
+        for bias, weight in zip(self.biases, self.weights):
+            vector = (weight @ activation) + bias
+            vectors.append(vector)
+            activation = sigmoid(vector)
+            activations.append(activation)
+
+        delta = loss_derivative(vectors[-1], y)
+        delta_biases[-1] = delta
+        delta_weights[-1] = delta @ activations[-2].T
+
+        for i in range(2, len(self.sizes)):
+            vector = vectors[-i]
+            d_sigmoid = sigmoid_derivative(vector)
+            delta = self.weights[-i+1].T @ delta * d_sigmoid
+            delta_biases[-i] = delta
+            delta_weights[-i] = delta @ activations[-i-1].T
+
+        return delta_weights, delta_biases
+
+
+def main():
+    training_x: npt.NDArray[np.float64] = np.linspace(  # type: ignore
+        L_BOUND,
+        U_BOUND,
+        10_000
+    )
+
+    training_y = function_to_approximate(training_x)
+
+    nn = Network()
+    nn.train(training_x, training_y, 1_000, 200, 1e-1)
+
+    approximated_y: npt.NDArray[np.float64] = np.array(  # type: ignore
+        [nn.predict(x) for x in training_x]
+    )
+
+    plot_functions(training_x, training_y, approximated_y)
+
+
+if __name__ == '__main__':
+    main()
+```
+
+## Pytania:
+
+Jak liczba neuronów w warstwie ukrytej wpływa na jakość aproksymacji?
+
+## Odpowiedzi
+
+- funkcja czerwona - funkcja aproksymowana
+- funkcja niebieska - funkcja aproksymacji
+
+Parametry dla najlepszego wyniku:
+
+- liczba neuronow: `13`
+- Liczba epok: `5000`
+- rozmiar mini zbioru: `100`
+- learning rate: `0.1`
+
+![](../../assets/content/wsi/nn/5000_100_01.png)
+
+1. Wpływ liczby neurownów w warstwie ukrytej na jakość aproksymacji
+
+Parametry:
+
+- Liczba epok: `1000`
+- rozmiar mini zbioru: `200`
+- learning rate: `0.1`
+
+| l. neuronów | jakość aproksymacji  | wykres                                  |
+| ----------- | -------------------- | --------------------------------------- |
+| 1           | 0.9626108158771487   | ![](../../assets/content/wsi/nn/1.png)  |
+| 3           | 0.5052205935619043   | ![](../../assets/content/wsi/nn/3.png)  |
+| 6           | 0.20932076027426308  | ![](../../assets/content/wsi/nn/6.png)  |
+| 9           | 0.028579552869285273 | ![](../../assets/content/wsi/nn/9.png)  |
+| 13          | 0.02101232492836344  | ![](../../assets/content/wsi/nn/13.png) |
+| 20          | 0.04631622547961368  | ![](../../assets/content/wsi/nn/20.png) |
+| 50          | 0.026904497018995624 | ![](../../assets/content/wsi/nn/50.png) |
+
+Jak widzimy kiedy zwiększamy liczbę neuronów w warstwie ukrytej, to zwiększa się jakoś aproksymacji. Dla niewielkich wartości `1`,`3`,`6`,`9`, przy zwiększaniu liczby nauronów jakość aproksymacji się popprawia w sposób znaczący. Jednakże po osiągnięciu najlepszej jakości, nie następuje dalsze polepszanie się wyniku, wręcz przeciwnie jesteśmy w stanie zauważyć pogorszenie się jakości wyników. Tak więc, im więcej nie oznacza lepiej, należy dobrać odpowiednią liczbę, nie za dużą, tak żeby nie wsytąpił efekt przeuczenia, ale też i nie za małą.
+
+2. Wpływ liczby epok na jakość aproksymacji
+
+Parametry:
+
+- liczba neuronow: `13`
+- rozmiar mini zbioru: `100`
+- learning rate: `0.1`
+
+| l. epok | jakość aproksymacji  | wykres                                           |
+| ------- | -------------------- | ------------------------------------------------ |
+| 100     | 0.6036005131793474   | ![](../../assets/content/wsi/nn/100_100_01.png)  |
+| 500     | 0.025507866058764903 | ![](../../assets/content/wsi/nn/500_100_01.png)  |
+| 1000    | 0.003881639756722564 | ![](../../assets/content/wsi/nn/1000_100_01.png) |
+| 2500    | 0.000464653486408472 | ![](../../assets/content/wsi/nn/2500_100_01.png) |
+| 3000    | 0.000371961012552506 |                                                  |
+| 4000    | 0.000710141625934429 |                                                  |
+| 5000    | 0.000500152100903829 | ![](../../assets/content/wsi/nn/5000_100_01.png) |
+
+Jak widzimy w tym przypadku im więcej tym lepiej, jednakże po przekroczeniu pewnego progu wyniki, nie ulegają poprawie, tylko utrzymują się na pewnym poziomie jakości aproksymacji.
+
+3. Wpływ rozmiaru mini zbioru na jakość aproksymacji
+
+Parametry:
+
+- liczba neuronow: `13`
+- Liczba epok: `1000`
+- learning rate: `0.1`
+
+| r. min zbioru | jakość aproksymacji  | wykres                                           |
+| ------------- | -------------------- | ------------------------------------------------ |
+| 5             | 0.742208769993701    | ![](../../assets/content/wsi/nn/1000_5_01.png)   |
+| 10            | 0.7329583312672093   | ![](../../assets/content/wsi/nn/1000_10_01.png)  |
+| 25            | 0.00146432025873798  | ![](../../assets/content/wsi/nn/1000_25_01.png)  |
+| 50            | 0.000609914994377384 | ![](../../assets/content/wsi/nn/1000_50_01.png)  |
+| 100           | 0.005854738926109195 | ![](../../assets/content/wsi/nn/1000_100_01.png) |
+| 200           | 0.02101232492836344  | ![](../../assets/content/wsi/nn/1000_200_01.png) |
+
+Dla poszczególnych parametrów musimy odnaleść odpowiedni rozmiar mini zbioru, ponieważ za duży rozmiar lub za mały, negatwynie wpływa na jakość aproksymacji.
+
+4. Wpływ learning rate na jakość aproksymacji
+
+Parametry:
+
+- liczba neuronow: `13`
+- Liczba epok: `1000`
+- rozmiar zbioru: `100`
+
+| learning rate | jakość aproksymacji  | wykres                                             |
+| ------------- | -------------------- | -------------------------------------------------- |
+| 0.2           | 0.01651475725734568  | ![](../../assets/content/wsi/nn/1000_100_02.png)   |
+| 0.1           | 0.005854738926109195 | ![](../../assets/content/wsi/nn/1000_100_01.png)   |
+| 0.01          | 0.6692954914503615   | ![](../../assets/content/wsi/nn/1000_100_001.png)  |
+| 0.001         | 0.985174553192548    | ![](../../assets/content/wsi/nn/1000_100_0001.png) |
+
+Im mniejszy lerning rate, tym mniejsza jakosć aproksymacji, jednakże jest to spowodowane tym, że na stałym poziomy pozostają inne parametry i w teorii powinna nam się zwiększać dokładkość, ponieważ robimy małe, bardziej dokładne skoki, ale żeby taki stan osiągnąć powinniśmy znacząco zwiększyć liczbę epok.
+
+# Wprowadzenie do sztucznej inteligencji - ćwiczenie 6
+
+## Student
+
+```
+Bartłomiej Krawczyk
+310774
+```
+
+## Zadanie:
+
+Proszę zaimplementować algorytm Q-Learning i użyć go do wyznaczenia polityki decyzyjnej dla problemu FrozenLake8x8-v0 (w wersji domyślnej, czyli z włączonym poślizgiem). W problemie chodzi o to, aby agent przedostał się przez zamarznięte jezioro z pozycji 'S' do pozycji 'G' unikając punktów 'H'. Symulator dla tego problemu można pobrać z podanej strony lub napisać własny o takiej samej funkcjonalności.
+Oprócz zbadania domyślnego sposobu nagradzania (1 za dojście do celu, 0 w przeciwnym przypadku) proszę zaproponować własny system nagród i kar, po czym porównać osiągane wyniki z wynikami systemu domyślnego.
+
+Za wynik uznajemy procent dojść do celu w 1000 prób. W każdej próbie można wykonać maksymalnie 200 akcji.
+
+```python
+from random import choice, uniform, shuffle
+from statistics import stdev, mean
+from typing import List, Callable
+
+from frozenlake import Action, FrozenLake, REWARD_FUNCTIONS, Field
+from multiprocessing.pool import Pool
+from functools import partial
+from itertools import repeat
+
+MAX_STEPS = 400
+
+LEARNING_RATE = 0.05
+
+EPSILON = 0.1
+
+GAMMA = 0.95
+
+
+def q_learning(
+        environment: FrozenLake,
+        episodes: int,
+        max_steps: int = MAX_STEPS,
+        learning_rate: float = LEARNING_RATE,
+        epsilon: float = EPSILON,
+        gamma: float = GAMMA) -> List[List[float]]:
+
+    qtable: List[List[float]] = [
+        [0.0, 0.0, 0.0, 0.0]
+        for _ in range(len(environment.map))
+    ]
+
+    for _ in range(episodes):
+        environment.reset()
+
+        for _ in range(max_steps):
+            state = environment.state
+
+            if uniform(0, 1) > epsilon:
+                actions = list(Action)
+                shuffle(actions)
+                action = max(actions, key=lambda x: qtable[state][x])
+            else:
+                action = choice(tuple(Action))
+
+            new_state, reward, done = environment.step(action)
+
+            qtable[state][action] = (
+                qtable[state][action]
+                + learning_rate * (
+                    reward
+                    + gamma * max(qtable[new_state])
+                    - qtable[state][action]
+                )
+            )
+
+            if done:
+                break
+
+    return qtable
+
+
+def evaluate_qtable(environment: FrozenLake, qtable: List[List[float]]) -> float:
+    success_count = 0
+
+    for _ in range(1000):
+        environment.reset()
+
+        for _ in range(200):
+            state = environment.state
+            action = max(Action, key=lambda x: qtable[state][x])
+            _, _, done = environment.step(action)
+
+            if done:
+                success_count += (
+                    Field(environment.map[environment.state]) == Field.GOAL
+                )
+                break
+
+    return success_count / 10
+
+
+def run_q_learning(episodes: int, reward: Callable[[Field], float]) -> float:
+    environment = FrozenLake(reward)
+    qtable = q_learning(environment, episodes)
+    return evaluate_qtable(environment, qtable)
+
+
+def render_frozenlake(environment: FrozenLake, qtable: List[List[float]]):
+    for step in range(200):
+        state = environment.state
+        action = max(Action, key=lambda x: qtable[state][x])
+        _, _, done = environment.step(action)
+
+        environment.render()
+
+        if done:
+            print('Steps', step)
+            break
+
+
+def main():
+    for reward in REWARD_FUNCTIONS:
+        print(reward.__name__)
+        print('episodes|min|avg|max|stdev')
+        print('-|-' * 4)
+        for episodes in [1000, 5000, 10_000, 25_000, 50_000, 100_000, 250_000]:
+            with Pool() as pool:
+                func = partial(run_q_learning, reward=reward)
+                success_rate = pool.map(func, repeat(episodes, 25))
+                print(
+                    f'{episodes}|{min(success_rate)}|{mean(success_rate)}|{max(success_rate)}|{stdev(success_rate)}'
+                )
+
+
+def format_qtable(qtable: List[List[float]]):
+    length = int(len(qtable) ** 0.5)
+
+    for y in range(length):
+        row = ''
+        for x in range(length):
+            row += max([('<', 0), ('V', 1), ('>', 2), ('^', 3)],
+                       key=lambda val: qtable[y * length + x][val[1]])[0] + ' '
+        print(row)
+
+
+if __name__ == '__main__':
+    main()
+
+    environment = FrozenLake(REWARD_FUNCTIONS[1])
+    qtable = q_learning(environment, 100_000)
+    format_qtable(qtable)
+```
+
+# Założenia
+
+```python
+LEARNING_RATE = 0.05
+EPSILON = 0.1
+GAMMA = 0.95
+```
+
+# Wyniki
+
+## reward_default
+
+- Dojście do celu +1
+- Wpadnięcie do dziury 0
+
+| episodes | min  | avg    | max  | stdev              |
+| -------- | ---- | ------ | ---- | ------------------ |
+| 1000     | 0.0  | 2.2    | 7.9  | 2.13834047803431   |
+| 5000     | 8.0  | 50.284 | 81.6 | 24.921922745513303 |
+| 10000    | 49.8 | 67.54  | 87.8 | 11.407271073018881 |
+| 25000    | 51.7 | 68.548 | 83.6 | 10.248460046920869 |
+| 50000    | 50.0 | 67.16  | 83.1 | 10.603222780519767 |
+| 100000   | 26.6 | 66.172 | 83.1 | 14.147747759508107 |
+| 250000   | 54.1 | 69.704 | 86.2 | 9.506553879648852  |
+
+## reward_2
+
+- Dojście do celu +1
+- Wpadnięcie do dziury -1
+
+| episodes | min  | avg    | max  | stdev              |
+| -------- | ---- | ------ | ---- | ------------------ |
+| 1000     | 53.1 | 74.164 | 88.3 | 10.363834554192124 |
+| 5000     | 70.5 | 83.068 | 89.1 | 5.4933838994436455 |
+| 10000    | 65.4 | 83.72  | 90.4 | 5.981708228703011  |
+| 25000    | 64.2 | 83.188 | 88.9 | 5.700096490411369  |
+| 50000    | 51.1 | 83.392 | 92.2 | 7.96837080797156   |
+| 100000   | 70.3 | 84.068 | 89.3 | 4.705911176382316  |
+| 250000   | 60.0 | 83.628 | 89.3 | 6.193916370116728  |
+
+## reward_3
+
+- Dojście do celu +10
+- Wpadnięcie do dziury -1
+
+| episodes | min  | avg    | max  | stdev              |
+| -------- | ---- | ------ | ---- | ------------------ |
+| 1000     | 31.0 | 62.804 | 84.2 | 16.17032982553747  |
+| 5000     | 54.0 | 73.072 | 84.9 | 8.007471511032682  |
+| 10000    | 27.6 | 73.936 | 89.2 | 12.670499858595425 |
+| 25000    | 52.9 | 72.1   | 83.2 | 9.019053904558577  |
+| 50000    | 62.2 | 73.344 | 82.7 | 6.110583714616252  |
+| 100000   | 57.7 | 74.26  | 85.8 | 6.994402523923445  |
+| 250000   | 49.9 | 71.528 | 88.3 | 10.196139792424713 |
+
+# Wnioski
+
+- Z wyników wyszło mi, że najlepszą funkcją nagrody z testowanych funkcji nagrody dla tego algorytmu jest:
+  - 1 dla dojścia do celu i -1 dla wpadnięcia w dziurę
+- Wynik zależy w dużym stopniu od dobranych parametrów
+- Dużą różnicę wprowadza w przypadku gdy jest kilka maksimów - losowanie wybranej ścieżki
+
+# Wprowadzenie do sztucznej inteligencji - ćwiczenie 7
+
+## Student
+
+```
+Bartłomiej Krawczyk
+310774
+```
+
+## Zadanie:
+
+Proszę zaimplementować losowy generator danych, który działa zgodnie z rozkładem reprezentowanym przez daną sieci bayesowską.
+
+![](../../assets/content/wsi/BN_AcheSimple.png)
+
+Sieć ta opisuje zależności między (zero-jedynkowymi) zmiennymi losowymi i dana jest w postaci opisu grafu połączeń oraz tabel prawdopodobieństw warunkowych.
+Wejście algorytmu:
+
+- ile przykładów wygenerować,
+- opis struktury prostej sieci (według własnego formatu)
+- tabele prawdopodobieństw należy wczytać z pliku tekstowego.
+  Wyjście:
+- plik tekstowy z przykładami.
+
+Strukturę sieci i tabele prawdopodobieństw widać na rysunku. Klasa to „Ache” (czy bolą plecy), pozostałe węzły to atrybuty („Back” to uszkodzenie kręgosłupa (drobne, czasem nie skutkujące bólem)). Wytworzony zbiór podzielić i użyć do treningu i testowania klasyfikatora utworzonego na wcześniejszych ćwiczeniach. Jakie uzyskuemy wyniki? Wnioski?
+
+```python
+from typing import List, NamedTuple, Dict
+from random import uniform
+import json
+from collections import OrderedDict
+
+DATA_FILE = '07-bayesian-network/data/ache.json'
+FILE_TO_GENERATE = '07-bayesian-network/data/ache.data'
+
+NUMBER_OF_SAMPLES = 10_000
+
+
+class Variable(NamedTuple):
+    name: str
+    depends_on: List[str]
+    probabilities: Dict[str, float]
+
+
+class Sample:
+    def __init__(self, variables: List[Variable]) -> None:
+        self.values: OrderedDict[str, str] = OrderedDict()
+        for variable in variables:
+            parent_values = ''
+            for name in variable.depends_on:
+                parent_values += self.values[name]
+
+            self.values[variable.name] = (
+                'T'
+                if uniform(0, 1) < variable.probabilities[parent_values]
+                else 'F'
+            )
+
+    def __str__(self) -> str:
+        result = ''
+        for val in self.values.values():
+            result += val + ','
+        return result[:-1]
+
+
+def load_variables_from_json(filepath: str = DATA_FILE) -> List[Variable]:
+    with open(filepath, 'r') as handle:
+        data = json.load(handle)
+
+    variables: List[Variable] = []
+
+    for variable in data:
+        name = variable['name']
+        depends_on = variable['depends_on']
+        probabilities = variable['probabilities']
+
+        variables.append(Variable(name, depends_on, probabilities))
+
+    return variables
+
+
+def generate_data(variables: List[Variable], filepath: str = FILE_TO_GENERATE) -> None:
+    with open(filepath, 'w') as handle:
+        for _ in range(NUMBER_OF_SAMPLES):
+            handle.write(str(Sample(variables)) + '\n')
+
+
+def print_statistics(variables: List[Variable], filepath: str = FILE_TO_GENERATE):
+
+    with open(filepath, 'r') as handle:
+        lines = handle.readlines()
+
+    print('name|frequency', '-|-', sep='\n')
+    for idx, variable in enumerate(variables):
+        counts = {'T': 0, 'F': 0}
+        for line in lines:
+            counts[str(line[idx * 2])] += 1
+        print(variable.name, counts['T'] / NUMBER_OF_SAMPLES, sep='|')
+
+
+def main():
+    variables = load_variables_from_json()
+    generate_data(variables)
+    print_statistics(variables)
+
+
+if __name__ == '__main__':
+    main()
+```
+
+# Teoria
+
+Wyliczone częstości wystąpień dla podanego przykładu:
+
+Chair
+
+```
+4 / 5 = 0.8
+```
+
+Sport
+
+```
+1 / 50 = 0.02
+```
+
+Back
+
+```
+0.8 * 0.02 * 0.9 + 0.8 * 0.98 * 0.2 + 0.2 * 0.02 * 0.9 + 0.2 * 0.98 * 0.01
+= 4419 / 25000 = 0.17676
+```
+
+Ache
+
+```
+(0.8 * 0.02 * 0.9 + 0.8 * 0.98 * 0.2 + 0.2 * 0.02 * 0.9 + 0.2 * 0.98 * 0.01) * 0.7 + (1 - (0.8 * 0.02 * 0.9 + 0.8 * 0.98 * 0.2 + 0.2 * 0.02 * 0.9 + 0.2 * 0.98 * 0.01)) * 0.1
+= 25757 / 125000
+= 0.206056
+```
+
+# Wyniki
+
+| name  | frequency |
+| ----- | --------- |
+| Chair | 0.80154   |
+| Sport | 0.02004   |
+| Back  | 0.17775   |
+| Ache  | 0.20579   |
+
+# Wyniki klasyfikatora ID3
+
+## Macierz Pomyłek:
+
+| expected / predicted | T   | F    |
+| -------------------- | --- | ---- |
+| T                    | 499 | 304  |
+| F                    | 205 | 2992 |
+
+## Dokładność:
+
+| name | min     | mean     | max      | stdev                 |
+| ---- | ------- | -------- | -------- | --------------------- |
+| Ache | 85.95 % | 86.974 % | 87.925 % | 0.49531555598426313 % |

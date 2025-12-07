@@ -254,6 +254,10 @@ h5 {
 @custom-variant dark (&:where(.theme-dark, .theme-dark *));
 
 @layer utilities {
+  .prose {
+    overflow-x: auto;
+    width: 100%;
+  }
   .prose :where(table th[align="center"], table td[align="center"]) {
     text-align: center;
   }
@@ -264,21 +268,43 @@ h5 {
     text-align: left;
   }
   .prose table {
-    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 0;
     font-size: 0.9em;
     box-shadow: var(--shadow-md);
-    border-radius: 1rem;
+    border-radius: 8px;
+    overflow: hidden;
+    border-top: 1px solid var(--gray-800);
+    border-left: 1px solid var(--gray-800);
+    border-right: 1px solid var(--gray-800);
+    border-bottom: 3px solid var(--primary-light);
+    width: 100%;
+    table-layout: fixed;
+    text-align: center;
   }
+
   .prose thead tr {
     background-color: var(--primary-light);
     color: var(--background);
   }
+
   .prose th,
   .prose td {
     border-top: none;
     padding: calc(2 * var(--spacing));
+    text-align: left;
+    word-wrap: break-word;
   }
-  .prose tbody tr {
+
+  .prose thead tr th:first-child {
+    border-top-left-radius: 8px;
+  }
+  .prose thead tr th:last-child {
+    border-top-right-radius: 8px;
+  }
+
+  .prose tbody tr,
+  .prose tbody td {
     border-bottom: 1px solid var(--gray-800);
   }
 
@@ -287,16 +313,35 @@ h5 {
   }
 
   .prose tbody tr:last-of-type {
-    border-bottom: 1px solid var(--primary-light);
+    border-bottom: none;
   }
 
   .prose tbody tr.active-row {
     font-weight: bold;
     color: var(--primary-light);
   }
+  @media (max-width: 768px) {
+    .prose table {
+      font-size: 0.8em;
+    }
+  }
 }
 
 @media print {
+  .prose {
+    overflow: visible !important;
+    width: 100%;
+  }
+  .prose table {
+    page-break-inside: auto;
+    table-layout: auto;
+    font-size: 0.9em;
+  }
+  .prose th,
+  .prose td {
+    word-wrap: break-word;
+    overflow: visible;
+  }
   .no-print,
   .no-print * {
     display: none !important;
