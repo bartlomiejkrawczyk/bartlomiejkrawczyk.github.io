@@ -263,6 +263,37 @@ h5 {
   .prose :where(table th[align="left"], table td[align="left"]) {
     text-align: left;
   }
+  .prose table {
+    border-collapse: collapse;
+    font-size: 0.9em;
+    box-shadow: var(--shadow-md);
+    border-radius: 1rem;
+  }
+  .prose thead tr {
+    background-color: var(--primary-light);
+    color: var(--background);
+  }
+  .prose th,
+  .prose td {
+    border-top: none;
+    padding: calc(2 * var(--spacing));
+  }
+  .prose tbody tr {
+    border-bottom: 1px solid var(--gray-800);
+  }
+
+  .prose tbody tr:nth-of-type(even) {
+    background-color: var(--gray-950);
+  }
+
+  .prose tbody tr:last-of-type {
+    border-bottom: 1px solid var(--primary-light);
+  }
+
+  .prose tbody tr.active-row {
+    font-weight: bold;
+    color: var(--primary-light);
+  }
 }
 
 @media print {
