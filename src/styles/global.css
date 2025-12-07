@@ -202,9 +202,14 @@ h5 {
   color: var(--gray-100);
 }
 
+[aria-roledescription="sequence"],
+.sequence,
+.erDiagram,
 .flowchart {
   background-color: #ffffff;
-  border-radius: 10px;
+  border-radius: 8px;
+  padding: 1rem;
+  margin: auto;
 }
 
 /* Utilities */

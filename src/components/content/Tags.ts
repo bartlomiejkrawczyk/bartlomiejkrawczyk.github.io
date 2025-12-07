@@ -125,6 +125,11 @@ export const tagIds = [
   "elastic_search",
   "cas",
   "hazelcast",
+  "prometheus",
+  "grafana",
+  "kibana",
+  "filebeat",
+  "logstash",
 
   "tomcat",
   "wildfly",
@@ -953,6 +958,36 @@ export const tags: Record<TagId, Tag> = {
     type: "tool",
     link: "https://hazelcast.com/",
     translation: { en: "Hazelcast" },
+  },
+  prometheus: {
+    id: "prometheus",
+    type: "tool",
+    link: "https://prometheus.io/",
+    translation: { en: "Prometheus" },
+  },
+  grafana: {
+    id: "grafana",
+    type: "tool",
+    link: "https://grafana.com/",
+    translation: { en: "Grafana" },
+  },
+  kibana: {
+    id: "kibana",
+    type: "tool",
+    link: "https://www.elastic.co/kibana",
+    translation: { en: "Kibana" },
+  },
+  filebeat: {
+    id: "filebeat",
+    type: "tool",
+    link: "https://www.elastic.co/beats/filebeat",
+    translation: { en: "Filebeat" },
+  },
+  logstash: {
+    id: "logstash",
+    type: "tool",
+    link: "https://www.elastic.co/logstash",
+    translation: { en: "Logstash" },
   },
   tomcat: {
     id: "tomcat",

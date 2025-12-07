@@ -9,6 +9,7 @@ interface Props {
   caption?: string;
   width?: string;
   optimize: boolean;
+  style?: string;
 }
 
 const {
@@ -18,6 +19,7 @@ const {
   caption = alt,
   width = "50%",
   optimize = true,
+  style,
 } = Astro.props;
 ---
 
@@ -31,7 +33,7 @@ const {
           src={src}
           alt={alt}
           class="figure-image"
-          style={`width:${width};`}
+          style={`width:${width}; ${style ?? ""}`}
         />
       )
     ) : (
@@ -39,7 +41,7 @@ const {
         src={srcLocation}
         alt={alt}
         class="figure-image"
-        style={`width:${width};`}
+        style={`width:${width}; ${style ?? ""}`}
       />
     )
   }
