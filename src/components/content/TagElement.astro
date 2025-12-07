@@ -59,6 +59,7 @@ const { tag, ...props } = Astro.props;
     )
   }
   <input
+    id={`${tag.id}-${Math.round(Math.random() * 10e12).toString(36)}`}
     type="checkbox"
     class="tag-check styled-checkbox"
     data-tag-id={String(tag.id)}

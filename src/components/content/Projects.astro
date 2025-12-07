@@ -29,6 +29,7 @@ const t = getTranslations(lang);
           <div class="project-wrapper">
             <div class="flex flex-row items-center">
               <input
+                id={`${project.id}-${Math.round(Math.random() * 10e12).toString(36)}`}
                 type="checkbox"
                 class="project-check styled-checkbox"
                 data-project-id={project.id}
