@@ -8,6 +8,7 @@ import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import type { ExtendedProjectEntry } from "@src/content.config";
 import { getTranslations } from "@src/i18n/ui";
+import Icon from "@src/components/Icon.astro";
 
 dayjs.extend(utc);
 
@@ -31,11 +32,8 @@ const { Content, remarkPluginFrontmatter } = await render(project);
 const { data } = project;
 
 const lastModified = dayjs(remarkPluginFrontmatter.lastModified).format(
-  "YYYY-MM-DD HH:mm Z[Z]",
+  "YYYY-MM-DD HH:mm",
 );
-const publishDate = data.publishDate
-  ? dayjs(data.publishDate).format("YYYY-MM-DD")
-  : null;
 
 const projectTags =
   data.tags?.map((tagId) => allTags[tagId]).filter(Boolean) ?? [];
@@ -70,52 +68,77 @@ const printHeaderClass =
   </Fragment>
 
   <div class={`mb-6 ${printHeaderClass}`}>
-    {data.title && <h1 class="text-3xl font-bold">{data.title}</h1>}
-    {data.description && <p class="mt-2">{data.description}</p>}
-
-    <div class="mt-4 flex flex-wrap gap-2">
-      {projectTags.map((tag) => <TagElement tag={tag} />)}
-    </div>
-
-    <div class="mt-2 text-sm">
+    {
+      data.title && (
+        <h1 class="font-bold mb-4" style="font-size: var(--text-5xl);">
+          {data.title}
+        </h1>
+      )
+    }
+    <div class="flex flex-col md:flex-row md:items-center gap-2 w-full">
       {
-        publishDate && (
-          <span class="mr-4">
-            {t.markdown.published}
-            {publishDate}
-          </span>
+        data.description && (
+          <p class="text-left" style="font-size: var(--text-lg)">
+            {data.description}
+          </p>
         )
       }
+      <ul class="flex flex-wrap gap-1.5">
+        {projectTags.map((tag) => <TagElement tag={tag} class="tag-style" />)}
+      </ul>
+    </div>
+
+    <div class="mt-2 text-sm flex flex-row items-center gap-4">
+      <span class="flex flex-row items-center gap-1">
+        <div>
+          <Icon icon="pencil" gradient={true} size="1.5rem" />
+        </div>
+        <div style="color: var(--primary-dark)">
+          {lastModified}
+        </div>
+      </span>
       {
         remarkPluginFrontmatter.minutesRead && (
-          <span class="mr-4">
-            {t.markdown.estimatedTime}
-            {remarkPluginFrontmatter.minutesRead.replace(
-              "read",
-              t.markdown.read,
-            )}
+          <span class="flex flex-row items-center gap-1">
+            <div>
+              <Icon icon="book" gradient={true} size="1.5rem" />
+            </div>
+            <div style="color: var(--primary-dark)">
+              {remarkPluginFrontmatter.minutesRead.replace(
+                "read",
+                t.markdown.read,
+              )}
+            </div>
           </span>
         )
       }
-      <span class="mr-4">{t.markdown.lastModified}{lastModified}</span>
-    </div>
-
-    <div class="mt-2 flex gap-4">
       {
         data.repository && (
-          <a href={data.repository} target="_blank">
-            Repository
+          <a
+            href={data.repository}
+            target="_blank"
+            class="flex flex-row items-center gap-1"
+          >
+            <Icon icon="git-fork" gradient={true} size="1.5rem" />
+            {data.repositoryName ?? "Repository"}
           </a>
         )
       }
       {
         data.externalUrl && (
-          <a href={data.externalUrl} target="_blank">
-            Visit
+          <a
+            href={data.externalUrl}
+            target="_blank"
+            class="flex flex-row items-center gap-1"
+          >
+            <Icon icon="globe" gradient={true} size="1.5rem" />
+            {data.externalUrlName ?? "Visit"}
           </a>
         )
       }
     </div>
+
+    <div class="mt-2 flex gap-4"></div>
 
     {
       data.image && (
@@ -144,8 +167,12 @@ const printHeaderClass =
 </Layout>
 
 <style>
-  header img {
-    display: block;
-    margin-top: 1rem;
+  .tag-style {
+    font-size: var(--text-sm);
+    padding-left: calc(3 * var(--spacing));
+    padding-right: calc(3 * var(--spacing));
+    padding-top: calc(0.5 * var(--spacing));
+    padding-bottom: calc(0.5 * var(--spacing));
+    border-radius: 1rem;
   }
 </style>

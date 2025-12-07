@@ -1,0 +1,226 @@
+---
+title: Match Optimizer
+description: |
+  A scheduling and optimization platform that assigns matches, fields, and referees 
+  using Mixed Integer Programming, backed by a full RBAC-secured Kotlin/Spring API.
+tags:
+  - side_project
+  - kotlin
+  - spring
+  - mip
+  - docker
+  - liquibase
+  - oauth2
+  - rbac
+  - gradle
+  - apache
+  - swagger
+  - ubuntu
+  - ovh
+  - or_tools
+  - spring_boot
+  - spring_security
+  - spring_mvc
+  - jetbrains_exposed
+  - postgres
+---
+
+import Figure from "@components/markdown/Figure.astro";
+import panel1 from "@assets/content/match/panel-1.png";
+import panel2 from "@assets/content/match/panel-2.png";
+import login1 from "@assets/content/match/login-1.png";
+import exampleEndpoint from "@assets/content/match/example-endpoint.png";
+
+# Overview
+
+**Match Optimizer** is a scheduling system that generates optimal match assignments-fields, referees, and time slots-based on availability, preferences, and configurable optimization weights.
+
+It grew out of a real-world challenge: tournament organizers were managing everything in Excel, constantly dealing with conflicts, double bookings, and complaints about referee or field assignments. After experimenting with prototypes for an optimization solver (and later building a Kotlin DSL for OR-Tools), I decided to develop a full backend platform to support the workflow end-to-end.
+
+The system now provides:
+
+- A **Kotlin + Spring Boot** API
+- **Mixed Integer Programming (MIP)** optimization for scheduling
+- **RBAC security** with scoped permissions
+- **OAuth2 login with Google**
+- **PostgreSQL** with **Liquibase** migrations
+- **JetBrains Exposed** as ORM
+- **Swagger/OpenAPI** documentation
+- Containerized deployment on an **OVH Ubuntu server (Docker + Apache reverse proxy)**
+
+<Figure src={panel1} alt="Team Panel" width="80%" />
+<Figure src={panel2} alt="Rounds" width="80%" />
+
+---
+
+# Story Behind the Project
+
+When discussing a potential optimization platform with a friend, we discovered that organizers were manually building schedules in Excel. Each change caused cascading conflicts:
+
+- Teams double-booked in overlapping matches
+- Referees unavailable at the assigned times
+- Field availability ignored or mismatched
+- Players complaining that preferences weren't respected
+
+We built an early solver prototype in Kotlin using OR-Tools, which worked surprisingly well. But soon it became clear: a solver alone wasn't enough. Organizers needed a _full backend platform_ to manage entities, authenticate users, enforce permissions, and ultimately produce optimized schedules at the click of a button.
+
+That became the birth of this project: **a complete scheduling API powered by a MIP optimization engine**.
+
+---
+
+# System Architecture
+
+Key components include:
+
+- **Spring MVC** REST API
+- **Spring Security + OAuth2 + scoped RBAC**
+- **Kotlin + JetBrains Exposed ORM**
+- **Dockerized microservice layout**
+- **Apache2 reverse proxy running on Ubuntu**
+- **Swagger UI** for API visibility
+- **Liquibase** for schema evolution
+
+---
+
+# What the Optimizer Does
+
+The optimizer constructs and solves a large mixed-integer programming model that determines **when**, **where**, and **how** each meeting (match) should be scheduled. It introduces decision variables for assigning meetings to dates, time windows, locations, fields, teams, and referees. Using these variables, the model enforces an extensive set of real-world constraints, including:
+
+- **Availability constraints** for teams, referees, fields, and locations.
+- **Non-overlap rules** ensuring no participant or resource is double-booked.
+- **Category, league, and match-type requirements** to maintain valid competition structure.
+- **Date and time feasibility**, mapping meetings to valid time windows and respecting earliest/latest boundaries.
+- **Location and field rules**, ensuring facilities, capacities, and field types are used correctly.
+- **Preference satisfaction**, pulling in soft constraints from teams, referees, clubs, and organizers.
+
+The solver then maximizes a weighted objective combining schedule quality, preference satisfaction, fairness, and operational costs. Once solved, the system translates the mathematical solution back into a human-readable schedule with assigned meetings, times, fields, and officials.
+
+---
+
+# Scheduling Concepts
+
+The scheduling model is built around a set of domain concepts that mirror the structure of real tournaments and leagues:
+
+- **Meetings** - Individual matches that must be placed onto the calendar and assigned to specific resources.
+- **Dates & Time Windows** - Each meeting is mapped to a specific day and a time slot, allowing fine-grained control over availability and overlap.
+- **Locations & Fields** - Venues contain one or more fields with their own capacities, constraints, and compatibility rules.
+- **Teams & Referees** - Both groups bring availability windows, workload limits, and preference structures that influence feasible scheduling.
+- **Categories & Leagues** - Competitive structures define which matches are allowed, how they relate, and what rules they must follow.
+- **Preferences & Costs** - Soft constraints such as preferred times, disliked venues, or travel considerations are embedded into the optimization objective as weighted costs.
+
+Combined, these concepts form a detailed, mathematically rigorous representation of the scheduling environment. The optimizer navigates this structured landscape to produce the best possible schedule that respects constraints and balances competing priorities.
+
+---
+
+# Role-Based Access Control (RBAC)
+
+The system enforces fine-grained permissions via **scoped roles**:
+
+- `admin`
+- `team`
+- `referee`
+
+Permissions can be:
+
+- **Unscoped** - e.g. `READ:ADMIN`
+- **Scoped** - e.g. `READ:TEAM:1`, `WRITE:REFEREE:2`
+
+Admins inherit all scoped roles automatically.
+
+### Permission Evaluator (Kotlin)
+
+The evaluator supports:
+
+- Object-level permission checks
+- Scoped ID-based checks
+- Batch permission checks for collections
+- Automatic admin overrides
+
+This gives us fine control over operations like:
+
+- A referee editing only their assigned matches
+- A team accessing only their own schedule
+- Admins bypassing all restrictions
+
+```kotlin
+@Component
+@Profile("!no-security")
+class ScopedRolePermissionEvaluator : PermissionEvaluator {
+    ...
+}
+```
+
+---
+
+# OAuth2 Login with Google
+
+The system supports federated login via Google OAuth2:
+
+```properties
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: ${GOOGLE_CLIENT_ID}
+            client-secret: ${GOOGLE_CLIENT_SECRET}
+```
+
+Auth tokens are validated via Google's `jwk-set-uri`.
+
+<Figure src={login1} alt="Google Auth Integration" width="80%" />
+
+---
+
+# Database Query DSL
+
+The project embraces expressive SQL-like patterns when interacting with the database. Using the Exposed framework, the querying layer mirrors the same philosophy: keeping the syntax declarative, readable, and close to the mathematical or structural intent of the operation. The goal is to reuse DSL-style clarity not only in optimization models but also across the data-access layer, ensuring consistency throughout the codebase.
+
+```kotlin
+    private fun findRows(query: FieldQuery): Page<ResultRow> {
+        val (filter, sorting, pageable) = query
+
+        return FieldTable
+            .innerJoin(LocationTable)
+            .selectAll()
+            .applySearchPhrase(filter.phrase) { searchPattern ->
+                (FieldTable.name.normalize() like searchPattern) or
+                        (LocationTable.name.normalize() like searchPattern) or
+                        (LocationTable.address.normalize() like searchPattern)
+            }
+            .andWhereIfNotNull {
+                filter.fieldIds?.let { FieldTable.fieldId inList it }
+            }
+            .andWhereIfNotNull {
+                filter.locationIds?.let { FieldTable.locationId inList it }
+            }
+            .orderBy(sorting) {
+                when (it) {
+                    FieldSorting.FIELD_ID -> FieldTable.fieldId
+                    FieldSorting.NAME -> FieldTable.name
+                    FieldSorting.IMAGE_ID -> FieldTable.imageId
+                }
+            }
+            .paged(pageable)
+    }
+```
+
+---
+
+# API Documentation (Swagger)
+
+Swagger provides full visibility into requests such as:
+
+- Creating teams/referees/fields
+- Submitting a scheduling request (`Problem`)
+- Retrieving the generated schedule (`Solution`)
+
+<Figure src={exampleEndpoint} alt="Example GET /teams endpoint" width="80%" />
+
+<Figure
+  srcLocation={"/assets/match/swagger.png"}
+  optimize={false}
+  alt="Open API Definition"
+  width="98%"
+/>

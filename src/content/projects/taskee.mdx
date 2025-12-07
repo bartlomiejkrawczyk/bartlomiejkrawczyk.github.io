@@ -1,0 +1,98 @@
+---
+title: Taskee
+description: |
+  One of my early large projects: a platform for connecting people needing help with everyday tasks to 
+  local providers. I designed and built the backend and Android app, gaining practical experience with 
+  REST APIs, mobile architecture, and shipping real user-facing features.
+tags:
+  - side_project
+  - java
+  - android
+  - spring
+  - tomcat
+  - windows
+  - spring_mvc
+  - spring_boot
+  - spring_data
+  - spring_security
+  - androidx
+  - retrofit
+  - room
+  - android_material
+  - firebase
+  - mariadb
+  - sqlite
+---
+
+import Figure from "@components/markdown/Figure.astro";
+import colors from "@assets/content/taskee/colors.png";
+import email from "@assets/content/taskee/email.png";
+import icons from "@assets/content/taskee/icons.png";
+import logo from "@assets/content/taskee/logo.png";
+import visualization from "@assets/content/taskee/visualization.png";
+
+# Taskee - Idea
+
+A cross-platform marketplace for local micro-tasks, built from scratch as a complete ecosystem spanning backend, Android, and iOS. Taskee was one of my earliest large-scale projects-a formative experience that helped shape the way I think about architecture, product design, and software quality.
+
+## Story
+
+I began working on Taskee at the very start of my programming journey. I was still in high school, excited about technology and surrounded by friends equally eager to build something meaningful. We had time, energy, and ideas-so we decided to challenge ourselves with a real product.
+
+Without realizing the full scope ahead of us, we jumped into building a complete service from nothing. It quickly became the most ambitious project we had ever attempted.
+
+## Idea
+
+Taskee aimed to become a single platform where anyone could request simple services from regular people nearby. Whether you needed a babysitter, help fixing a sink, someone to assemble furniture, or any other everyday task-Taskee was meant to connect the customer with the right helper. We would mediate the contact, messaging, and pricing, making the process safe and convenient.
+
+This was back in 2020, when mobile-first service platforms were not as widespread in Poland as they are today. No popular solution offered this type of informal task marketplace at the time, so the idea felt exciting and original.
+
+Our initial enthusiasm carried us far:
+
+- we built a fully functional REST API backend,
+- a native Android app,
+- and even a native iOS app written in Swift.
+
+We were inexperienced, working without funding, mentorship, or established workflows-and that led to its eventual collapse. We had spaghetti code in places, struggled to market the product, and couldn’t reach enough users to sustain development.
+
+But the lessons were invaluable. Today, similar apps backed by multimillion-dollar companies dominate the market-platforms like Fixly or Booksy in Poland. Seeing them succeed only reinforced how forward-thinking Taskee actually was, even if we couldn't execute it perfectly at the time.
+
+<Figure src={logo} alt="Taskee Logo" width="80%" />
+
+<Figure src={icons} alt="Taskee Icons" width="60%" />
+
+# Android
+
+Most of the Android application was written in Java, as I was just transitioning into mobile development. This project taught me the foundations of Android architecture, UI design, asynchronous operations, networking with Retrofit, and offline storage with Room. I also learned how to structure a larger mobile codebase-something I had never attempted before.
+
+# Design Concepts
+
+Our design process was simple but intentional. With no formal UX background, we researched color theory and interface patterns, aiming for a clean, modern, and friendly aesthetic. Taskee’s brand identity revolved around a four-color palette:
+
+- **#8DC63F** - energetic and friendly green
+- **#F9DA41** - attention-catching yellow
+- **#414042** - deep neutral gray
+- **#FFFFFF** - clean and minimal white
+
+These colors shaped the logo, UI components, onboarding screens, and marketing graphics.
+
+<Figure src={colors} alt="Taskee Color Scheme" width="80%" />
+
+<Figure src={visualization} alt="Logo Visualization" width="80%" />
+
+# Instant Messaging
+
+One of the standout features was real-time messaging between customers and taskers. We integrated Firebase Cloud Messaging to handle push notifications and built a lightweight chat system for instant communication. This included:
+
+- real-time updates
+- message history
+- unread message tracking
+- background notification handling
+
+For a team of beginners, it was one of the most technically challenging but rewarding components of the entire platform.
+
+# Email Support
+
+Email communication was integrated directly into the backend workflow-account verification, password resets, and status updates were all automated through a custom email service. It was one of the first times I worked with templating, SMTP configurations, and transactional messaging.
+
+<Figure src={email} alt="Email Support" width="60%" />

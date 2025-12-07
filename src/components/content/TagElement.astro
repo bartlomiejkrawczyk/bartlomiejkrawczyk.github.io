@@ -9,21 +9,245 @@ interface Props extends HTMLAttributes<"li"> {
 const { tag, ...props } = Astro.props;
 ---
 
-<li class={`skill ${tag.type} ${props.class ?? ""}`} {...props}>
+<style>
+  .tag-check {
+    display: none;
+  }
+  .tag-check.show-in-edit {
+    display: inline-block;
+  }
+  li.hidden {
+    display: none !important;
+  }
+  .styled-checkbox {
+    appearance: none;
+    width: 0.9rem;
+    height: 0.9rem;
+    border: 2px solid var(--gray-600);
+    border-radius: 3px;
+    cursor: pointer;
+    position: relative;
+  }
+  .styled-checkbox:checked {
+    background-color: var(--primary-light);
+    border-color: var(--primary-light);
+  }
+  .styled-checkbox:checked::before {
+    content: "✓";
+    font-size: 0.9rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+  }
+</style>
+
+<li
+  id={`tag-${tag.id}`}
+  class={`skill ${tag.type} ${props.class ?? ""}`}
+  data-tag-id={String(tag.id)}
+  {...props}
+>
   {
     tag.link ? (
-      <a href={tag.link} target="_blank">
+      <a href={tag.link} target="_blank" rel="noopener noreferrer">
         {tag.translation.en}
       </a>
     ) : (
       <span>{tag.translation.en}</span>
     )
   }
+  <input
+    type="checkbox"
+    class="tag-check styled-checkbox"
+    data-tag-id={String(tag.id)}
+    aria-label={`Toggle ${tag.translation.en}`}
+  />
 </li>
+
+<script>
+  import { type TagId } from "./Tags";
+
+  type HiddenSet = Set<TagId>;
+
+  const STORAGE_KEY = "hiddenTags";
+  const MODE_KEY = "editMode";
+
+  // -------------------------
+  // --- Storage helpers -----
+  // -------------------------
+  function loadHiddenTags(): HiddenSet {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return new Set();
+      const arr = JSON.parse(raw);
+      if (!Array.isArray(arr)) return new Set();
+      return new Set(arr.map((v) => String(v) as TagId));
+    } catch (e) {
+      return new Set();
+    }
+  }
+
+  function saveHiddenTags(set: HiddenSet): void {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify([...set]));
+    } catch (e) {
+      // ignore
+    }
+  }
+
+  function loadTagEditMode(): boolean {
+    return localStorage.getItem(MODE_KEY) === "true";
+  }
+
+  function saveTagEditMode(enabled: boolean): void {
+    try {
+      localStorage.setItem(MODE_KEY, enabled ? "true" : "false");
+    } catch (e) {
+      // ignore
+    }
+  }
+
+  // -------------------------
+  // --- Mode API -----------
+  // -------------------------
+  function setTagEditMode(enabled: boolean) {
+    saveTagEditMode(enabled);
+    applyHiddenTags();
+  }
+  (window as any).setTagEditMode = setTagEditMode;
+
+  (window as any).enableTagEditMode = function enableTagEditMode() {
+    setTagEditMode(true);
+  };
+  (window as any).disableTagEditMode = function disableTagEditMode() {
+    setTagEditMode(false);
+  };
+  (window as any).toggleTagEditMode = function toggleTagEditMode() {
+    setTagEditMode(!loadTagEditMode());
+  };
+
+  // -------------------------
+  // --- Tag visibility API -
+  // -------------------------
+  (window as any).toggleTag = function toggleTag(id: TagId) {
+    const hidden = loadHiddenTags();
+    if (hidden.has(id)) hidden.delete(id);
+    else hidden.add(id);
+    saveHiddenTags(hidden);
+    applyHiddenTags();
+  };
+
+  (window as any).setTagVisibility = function setTagVisibility(
+    id: TagId,
+    visible: boolean,
+  ) {
+    const hidden = loadHiddenTags();
+    if (visible) hidden.delete(id);
+    else hidden.add(id);
+    saveHiddenTags(hidden);
+    applyHiddenTags();
+  };
+
+  (window as any).setTagChecked = function setTagChecked(
+    id: TagId,
+    checked: boolean,
+  ) {
+    (window as any).setTagVisibility(id, checked);
+  };
+
+  (window as any).setTagsChecked = function setTagsChecked(
+    ids: TagId[] | readonly TagId[],
+    checked: boolean,
+  ) {
+    const hidden = loadHiddenTags();
+    for (const raw of ids) {
+      const sid = String(raw) as TagId;
+      if (checked) hidden.delete(sid);
+      else hidden.add(sid);
+    }
+    saveHiddenTags(hidden);
+    applyHiddenTags();
+  };
+
+  (window as any).hideTags = function hideTags(
+    ids: TagId[] | readonly TagId[],
+  ) {
+    (window as any).setTagsChecked(ids, false);
+  };
+
+  (window as any).showTags = function showTags(
+    ids: TagId[] | readonly TagId[],
+  ) {
+    (window as any).setTagsChecked(ids, true);
+  };
+
+  // -------------------------
+  // --- Apply state to DOM --
+  // -------------------------
+  function applyHiddenTags() {
+    const hidden = loadHiddenTags();
+    const editMode = loadTagEditMode();
+
+    document.body.classList.toggle("edit-mode", editMode);
+
+    document
+      .querySelectorAll<HTMLInputElement>("input.tag-check")
+      .forEach((cb) => {
+        const id = cb.dataset.tagId;
+        if (!id) return;
+        cb.classList.toggle("show-in-edit", editMode);
+        cb.checked = !hidden.has(id as TagId);
+      });
+
+    document
+      .querySelectorAll<HTMLLIElement>("li[data-tag-id]")
+      .forEach((li) => {
+        const id = li.dataset.tagId;
+        if (!id) return;
+        const isHidden = hidden.has(id as TagId);
+
+        if (!editMode && isHidden) li.classList.add("hidden");
+        else li.classList.remove("hidden");
+      });
+
+    setupCheckboxListeners();
+  }
+
+  // -------------------------
+  // --- Wire up checkboxes --
+  // -------------------------
+  function onCheckboxChange(this: HTMLInputElement) {
+    const cb = this;
+    const id = String(cb.dataset.tagId ?? "");
+    if (!id) return;
+    (window as any).setTagVisibility(id, cb.checked);
+  }
+
+  function setupCheckboxListeners() {
+    document
+      .querySelectorAll<HTMLInputElement>("input.tag-check")
+      .forEach((cb) => {
+        cb.removeEventListener("change", onCheckboxChange as EventListener);
+        cb.addEventListener("change", onCheckboxChange as EventListener);
+      });
+  }
+
+  // -------------------------
+  // --- Init on DOM ready ---
+  // -------------------------
+  window.addEventListener("DOMContentLoaded", () => {
+    applyHiddenTags();
+    setupCheckboxListeners();
+  });
+</script>
 
 <style>
   .skill {
-    display: inline-block;
+    display: flex;
+    gap: var(--spacing);
+    align-items: center;
     border-color: var(--gray-900);
     border-style: var(--tw-border-style);
     border-width: 1px;
@@ -31,59 +255,111 @@ const { tag, ...props } = Astro.props;
     initial-value: solid;
     padding-left: var(--spacing);
     padding-right: var(--spacing);
-    margin-top: var(--spacing);
-    margin-bottom: var(--spacing);
-    margin-right: calc(var(--spacing) * 1);
-    font-size: var(--text-sm);
+    font-size: var(--text-xs);
+    transition:
+      transform 1s ease,
+      box-shadow 1s ease;
+  }
+  .skill a {
+    color: var(--gray-300);
+    transition: color 1s ease;
   }
   .skill a:hover,
   .skill a:focus {
-    color: var(--gray-50);
+    color: var(--primary-dark);
+    transition: color 0.3s ease;
+  }
+  .skill:hover,
+  .skill:focus-within {
+    transform: scale(1.05);
+    z-index: 1;
+    transition:
+      transform 0.3s ease,
+      box-shadow 0.3s ease;
+  }
+  .skill.company a:hover,
+  .skill.company a:focus,
+  .skill.framework a:hover,
+  .skill.framework a:focus,
+  .skill.tool a:hover,
+  .skill.tool a:focus,
+  .skill.cloud a:hover,
+  .skill.cloud a:focus,
+  .skill.database a:hover,
+  .skill.database,
+  .skill.linguistics a:hover,
+  .skill.linguistics a:focus a:focus {
+    color: var(--secondary-dark);
   }
   .company {
     background-color: rgb(from var(--secondary-dark) r g b / 25%);
+    border-color: rgb(from var(--secondary-dark) r g b / 30%);
   }
   .language {
     background-color: rgb(from var(--primary-light) r g b / 25%);
+    border-color: rgb(from var(--primary-light) r g b / 30%);
   }
   .framework {
     background-color: rgb(from var(--secondary-light) r g b / 25%);
+    border-color: rgb(from var(--secondary-light) r g b / 30%);
   }
   .technology {
     background-color: rgb(from var(--primary-regular) r g b / 25%);
+    border-color: rgb(from var(--primary-regular) r g b / 30%);
   }
   .tool {
     background-color: rgb(from var(--secondary-regular) r g b / 25%);
+    border-color: rgb(from var(--secondary-regular) r g b / 30%);
   }
   .operating_system {
     background-color: rgb(from var(--primary-dark) r g b / 25%);
-  }
-  .operating_system a,
-  .operating_system span {
-    color: var(--gray-950);
-  }
-  .operating_system a:hover,
-  .operating_system a:focus {
-    color: var(--primary-regular);
+    border-color: rgb(from var(--primary-dark) r g b / 30%);
   }
   .cloud {
     background-color: rgb(from var(--secondary-dark) r g b / 25%);
-    color: var(--gray-950);
-  }
-  .cloud a:hover,
-  .cloud a:focus {
-    color: var(--secondary-regular);
+    border-color: rgb(from var(--secondary-dark) r g b / 30%);
   }
   .library {
     background-color: rgb(from var(--primary-light) r g b / 25%);
+    border-color: rgb(from var(--primary-light) r g b / 30%);
   }
   .database {
     background-color: rgb(from var(--secondary-light) r g b / 25%);
+    border-color: rgb(from var(--secondary-light) r g b / 30%);
   }
   .other {
     background-color: rgb(from var(--primary-regular) r g b / 25%);
+    border-color: rgb(from var(--primary-regular) r g b / 30%);
   }
   .linguistics {
     background-color: rgb(from var(--secondary-regular) r g b / 25%);
+    border-color: rgb(from var(--secondary-regular) r g b / 30%);
+  }
+
+  .language:hover,
+  .language:focus-within,
+  .technology:hover,
+  .technology:focus-within,
+  .operating_system:hover,
+  .operating_system:focus-within,
+  .library:hover,
+  .library:focus-within,
+  .other:hover,
+  .other:focus-within {
+    box-shadow: var(--neon-primary);
+  }
+  .company:hover,
+  .company:focus-within,
+  .framework:hover,
+  .framework:focus-within,
+  .tool:hover,
+  .tool:focus-within,
+  .cloud:hover,
+  .cloud:focus-within,
+  .database:hover,
+  .database:focus-within,
+  .linguistics:hover,
+  .linguistics:focus-within {
+    box-shadow: var(--neon-secondary);
   }
 </style>

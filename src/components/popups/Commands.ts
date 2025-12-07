@@ -5,6 +5,8 @@ export const commandIds = [
   "open-github",
   "open-instagram",
   "open-discord",
+  "toggle-tag-filter",
+  "toggle-project-filter",
   // "project-search",
   // "language",
   // "themes",
@@ -61,6 +63,23 @@ export const commands: Record<CommandId, Command> = {
     name: { en: "Discord", pl: "Discord" },
     execute: () => {
       window.open("https://discordapp.com/users/384450810547011584");
+    },
+  },
+  "toggle-tag-filter": {
+    id: "toggle-tag-filter",
+    name: { en: "Toggle Tag Filter", pl: "Filtrowanie Tagów" },
+    execute: () => {
+      window?.toggleTagEditMode?.();
+    },
+  },
+  "toggle-project-filter": {
+    id: "toggle-project-filter",
+    name: {
+      en: "Toggle Project Filter",
+      pl: "Filtrowanie Projektów",
+    },
+    execute: () => {
+      window?.toggleProjectEditMode?.();
     },
   },
 };

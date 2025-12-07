@@ -13,7 +13,7 @@ const t = getTranslations(lang);
 
 <div {...props}>
   <h2 id="skills" class="pb-1">{t.skills.header}</h2>
-  <ul>
+  <ul class="flex flex-wrap gap-1">
     {Object.entries(tags).map(([, tag]) => <TagElement tag={tag} />)}
   </ul>
 </div>
@@ -21,5 +21,10 @@ const t = getTranslations(lang);
 <style>
   .company {
     display: none;
+  }
+  .skills-ul {
+    display: flex;
+    gap: var(--spacing);
+    flex-wrap: wrap;
   }
 </style>

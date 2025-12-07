@@ -9,6 +9,7 @@ tags:
     - typescript
     - html
     - css
+    - wcag
     - astro_js
     - node_js
     - tailwind

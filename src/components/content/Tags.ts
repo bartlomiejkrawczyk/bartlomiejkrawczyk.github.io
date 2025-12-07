@@ -51,6 +51,12 @@ export const tagIds = [
   "flask",
   "java_fx",
 
+  // "object_oriented",
+  // "functional",
+  // "logic",
+  "linear_programming",
+  "mip",
+
   "docker",
   "kubernetes",
   "ci_cd",
@@ -91,6 +97,7 @@ export const tagIds = [
   "maven",
   "sbt",
   "node_js",
+  "cargo",
 
   "git",
   "github",
@@ -117,6 +124,12 @@ export const tagIds = [
   "apache_zookeeper",
   "elastic_search",
   "cas",
+  "hazelcast",
+  "prometheus",
+  "grafana",
+  "kibana",
+  "filebeat",
+  "logstash",
 
   "tomcat",
   "wildfly",
@@ -132,17 +145,22 @@ export const tagIds = [
 
   "vscode",
   "intellij",
+  // "android_studio",
   "pycharm",
   "go_land",
   "rust_rover",
   "c_lion",
   "data_grip",
+  // "docker_swarm",
 
   "figma",
 
   "keycloak",
   "liquibase",
   "sonar_qube",
+  // "nexus",
+  "autodesk_fusion",
+  "3d_printing",
 
   "ms_office",
   "libre_office",
@@ -155,6 +173,9 @@ export const tagIds = [
   "windows",
   "ubuntu",
   "wsl",
+  // "kvm",
+  // "virtual_box",
+  // "vmware",
 
   "azure",
   "gcp",
@@ -182,6 +203,7 @@ export const tagIds = [
   "apache_commons",
   "excel_kt",
   "simple_java_mail",
+  "or_tools",
 
   "tailwind",
   "expressive_code",
@@ -217,6 +239,9 @@ export const tagIds = [
   "room",
   "lombok",
   "retrofit",
+  "rocket",
+  "burn",
+  "rayon",
 
   "apache_hive",
   "mongo_db",
@@ -241,12 +266,8 @@ export const tagIds = [
   "russian",
 
   "arduino",
+  "raspberry_pi",
 ] as const;
-
-// "docker_swarm",
-// "android_studio",
-// "liquibase",
-// "nexus",
 
 export const tagTypes = [
   "company",
@@ -513,6 +534,12 @@ export const tags: Record<TagId, Tag> = {
     link: "https://www.seamframework.org/",
     translation: { en: "JBoss Seam" },
   },
+  rocket: {
+    id: "rocket",
+    type: "framework",
+    link: "https://rocket.rs/",
+    translation: { en: "Rocket.rs" },
+  },
   apache_hadoop: {
     id: "apache_hadoop",
     type: "framework",
@@ -560,6 +587,21 @@ export const tags: Record<TagId, Tag> = {
     type: "framework",
     link: "https://openjfx.io/",
     translation: { en: "JavaFX" },
+  },
+  linear_programming: {
+    id: "linear_programming",
+    type: "technology",
+    link: "https://en.wikipedia.org/wiki/Linear_programming",
+    translation: { en: "Linear Programming", pl: "Programowanie Liniowe" },
+  },
+  mip: {
+    id: "mip",
+    type: "technology",
+    link: "https://en.wikipedia.org/wiki/Integer_programming",
+    translation: {
+      en: "Mixed Integer Programming",
+      pl: "Programowanie Mieszane Całkowitoliczbowe",
+    },
   },
   docker: {
     id: "docker",
@@ -761,6 +803,12 @@ export const tags: Record<TagId, Tag> = {
     link: "https://nodejs.org/",
     translation: { en: "Node.js" },
   },
+  cargo: {
+    id: "cargo",
+    type: "tool",
+    link: "https://doc.rust-lang.org/cargo/",
+    translation: { en: "Cargo" },
+  },
   git: {
     id: "git",
     type: "tool",
@@ -905,6 +953,42 @@ export const tags: Record<TagId, Tag> = {
     link: "https://www.apereo.org/projects/cas",
     translation: { en: "CAS" },
   },
+  hazelcast: {
+    id: "hazelcast",
+    type: "tool",
+    link: "https://hazelcast.com/",
+    translation: { en: "Hazelcast" },
+  },
+  prometheus: {
+    id: "prometheus",
+    type: "tool",
+    link: "https://prometheus.io/",
+    translation: { en: "Prometheus" },
+  },
+  grafana: {
+    id: "grafana",
+    type: "tool",
+    link: "https://grafana.com/",
+    translation: { en: "Grafana" },
+  },
+  kibana: {
+    id: "kibana",
+    type: "tool",
+    link: "https://www.elastic.co/kibana",
+    translation: { en: "Kibana" },
+  },
+  filebeat: {
+    id: "filebeat",
+    type: "tool",
+    link: "https://www.elastic.co/beats/filebeat",
+    translation: { en: "Filebeat" },
+  },
+  logstash: {
+    id: "logstash",
+    type: "tool",
+    link: "https://www.elastic.co/logstash",
+    translation: { en: "Logstash" },
+  },
   tomcat: {
     id: "tomcat",
     type: "tool",
@@ -1042,6 +1126,18 @@ export const tags: Record<TagId, Tag> = {
     type: "tool",
     link: "https://www.sonarsource.com/products/sonarqube/",
     translation: { en: "SonarQube" },
+  },
+  autodesk_fusion: {
+    id: "autodesk_fusion",
+    type: "tool",
+    link: "https://www.autodesk.com/products/fusion-360/overview",
+    translation: { en: "Autodesk Fusion 360" },
+  },
+  "3d_printing": {
+    id: "3d_printing",
+    type: "tool",
+    link: "https://en.wikipedia.org/wiki/3D_printing",
+    translation: { en: "3D printing" },
   },
   open_api: {
     id: "open_api",
@@ -1378,6 +1474,12 @@ export const tags: Record<TagId, Tag> = {
     link: "https://www.simplejavamail.org/",
     translation: { en: "Simple Java Mail" },
   },
+  or_tools: {
+    id: "or_tools",
+    type: "library",
+    link: "https://developers.google.com/optimization",
+    translation: { en: "OR-Tools" },
+  },
   androidx: {
     id: "androidx",
     type: "library",
@@ -1402,11 +1504,23 @@ export const tags: Record<TagId, Tag> = {
     link: "https://square.github.io/retrofit/",
     translation: { en: "Retrofit" },
   },
+  burn: {
+    id: "burn",
+    type: "library",
+    link: "https://burn.dev/",
+    translation: { en: "Burn" },
+  },
+  rayon: {
+    id: "rayon",
+    type: "library",
+    link: "https://github.com/rayon-rs/rayon",
+    translation: { en: "Rayon" },
+  },
   room: {
     id: "room",
     type: "library",
     link: "https://developer.android.com/training/data-storage/room",
-    translation: { en: "Retrofit" },
+    translation: { en: "Room" },
   },
   apache_hive: {
     id: "apache_hive",
@@ -1485,6 +1599,12 @@ export const tags: Record<TagId, Tag> = {
     type: "other",
     link: "https://www.arduino.cc/",
     translation: { en: "Arduino" },
+  },
+  raspberry_pi: {
+    id: "raspberry_pi",
+    type: "other",
+    link: "https://www.raspberrypi.com/",
+    translation: { en: "Raspberry Pi" },
   },
   driving: {
     id: "driving",

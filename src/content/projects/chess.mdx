@@ -1,0 +1,309 @@
+---
+title: Chess App
+description: |
+  This engineering thesis project delivers a full mobile application and backend ecosystem enabling real-time online gameplay for chess, checkers, and fully custom rule-based board games. The system supports dynamic board sizes, non-standard shapes, multiple players, and user-defined rules-all backed by a reactive cloud-based architecture.
+tags:
+  - university
+  - thesis
+  - java
+  - kotlin
+  - android
+  - spring
+  - oauth2
+  - gradle
+  - apache_rabbit_mq
+  - ci_cd
+  - ubuntu
+  - ovh
+  - spring_webflux
+  - spring_boot
+  - spring_data
+  - spring_security
+  - androidx
+  - postgres
+  - mongo_db
+---
+
+import Figure from "@components/markdown/Figure.astro";
+import board8x8 from "@assets/content/chess/8x8.jpg";
+import board8x12 from "@assets/content/chess/8x12.jpg";
+import board10x10 from "@assets/content/chess/10x10.jpg";
+import image1 from "@assets/content/chess/image1.jpg";
+import image2 from "@assets/content/chess/image2.jpg";
+import image3 from "@assets/content/chess/image3.jpg";
+import image4 from "@assets/content/chess/image4.jpg";
+
+import account_options from "@assets/content/chess/account_options.jpg";
+import board_customization_1 from "@assets/content/chess/board_customization_1.jpg";
+import board_customization_2 from "@assets/content/chess/board_customization_2.jpg";
+import board_customization_3 from "@assets/content/chess/board_customization_3.jpg";
+import checkers_gameplay from "@assets/content/chess/checkers_gameplay.jpg";
+import checkers from "@assets/content/chess/checkers.jpg";
+import chess_gameplay from "@assets/content/chess/chess_gameplay.jpg";
+import chess_gameplay_jpg from "@assets/content/chess/chess-gameplay.jpg";
+import chess_gameplay_png from "@assets/content/chess/chess-gameplay.png";
+import chess_security from "@assets/content/chess/chess-security.png";
+import chess from "@assets/content/chess/chess.jpg";
+import cross_9x9 from "@assets/content/chess/cross-9x9.jpg";
+import cross_14x14 from "@assets/content/chess/cross-14x14.jpg";
+import cross from "@assets/content/chess/cross.jpg";
+import custom_games from "@assets/content/chess/custom_games.jpg";
+import email from "@assets/content/chess/email.jpg";
+import language_en from "@assets/content/chess/language_en.jpg";
+import language_pl from "@assets/content/chess/language_pl.jpg";
+import layout_customization_1 from "@assets/content/chess/layout_customization_1.jpg";
+import layout_customization_2 from "@assets/content/chess/layout_customization_2.jpg";
+import login from "@assets/content/chess/login.jpg";
+import main_game_customization from "@assets/content/chess/main_game_customization.jpg";
+import main_screen from "@assets/content/chess/main_screen.jpg";
+import move_customization_1 from "@assets/content/chess/move_customization_1.jpg";
+import move_customization_2 from "@assets/content/chess/move_customization_2.jpg";
+import password from "@assets/content/chess/password.jpg";
+import piece_customization from "@assets/content/chess/piece_customization.jpg";
+import piece_placement from "@assets/content/chess/piece_placement.jpg";
+import piece_promotion_customization from "@assets/content/chess/piece_promotion_customization.jpg";
+import piece_types from "@assets/content/chess/piece_types.jpg";
+import rule_customization from "@assets/content/chess/rule_customization.jpg";
+import rule_options from "@assets/content/chess/rule_options.jpg";
+import session_item from "@assets/content/chess/session_item.png";
+import settings from "@assets/content/chess/settings.jpg";
+import sound from "@assets/content/chess/sound.jpg";
+import theme_1 from "@assets/content/chess/theme_1.jpg";
+import theme_2 from "@assets/content/chess/theme_2.jpg";
+import theme_3 from "@assets/content/chess/theme_3.jpg";
+import theme_4 from "@assets/content/chess/theme_4.jpg";
+
+# Overview
+
+This project implements a multi-layer mobile application (Android, Kotlin) with a cloud backend (Java, Spring WebFlux) that allows users to play classic and custom logic games on a chessboard grid. Beyond standard chess and checkers, the platform enables players to design and play entirely new board-based games by modifying rules, board shapes, and piece behaviors.
+
+<div class="flex flex-row">
+  <Figure src={image3} alt="Chess" width="90%" />
+  <Figure
+    src={image1}
+    alt="Chess - in the middle of the gameplay"
+    width="90%"
+  />
+  <Figure src={image4} alt="Checkers" width="90%" />
+  <Figure src={image2} alt="Four player chess" width="90%" />
+</div>
+
+# Key Features
+
+- **Online and local gameplay** for chess, checkers, and custom games.
+- **Configurable rules**, including piece movement, special effects, or custom constraints.
+- **Board customization:** arbitrary sizes, rectangular boards, cross-shaped boards.
+- **2–4 player support**.
+- **Time controls:** Bullet, Blitz, Rapid variants.
+- **User accounts, authentication (OAuth2)**, and match history.
+- **Reactive real-time communication** using Server-Sent Events (SSE).
+- **Cloud-hosted backend** using Spring WebFlux, NoSQL/SQL, and RabbitMQ.
+- **CI/CD deployment** to Ubuntu servers on OVH.
+
+# Game Customization
+
+The application exposes a full configuration panel that allows users to design their own variants before the match begins.
+
+## 1. Piece Sets
+
+The game uses custom-designed SVG icons, allowing dynamic recoloring to match the selected theme. Out of the box, it supports:
+
+- Chess: pawn, king, queen, bishop, knight, rook
+- Checkers: man, king
+
+The system is prepared for future extension-adding new icons automatically integrates them into customization menus.
+
+<Figure src={piece_customization} alt="Piece customization" />
+
+## 2. Board Configuration
+
+Users can set:
+
+- **Custom board dimensions** (4×4 to 14×14 for each axis).
+- **Board shapes:** rectangle or Greek cross.
+
+## Example Sizes
+
+<div class="flex flex-row">
+  <Figure src={board8x8} alt="8x8 board" width="90%" />
+  <Figure src={board8x12} alt="8x12 board" width="90%" />
+  <Figure src={board10x10} alt="10x10 board" width="90%" />
+</div>
+
+## Example Shapes
+
+<div class="flex flex-row">
+  <Figure src={cross_9x9} alt="9x9 cross board" width="90%" />
+  <Figure src={cross_14x14} alt="14x14 cross board" width="90%" />
+</div>
+
+## 3. Player Count
+
+Games can involve **2 to 4 players**, enabling non-standard multiplayer variants.
+
+<Figure src={cross} alt="Cross board for 4 players" />
+
+## 4. Time Controls
+
+Available presets:
+
+- Bullet: 1+2 (1 minute + 2s increment)
+- Bullet: 2+1
+- Blitz: 3+2
+- Rapid: 10+10
+
+# Core Application Functionality
+
+The goal of the thesis was to build a complete online gaming system with:
+
+- Accounts and authentication
+- Matchmaking and session management
+- Real-time move synchronization
+- Configurable rule engine for designing new game types
+
+Built-in games include:
+
+- **Chess**
+- **Checkers**
+- **Atomic Chess**
+- **Mini Chess**
+- **Progressive Chess**
+- **Anti Chess**
+- **Four Player Chess**
+
+But players can also define entirely new variants using the rules interface:
+
+<div class="flex flex-row">
+  <Figure
+    src={piece_placement}
+    alt="Piece placement customization"
+    width="90%"
+  />
+  <Figure src={move_customization_2} alt="Move customization" width="90%" />
+  <Figure
+    src={piece_promotion_customization}
+    alt="Piece promotion customization"
+    width="90%"
+  />
+</div>
+
+<div class="flex flex-row">
+  <Figure src={rule_customization} alt="Rule customization" width="80%" />
+  <Figure src={piece_customization} alt="Piece customization" width="80%" />
+</div>
+
+Supported customizations include:
+
+- Altered movement rules
+- Special effects
+- Non-standard board sizes and shapes
+- Additional players
+
+This system effectively becomes a _board-game creation platform_.
+
+# Real-Time Architecture & Concurrency
+
+A critical part of the system is real-time synchronization between players. Events flow through:
+
+1. User sends an action (move event).
+2. Stateless backend retrieves the current session state from the database.
+3. The move is validated.
+4. A transactional update ensures no conflicting writes occur.
+5. The event is published to RabbitMQ.
+6. Clients subscribe to a dedicated SSE channel.
+7. All new events are pushed live to connected players.
+
+This guarantees consistency even when multiple users send simultaneous actions.
+
+<Figure src={session_item} alt="Session events" />
+
+SSE (Server-Sent Events) enables lightweight, real-time push communication. The backend emits both move events and keep-alive signals to maintain connection stability.
+
+<div class="flex flex-row">
+  <Figure src={checkers_gameplay} alt="Checkers gameplay" width="80%" />
+  <Figure src={chess_gameplay} alt="Chess gameplay" width="80%" />
+</div>
+
+# Example Backend SSE Endpoint
+
+```java
+@GetMapping(path = "{sessionId}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+public Flux<ServerSentEvent<EventDto>> listenForEvents(@PathVariable long sessionId) {
+    var moves = sessionService.listenForEvents(sessionId)
+        .map(eventMappers::map)
+        .map(it -> ServerSentEvent.<EventDto>builder().data(it).build());
+
+    var keepAlive = Flux.interval(Duration.of(15, ChronoUnit.SECONDS))
+        .map(it -> ServerSentEvent.<EventDto>builder().event("keep-alive").build());
+
+    return Flux.merge(moves, keepAlive);
+}
+```
+
+<br />
+
+# Example Android Client Listener
+
+```kotlin
+override fun listenForEvents(sessionId: Long): Flow<Event> = flow {
+    coroutineScope {
+        sessionApi.listenForEvents(sessionId)
+            .byteStream()
+            .bufferedReader()
+            .useLines { sequence ->
+                sequence.filter { it.startsWith("data:") }
+                    .filter { isActive }
+                    .map { it.removePrefix("data:").trim() }
+                    .map { objectMapper.readValue(it, EventDto::class.java) }
+                    .map { eventMapper.map(it) }
+                    .forEach { emit(it) }
+            }
+    }
+}.flowOn(ioDispatcher)
+```
+
+<br />
+
+# Settings & Personalization
+
+<Figure src={settings} alt="Settings screen" />
+
+A key part of the application is its extensive customization module, allowing players to tailor the entire experience to their preferences. Users can switch between interface languages, enable or disable sound effects, and choose from multiple visual themes that completely change the look and feel of the board. The app also supports dynamic board scaling—regardless of device or orientation, the layout automatically adjusts tile sizes, piece proportions, and UI elements to maintain clarity and comfort during gameplay.
+
+<div class="flex flex-row">
+  <Figure src={language_en} alt="Language settings - English" width="80%" />
+  <Figure src={language_pl} alt="Language settings - Polish" width="80%" />
+  <Figure src={sound} alt="Sound settings" width="80%" />
+</div>
+
+<div class="flex flex-row">
+  <Figure src={theme_1} alt="Theme example 1" width="90%" />
+  <Figure src={theme_2} alt="Theme example 2" width="90%" />
+  <Figure src={theme_3} alt="Theme example 3" width="90%" />
+  <Figure src={theme_4} alt="Theme example 4" width="90%" />
+</div>
+
+# Summary
+
+The final product is a complete, cloud-driven mobile system for online board games. It supports:
+
+- Standard chess & checkers
+- Fully custom rule-based games
+- Custom boards and shapes
+- Multiplayer beyond two players
+- Real-time gameplay via SSE
+
+The combination of reactive programming, scalable architecture, and flexible gameplay design makes the system a strong foundation for future extensions.
+
+# Future Work
+
+Planned or possible expansions:
+
+- Publishing the Android app to Google Play.
+- Vertical or horizontal scaling in Cloud environment.
+- Additional languages and themes.
+- More game types and rule sets.
+- Social features and tournaments.
+- AI-driven opponents.
+
+This architecture allows seamless extension with new game mechanics, cloud capabilities, or interface improvements.

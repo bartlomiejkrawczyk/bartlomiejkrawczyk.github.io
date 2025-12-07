@@ -3,24 +3,71 @@ import type { ImageMetadata } from "astro";
 import { Image } from "astro:assets";
 
 interface Props {
-  src: ImageMetadata;
+  src?: ImageMetadata;
+  srcLocation?: string;
   alt: string;
   caption?: string;
   width?: string;
+  optimize: boolean;
+  style?: string;
 }
 
-const { src, alt, caption = alt, width = "50%" } = Astro.props;
+const {
+  src,
+  srcLocation,
+  alt,
+  caption = alt,
+  width = "50%",
+  optimize = true,
+  style,
+} = Astro.props;
 ---
 
 <figure
   style={`display: flex; flex-direction: column; align-items: center; margin: 1.5rem auto;`}
 >
-  <Image src={src} alt={alt} style={`width: ${width}; border-radius: 8px;`} />
   {
-    caption && (
-      <figcaption style="margin-top: 0.5rem; text-align: center;">
-        {caption}
-      </figcaption>
+    optimize ? (
+      src && (
+        <Image
+          src={src}
+          alt={alt}
+          class="figure-image"
+          style={`width:${width}; ${style ?? ""}`}
+        />
+      )
+    ) : (
+      <img
+        src={srcLocation}
+        alt={alt}
+        class="figure-image"
+        style={`width:${width}; ${style ?? ""}`}
+      />
     )
   }
+  {caption && <figcaption class="figure-caption">{caption}</figcaption>}
 </figure>
+
+<style>
+  .figure-image {
+    border-radius: 0.5rem;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--gray-800);
+    transition:
+      transform 1s ease,
+      box-shadow 1s ease;
+  }
+
+  .figure-image:hover {
+    transition:
+      transform 0.3s ease,
+      box-shadow 0.3s ease;
+    box-shadow: var(--shadow-md);
+  }
+
+  .figure-caption {
+    margin-top: 0.5rem;
+    text-align: center;
+    font-size: var(--text-md);
+  }
+</style>

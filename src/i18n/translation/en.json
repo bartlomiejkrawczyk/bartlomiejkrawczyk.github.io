@@ -58,6 +58,8 @@
   },
   "education": {
     "header": "Education",
+    "specialization": "Specialization",
+    "average": "Average",
     "master": {
       "university": "Warsaw University of Technology",
       "period": "February 2024 - September 2025",
@@ -65,12 +67,12 @@
       "degree": "Master's Degree",
       "specialization": "Intelligent Systems",
       "subjects": [
-        "Niezawdone, Skalowalne i Łatwe w Utrzymaniu Systemy Informatyczne",
-        "Programowanie Równoległe i Rozproszone",
-        "Architektura i Integracja Systemów",
-        "Sieci Inteligentnych Urządzeń",
-        "Wirtualne Środowiska Obliczeniowe",
-        "Robotyka"
+        "Reliable, Scalable, and Maintainable IT Systems",
+        "Parallel and Distributed Programming",
+        "Systems Architecture and Integration",
+        "Intelligent Device Networks",
+        "Virtual Computing Environments",
+        "Robotics"
       ]
     },
     "engineer": {
@@ -80,21 +82,21 @@
       "degree": "Bachelor's Degree",
       "specialization": "Software Engineering",
       "subjects": [
-        "Algorytmy i Struktury Danych",
-        "Systemy Oepracyjne",
-        "Programowanie Aplikacyjne - Java",
-        "Programowanie Obiektowe - C++",
-        "Wprowadzenie do Sztucznych Inteligencji",
-        "Inżynieria Uczenia Maszynowego",
-        "Bazy Danych",
-        "Sztuka Wytwarzania Oprogramowania",
-        "Sterowniki Programowalne",
-        "System UNIX",
-        "Paradygmaty Programowania",
-        "Programowanie Aplikacji Internetowych",
-        "Techniki Kompilacji",
-        "Programowanie Sieciowe",
-        "Wdrażanie i Utrzymanie Systemów Informatycznych"
+        "Algorithms and Data Structures",
+        "Operating Systems",
+        "Application Programming - Java",
+        "Object-Oriented Programming - C++",
+        "Introduction to Artificial Intelligence",
+        "Machine Learning Engineering",
+        "Databases",
+        "The Art of Software Development",
+        "Programmable Controllers",
+        "UNIX System",
+        "Programming Paradigms",
+        "Web Application Programming",
+        "Compilation Techniques",
+        "Network Programming",
+        "Deployment and Maintenance of IT Systems"
       ]
     },
     "highschool": {
