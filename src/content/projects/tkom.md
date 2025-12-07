@@ -227,8 +227,6 @@ Variable semantics:
 
 **Function recursion:**
 
-[Example program](./src/test/resources/error-recursion-limit.txt)
-
 - functions may be called recursively
 
   - direct or indirect
