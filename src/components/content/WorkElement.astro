@@ -1,5 +1,7 @@
 ---
 import type { HTMLAttributes } from "astro/types";
+import TagElement from "./TagElement.astro";
+import { tags, type TagId } from "./Tags";
 
 interface Props extends HTMLAttributes<"div"> {
   company: string;
@@ -7,9 +9,11 @@ interface Props extends HTMLAttributes<"div"> {
   link?: string;
   title?: string;
   description?: string;
+  workTags?: TagId[];
 }
 
-const { company, period, link, title, description, ...props } = Astro.props;
+const { company, period, link, title, description, workTags, ...props } =
+  Astro.props;
 ---
 
 <div {...props}>
@@ -19,4 +23,13 @@ const { company, period, link, title, description, ...props } = Astro.props;
   </div>
   {title ? <div>{title}</div> : null}
   {description ? <div>{description}</div> : null}
+  {
+    workTags ? (
+      <ul class="flex flex-wrap gap-1">
+        {workTags.map((tag) => (
+          <TagElement tag={tags[tag]} />
+        ))}
+      </ul>
+    ) : null
+  }
 </div>
