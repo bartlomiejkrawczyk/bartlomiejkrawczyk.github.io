@@ -54,6 +54,45 @@ import statistics from "@assets/content/ersms/statistics.png";
 
 # ERSMS
 
+Building scalable systems is one thing. Building them in a distributed, fault-tolerant, production-like environment - as a student project - is something entirely different.
+This project began as an ambitious challenge: create a modern forum platform that doesn't just _work_, but actually demonstrates the same architectural principles used by today's cloud-native companies.
+
+What started as a simple idea quickly grew into a fully distributed ecosystem built around microservices, CQRS, event sourcing, observability, and Kubernetes orchestration.
+The goal wasn't just to ship features - it was to understand how real systems behave under load, fail gracefully, recover automatically, and scale without friction.
+
+# Project Overview
+
+The platform is designed as a collection of independent microservices communicating through asynchronous messaging. Every major action-creating posts, registering users, updating threads-is captured as an **event**, stored reliably, and streamed to other services in real time. This event-driven design not only improves performance but also makes the system transparent and easy to audit.
+
+On the read side, a dedicated query service maintains optimized materialized views. This is the **CQRS pattern** in action: commands and queries split into separate models, each specialized for its own task. It makes the platform feel responsive and ensures consistent performance even as the dataset grows.
+
+# Cloud-Native Foundations
+
+From the beginning, the goal was to treat infrastructure as a first-class part of the project. All services run in **Kubernetes**, benefiting from containerized deployments, automatic restarts, horizontal scaling, and declarative configuration. The environment mirrors real-world DevOps setups, making the system resistant to failure and easy to extend.
+
+Security is handled using **OAuth2**, enabling safe authentication flows and clear separation between public and protected endpoints. Combined with API gateways and strict service boundaries, the platform follows production-grade security practices.
+
+<Figure
+  src={axon_cqrs}
+  alt="Source: https://docs.axoniq.io/reference-guide/architecture-overview"
+  width="80%"
+  style="background: white; padding: 1rem;"
+/>
+
+# Observability & Operations
+
+A distributed system is only as good as its observability. That's why the project includes a full monitoring stack:
+logs, metrics, dashboards, and request traces. This allowed us to track bottlenecks, detect failures, and watch services interact in real time. Debugging becomes not just easier-but almost enjoyable-when the system explains itself through dashboards and traces.
+
+<Figure src={elk} alt="ELK Stack for gathering logs" width="80%" />
+<Figure src={statistics} alt="Gathering Statistics" width="90%" />
+
+Automated CI/CD pipelines close the loop, ensuring consistent builds, tests, and deployments. Any change in the codebase flows through the pipeline and lands safely in the cluster without manual intervention.
+
+<Figure src={actions} alt="Github Actions" width="80%" />
+
+# Project in details
+
 ## Topic
 
 Forum-like application:
@@ -88,8 +127,8 @@ We are using github.
 
 ### Automation in infrastructure build and and setup
 
-<Figure src={actions} alt="Github Actions" width="80%" />
-<Figure src={actions2} alt="Github Actions - Build & Publish" width="80%" />
+<Figure src={actions} alt="Github Actions" width="98%" />
+<Figure src={actions2} alt="Github Actions - Build & Publish" width="98%" />
 
 As a part of CI, we have prepared three pipelines:
 
@@ -132,9 +171,9 @@ Monitoring:
 
 <Figure src={statistics} alt="Gathering Statistics" width="80%" />
 
-<Figure src={prometheus} alt="Prometheus Dashboard" width="80%" />
+<Figure src={prometheus} alt="Prometheus Dashboard" width="98%" />
 
-<Figure src={grafana} alt="Grafana Dashboard" width="80%" />
+<Figure src={grafana} alt="Grafana Dashboard" width="98%" />
 
 Log aggregation:
 
@@ -176,7 +215,7 @@ Elasticsearch:
 
 Kibana:
 
-<Figure src={kibana} alt="Kibana dashboard" width="80%" />
+<Figure src={kibana} alt="Kibana dashboard" width="98%" />
 
 ### Local mirror
 
@@ -278,7 +317,7 @@ We are using Goolgle services for increased security and the option to select be
 
 Pods are located in different physical locations.
 
-<Figure src={grafana_stats} alt="Grafana reliability stats" width="80%" />
+<Figure src={grafana_stats} alt="Grafana reliability stats" width="98%" />
 
 ## Technologies
 
@@ -318,7 +357,7 @@ posts --- db
 
 # Architecture
 
-### Use Cases
+## Use Cases
 
 - use case
 - story boards
@@ -355,7 +394,7 @@ flowchart LR
     m --> cm
 ```
 
-### Logical View
+## Logical View
 
 - end user / customer
 - class
@@ -386,7 +425,7 @@ erDiagram
     }
 ```
 
-### Development View
+## Development View
 
 - software engineer
 - manager
@@ -441,7 +480,7 @@ flowchart LR
     end
 ```
 
-### Process View
+## Process View
 
 - Solution architect
 - Sequence
@@ -522,7 +561,7 @@ sequenceDiagram
     c ->> u: Return result
 ```
 
-### Psychical View
+## Psychical View
 
 - Software architect
 - Deployment
