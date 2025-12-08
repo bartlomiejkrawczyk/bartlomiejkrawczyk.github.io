@@ -214,6 +214,7 @@ export const tagIds = [
   "pandas",
   "py_spark",
   "py_torch",
+  "scikit_learn",
   "keras",
   "num_py",
   "matplotlib",
@@ -1299,6 +1300,12 @@ export const tags: Record<TagId, Tag> = {
     type: "library",
     link: "https://pytorch.org/",
     translation: { en: "PyTorch" },
+  },
+  scikit_learn: {
+    id: "scikit_learn",
+    type: "library",
+    link: "https://scikit-learn.org/stable/",
+    translation: { en: "Scikit-learn" },
   },
   keras: {
     id: "keras",
