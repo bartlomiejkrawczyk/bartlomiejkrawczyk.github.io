@@ -13,12 +13,12 @@
     "lastModified": "Last Modified: "
   },
   "overview": {
-    "role": "Backend Engineer",
+    "role": "Full-Stack Software Engineer",
     "city": "Warsaw, Poland"
   },
   "about": {
     "header": "About",
-    "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam nec dui non neque lobortis scelerisque. Aliquam lectus ex, interdum quis tellus ut, consequat fermentum lacus. Proin laoreet sodales turpis, rhoncus facilisis nulla finibus sed. Sed non lorem gravida, porttitor lectus et, vulputate justo. Fusce interdum neque justo, non finibus libero ornare ac. Ut id porta dui. Praesent id odio sit amet quam ultricies lobortis id congue lectus. Ut vulputate dui felis. Proin id cursus ante, a interdum leo. Cras eu mattis sapien, at malesuada lorem. Maecenas accumsan urna sit amet nisl pretium, id venenatis augue cursus. Nunc eu ante ornare, blandit lectus molestie, porttitor nisl. Praesent tincidunt vel lacus ut viverra. Nam malesuada nisl eget gravida iaculis. In malesuada dolor eu urna pulvinar, et hendrerit massa placerat."
+    "content": "I am a highly driven Full-Stack Systems Engineer specializing in creating reliable, scalable, and maintainable IT solutions. My technical foundation is built on deep expertise in Java/Kotlin/Spring for robust backend services, supplemented by strong polyglot skills in Rust and Python for performance-critical and AI-driven applications. I have a proven track record in architecting and deploying cloud-native, distributed systems, mastering patterns like Microservices, CQRS, and Event Sourcing using Docker and Kubernetes. Beyond core development, I possess a strong background in Artificial Intelligence, Optimization (MIP/OR-Tools), and full-stack deployment, including mobile (Android) and modern web development using React.js/Astro.js. My diverse project portfolio - spanning official, deployed mobile applications (10k+ downloads) to complex thesis work in AI and optimization - reflects a commitment to end-to-end engineering excellence and the practical application of advanced computer science principles."
   },
   "additionalActivity": {
     "header": "Additional Activity",
