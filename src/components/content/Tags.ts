@@ -173,7 +173,7 @@ export const tagIds = [
   "windows",
   "ubuntu",
   "wsl",
-  // "kvm",
+  "kvm",
   // "virtual_box",
   // "vmware",
 
@@ -1157,6 +1157,12 @@ export const tags: Record<TagId, Tag> = {
     type: "tool",
     link: "https://www.figma.com/",
     translation: { en: "Figma" },
+  },
+  kvm: {
+    id: "kvm",
+    type: "tool",
+    link: "https://linux-kvm.org/page/Main_Page",
+    translation: { en: "Kernel-based Virtual Machine" },
   },
   linux: {
     id: "linux",
