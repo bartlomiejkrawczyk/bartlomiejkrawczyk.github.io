@@ -27,4 +27,257 @@ This page has been created using Astro.js + TypeScript.
 
 TODO: update
 
+Lighthouse report:
+
+- 100/100 performance
+- 100/100 accessibility
+- 100/100 Best practices
+- 100/100 SEO
+
 <Figure src={accessibility} alt="Light House Report" width="80%" />
+
+# Dynamic themes
+
+10 different color schemes
+
+```css
+/* ========================================================= */
+/* === BASE (Neutral Gray) === */
+/* ========================================================= */
+
+:root {
+  /* Neutral grayscale */
+  --gray-50: #0a0a0a;
+  --gray-100: #1a1a1a;
+  --gray-200: #212121;
+  --gray-300: #424242;
+  --gray-400: #616161;
+  --gray-500: #757575;
+  --gray-600: #9e9e9e;
+  --gray-700: #bdbdbd;
+  --gray-800: #e0e0e0;
+  --gray-900: #eeeeee;
+  --gray-950: #f5f5f5;
+  --gray-999: #fafafa;
+
+  --background: #ffffff;
+
+  --accent-light: #c561f6;
+  --accent-regular: #7611a6;
+  --accent-dark: #1c0056;
+  --accent-text-over: #ffffff;
+}
+
+/* ========================================================= */
+/* === DARK MODE (Inverted Neutral Grays) === */
+/* ========================================================= */
+
+@media not print {
+  :root.theme-dark {
+    --gray-50: #fafafa;
+    --gray-100: #f5f5f5;
+    --gray-200: #eeeeee;
+    --gray-300: #e0e0e0;
+    --gray-400: #bdbdbd;
+    --gray-500: #9e9e9e;
+    --gray-600: #757575;
+    --gray-700: #616161;
+    --gray-800: #424242;
+    --gray-900: #212121;
+    --gray-950: #0f0f0f;
+    --gray-999: #0a0a0a;
+
+    --background: var(--gray-999);
+  }
+}
+
+/* ========================================================= */
+/* === THEME PALETTES === */
+/* ========================================================= */
+
+/* === GREEN–YELLOW === */
+:root.theme-green {
+  --primary-light: #64e284;
+  --primary-regular: #4caf50;
+  --primary-dark: #1b5e20;
+
+  --secondary-light: #fff59d;
+  --secondary-regular: #ffca28;
+  --secondary-dark: #f57f17;
+}
+@media not print {
+  :root.theme-green.theme-dark {
+    --primary-light: #1b5e20;
+    --primary-regular: #4caf50;
+    --primary-dark: #64e284;
+
+    --secondary-light: #f57f17;
+    --secondary-regular: #ffca28;
+    --secondary-dark: #fff59d;
+  }
+}
+
+/* === PURPLE–ORANGE === */
+:root.theme-purple {
+  --primary-light: #d1a1f9;
+  --primary-regular: #7611a6;
+  --primary-dark: #3a0063;
+
+  --secondary-light: #ffcc80;
+  --secondary-regular: #ff9800;
+  --secondary-dark: #e65100;
+}
+@media not print {
+  :root.theme-purple.theme-dark {
+    --primary-light: #3a0063;
+    --primary-regular: #7611a6;
+    --primary-dark: #d1a1f9;
+
+    --secondary-light: #e65100;
+    --secondary-regular: #ff9800;
+    --secondary-dark: #ffcc80;
+  }
+}
+
+/* === RED–YELLOW === */
+:root.theme-red {
+  --primary-light: #ff9a8b;
+  --primary-regular: #ff5252;
+  --primary-dark: #b71c1c;
+
+  --secondary-light: #fff59d;
+  --secondary-regular: #ffca28;
+  --secondary-dark: #f57f17;
+}
+@media not print {
+  :root.theme-red.theme-dark {
+    --primary-light: #b71c1c;
+    --primary-regular: #ff5252;
+    --primary-dark: #ff9a8b;
+
+    --secondary-light: #f57f17;
+    --secondary-regular: #ffca28;
+    --secondary-dark: #fff59d;
+  }
+}
+
+/* === BLUE–CYAN === */
+:root.theme-blue {
+  --primary-light: #6ea8ff;
+  --primary-regular: #1e6fff;
+  --primary-dark: #0a3fa0;
+
+  --secondary-light: #80deea;
+  --secondary-regular: #00bcd4;
+  --secondary-dark: #006064;
+}
+@media not print {
+  :root.theme-blue.theme-dark {
+    --primary-light: #0a3fa0;
+    --primary-regular: #1e6fff;
+    --primary-dark: #6ea8ff;
+
+    --secondary-light: #006064;
+    --secondary-regular: #00bcd4;
+    --secondary-dark: #80deea;
+  }
+}
+
+/* === PINK–PURPLE === */
+:root.theme-pink {
+  --primary-light: #f8bbd0;
+  --primary-regular: #e91e63;
+  --primary-dark: #880e4f;
+
+  --secondary-light: #d1a1f9;
+  --secondary-regular: #7611a6;
+  --secondary-dark: #3a0063;
+}
+@media not print {
+  :root.theme-pink.theme-dark {
+    --primary-light: #880e4f;
+    --primary-regular: #e91e63;
+    --primary-dark: #f8bbd0;
+
+    --secondary-light: #3a0063;
+    --secondary-regular: #7611a6;
+    --secondary-dark: #d1a1f9;
+  }
+}
+
+/* === TEAL–ORANGE === */
+:root.theme-teal {
+  --primary-light: #80cbc4;
+  --primary-regular: #009688;
+  --primary-dark: #004d40;
+
+  --secondary-light: #ffcc80;
+  --secondary-regular: #ff9800;
+  --secondary-dark: #e65100;
+}
+@media not print {
+  :root.theme-teal.theme-dark {
+    --primary-light: #004d40;
+    --primary-regular: #009688;
+    --primary-dark: #80cbc4;
+
+    --secondary-light: #e65100;
+    --secondary-regular: #ff9800;
+    --secondary-dark: #ffcc80;
+  }
+}
+
+/* === MONOCHROME === */
+:root.theme-bw {
+  --primary-light: #ffffff;
+  --primary-regular: #aaaaaa;
+  --primary-dark: #000000;
+
+  --secondary-light: #333333;
+  --secondary-regular: #999999;
+  --secondary-dark: #cccccc;
+}
+@media not print {
+  :root.theme-bw.theme-dark {
+    --primary-light: #000000;
+    --primary-regular: #aaaaaa;
+    --primary-dark: #ffffff;
+
+    --secondary-light: #cccccc;
+    --secondary-regular: #999999;
+    --secondary-dark: #333333;
+  }
+}
+```
+
+# Dynamic terminal
+
+Terminal pops up on `ESC` or `ctrl` + `shift` + `p` (vsc like)
+
+Terminal has support for command filtering.
+
+Commands range:
+
+- print support
+- link to my other socials
+- modes - like tag filtering / project filtering
+- in the future I will add a lot more :D
+
+# Two Language support
+
+- English (main language)
+- Polish (native - but here secondary)
+
+# Markdown support
+
+Astro.js allows for nice markdown support
+
+all the github flavored markdown spec is met here
+
+there is additional support for dynamic header links
+
+dynamic table of contents
+
+mermaid.js generated charts
+
+math syntax using Latex - MathJax / Katex
