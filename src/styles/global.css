@@ -271,20 +271,25 @@ h5 {
     border-collapse: separate;
     border-spacing: 0;
     font-size: 0.9em;
-    box-shadow: var(--shadow-md);
     border-radius: 8px;
     overflow: hidden;
     border-top: 1px solid var(--gray-800);
     border-left: 1px solid var(--gray-800);
     border-right: 1px solid var(--gray-800);
-    border-bottom: 3px solid var(--primary-light);
-    width: 100%;
+    border-bottom: 3px solid rgb(from var(--primary-light) r g b / 25%);
+    max-width: 100%;
+    width: auto;
+    margin: auto;
     table-layout: fixed;
     text-align: center;
+    transition: ease 0.3s;
+  }
+  .prose table:hover {
+    box-shadow: var(--shadow-md);
   }
 
   .prose thead tr {
-    background-color: var(--primary-light);
+    background-color: rgb(from var(--primary-light) r g b / 25%);
     color: var(--background);
   }
 
@@ -318,7 +323,7 @@ h5 {
 
   .prose tbody tr.active-row {
     font-weight: bold;
-    color: var(--primary-light);
+    color: rgb(from var(--primary-light) r g b / 25%);
   }
   @media (max-width: 768px) {
     .prose table {

@@ -1,6 +1,7 @@
 ---
 import type { HTMLAttributes } from "astro/types";
 import type { Tag } from "./Tags";
+import type { LanguageKey } from "@src/i18n/ui";
 
 interface Props extends HTMLAttributes<"li"> {
   tag: Tag;
@@ -52,10 +53,14 @@ const { tag, ...props } = Astro.props;
   {
     tag.link ? (
       <a href={tag.link} target="_blank" rel="noopener noreferrer">
-        {tag.translation.en}
+        {tag.translation[Astro.currentLocale as LanguageKey] ??
+          tag.translation.en}
       </a>
     ) : (
-      <span>{tag.translation.en}</span>
+      <span>
+        {tag.translation[Astro.currentLocale as LanguageKey] ??
+          tag.translation.en}
+      </span>
     )
   }
   <input
