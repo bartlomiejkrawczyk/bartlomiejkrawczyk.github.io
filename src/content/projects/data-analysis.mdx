@@ -1,5 +1,73 @@
 ---
+title: University Data Analysis
+description: |
+  Data analytics and reporting project for the higher education domain, focused on large-scale data processing, statistical analysis, and performance optimization of analytical workloads.
+tags:
+  - sages
+  - scala
+  - apache_spark
+  - apache_hive
+  - mongo_db
+  - mysql
 ---
 
-- Raporty Ewaluacyjne, etc.
-- Optymalizacja istniejących raportów - skrócenie czasu wykonania kilkadziesiąt razy - poprzez optymalizację wykonania zapytania
+# Project Overview
+
+This project involved the design, optimization, and maintenance of analytical reports used by universities for internal evaluation and external reporting. The primary challenge was processing large, heterogeneous datasets efficiently while ensuring statistical correctness and reproducibility.
+
+A significant part of the work focused on optimizing existing analytical queries and reports. Through query rewriting, execution-plan analysis, and better use of Apache Spark, I reduced report execution times by several orders of magnitude (from approximately 12 hours to as little as 10 minutes).
+
+# Technical Approach
+
+Most analytical views were based on SQL logic executed via Apache Spark. To illustrate the approach (using a simplified, self-authored example instead of proprietary code), the following Python function dynamically generates SQL queries for statistical aggregation of numeric columns:
+
+```python
+def aggregate_numeric_column(view: str, column: str) -> str:
+    return f"""--sql
+            SELECT
+                "{column}" AS name,
+                COUNT({column}) AS count,
+                MIN({column}) AS min,
+                MAX({column}) AS max,
+                AVG({column}) AS average,
+                SUM({column}) AS sum,
+                SUM(DISTINCT {column}) AS sum_distinct,
+                KURTOSIS({column}) AS kurtosis,
+                SKEWNESS({column}) AS skewness,
+                STDDEV({column}) AS standard_deviation,
+                STDDEV_POP({column}) AS population_standard_deviation,
+                VARIANCE({column}) AS variance,
+                VAR_POP({column}) AS population_variance
+            FROM {view}
+            WHERE {column} IS NOT NULL
+        """
+
+for view, data_frame in DATA_FRAMES:
+    show_table_name(view)
+    for column, type in data_frame.dtypes:
+        if type in ['double', 'bigint']:
+            show_column_name(column)
+            df = spark.sql(aggregate_numeric_column(view, column))
+            display(df.toPandas())
+
+            dfp = spark.sql(f"SELECT {column} FROM {view}").toPandas()
+            dfp.hist(bins=50)
+            plt.show()
+```
+
+Apache Spark significantly improved data exploration and analysis performance. In comparison, MongoDB provides a limited query language for analytical workloads, and its data access patterns differ substantially from those used in relational databases. Spark SQL allowed for more expressive queries and more efficient large-scale aggregations.
+
+# Reports and Deliverables
+
+During the project, I worked on the following types of reports and data pipelines:
+
+- **ETL pipelines** – loading and transforming data from internal databases into client-owned databases.
+- **Automated report generation** – producing reports in multiple formats, including PDF, CSV, XLSX, and JSON.
+- **Employee evaluation reports** – universities conduct formal evaluation cycles every 4–5 years; these reports aggregated and summarized academic, teaching, and organizational achievements over the evaluation period.
+- **Performance optimization of legacy reports** – by rewriting and refactoring several critical reports, I achieved performance improvements ranging from 2× to as much as 80×.
+
+# Key Outcomes
+
+- Drastically reduced execution time of long-running analytical reports.
+- Improved reliability and maintainability of reporting code.
+- Enabled faster data-driven decision-making for university management and evaluation committees.
