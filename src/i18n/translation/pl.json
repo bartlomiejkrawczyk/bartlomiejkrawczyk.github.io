@@ -66,6 +66,7 @@
       "subject": "Informatyka",
       "degree": "Stopień Magistra",
       "specialization": "Inteligentne Systemy",
+      "description": "Ukończenie studiów z bardzo dobrymi wynikami w nauce (średnia ocen 4,92/5,0), co odzwierciedla posiadaną więdzę z zakresu zaawansowanej inżynierii systemów, obliczeń rozproszonych i systemów inteligentnych.",
       "subjects": [
         "Niezawdone, Skalowalne i Łatwe w Utrzymaniu Systemy Informatyczne",
         "Programowanie Równoległe i Rozproszone",
@@ -81,6 +82,7 @@
       "subject": "Informatyka",
       "degree": "Stopień Inżyniera",
       "specialization": "Wytwarzanie Oprogramowania",
+      "description": "Ukończenie programu ze średnią ocen bardzo dobrą (4,96/5,0), wykazując się solidną wiedzą w zakresie algorytmów, systemów operacyjnych, architektury oprogramowania i stosowanego uczenia maszynowego.",
       "subjects": [
         "Algorytmy i Struktury Danych",
         "Systemy Operacyjne",

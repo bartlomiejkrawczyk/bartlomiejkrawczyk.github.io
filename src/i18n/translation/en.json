@@ -66,6 +66,7 @@
       "subject": "Computer Science",
       "degree": "Master's Degree",
       "specialization": "Intelligent Systems",
+      "description": "Graduated with a consistently high academic record (average 4.92/5.0), reflecting strong performance in advanced systems engineering, distributed computing, and intelligent systems coursework.",
       "subjects": [
         "Reliable, Scalable, and Maintainable IT Systems",
         "Parallel and Distributed Programming",
@@ -80,6 +81,7 @@
       "period": "October 2020 - February 2024",
       "subject": "Computer Science",
       "degree": "Bachelor's Degree",
+      "description": "Completed the program with an excellent academic average (4.96/5.0), demonstrating solid foundations in algorithms, operating systems, software architecture, and applied machine learning.",
       "specialization": "Software Engineering",
       "subjects": [
         "Algorithms and Data Structures",
