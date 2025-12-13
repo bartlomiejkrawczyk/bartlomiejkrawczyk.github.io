@@ -515,7 +515,7 @@ export const tags: Record<TagId, Tag> = {
     id: "jakarta_ee",
     type: "framework",
     link: "https://jakarta.ee/specifications/",
-    translation: { en: "Jakarta CDI" },
+    translation: { en: "Jakarta EE" },
   },
   jax_rs: {
     id: "jax_rs",
