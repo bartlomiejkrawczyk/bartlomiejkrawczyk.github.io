@@ -18,7 +18,7 @@
   },
   "about": {
     "header": "O Mnie",
-    "content": "Jestem wysoce zmotywowanym inżynierem oprogramowania full-stack, specjalizującym się w tworzeniu niezawodnych, skalowalnych i łatwych w utrzymaniu rozwiązań IT. Moje techniczne podstawy opierają się na dogłębnej znajomości języków Java/Kotlin/Spring, co przekłada się na solidne usługi back-endowe, uzupełnione o biegłą znajomość języków Rust i Python w aplikacjach krytycznych pod względem wydajności i opartych na sztucznej inteligencji. Posiadam udokumentowane doświadczenie w projektowaniu i wdrażaniu rozproszonych systemów chmurowych, opanowując wzorce takie jak mikrousługi, CQRS i Event Sourcing z wykorzystaniem Dockera i Kubernetesa. Poza podstawowym rozwojem oprogramowania, posiadam bogate doświadczenie w zakresie sztucznej inteligencji, optymalizacji (MIP/OR-Tools) oraz wdrożeń full-stack, w tym w zakresie tworzenia aplikacji mobilnych (Android) i nowoczesnych stron internetowych z wykorzystaniem React.js/Astro.js. Moje zróżnicowane portfolio projektów – od oficjalnych, wdrożonych aplikacji mobilnych (ponad 10 tys. pobrań) po złożone prace dyplomowe z zakresu sztucznej inteligencji i optymalizacji – odzwierciedla zaangażowanie w kompleksową doskonałość inżynierską i praktyczne zastosowanie zaawansowanych zasad informatyki."
+    "content": "Jestem wysoce zmotywowanym inżynierem oprogramowania full-stack, specjalizującym się w tworzeniu niezawodnych, skalowalnych i łatwych w utrzymaniu rozwiązań IT. Moje techniczne podstawy opierają się na dogłębnej znajomości języków Java/Kotlin/Spring, co przekłada się na solidne usługi back-endowe, uzupełnione o biegłą znajomość języków Rust i Python w aplikacjach krytycznych pod względem wydajności i opartych na sztucznej inteligencji. Posiadam udokumentowane doświadczenie w projektowaniu i wdrażaniu rozproszonych systemów chmurowych, opanowując wzorce takie jak mikrousługi, CQRS i Event Sourcing z wykorzystaniem Dockera i Kubernetesa. Poza podstawowym rozwojem oprogramowania, posiadam bogate doświadczenie w zakresie sztucznej inteligencji, optymalizacji (MIP/OR-Tools) oraz wdrożeń full-stack, w tym w zakresie tworzenia aplikacji mobilnych (Android) i nowoczesnych stron internetowych z wykorzystaniem React.js/Astro.js. Moje zróżnicowane portfolio projektów - od oficjalnych, wdrożonych aplikacji mobilnych (ponad 10 tys. pobrań) po złożone prace dyplomowe z zakresu sztucznej inteligencji i optymalizacji - odzwierciedla zaangażowanie w kompleksową doskonałość inżynierską i praktyczne zastosowanie zaawansowanych zasad informatyki."
   },
   "additionalActivity": {
     "header": "Aktywność Dodatkowa",
@@ -116,7 +116,17 @@
   },
   "rodo": "Wyrażam zgodę na przetwarzanie moich danych osobowych dla potrzeb niezbędnych do realizacji procesu rekrutacji (zgodnie z ustawą z dnia 10 maja 2018 roku o ochronie danych osobowych (Dz. Ustaw z 2018, poz. 1000) oraz zgodnie z Rozporządzeniem Parlamentu Europejskiego i Rady (UE) 2016/679 z dnia 27 kwietnia 2016 r. w sprawie ochrony osób fizycznych w związku z przetwarzaniem danych osobowych i w sprawie swobodnego przepływu takich danych oraz uchylenia dyrektywy 95/46/WE (RODO).",
   "skills": {
-    "header": "Umiejętności"
+    "header": "Umiejętności",
+    "languages": "Języki",
+    "frameworks": "Frameworki",
+    "technologies": "Technologies",
+    "tools": "Narzędzia",
+    "operating_systems": "Systemy Operacyjne",
+    "clouds": "Chmury",
+    "libraries": "Biblioteki",
+    "databases": "Bazy Danych",
+    "other": "Inne",
+    "linguistics": "Językoznastwo"
   },
   "work": {
     "header": "Doświadczenie Zawodowe",
@@ -131,7 +141,7 @@
     },
     "responsibilities": {
       "mid": [
-        "Kierowanie architekturą backendu i wdrożenie Uniplaner, uniwersyteckiego systemu planowania zajęć, obejmującego logikę planowania, wykrywanie konfliktów, aktualizacje w czasie rzeczywistym i wysokowydajny dostęp do danych.",
+        "Kierowanie architekturą backendu i wdrożenie Uniplaner-a, uniwersyteckiego systemu planowania zajęć, obejmującego logikę planowania, wykrywanie konfliktów, aktualizacje w czasie rzeczywistym i wysokowydajny dostęp do danych.",
         "Rozwój backendu platformy Knowledge Base oraz powiązanych integracji.",
         "Opracowywanie i utrzymywanie usług w ramach systemu oceny pracowników opartego na mikrousługach, wkład w integrację zabezpieczeń (CAS) oraz orkiestrację zadań ETL w Apache Flink.",
         "Tworzenie i rozwijanie funkcji dla klientów, takich jak osadzalne widżety i interfejsy eksportu metadanych do systemów zewnętrznych, umożliwiające innym platformom zbieranie ustrukturyzowanych danych akademickich z Bazy Wiedzy.",

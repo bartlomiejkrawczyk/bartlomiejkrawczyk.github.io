@@ -273,6 +273,7 @@ export const tagIds = [
 export const tagTypes = [
   "company",
   "language",
+  "niche_language",
   "framework",
   "technology",
   "tool",
@@ -429,7 +430,7 @@ export const tags: Record<TagId, Tag> = {
   },
   prolog: {
     id: "prolog",
-    type: "language",
+    type: "niche_language",
     link: "https://www.swi-prolog.org/",
     translation: { en: "Prolog" },
   },
@@ -441,7 +442,7 @@ export const tags: Record<TagId, Tag> = {
   },
   ampl: {
     id: "ampl",
-    type: "language",
+    type: "niche_language",
     link: "https://ampl.com/",
     translation: { en: "AMPL" },
   },
@@ -459,13 +460,13 @@ export const tags: Record<TagId, Tag> = {
   },
   assembly_x86: {
     id: "assembly_x86",
-    type: "language",
+    type: "niche_language",
     link: "https://en.wikipedia.org/wiki/X86_assembly_language",
     translation: { en: "x86 assembly" },
   },
   assembly_mips: {
     id: "assembly_mips",
-    type: "language",
+    type: "niche_language",
     link: "https://en.wikibooks.org/wiki/MIPS_Assembly/MIPS_Instructions",
     translation: { en: "MIPS assembly" },
   },

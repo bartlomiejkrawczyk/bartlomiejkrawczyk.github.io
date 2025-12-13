@@ -13,9 +13,127 @@ const t = getTranslations(lang);
 
 <div {...props}>
   <h2 id="skills" class="pb-1">{t.skills.header}</h2>
-  <ul class="flex flex-wrap gap-1">
-    {Object.entries(tags).map(([, tag]) => <TagElement tag={tag} />)}
-  </ul>
+  <div class="skill-gap">
+    <h3>
+      {t.skills.languages}:
+    </h3>
+    <ul class="skill-tag-wrapper">
+      {
+        Object.entries(tags)
+          .filter(([, tag]) => tag.type === "language")
+          .map(([, tag]) => <TagElement tag={tag} />)
+      }
+    </ul>
+  </div>
+  <!-- TODO: Niche languages / languages for sport -->
+  <div class="skill-gap">
+    <h3>
+      {t.skills.frameworks}:
+    </h3>
+    <ul class="skill-tag-wrapper">
+      {
+        Object.entries(tags)
+          .filter(([, tag]) => tag.type === "framework")
+          .map(([, tag]) => <TagElement tag={tag} />)
+      }
+    </ul>
+  </div>
+  <div class="skill-gap">
+    <h3>
+      {t.skills.technologies}:
+    </h3>
+    <ul class="skill-tag-wrapper">
+      {
+        Object.entries(tags)
+          .filter(([, tag]) => tag.type === "technology")
+          .map(([, tag]) => <TagElement tag={tag} />)
+      }
+    </ul>
+  </div>
+  <div class="skill-gap">
+    <h3>
+      {t.skills.tools}:
+    </h3>
+    <ul class="skill-tag-wrapper">
+      {
+        Object.entries(tags)
+          .filter(([, tag]) => tag.type === "tool")
+          .map(([, tag]) => <TagElement tag={tag} />)
+      }
+    </ul>
+  </div>
+  <div class="skill-gap">
+    <h3>
+      {t.skills.operating_systems}:
+    </h3>
+    <ul class="skill-tag-wrapper">
+      {
+        Object.entries(tags)
+          .filter(([, tag]) => tag.type === "operating_system")
+          .map(([, tag]) => <TagElement tag={tag} />)
+      }
+    </ul>
+  </div>
+  <div class="skill-gap">
+    <h3>
+      {t.skills.clouds}:
+    </h3>
+    <ul class="skill-tag-wrapper">
+      {
+        Object.entries(tags)
+          .filter(([, tag]) => tag.type === "cloud")
+          .map(([, tag]) => <TagElement tag={tag} />)
+      }
+    </ul>
+  </div>
+  <div class="skill-gap">
+    <h3>
+      {t.skills.libraries}:
+    </h3>
+    <ul class="skill-tag-wrapper">
+      {
+        Object.entries(tags)
+          .filter(([, tag]) => tag.type === "library")
+          .map(([, tag]) => <TagElement tag={tag} />)
+      }
+    </ul>
+  </div>
+  <div class="skill-gap">
+    <h3>
+      {t.skills.databases}:
+    </h3>
+    <ul class="skill-tag-wrapper">
+      {
+        Object.entries(tags)
+          .filter(([, tag]) => tag.type === "database")
+          .map(([, tag]) => <TagElement tag={tag} />)
+      }
+    </ul>
+  </div>
+  <div class="skill-gap">
+    <h3>
+      {t.skills.other}:
+    </h3>
+    <ul class="skill-tag-wrapper">
+      {
+        Object.entries(tags)
+          .filter(([, tag]) => tag.type === "other")
+          .map(([, tag]) => <TagElement tag={tag} />)
+      }
+    </ul>
+  </div>
+  <div class="skill-gap">
+    <h3>
+      {t.skills.linguistics}:
+    </h3>
+    <ul class="skill-tag-wrapper">
+      {
+        Object.entries(tags)
+          .filter(([, tag]) => tag.type === "linguistics")
+          .map(([, tag]) => <TagElement tag={tag} />)
+      }
+    </ul>
+  </div>
 </div>
 
 <style>
@@ -26,5 +144,18 @@ const t = getTranslations(lang);
     display: flex;
     gap: var(--spacing);
     flex-wrap: wrap;
+  }
+  .skill-gap {
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--spacing) * 2);
+  }
+  .skill-tag-wrapper {
+    display: flex;
+    gap: calc(var(--spacing) * 1);
+    flex-wrap: wrap;
+  }
+  h3:not(.prose h3) {
+    font-size: 1rem;
   }
 </style>
