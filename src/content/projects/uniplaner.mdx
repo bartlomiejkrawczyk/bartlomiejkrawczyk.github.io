@@ -1,0 +1,75 @@
+---
+title: University Class Scheduling System
+description: |
+  End-to-end academic scheduling platform for universities, providing automated timetable generation, real-time collaboration, and deep integration with institutional management systems.
+tags:
+  - sages
+  - kotlin
+  - sql
+  - typescript
+  - ktor
+  - react_js
+  - docker
+  - apache_kafka
+  - cas
+  - liquibase
+  - jetbrains_exposed
+  - oracle
+---
+
+# High-Level Overview
+
+**Uniplaner** is a modern academic scheduling and planning system designed for higher-education institutions. The product supports the full lifecycle of timetable creation - from collecting authoritative academic data and availability constraints, through optimization and conflict detection, to publishing finalized schedules back into university management systems.
+
+The system enables universities to centrally manage academic calendars, time patterns, room inventories, instructor availability, and institutional constraints, and then automatically generate high-quality, conflict-free schedules. It supports multiple user roles (planners, administrators, teaching staff etc.) and allows both automated optimization and manual fine-tuning of schedules.
+
+Uniplaner integrates directly with institutional systems such as USOS to both consume source data (courses, groups, instructors, rooms) and publish finalized timetables, ensuring consistency with the university's core systems.
+
+# My Responsibilities
+
+This is the first major product fully led and implemented by me as a technical owner. I am responsible for the entire backend architecture and business logic, including system design, performance, and integration.
+
+My responsibilities include:
+
+- Design and implementation of all backend services using Kotlin and Ktor.
+- Schedule generation and optimization logic, including constraint handling and prioritization.
+- Conflict detection across rooms, instructors, student groups, and time slots.
+- Real-time plan updates supporting multiple concurrent editors.
+- Seamless, near-real-time integration with USOS for data synchronization and plan publishing.
+- Report generation in multiple formats (PDF, CSV, XML, JSON, XLSX).
+- Full-text search over imported USOS data to improve planner productivity.
+- Query and data-access optimization, with most endpoints - including complex ones - responding in under ~700 ms.
+- Requirements analysis and close collaboration with domain experts from universities.
+
+# System Characteristics
+
+From a technical perspective, Uniplaner is characterized by:
+
+- Event-driven communication using Apache Kafka to propagate plan updates.
+- Strong consistency and transactional guarantees backed by Oracle.
+- Schema versioning and controlled database evolution using Liquibase.
+- Type-safe SQL and data access implemented with JetBrains Exposed.
+- Centralized authentication and authorization via CAS.
+- Containerized deployment using Docker.
+- A modern web frontend built with React and TypeScript, consuming backend APIs in real time.
+
+# Scheduling Workflow (Conceptual)
+
+The typical scheduling process supported by the system includes:
+
+1. Import of courses, groups, instructors, and rooms from the university's management system.
+2. Collection of instructor availability and institutional constraints.
+3. Definition of planner preferences and priorities (e.g., room types, block scheduling).
+4. Automated generation of an optimized timetable.
+5. Manual adjustments, validation, and conflict resolution where needed.
+6. Publishing of the finalized schedule back to USOS or another authoritative system.
+
+# Key Outcomes
+
+- Significant reduction in manual effort required to build and maintain academic schedules.
+- Improved schedule quality through automated optimization and early conflict detection.
+- Real-time collaboration for planners and administrators.
+- High system responsiveness despite complex scheduling logic.
+- A reusable scheduling platform adaptable to different universities and academic rulesets.
+
+This project demonstrates end-to-end product ownership, combining domain modeling, performance-oriented backend engineering, and complex integration with external institutional systems.

@@ -1,22 +1,53 @@
 ---
----
-
-- Widgety
-- OAI
-- Scopus
-- Web of Science
-- USOS
-
----
-
-title: Web of Science integration
-decription: |
-TODO - my first project
+title: Knowledge Base Integrations
+description: |
+  Integration layer and ETL framework for connecting the Knowledge Base platform with multiple external academic and institutional systems.
 tags:
-
-- sages
-- java
-- hazelcast
-- mongo_db
-
+  - sages
+  - java
+  - hazelcast
+  - mongo_db
 ---
+
+# High-Level Overview
+
+This project focused on building and maintaining a broad set of integrations between the Knowledge Base platform and external client systems. The goal was to reliably exchange large volumes of heterogeneous academic data while minimizing integration-specific complexity and long-term maintenance costs.
+
+Over time, the scope evolved from implementing individual point-to-point integrations into designing a reusable, standardized integration framework used across the product.
+
+# Key Integrations
+
+As part of this work, I implemented and maintained multiple production integrations, including:
+
+- **Embeddable widgets** allowing clients to display Knowledge Base content directly on their own websites while linking back to authoritative records.
+- **OAI-PMH** interface compliant with the Open Archives Initiative Protocol for Metadata Harvesting, enabling external systems to harvest metadata from the Knowledge Base.
+- **Web of Science** integration - my first integration project at the company, implemented end-to-end during my first month as a trainee.
+- **Scopus** integration, including migration and synchronization of bibliometric indicators.
+- **USOS** integration for importing theses, authors, employees, and related academic entities.
+
+# Standardized ETL Framework
+
+While working on multiple integrations, I identified significant duplication in messaging, job orchestration, and error-handling logic. To address this, I designed and implemented a shared integration library that effectively became a lightweight ETL framework for the platform.
+
+The standardized pipeline consists of the following stages:
+
+1. **Extraction** - retrieving data from client APIs or databases.
+2. **Transformation** - mapping external data into an internal, intermediate domain model.
+3. **Validation** - verifying data correctness and completeness, with support for skipping invalid records or signaling errors.
+4. **Load** - persisting validated data into the Knowledge Base.
+
+With this approach, new integrations require only:
+
+- Definition of the intermediate validation model.
+- Implementation of mapping logic between the client's data model and the Knowledge Base domain model.
+
+All remaining concerns - messaging, retries, error handling, batching, and execution flow - are handled by the shared framework.
+
+# Key Outcomes
+
+- Drastically reduced boilerplate code across integrations.
+- Significantly shortened development time for new client integrations.
+- Improved consistency, reliability, and observability of ETL processes.
+- Established a scalable integration pattern reused across the product.
+
+This project demonstrates my ability to move beyond feature delivery and identify structural improvements that increase team productivity and system maintainability at scale.
