@@ -128,6 +128,25 @@
     },
     "sagesMid": {
       "period": "July 2023 -"
+    },
+    "responsibilities": {
+      "mid": [
+        "Led backend architecture and implementation of Uniplaner, a university class scheduling system, including scheduling logic, conflict detection, real-time updates, and high-performance data access.",
+        "Backend developer on the Knowledge Base platform and related integrations.",
+        "Developed and maintained services within a microservice-based employee evaluation system, contributing to security integration (CAS), ETL job orchestration on Apache Flink, and gateway services.",
+        "Built and evolved client-facing features such as embeddable widgets and metadata export interfaces for external systems, allowing other platforms to harvest structured academic data from the Knowledge Base.",
+        "Focused on performance, scalability, and reliability in production systems."
+      ],
+      "junior": [
+        "Delivered multiple external integrations for the Knowledge Base platform (OAI-PMH, Scopus, USOS).",
+        "Designed and implemented a standardized ETL framework that reduced boilerplate and significantly shortened development time for new integrations.",
+        "Implemented large file support with Amazon S3, introducing streaming-based processing and presigned uploads to handle multi-GB files efficiently.",
+        "Contributed to maintenance and evolution of enterprise academic systems."
+      ],
+      "trainee": [
+        "Implemented a complete Web of Science integration as an independent trainee project.",
+        "Built end-to-end data extraction, transformation, and ingestion pipelines for production use."
+      ]
     }
   }
 }

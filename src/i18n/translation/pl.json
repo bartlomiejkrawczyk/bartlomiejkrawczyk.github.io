@@ -128,6 +128,25 @@
     },
     "sagesMid": {
       "period": "Lipiec 2023 -"
+    },
+    "responsibilities": {
+      "mid": [
+        "Kierowanie architekturą backendu i wdrożenie Uniplaner, uniwersyteckiego systemu planowania zajęć, obejmującego logikę planowania, wykrywanie konfliktów, aktualizacje w czasie rzeczywistym i wysokowydajny dostęp do danych.",
+        "Rozwój backendu platformy Knowledge Base oraz powiązanych integracji.",
+        "Opracowywanie i utrzymywanie usług w ramach systemu oceny pracowników opartego na mikrousługach, wkład w integrację zabezpieczeń (CAS) oraz orkiestrację zadań ETL w Apache Flink.",
+        "Tworzenie i rozwijanie funkcji dla klientów, takich jak osadzalne widżety i interfejsy eksportu metadanych do systemów zewnętrznych, umożliwiające innym platformom zbieranie ustrukturyzowanych danych akademickich z Bazy Wiedzy.",
+        "Optymalizacja wydajności, skalowalności i niezawodności systemów produkcyjnych."
+      ],
+      "junior": [
+        "Wdrożyłem wiele zewnętrznych integracji dla platformy Bazy Wiedzy (OAI-PMH, Scopus, USOS).",
+        "Opracowanie i wdrożenie ustandaryzowanego szkieletu ETL, które zredukowało powtarzalny kod i skróciło czas realizacji nowych integracji.",
+        "Implementacja obsługi dużych plików w S3, w tym przetwarzanie strumieniowe i przesyłanie przy użyciu wstępnie podpisanych URL, umożliwiające sprawne przetwarzanie plików wielogigabajtowych.",
+        "Współpraca przy utrzymaniu i rozwoju korporacyjnych systemów akademickich."
+      ],
+      "trainee": [
+        "Samodzielna realizacja pełnej integracji z Web of Science podczas stażu.",
+        "Tworzenie kompletnych potoków ETL - ekstrakcja, transformacja i ładowanie danych do systemu produkcyjnego."
+      ]
     }
   }
 }
