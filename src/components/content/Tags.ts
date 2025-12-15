@@ -1185,12 +1185,14 @@ export const tags: Record<TagId, Tag> = {
     type: "linguistics",
     link: "https://en.wikipedia.org/wiki/Polish_language",
     translation: { en: "Polish - native", pl: "Polski - ojczysty" },
+    print: true,
   },
   english: {
     id: "english",
     type: "linguistics",
     link: "https://en.wikipedia.org/wiki/English_language",
     translation: { en: "English - advanced", pl: "Angielski - zaawansowany" },
+    print: true,
   },
   russian: {
     id: "russian",
