@@ -133,11 +133,8 @@
   },
   "work": {
     "header": "Work Experience",
-    "sagesTrain": {
-      "period": "June 2022 - July 2022"
-    },
     "sagesJunior": {
-      "period": "July 2022 - June 2023"
+      "period": "June 2022 - June 2023"
     },
     "sagesMid": {
       "period": "July 2023 -"
@@ -155,10 +152,6 @@
         "Designed and implemented a standardized ETL framework that reduced boilerplate and significantly shortened development time for new integrations.",
         "Implemented large file support with Amazon S3, introducing streaming-based processing and presigned uploads to handle multi-GB files efficiently.",
         "Contributed to maintenance and evolution of enterprise academic systems."
-      ],
-      "trainee": [
-        "Implemented a complete Web of Science integration as an independent trainee project.",
-        "Built end-to-end data extraction, transformation, and ingestion pipelines for production use."
       ]
     }
   }

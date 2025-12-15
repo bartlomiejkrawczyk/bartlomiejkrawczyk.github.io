@@ -133,11 +133,8 @@
   },
   "work": {
     "header": "Doświadczenie Zawodowe",
-    "sagesTrain": {
-      "period": "Czerwiec 2022 - Lipiec 2022"
-    },
     "sagesJunior": {
-      "period": "Lipiec 2022 - Czerwiec 2023"
+      "period": "Czerwiec 2022 - Czerwiec 2023"
     },
     "sagesMid": {
       "period": "Lipiec 2023 -"
@@ -155,10 +152,6 @@
         "Opracowanie i wdrożenie ustandaryzowanego szkieletu ETL, które zredukowało powtarzalny kod i skróciło czas realizacji nowych integracji.",
         "Implementacja obsługi dużych plików w S3, w tym przetwarzanie strumieniowe i przesyłanie przy użyciu wstępnie podpisanych URL, umożliwiające sprawne przetwarzanie plików wielogigabajtowych.",
         "Współpraca przy utrzymaniu i rozwoju korporacyjnych systemów akademickich."
-      ],
-      "trainee": [
-        "Samodzielna realizacja pełnej integracji z Web of Science podczas stażu.",
-        "Tworzenie kompletnych potoków ETL - ekstrakcja, transformacja i ładowanie danych do systemu produkcyjnego."
       ]
     }
   }
