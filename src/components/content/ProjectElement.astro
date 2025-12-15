@@ -23,6 +23,10 @@ const lang = Astro.currentLocale as LanguageKey;
 
 <li
   class={`pt-1 projects-li ${project.data.print ? null : "no-print"}`}
+  style={`
+    --col-span: ${project.data.columns ?? 1};
+    --row-span: ${project.data.rows ?? 1};
+  `}
   data-project-id={project.id}
 >
   <div class="project-wrapper">
@@ -58,12 +62,27 @@ const lang = Astro.currentLocale as LanguageKey;
     gap: var(--spacing);
     border: 1px solid var(--gray-900);
     border-radius: var(--radius-lg);
-    padding: calc(var(--spacing) * 1.5);
+    padding: calc(var(--spacing) * 2);
     background-color: var(--background);
     transition:
       transform 1s ease,
       box-shadow 1s ease;
     break-inside: avoid;
+    grid-column: span 1;
+    grid-row: span 1;
+  }
+
+  @media (min-width: 768px) {
+    .projects-li {
+      grid-column: span var(--col-span);
+      grid-row: span var(--row-span);
+    }
+  }
+  @media print {
+    .projects-li {
+      grid-column: span var(--col-span);
+      grid-row: span var(--row-span);
+    }
   }
 
   .project-wrapper {
