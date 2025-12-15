@@ -31,9 +31,11 @@ const lang = Astro.currentLocale as LanguageKey;
     <div class="page-container">
       <LeftSidebar />
       <div class="main-content">
-        <div class="content p-8" transition:animate="fade">
-          <slot />
-        </div>
+        <main>
+          <div class="content p-8" transition:animate="fade">
+            <slot />
+          </div>
+        </main>
       </div>
       <RightSidebar />
     </div>
