@@ -21,7 +21,7 @@ const t = getTranslations(lang);
       {
         Object.entries(tags)
           .filter(([, tag]) => tag.type === "language")
-          .map(([, tag]) => <TagElement tag={tag} />)
+          .map(([, tag]) => <TagElement tag={tag} hideFromPrint={true} />)
       }
     </ul>
   </div>
@@ -33,7 +33,7 @@ const t = getTranslations(lang);
       {
         Object.entries(tags)
           .filter(([, tag]) => tag.type === "framework")
-          .map(([, tag]) => <TagElement tag={tag} />)
+          .map(([, tag]) => <TagElement tag={tag} hideFromPrint={true} />)
       }
     </ul>
   </div>
@@ -45,7 +45,7 @@ const t = getTranslations(lang);
       {
         Object.entries(tags)
           .filter(([, tag]) => tag.type === "technology")
-          .map(([, tag]) => <TagElement tag={tag} />)
+          .map(([, tag]) => <TagElement tag={tag} hideFromPrint={true} />)
       }
     </ul>
   </div>
@@ -57,7 +57,7 @@ const t = getTranslations(lang);
       {
         Object.entries(tags)
           .filter(([, tag]) => tag.type === "tool")
-          .map(([, tag]) => <TagElement tag={tag} />)
+          .map(([, tag]) => <TagElement tag={tag} hideFromPrint={true} />)
       }
     </ul>
   </div>
@@ -69,7 +69,7 @@ const t = getTranslations(lang);
       {
         Object.entries(tags)
           .filter(([, tag]) => tag.type === "operating_system")
-          .map(([, tag]) => <TagElement tag={tag} />)
+          .map(([, tag]) => <TagElement tag={tag} hideFromPrint={true} />)
       }
     </ul>
   </div>
@@ -81,11 +81,11 @@ const t = getTranslations(lang);
       {
         Object.entries(tags)
           .filter(([, tag]) => tag.type === "cloud")
-          .map(([, tag]) => <TagElement tag={tag} />)
+          .map(([, tag]) => <TagElement tag={tag} hideFromPrint={true} />)
       }
     </ul>
   </div>
-  <!-- <div class="skill-gap">
+  <div class="skill-gap no-print">
     <h3>
       {t.skills.libraries}:
     </h3>
@@ -93,10 +93,10 @@ const t = getTranslations(lang);
       {
         Object.entries(tags)
           .filter(([, tag]) => tag.type === "library")
-          .map(([, tag]) => <TagElement tag={tag} />)
+          .map(([, tag]) => <TagElement tag={tag} hideFromPrint={true} />)
       }
     </ul>
-  </div> -->
+  </div>
   <div class="skill-gap">
     <h3>
       {t.skills.databases}:
@@ -105,7 +105,7 @@ const t = getTranslations(lang);
       {
         Object.entries(tags)
           .filter(([, tag]) => tag.type === "database")
-          .map(([, tag]) => <TagElement tag={tag} />)
+          .map(([, tag]) => <TagElement tag={tag} hideFromPrint={true} />)
       }
     </ul>
   </div>
@@ -117,7 +117,7 @@ const t = getTranslations(lang);
       {
         Object.entries(tags)
           .filter(([, tag]) => tag.type === "other")
-          .map(([, tag]) => <TagElement tag={tag} />)
+          .map(([, tag]) => <TagElement tag={tag} hideFromPrint={true} />)
       }
     </ul>
   </div>
@@ -129,7 +129,7 @@ const t = getTranslations(lang);
       {
         Object.entries(tags)
           .filter(([, tag]) => tag.type === "linguistics")
-          .map(([, tag]) => <TagElement tag={tag} />)
+          .map(([, tag]) => <TagElement tag={tag} hideFromPrint={true} />)
       }
     </ul>
   </div>

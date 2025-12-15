@@ -5,9 +5,10 @@ import type { LanguageKey } from "@src/i18n/ui";
 
 interface Props extends HTMLAttributes<"li"> {
   tag: Tag;
+  hideFromPrint?: boolean;
 }
 
-const { tag, ...props } = Astro.props;
+const { tag, hideFromPrint = false, ...props } = Astro.props;
 ---
 
 <style>
@@ -46,7 +47,7 @@ const { tag, ...props } = Astro.props;
 
 <li
   id={`tag-${tag.id}`}
-  class={`skill ${tag.type} ${props.class ?? ""}`}
+  class={`skill ${tag.type} ${props.class ?? ""} ${(tag.print ?? !hideFromPrint) ? "" : " no-print"}`}
   data-tag-id={String(tag.id)}
   {...props}
 >

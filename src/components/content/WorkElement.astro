@@ -47,7 +47,7 @@ const {
     workTags ? (
       <ul class="flex flex-wrap gap-1">
         {workTags.map((tag) => (
-          <TagElement tag={tags[tag]} />
+          <TagElement tag={tags[tag]} hideFromPrint={true} />
         ))}
       </ul>
     ) : null
