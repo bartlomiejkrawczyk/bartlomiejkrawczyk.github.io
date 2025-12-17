@@ -8,11 +8,6 @@ tags:
     - university
     - java
     - sql
-    - gradle
-    - spock
-    - lombok
-    - slf4j
-    - apache_commons
 ---
 
 # Functionality of the Language

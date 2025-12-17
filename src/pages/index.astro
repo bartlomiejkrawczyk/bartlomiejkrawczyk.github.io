@@ -15,11 +15,11 @@ import Certifications from "@src/components/content/Certifications.astro";
 <Layout>
   <Overview />
   <About class="py-4" />
-  <WorkExperience class="content-section" />
   <Education class="content-section" />
-  <Skills class="content-section" />
+  <WorkExperience class="content-section" />
+  <Skills class="content-section break-inside-avoid" />
   <Projects class="content-section" />
-  <Certifications class="content-section" />
+  <Certifications class="content-section break-inside-avoid" />
   <Awards class="content-section" />
   <AdditionalActivity class="content-section" />
   <Rodo class="content-section" />
@@ -36,5 +36,11 @@ import Certifications from "@src/components/content/Certifications.astro";
     flex-direction: column;
     gap: calc(2 * var(--spacing));
     /* break-inside: avoid; TODO: consider this one */
+  }
+
+  @media print {
+    .content-section {
+      border: none;
+    }
   }
 </style>

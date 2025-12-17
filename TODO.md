@@ -30,3 +30,7 @@
 - [ ] Start adding more project descriptions
 - [ ] Tags could have colored borders - so that when background is disabled it still looks nice
 - [x] Move tags from projects to the bottom of the tile - this does not look good
+- [ ] Group tags
+- [ ] Remove libraries from listed skills
+- [ ] Add company projects
+- [ ] List in bulletpoints every achievement I've accomplished at given role

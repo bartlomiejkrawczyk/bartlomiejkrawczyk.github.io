@@ -1,10 +1,8 @@
 ---
 import { getCollection } from "astro:content";
-import { getRelativeLocaleUrl } from "astro:i18n";
 import { getTranslations, type LanguageKey } from "@i18n/ui";
 import type { HTMLAttributes } from "astro/types";
-import TagElement from "./TagElement.astro";
-import { tags } from "@components/content/Tags";
+import ProjectElement from "./ProjectElement.astro";
 
 const projects = await getCollection("projects").then((projects) =>
   projects.sort((a, b) => a.id.localeCompare(b.id)),
@@ -24,42 +22,22 @@ const t = getTranslations(lang);
   <!-- https://docs.astro.build/en/guides/content-collections/#filtering-collection-queries -->
   <ul class="projects-ul">
     {
-      Object.entries(projects).map(([, project]) => (
-        <li class="pt-1 projects-li" data-project-id={project.id}>
-          <div class="project-wrapper">
-            <div class="flex flex-row items-center">
-              <input
-                type="checkbox"
-                class="project-check styled-checkbox"
-                data-project-id={project.id}
-                aria-label={`Toggle project ${project.id}`}
-              />
-
-              <a
-                href={getRelativeLocaleUrl(lang, "/projects/" + project.id)}
-                class="full-link"
-              >
-                <span>
-                  <b>{project.data.title ?? project.id}</b>
-                </span>
-              </a>
-            </div>
-            <div>{project.data.description}</div>
-            <ul class="project-tags">
-              {project.data.tags?.map((tag) => (
-                <TagElement tag={tags[tag]} />
-              ))}
-            </ul>
-          </div>
-        </li>
-      ))
+      Object.entries(projects)
+        .filter(([, project]) => {
+          return project.data.print ?? false;
+        })
+        .map(([, project]) => <ProjectElement project={project} />)
+    }
+    {
+      Object.entries(projects)
+        .filter(([, project]) => !(project.data.print ?? false))
+        .map(([, project]) => <ProjectElement project={project} />)
     }
   </ul>
 
-  <!-- 
-  May configure pagination of projects: 
-  https://docs.astro.build/en/guides/routing/#pagination 
-  -->
+  <a href="https://bartlomiejkrawczyk.github.io/#projects" class="only-print"
+    >More Projects</a
+  >
 </div>
 
 <style>
@@ -73,95 +51,6 @@ const t = getTranslations(lang);
     margin: 0;
     padding: 0;
     list-style: none;
-  }
-
-  .projects-li {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing);
-    border: 1px solid var(--gray-900);
-    border-radius: var(--radius-lg);
-    padding: calc(var(--spacing) * 1.5);
-    background-color: var(--background);
-    transition:
-      transform 1s ease,
-      box-shadow 1s ease;
-    break-inside: avoid;
-  }
-
-  .projects-li:hover,
-  .projects-li:focus-within {
-    transform: scale(1.01);
-    z-index: 10;
-    box-shadow: var(--shadow-md);
-    transition:
-      transform 0.3s ease,
-      box-shadow 0.3s ease;
-    cursor: pointer;
-  }
-
-  .project-wrapper {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing);
-    position: relative;
-    width: 100%;
-    height: 100%;
-  }
-
-  pre {
-    white-space: pre-wrap;
-    word-wrap: break-word;
-  }
-
-  .project-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--spacing);
-  }
-
-  /* TODO: consider using this class along with a button to reveal all tags */
-  /* .project-tags li:nth-of-type(1n + 6) {
-    display: none;
-  } */
-  .project-check {
-    display: none;
-  }
-
-  .project-check.show-in-edit {
-    display: inline-block;
-    margin-right: 0.5rem;
-  }
-
-  .projects-li.hidden {
-    display: none !important;
-  }
-
-  body.edit-mode .projects-li.hidden {
-    display: block !important;
-  }
-
-  .styled-checkbox {
-    appearance: none;
-    width: 1rem;
-    height: 1rem;
-    border: 2px solid var(--gray-600);
-    border-radius: 3px;
-    cursor: pointer;
-    position: relative;
-  }
-  .styled-checkbox:checked {
-    background-color: var(--primary-light);
-    border-color: var(--primary-light);
-  }
-  .styled-checkbox:checked::before {
-    content: "✓";
-    font-size: 1rem;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: white;
   }
 </style>
 

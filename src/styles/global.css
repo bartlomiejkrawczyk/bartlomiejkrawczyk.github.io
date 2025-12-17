@@ -254,6 +254,10 @@ h5 {
 @custom-variant dark (&:where(.theme-dark, .theme-dark *));
 
 @layer utilities {
+  .prose {
+    overflow-x: auto;
+    width: 100%;
+  }
   .prose :where(table th[align="center"], table td[align="center"]) {
     text-align: center;
   }
@@ -263,9 +267,86 @@ h5 {
   .prose :where(table th[align="left"], table td[align="left"]) {
     text-align: left;
   }
+  .prose table {
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 0.9em;
+    border-radius: 8px;
+    overflow: hidden;
+    border-top: 1px solid var(--gray-800);
+    border-left: 1px solid var(--gray-800);
+    border-right: 1px solid var(--gray-800);
+    border-bottom: 3px solid rgb(from var(--primary-light) r g b / 25%);
+    max-width: 100%;
+    width: auto;
+    margin: auto;
+    table-layout: fixed;
+    text-align: center;
+    transition: ease 0.3s;
+  }
+  .prose table:hover {
+    box-shadow: var(--shadow-md);
+  }
+
+  .prose thead tr {
+    background-color: rgb(from var(--primary-light) r g b / 25%);
+    color: var(--background);
+  }
+
+  .prose th,
+  .prose td {
+    border-top: none;
+    padding: calc(2 * var(--spacing));
+    text-align: left;
+    word-wrap: break-word;
+  }
+
+  .prose thead tr th:first-child {
+    border-top-left-radius: 8px;
+  }
+  .prose thead tr th:last-child {
+    border-top-right-radius: 8px;
+  }
+
+  .prose tbody tr,
+  .prose tbody td {
+    border-bottom: 1px solid var(--gray-800);
+  }
+
+  .prose tbody tr:nth-of-type(even) {
+    background-color: var(--gray-950);
+  }
+
+  .prose tbody tr:last-of-type {
+    border-bottom: none;
+  }
+
+  .prose tbody tr.active-row {
+    font-weight: bold;
+    color: rgb(from var(--primary-light) r g b / 25%);
+  }
+  @media (max-width: 768px) {
+    .prose table {
+      font-size: 0.8em;
+    }
+  }
 }
 
 @media print {
+  .prose {
+    overflow: visible !important;
+    width: 100%;
+  }
+  .prose table {
+    page-break-inside: auto;
+    table-layout: auto;
+    font-size: 0.9em;
+  }
+  .prose th,
+  .prose td {
+    word-wrap: break-word;
+    overflow: visible;
+  }
   .no-print,
   .no-print * {
     display: none !important;

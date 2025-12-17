@@ -40,6 +40,9 @@ export const collections = {
         img: z.string().optional(),
         imgAlt: z.string().optional(),
         printHeader: z.boolean().optional(),
+        print: z.boolean().optional(),
+        columns: z.number().optional(),
+        rows: z.number().optional(),
       }),
   }),
 };

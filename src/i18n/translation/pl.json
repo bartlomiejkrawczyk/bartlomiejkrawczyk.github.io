@@ -13,12 +13,12 @@
     "lastModified": "Ostatnia Modyfikacja: "
   },
   "overview": {
-    "role": "Backend Engineer",
+    "role": "Full-Stack Software Engineer",
     "city": "Warszawa, Polska"
   },
   "about": {
     "header": "O Mnie",
-    "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam nec dui non neque lobortis scelerisque. Aliquam lectus ex, interdum quis tellus ut, consequat fermentum lacus. Proin laoreet sodales turpis, rhoncus facilisis nulla finibus sed. Sed non lorem gravida, porttitor lectus et, vulputate justo. Fusce interdum neque justo, non finibus libero ornare ac. Ut id porta dui. Praesent id odio sit amet quam ultricies lobortis id congue lectus. Ut vulputate dui felis. Proin id cursus ante, a interdum leo. Cras eu mattis sapien, at malesuada lorem. Maecenas accumsan urna sit amet nisl pretium, id venenatis augue cursus. Nunc eu ante ornare, blandit lectus molestie, porttitor nisl. Praesent tincidunt vel lacus ut viverra. Nam malesuada nisl eget gravida iaculis. In malesuada dolor eu urna pulvinar, et hendrerit massa placerat."
+    "content": "Jestem zmotywowanym inżynierem oprogramowania full-stack z doświadczeniem w projektowaniu i wdrażaniu niezawodnych, skalowalnych oraz łatwych w utrzymaniu rozwiązań IT. Na co dzień pracuję z Java/Kotlin/Spring, tworząc stabilne usługi back-endowe, a także z Rustem i Pythonem w projektach wymagających wysokiej wydajności lub wykorzystujących sztuczną inteligencję. Mam praktyczne doświadczenie w budowie rozproszonych systemów chmurowych z użyciem architektury mikroserwisowej, CQRS i Event Sourcing, wspieranych przez Dockera i Kubernetesa. Moje portfolio obejmuje wdrożone aplikacje mobilne (ponad 10 tys. pobrań) oraz zaawansowane prace uniwersyteckie z zakresu sztucznej inteligencji i optymalizacji (MIP/OR-Tools)."
   },
   "additionalActivity": {
     "header": "Aktywność Dodatkowa",
@@ -66,12 +66,15 @@
       "subject": "Informatyka",
       "degree": "Stopień Magistra",
       "specialization": "Inteligentne Systemy",
+      "description": "Ukończenie studiów z bardzo dobrymi wynikami w nauce (średnia ocen 4,92/5,0), co odzwierciedla posiadaną więdzę z zakresu zaawansowanej inżynierii systemów, obliczeń rozproszonych i systemów inteligentnych.",
       "subjects": [
         "Niezawdone, Skalowalne i Łatwe w Utrzymaniu Systemy Informatyczne",
         "Programowanie Równoległe i Rozproszone",
         "Architektura i Integracja Systemów",
-        "Sieci Inteligentnych Urządzeń",
+        "Algorytmy i Metody Optymalizacji",
+        "Modelowanie Matematyczne",
         "Wirtualne Środowiska Obliczeniowe",
+        "Sieci Inteligentnych Urządzeń",
         "Robotyka"
       ]
     },
@@ -81,6 +84,7 @@
       "subject": "Informatyka",
       "degree": "Stopień Inżyniera",
       "specialization": "Wytwarzanie Oprogramowania",
+      "description": "Ukończenie programu ze średnią ocen bardzo dobrą (4,96/5,0), wykazując się solidną wiedzą w zakresie algorytmów, systemów operacyjnych, architektury oprogramowania i stosowanego uczenia maszynowego.",
       "subjects": [
         "Algorytmy i Struktury Danych",
         "Systemy Operacyjne",
@@ -112,22 +116,45 @@
     "snowboard": "Snowboard"
   },
   "projects": {
-    "header": "Projekty"
+    "header": "Projekty",
+    "more_projects": "Więcej Projektów"
   },
   "rodo": "Wyrażam zgodę na przetwarzanie moich danych osobowych dla potrzeb niezbędnych do realizacji procesu rekrutacji (zgodnie z ustawą z dnia 10 maja 2018 roku o ochronie danych osobowych (Dz. Ustaw z 2018, poz. 1000) oraz zgodnie z Rozporządzeniem Parlamentu Europejskiego i Rady (UE) 2016/679 z dnia 27 kwietnia 2016 r. w sprawie ochrony osób fizycznych w związku z przetwarzaniem danych osobowych i w sprawie swobodnego przepływu takich danych oraz uchylenia dyrektywy 95/46/WE (RODO).",
   "skills": {
-    "header": "Umiejętności"
+    "header": "Umiejętności",
+    "languages": "Języki",
+    "frameworks": "Frameworki",
+    "technologies": "Technologies",
+    "tools": "Narzędzia",
+    "operating_systems": "Systemy Operacyjne",
+    "clouds": "Chmury",
+    "libraries": "Biblioteki",
+    "databases": "Bazy Danych",
+    "other": "Inne",
+    "linguistics": "Językoznastwo"
   },
   "work": {
     "header": "Doświadczenie Zawodowe",
-    "sagesTrain": {
-      "period": "Czerwiec 2022 - Lipiec 2022"
-    },
     "sagesJunior": {
-      "period": "Lipiec 2022 - Czerwiec 2023"
+      "period": "Czerwiec 2022 - Czerwiec 2023"
     },
     "sagesMid": {
       "period": "Lipiec 2023 -"
+    },
+    "responsibilities": {
+      "mid": [
+        "Kierowanie architekturą backendu i wdrożenie Uniplaner-a, uniwersyteckiego systemu planowania zajęć, obejmującego logikę planowania, wykrywanie konfliktów, aktualizacje w czasie rzeczywistym i wysokowydajny dostęp do danych.",
+        "Rozwój backendu platformy Knowledge Base oraz powiązanych integracji.",
+        "Opracowywanie i utrzymywanie usług w ramach systemu oceny pracowników opartego na mikrousługach, wkład w integrację zabezpieczeń (CAS) oraz orkiestrację zadań ETL w Apache Flink.",
+        "Tworzenie i rozwijanie funkcji dla klientów, takich jak osadzalne widżety i interfejsy eksportu metadanych do systemów zewnętrznych, umożliwiające innym platformom zbieranie ustrukturyzowanych danych akademickich z Bazy Wiedzy.",
+        "Optymalizacja wydajności, skalowalności i niezawodności systemów produkcyjnych."
+      ],
+      "junior": [
+        "Wdrożyłem wiele zewnętrznych integracji dla platformy Bazy Wiedzy (OAI-PMH, Scopus, USOS).",
+        "Opracowanie i wdrożenie ustandaryzowanego szkieletu ETL, które zredukowało powtarzalny kod i skróciło czas realizacji nowych integracji.",
+        "Implementacja obsługi dużych plików w S3, w tym przetwarzanie strumieniowe i przesyłanie przy użyciu wstępnie podpisanych URL, umożliwiające sprawne przetwarzanie plików wielogigabajtowych.",
+        "Współpraca przy utrzymaniu i rozwoju korporacyjnych systemów akademickich."
+      ]
     }
   }
 }

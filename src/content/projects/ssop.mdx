@@ -1,2 +1,69 @@
 ---
+title: Employee Evaluation System
+description: |
+  Distributed microservice-based platform for automating employee evaluation processes at universities, integrating data from multiple institutional systems and executing large-scale analytical workflows.
+tags:
+  - sages
+  - java
+  - microservices
+  - helidon
+  - grpc
+  - service_discovery
+  - apache_rabbit_mq
+  - apache_flink
+  - arango_db
+  - postgres
+print: true
 ---
+
+# High-Level Overview
+
+The Employee Evaluation System is an enterprise-grade platform designed to automate periodic employee evaluations at universities. The system collects and consolidates data from many heterogeneous institutional sources, applies configurable evaluation rules, and generates authoritative evaluation reports used by employees, supervisors, and evaluation committees.
+
+Architecturally, the system is built as a distributed microservice ecosystem, designed for scalability, fault tolerance, and clear separation of responsibilities. It forms a core module of a broader Research Management and Administration (RMA) platform.
+
+# My Responsibilities
+
+I was responsible for the design, implementation, and maintenance of several critical services within the microservice architecture. My main areas of ownership included:
+
+## Security and Access Control
+
+- Integration with an external Central Authentication Service (CAS).
+- Implementation of authentication, authorization, and resource-level access control across services.
+- Ensuring secure communication and identity propagation in a distributed environment.
+
+## ETL Job Management and Orchestration
+
+- Design and implementation of services responsible for managing ETL jobs.
+- Definition, persistence, scheduling, and lifecycle management of data-processing jobs.
+- Orchestration of job execution on Apache Flink, including job submission, monitoring, restart on failure, and operational visibility.
+
+## Gateway and Traffic Management
+
+- Development of a gateway service acting as a single entry point to the system.
+- Load balancing and request routing across backend services.
+- Centralized configuration and service discovery integration.
+
+## Testing and Quality Assurance
+
+- Design and execution of load tests to validate system scalability.
+- Integration testing across multiple services to ensure correctness of end-to-end workflows.
+
+# System Capabilities
+
+From a functional perspective, the system supports the full employee evaluation lifecycle:
+
+- Continuous data ingestion from multiple systems (CRIS platforms, student information systems, HR and payroll systems).
+- User-driven data completion and document submission through a web interface.
+- Automatic generation of evaluation reports according to institution-specific regulations.
+- Support for supervisor and committee review workflows.
+- Delivery of evaluation results to employees, including appeal handling.
+
+# Key Outcomes
+
+- Significant reduction of manual effort required from employees, evaluators, and administrators.
+- Full automation of complex, regulation-driven scoring and evaluation processes.
+- Flexible data ingestion layer adaptable to different university environments.
+- Improved transparency and employee control over evaluation data.
+
+This project provided hands-on experience in building and operating distributed systems at scale, with a strong focus on security, data processing orchestration, and reliability in a mission-critical academic domain.

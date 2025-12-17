@@ -1,12 +1,14 @@
 ---
 import type { HTMLAttributes } from "astro/types";
 import type { Tag } from "./Tags";
+import type { LanguageKey } from "@src/i18n/ui";
 
 interface Props extends HTMLAttributes<"li"> {
   tag: Tag;
+  hideFromPrint?: boolean;
 }
 
-const { tag, ...props } = Astro.props;
+const { tag, hideFromPrint = false, ...props } = Astro.props;
 ---
 
 <style>
@@ -45,20 +47,25 @@ const { tag, ...props } = Astro.props;
 
 <li
   id={`tag-${tag.id}`}
-  class={`skill ${tag.type} ${props.class ?? ""}`}
+  class={`skill ${tag.type} ${props.class ?? ""} ${(tag.print ?? !hideFromPrint) ? "" : " no-print"}`}
   data-tag-id={String(tag.id)}
   {...props}
 >
   {
     tag.link ? (
       <a href={tag.link} target="_blank" rel="noopener noreferrer">
-        {tag.translation.en}
+        {tag.translation[Astro.currentLocale as LanguageKey] ??
+          tag.translation.en}
       </a>
     ) : (
-      <span>{tag.translation.en}</span>
+      <span>
+        {tag.translation[Astro.currentLocale as LanguageKey] ??
+          tag.translation.en}
+      </span>
     )
   }
   <input
+    id={`${tag.id}-${Math.round(Math.random() * 10e12).toString(36)}`}
     type="checkbox"
     class="tag-check styled-checkbox"
     data-tag-id={String(tag.id)}

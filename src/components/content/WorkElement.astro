@@ -9,25 +9,45 @@ interface Props extends HTMLAttributes<"div"> {
   link?: string;
   title?: string;
   description?: string;
+  responsibilities?: string[];
   workTags?: TagId[];
 }
 
-const { company, period, link, title, description, workTags, ...props } =
-  Astro.props;
+const {
+  company,
+  period,
+  link,
+  title,
+  description,
+  responsibilities,
+  workTags,
+  ...props
+} = Astro.props;
 ---
 
-<div {...props}>
+<div class={`flex flex-col gap-1 ${props.class ?? ""}`} {...props}>
   <div class="flex">
-    <h3 class="flex-1"><a href={link} target="_blank">{company}</a></h3>
+    <h3 class="flex-1">
+      <a href={link} target="_blank">{company}</a>
+      {title ? <span class="text-lg">| {title}</span> : null}
+    </h3>
     <span>{period}</span>
   </div>
-  {title ? <div>{title}</div> : null}
   {description ? <div>{description}</div> : null}
+  {
+    responsibilities ? (
+      <ul class="list-inside list-disc">
+        {responsibilities.map((responsibility) => (
+          <li class="">{responsibility}</li>
+        ))}
+      </ul>
+    ) : null
+  }
   {
     workTags ? (
       <ul class="flex flex-wrap gap-1">
         {workTags.map((tag) => (
-          <TagElement tag={tags[tag]} />
+          <TagElement tag={tags[tag]} hideFromPrint={true} />
         ))}
       </ul>
     ) : null
