@@ -243,6 +243,8 @@ fun fibbonaci(n: int): int {
 # Single-line comment
 ```
 
+<br/>
+
 ```groovy
 /*
 	Multi-line comment
@@ -721,6 +723,8 @@ public interface Interpreter {
 	void execute(Program program);
 }
 ```
+
+<br/>
 
 ```java
 public interface Visitor {
