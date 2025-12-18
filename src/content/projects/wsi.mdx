@@ -14,6 +14,7 @@ tags:
   - py_torch
   - keras
   - matplotlib
+mathJax: true
 ---
 
 import Figure from "@components/markdown/Figure.astro";
@@ -44,7 +45,7 @@ Before neural networks came into the picture, we took a detour into the world of
 This is the essence of **Steepest Descent** (a.k.a. Gradient Descent).
 We applied it to approximate a target function and observed how the algorithm behaves under different learning rates.
 
-### Gentle learning rate - steady but slow
+## Gentle learning rate - steady but slow
 
 The first plot below shows the trajectory with a small learning rate.
 The descent is smooth and stable, slowly curving toward the optimum.
@@ -55,7 +56,7 @@ The descent is smooth and stable, slowly curving toward the optimum.
   width="80%"
 />
 
-### Aggressive learning rate - oscillations and chaos
+## Aggressive learning rate - oscillations and chaos
 
 But when we increased the step size, something dramatic happened:
 Instead of converging, the algorithm _overshot_, bounced around, and sometimes diverged completely.
@@ -83,7 +84,7 @@ Before we trusted neural networks or reinforcement learning, we built something 
 
 It worked in stages:
 
-### 1. Initialization
+## 1. Initialization
 
 Generate a population of random candidate solutions.
 
@@ -91,15 +92,15 @@ Generate a population of random candidate solutions.
 population = [random_solution() for _ in range(N)]
 ```
 
-### 2. Evaluation
+## 2. Evaluation
 
 Each solution receives a _fitness score_, measuring how close it is to our goal.
 
-### 3. Selection
+## 3. Selection
 
 We used tournament selection-strong individuals have a higher chance of reproducing, but weaker ones sometimes slip through to maintain diversity.
 
-### 4. Crossover
+## 4. Crossover
 
 Two parents combine their "genes" to create offspring:
 
@@ -107,7 +108,7 @@ Two parents combine their "genes" to create offspring:
 child[i] = parent1[i] if rand() < 0.5 else parent2[i]
 ```
 
-### 5. Mutation
+## 5. Mutation
 
 To avoid stagnation, a small random perturbation is applied:
 
@@ -116,13 +117,13 @@ if rand() < mutation_rate:
     child[i] += normal(0, sigma)
 ```
 
-### 6. Replacement
+## 6. Replacement
 
 The weakest individuals are removed, making room for new candidates.
 
 ---
 
-### What we learned from evolution
+## What we learned from evolution
 
 The algorithm didn't rely on gradients, differentiability, or structured models.
 It simply explored, adapted, and survived.
@@ -153,7 +154,7 @@ The twist?
 Captures weren't required, so a human player would obviously grab an easy win when possible.
 But would an AI? That depended on its evaluation function.
 
-### Teaching the AI to "prefer" good moves
+## Teaching the AI to "prefer" good moves
 
 We wrote several evaluators:
 
@@ -190,7 +191,7 @@ Then we implemented:
 
 Suddenly, the AI started _thinking_-searching through future positions, choosing moves based on maximizing expected value.
 
-### But something strange happened
+## But something strange happened
 
 Sometimes it behaved _dumb_.
 
@@ -204,7 +205,7 @@ The reason?
 AI doesn't think like humans-it optimizes whatever number you give it.
 If becoming a king is worth +10 and capturing a pawn is +1, the AI will walk past a free pawn like a dog ignoring kibble because someone offered steak.
 
-### What depth taught us
+## What depth taught us
 
 Increasing search depth drastically improved play-up to a point.
 Here's a snapshot from the depth-vs-wins table:
@@ -256,7 +257,7 @@ def id3(data, attributes):
 
 Suddenly our machine wasn't _searching_ or _optimizing_-it was _learning patterns_ from examples.
 
-### Results that surprised us
+## Results that surprised us
 
 On the **Mushroom dataset**, accuracy was perfect:
 
@@ -379,7 +380,7 @@ q[state][action] = q + lr*(reward + gamma*max(q[next]) - q)
 
 And tested different reward systems:
 
-### Reward system comparisons
+## Reward system comparisons
 
 | Reward Scheme | Success Rate (avg) |
 | ------------- | ------------------ |
@@ -417,7 +418,7 @@ Example frequency table:
 | Sport    | 0.0200    |
 | Ache     | 0.2058    |
 
-### Accuracy
+## Accuracy
 
 - ID3 achieved **~87%** accuracy on generated data.
 
@@ -431,7 +432,7 @@ By the end of these exercises, one thing becomes clear:
 There's no single "AI."
 There are many ways to make a machine act intelligently - and each reflects a different philosophy.
 
-### What we learned about intelligence:
+## What we learned about intelligence:
 
 - **Minimax** taught us that intelligence can be brute-force search.
 - **Evaluation functions** taught us that the _definition_ of good behavior matters.
