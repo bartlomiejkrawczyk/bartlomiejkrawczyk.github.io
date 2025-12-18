@@ -330,6 +330,10 @@ h5 {
       font-size: 0.8em;
     }
   }
+
+  .prose code {
+    text-wrap: wrap;
+  }
 }
 
 @media print {
