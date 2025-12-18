@@ -43,6 +43,7 @@ export const collections = {
         print: z.boolean().optional(),
         columns: z.number().optional(),
         rows: z.number().optional(),
+        mathJax: z.boolean().optional(),
       }),
   }),
 };
