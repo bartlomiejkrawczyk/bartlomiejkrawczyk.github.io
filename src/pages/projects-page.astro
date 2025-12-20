@@ -1,0 +1,23 @@
+---
+import Projects from "@components/content/Projects.astro";
+import Layout from "@layouts/Layout.astro";
+---
+
+<Layout>
+  <Projects class="content-section" />
+</Layout>
+
+<style>
+  .content-section {
+    padding-block: calc(var(--spacing) * 4);
+    display: flex;
+    flex-direction: column;
+    gap: calc(2 * var(--spacing));
+  }
+
+  @media print {
+    .content-section {
+      border: none;
+    }
+  }
+</style>

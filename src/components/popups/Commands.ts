@@ -1,6 +1,7 @@
 export const commandIds = [
   "print",
   "go-to-home",
+  "go-to-projects",
   "go-back",
   "open-github",
   "open-instagram",
@@ -35,6 +36,13 @@ export const commands: Record<CommandId, Command> = {
     name: { en: "Home", pl: "Strona Główna" },
     execute: () => {
       window.location.href = "/";
+    },
+  },
+  "go-to-projects": {
+    id: "go-to-projects",
+    name: { en: "Projects", pl: "Projekty" },
+    execute: () => {
+      window.location.href = "/projects-page";
     },
   },
   "go-back": {
