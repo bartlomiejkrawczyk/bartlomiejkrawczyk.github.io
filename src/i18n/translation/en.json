@@ -62,6 +62,7 @@
     "average": "Average",
     "master": {
       "university": "Warsaw University of Technology",
+      "faculty": "Faculty of Electronics and Information Technology",
       "period": "February 2024 - September 2025",
       "subject": "Computer Science",
       "degree": "Master's Degree",
@@ -80,6 +81,7 @@
     },
     "engineer": {
       "university": "Warsaw University of Technology",
+      "faculty": "Faculty of Electronics and Information Technology",
       "period": "October 2020 - February 2024",
       "subject": "Computer Science",
       "degree": "Bachelor's Degree",
@@ -139,7 +141,7 @@
       "period": "June 2022 - June 2023"
     },
     "sagesMid": {
-      "period": "July 2023 -"
+      "period": "July 2023 - Now"
     },
     "responsibilities": {
       "mid": [

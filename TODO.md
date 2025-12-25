@@ -1,6 +1,6 @@
 - [x] add `favico.ico` file
 - [ ] configure tag filtering for projects
-- [ ] aggregate multiple tags in same place
+- [x] aggregate multiple tags in same place
 - [x] Verify whether Cache-Control headers are set after deployment
 - [x] Verify transitions `fade` or `slide`
 - [ ] Gradient text!
@@ -21,16 +21,16 @@
 - [ ] Hide overflowing tags on a project
 - [x] Display only actively selected tags
 - [x] Finish page translation
-- [ ] Animate tag hover - on hover expand tag and increase font
+- [x] Animate tag hover - on hover expand tag and increase font
 - [ ] Add animated background
 - [ ] Add animated text on the page
-- [ ] Add transition to language and theme dialogs / modals
+- [x] Add transition to language and theme dialogs / modals
 - [x] Update checkmark style
-- [ ] Define tag filtering in cli
-- [ ] Start adding more project descriptions
-- [ ] Tags could have colored borders - so that when background is disabled it still looks nice
+- [x] Define tag filtering in cli
+- [x] Start adding more project descriptions
+- [x] Tags could have colored borders - so that when background is disabled it still looks nice
 - [x] Move tags from projects to the bottom of the tile - this does not look good
 - [ ] Group tags
-- [ ] Remove libraries from listed skills
-- [ ] Add company projects
-- [ ] List in bulletpoints every achievement I've accomplished at given role
+- [x] Remove libraries from printed listed skills
+- [x] Add company projects
+- [x] List in bulletpoints every achievement I've accomplished at given role

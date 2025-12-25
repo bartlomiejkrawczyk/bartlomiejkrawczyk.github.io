@@ -62,11 +62,12 @@
     "average": "Średnia",
     "master": {
       "university": "Politechnika Warszawska",
+      "faculty": "Wydział Elektroniki i Technik Informacyjnych",
       "period": "Luty 2024 - Wrzesień 2025",
       "subject": "Informatyka",
       "degree": "Stopień Magistra",
       "specialization": "Inteligentne Systemy",
-      "description": "Ukończenie studiów z bardzo dobrymi wynikami w nauce (średnia ocen 4,92/5,0), co odzwierciedla posiadaną więdzę z zakresu zaawansowanej inżynierii systemów, obliczeń rozproszonych i systemów inteligentnych.",
+      "description": "Ukończenie studiów z bardzo dobrymi wynikami w nauce (średnia ocen 4,92/5,0), co odzwierciedla posiadaną wiedzę z zakresu zaawansowanej inżynierii systemów, obliczeń rozproszonych i systemów inteligentnych.",
       "subjects": [
         "Niezawdone, Skalowalne i Łatwe w Utrzymaniu Systemy Informatyczne",
         "Programowanie Równoległe i Rozproszone",
@@ -80,6 +81,7 @@
     },
     "engineer": {
       "university": "Politechnika Warszawska",
+      "faculty": "Wydział Elektroniki i Technik Informacyjnych",
       "period": "Październik 2020 - Luty 2024",
       "subject": "Informatyka",
       "degree": "Stopień Inżyniera",
@@ -139,7 +141,7 @@
       "period": "Czerwiec 2022 - Czerwiec 2023"
     },
     "sagesMid": {
-      "period": "Lipiec 2023 -"
+      "period": "Lipiec 2023 - Teraz"
     },
     "responsibilities": {
       "mid": [
