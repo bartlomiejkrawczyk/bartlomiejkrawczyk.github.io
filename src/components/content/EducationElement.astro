@@ -4,6 +4,7 @@ import type { HTMLAttributes } from "astro/types";
 
 interface Props extends HTMLAttributes<"div"> {
   university: string;
+  faculty?: string;
   period: string;
   city?: string;
   link: string;
@@ -17,6 +18,7 @@ interface Props extends HTMLAttributes<"div"> {
 
 const {
   university,
+  faculty,
   period,
   city,
   link,

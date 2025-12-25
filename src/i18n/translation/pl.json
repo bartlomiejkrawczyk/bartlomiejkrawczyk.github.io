@@ -62,6 +62,7 @@
     "average": "Średnia",
     "master": {
       "university": "Politechnika Warszawska",
+      "faculty": "Wydział Elektroniki i Technik Informacyjnych",
       "period": "Luty 2024 - Wrzesień 2025",
       "subject": "Informatyka",
       "degree": "Stopień Magistra",
@@ -80,6 +81,7 @@
     },
     "engineer": {
       "university": "Politechnika Warszawska",
+      "faculty": "Wydział Elektroniki i Technik Informacyjnych",
       "period": "Październik 2020 - Luty 2024",
       "subject": "Informatyka",
       "degree": "Stopień Inżyniera",
