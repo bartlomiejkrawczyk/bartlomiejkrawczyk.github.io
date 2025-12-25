@@ -2,7 +2,7 @@
 import { Image } from "astro:assets";
 import Icon from "../Icon.astro";
 import type { HTMLAttributes } from "astro/types";
-import logo from "@assets/logo-japan.jpg";
+import logo from "@assets/logo-2.jpg";
 import { getTranslations } from "@src/i18n/ui";
 
 interface Props extends HTMLAttributes<"div"> {}
@@ -78,8 +78,8 @@ const t = getTranslations(lang);
     </span>
     <Image
       src={logo}
-      width={600}
-      height={600}
+      width={500}
+      height={500}
       alt="Bartłomiej Krawczyk - personal image"
       onload="this.previousElementSibling.style.display='none'"
       onerror="this.previousElementSibling.style.display=''"
