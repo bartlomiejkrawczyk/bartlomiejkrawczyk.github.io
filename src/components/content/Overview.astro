@@ -3,6 +3,7 @@ import { Image } from "astro:assets";
 import Icon from "../Icon.astro";
 import type { HTMLAttributes } from "astro/types";
 import logo from "@assets/logo-2.jpg";
+import logoJapan from "@assets/logo-japan.jpg";
 import { getTranslations } from "@src/i18n/ui";
 
 interface Props extends HTMLAttributes<"div"> {}
@@ -74,15 +75,20 @@ const t = getTranslations(lang);
       id="fallback"
       class="absolute inset-0 flex items-center justify-center text-3xl"
     >
-      BK
     </span>
     <Image
       src={logo}
       width={500}
       height={500}
+      class:list={"only-print"}
       alt="Bartłomiej Krawczyk - personal image"
-      onload="this.previousElementSibling.style.display='none'"
-      onerror="this.previousElementSibling.style.display=''"
+    />
+    <Image
+      src={logoJapan}
+      width={500}
+      height={500}
+      class:list={"no-print"}
+      alt="Bartłomiej Krawczyk - personal image"
     />
   </span>
 </div>
