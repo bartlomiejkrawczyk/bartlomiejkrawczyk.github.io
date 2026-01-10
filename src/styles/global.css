@@ -364,35 +364,54 @@ h5 {
   }
 }
 
-h1:not(.prose h1),
-h2:not(.prose h2),
-h3:not(.prose h3),
-h4:not(.prose h4),
-h5:not(.prose h5) {
-  line-height: 1.1;
-  font-family: var(--font-brand);
-  font-weight: 600;
-  color: var(--gray-100);
-}
+@layer base {
+  h1 {
+    font-size: 2.5rem; /* 48px */
+    line-height: 1;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-weight: 800;
+  }
 
-h1:not(.prose h1) {
-  font-size: var(--text-3xl);
-}
+  h2 {
+    font-size: 1.875rem; /* 30px */
+    line-height: 1.3333333;
+    margin-top: 0.8666667em;
+    margin-bottom: 1em;
+    font-weight: 700;
+  }
 
-h2:not(.prose h2) {
-  font-size: var(--text-2xl);
-}
+  h3 {
+    font-size: 1.5rem; /* 24px */
+    line-height: 1.3333333;
+    margin-top: 0.6666667em;
+    margin-bottom: 0.6666667em;
+    font-weight: 700;
+  }
 
-h3:not(.prose h3) {
-  font-size: var(--text-xl);
-}
+  h4 {
+    font-size: 1.25rem; /* 20px */
+    line-height: 1.4;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    font-weight: 700;
+  }
 
-h4:not(.prose h4) {
-  font-size: var(--text-lg);
-}
+  h5 {
+    font-size: 1.125rem; /* 18px */
+    line-height: 1.5;
+    margin-top: 0.3333333em;
+    margin-bottom: 0.3333333em;
+    font-weight: 600;
+  }
 
-h5:not(.prose h5) {
-  font-size: var(--text-md);
+  h6 {
+    font-size: 1rem; /* 16px */
+    line-height: 1.5;
+    margin-top: 0.25em;
+    margin-bottom: 0.25em;
+    font-weight: 600;
+  }
 }
 
 @page {

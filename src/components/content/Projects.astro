@@ -18,7 +18,7 @@ const t = getTranslations(lang);
 ---
 
 <div {...props}>
-  <h2 id="projects" class="pb-1">{t.projects.header}</h2>
+  <h2 id="projects" class="pb-1 break-after-avoid">{t.projects.header}</h2>
   <!-- https://docs.astro.build/en/guides/content-collections/#filtering-collection-queries -->
   <ul class="projects-ul">
     {
@@ -37,14 +37,14 @@ const t = getTranslations(lang);
 
   <a
     href="https://bartlomiejkrawczyk.github.io/projects-page"
-    class="only-print">More Projects</a
+    class="only-print">{t.projects.more_projects}</a
   >
 </div>
 
 <style>
   .projects-ul {
     display: grid;
-    gap: calc(2 * var(--spacing));
+    gap: calc(3.2 * var(--spacing));
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     grid-auto-rows: auto;
     grid-auto-flow: dense;

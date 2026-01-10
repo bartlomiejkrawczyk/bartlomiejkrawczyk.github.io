@@ -8,9 +8,9 @@ interface Props extends HTMLAttributes<"div"> {
   period: string;
   city?: string;
   link: string;
-  subject?: string;
-  degree?: string;
-  specialization?: string;
+  subject: string;
+  degree: string;
+  specialization: string;
   description?: string;
   average?: number;
   subjects?: Array<string>;
@@ -35,42 +35,19 @@ const lang = Astro.currentLocale;
 const t = getTranslations(lang);
 ---
 
-<div {...props}>
+<div class="py-1 flex flex-col gap-3 break-inside-avoid" {...props}>
   <div class="flex">
-    <h3 class="flex-1"><a href={link} target="_blank">{university}</a></h3>
-    <span>{period}</span>
+    <span class="flex-1" style="font-weight: 600; font-size: var(--text-xl);">
+      <a href={link} target="_blank">{university}</a>
+    </span>
+    <span class="m-auto">{period}</span>
   </div>
-  {
-    subject ? (
-      <span>
-        <b>{subject}</b>
-      </span>
-    ) : null
-  }
-  {
-    degree ? (
-      <span>
-        {subject ? "|" : null}
-        {degree}
-      </span>
-    ) : null
-  }
-  {
-    specialization ? (
-      <span>
-        {degree ? "|" : null}
-        {t.education.specialization} - {specialization}
-      </span>
-    ) : null
-  }
+  <div class="flex gap-2 text-lg">
+    <b>
+      {subject} | {degree} | {specialization}
+    </b>
+  </div>
   {description ? <div>{description}</div> : null}
-  <!-- {
-    average ? (
-      <div>
-        {t.education.average}: {average}
-      </div>
-    ) : null
-  } -->
   <ul class="flex flex-wrap gap-1">
     {subjects?.map((subject) => <li class="subject">{subject}</li>)}
   </ul>

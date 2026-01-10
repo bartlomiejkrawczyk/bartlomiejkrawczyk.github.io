@@ -9,9 +9,13 @@ interface Props extends HTMLAttributes<"div"> {
 const { period, description, ...props } = Astro.props;
 ---
 
-<div {...props}>
+<div class="flex flex-col gap-2" {...props}>
   <div class="flex">
-    <span class="flex-1">{description}</span>
-    <span>{period}</span>
+    <span
+      class="flex-1"
+      style="font-weight: 600; font-size: var(--text-lg); color: var(--gray-400);"
+      >{description}</span
+    >
+    <span class="">{period}</span>
   </div>
 </div>
