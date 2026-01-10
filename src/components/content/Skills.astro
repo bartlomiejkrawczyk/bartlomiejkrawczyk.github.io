@@ -14,9 +14,9 @@ const t = getTranslations(lang);
 <div {...props}>
   <h2 id="skills" class="pb-1">{t.skills.header}</h2>
   <div class="skill-gap">
-    <h3>
+    <div class="skill-header">
       {t.skills.languages}:
-    </h3>
+    </div>
     <ul class="skill-tag-wrapper">
       {
         Object.entries(tags)
@@ -26,9 +26,9 @@ const t = getTranslations(lang);
     </ul>
   </div>
   <div class="skill-gap">
-    <h3>
+    <div class="skill-header">
       {t.skills.frameworks}:
-    </h3>
+    </div>
     <ul class="skill-tag-wrapper">
       {
         Object.entries(tags)
@@ -38,9 +38,9 @@ const t = getTranslations(lang);
     </ul>
   </div>
   <div class="skill-gap">
-    <h3>
+    <div class="skill-header">
       {t.skills.technologies}:
-    </h3>
+    </div>
     <ul class="skill-tag-wrapper">
       {
         Object.entries(tags)
@@ -50,9 +50,9 @@ const t = getTranslations(lang);
     </ul>
   </div>
   <div class="skill-gap">
-    <h3>
+    <div class="skill-header">
       {t.skills.tools}:
-    </h3>
+    </div>
     <ul class="skill-tag-wrapper">
       {
         Object.entries(tags)
@@ -62,9 +62,9 @@ const t = getTranslations(lang);
     </ul>
   </div>
   <div class="skill-gap no-print">
-    <h3>
+    <div class="skill-header">
       {t.skills.operating_systems}:
-    </h3>
+    </div>
     <ul class="skill-tag-wrapper">
       {
         Object.entries(tags)
@@ -74,9 +74,9 @@ const t = getTranslations(lang);
     </ul>
   </div>
   <div class="skill-gap no-print">
-    <h3>
+    <div class="skill-header">
       {t.skills.clouds}:
-    </h3>
+    </div>
     <ul class="skill-tag-wrapper">
       {
         Object.entries(tags)
@@ -86,9 +86,9 @@ const t = getTranslations(lang);
     </ul>
   </div>
   <div class="skill-gap no-print">
-    <h3>
+    <div class="skill-header">
       {t.skills.libraries}:
-    </h3>
+    </div>
     <ul class="skill-tag-wrapper">
       {
         Object.entries(tags)
@@ -98,9 +98,9 @@ const t = getTranslations(lang);
     </ul>
   </div>
   <div class="skill-gap">
-    <h3>
+    <div class="skill-header">
       {t.skills.databases}:
-    </h3>
+    </div>
     <ul class="skill-tag-wrapper">
       {
         Object.entries(tags)
@@ -110,9 +110,9 @@ const t = getTranslations(lang);
     </ul>
   </div>
   <div class="skill-gap no-print">
-    <h3>
+    <div class="skill-header">
       {t.skills.other}:
-    </h3>
+    </div>
     <ul class="skill-tag-wrapper">
       {
         Object.entries(tags)
@@ -122,9 +122,9 @@ const t = getTranslations(lang);
     </ul>
   </div>
   <div class="skill-gap">
-    <h3>
+    <div class="skill-header">
       {t.skills.linguistics}:
-    </h3>
+    </div>
     <ul class="skill-tag-wrapper">
       {
         Object.entries(tags)
@@ -147,14 +147,16 @@ const t = getTranslations(lang);
   .skill-gap {
     display: flex;
     flex-direction: column;
-    gap: calc(var(--spacing) * 2);
+    gap: calc(var(--spacing));
   }
   .skill-tag-wrapper {
     display: flex;
-    gap: calc(var(--spacing) * 1);
+    gap: calc(var(--spacing) * 1.5);
     flex-wrap: wrap;
   }
-  h3:not(.prose h3) {
-    font-size: 1rem;
+  .skill-header {
+    font-weight: 600;
+    font-size: var(--text-lg);
+    line-height: 2;
   }
 </style>

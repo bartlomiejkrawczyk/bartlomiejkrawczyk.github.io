@@ -12,7 +12,7 @@ const { type, location, period, ...props } = Astro.props;
 
 <div {...props}>
   <div class="flex">
-    <span class="flex-1"><b>{type}</b> | {location}</span>
+    <span class="flex-1 text-lg"><b>{type}</b> | {location}</span>
     <span>{period}</span>
   </div>
 </div>

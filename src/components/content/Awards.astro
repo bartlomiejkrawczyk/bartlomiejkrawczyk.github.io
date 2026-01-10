@@ -13,14 +13,6 @@ const t = getTranslations(lang);
 
 <div {...props}>
   <h2 id="awards" class="pb-1">{t.awards.header}</h2>
-  <AwardElement
-    period="2021 - 2025"
-    description={t.awards.pw.description}
-    class="pt-1"
-  />
-  <AwardElement
-    period="2016 - 2020"
-    description={t.awards.skc.description}
-    class="pt-1"
-  />
+  <AwardElement period="2021 - 2025" description={t.awards.pw.description} />
+  <AwardElement period="2016 - 2020" description={t.awards.skc.description} />
 </div>

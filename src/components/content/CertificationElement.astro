@@ -11,9 +11,11 @@ interface Props extends HTMLAttributes<"div"> {
 const { period, description, link, organization, ...props } = Astro.props;
 ---
 
-<div {...props}>
+<div class="flex flex-col gap-2" {...props}>
   <div class="flex">
-    <h3 class="flex-1"><a href={link} target="_blank">{description}</a></h3>
+    <span class="flex-1 text-lg" style="font-weight: 600;">
+      <a href={link} target="_blank">{description}</a>
+    </span>
     <span>{period}</span>
   </div>
   {organization ? <div>{organization}</div> : null}
