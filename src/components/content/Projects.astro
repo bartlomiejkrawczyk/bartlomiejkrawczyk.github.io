@@ -37,14 +37,14 @@ const t = getTranslations(lang);
 
   <a
     href="https://bartlomiejkrawczyk.github.io/projects-page"
-    class="only-print">More Projects</a
+    class="only-print">{t.projects.more_projects}</a
   >
 </div>
 
 <style>
   .projects-ul {
     display: grid;
-    gap: calc(4 * var(--spacing));
+    gap: calc(3.2 * var(--spacing));
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     grid-auto-rows: auto;
     grid-auto-flow: dense;
