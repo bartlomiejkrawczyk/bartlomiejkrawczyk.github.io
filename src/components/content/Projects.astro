@@ -18,7 +18,7 @@ const t = getTranslations(lang);
 ---
 
 <div {...props}>
-  <h2 id="projects" class="pb-1 break-after-avoid">{t.projects.header}</h2>
+  <h2 id="projects" class="pb-1">{t.projects.header}</h2>
   <!-- https://docs.astro.build/en/guides/content-collections/#filtering-collection-queries -->
   <ul class="projects-ul">
     {
@@ -26,11 +26,31 @@ const t = getTranslations(lang);
         .filter(([, project]) => {
           return project.data.print ?? false;
         })
+        .sort(([, a], [, b]) => {
+          const orderA = Number(a.data.order ?? 1000);
+          const orderB = Number(b.data.order ?? 1000);
+
+          if (orderA !== orderB) {
+            return orderA - orderB;
+          }
+
+          return a.id.localeCompare(b.id);
+        })
         .map(([, project]) => <ProjectElement project={project} />)
     }
     {
       Object.entries(projects)
         .filter(([, project]) => !(project.data.print ?? false))
+        .sort(([, a], [, b]) => {
+          const orderA = Number(a.data.order ?? 1000);
+          const orderB = Number(b.data.order ?? 1000);
+
+          if (orderA !== orderB) {
+            return orderA - orderB;
+          }
+
+          return a.id.localeCompare(b.id);
+        })
         .map(([, project]) => <ProjectElement project={project} />)
     }
   </ul>

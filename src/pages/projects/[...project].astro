@@ -15,7 +15,16 @@ dayjs.extend(utc);
 export async function getStaticPaths() {
   const projects = await getCollection("projects");
   return projects
-    .sort((a, b) => a.id.localeCompare(b.id))
+    .sort((a, b) => {
+      const orderA = Number(a.data.order ?? 1000);
+      const orderB = Number(b.data.order ?? 1000);
+
+      if (orderA !== orderB) {
+        return orderA - orderB;
+      }
+
+      return a.id.localeCompare(b.id);
+    })
     .map((project) => ({
       params: { project: project.id },
       props: { project },

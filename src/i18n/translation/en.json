@@ -18,7 +18,7 @@
   },
   "about": {
     "header": "About",
-    "content": "I am a highly driven Full-Stack Software Engineer specializing in architecting and deploying reliable, scalable, and maintainable IT solutions. My deep technical foundation is rooted in Java/Kotlin/Spring for robust backend services , complemented by proficiency in Rust and Python for performance-critical and AI-driven applications. I possess proven expertise in building cloud-native, distributed systems, mastering patterns like Microservices, CQRS, and Event Sourcing using Docker and Kubernetes. My portfolio reflects a commitment to end-to-end engineering excellence, spanning deployed mobile applications (10k+ downloads) and complex university work in Artificial Intelligence and Optimization (MIP/OR-Tools)."
+    "content": "Backend-leaning Full-Stack Software Engineer with strong expertise in Kotlin and Java, specializing in cloud-native, distributed, data-centric systems. Proven experience building and operating metadata-driven platforms, ETL pipelines, and scalable backend services in production. Holds a Master's degree in Computer Science with a strong foundation in distributed systems, algorithms, and optimization."
   },
   "additionalActivity": {
     "header": "Additional Activity",
@@ -67,16 +67,14 @@
       "subject": "Computer Science",
       "degree": "Master's Degree",
       "specialization": "Intelligent Systems",
-      "description": "Graduated with a consistently high academic record (average 4.92/5.0), reflecting strong performance in advanced systems engineering, distributed computing, and intelligent systems coursework.",
+      "description": "Graduated with distinction. Academic average 4.92/5.0.",
       "subjects": [
         "Reliable, Scalable, and Maintainable IT Systems",
         "Parallel and Distributed Programming",
         "Systems Architecture and Integration",
         "Algorithms and Optimization Methods",
         "Mathematical Modeling",
-        "Virtual Computing Environments",
-        "Intelligent Device Networks",
-        "Robotics"
+        "Virtual Computing Environments"
       ]
     },
     "engineer": {
@@ -85,24 +83,22 @@
       "period": "October 2020 - February 2024",
       "subject": "Computer Science",
       "degree": "Bachelor's Degree",
-      "description": "Completed the program with an excellent academic average (4.96/5.0), demonstrating solid foundations in algorithms, operating systems, software architecture, and applied machine learning.",
+      "description": "Graduated with distinction. Academic average 4.96/5.0.",
       "specialization": "Software Engineering",
       "subjects": [
         "Algorithms and Data Structures",
         "Operating Systems",
-        "Application Programming - Java",
-        "Object-Oriented Programming - C++",
-        "Introduction to Artificial Intelligence",
-        "Machine Learning Engineering",
+        "UNIX System",
+        "Object-Oriented Programming",
         "Databases",
         "The Art of Software Development",
-        "Programmable Controllers",
-        "UNIX System",
+        "Artificial Intelligence",
+        "Machine Learning Engineering",
+        "Deployment and Maintenance of IT Systems",
+        "Network Programming",
         "Programming Paradigms",
         "Web Application Programming",
-        "Compilation Techniques",
-        "Network Programming",
-        "Deployment and Maintenance of IT Systems"
+        "Compilation Techniques"
       ]
     },
     "highschool": {

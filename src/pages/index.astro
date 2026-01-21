@@ -7,21 +7,17 @@ import Rodo from "@src/components/content/Rodo.astro";
 import Education from "@src/components/content/Education.astro";
 import WorkExperience from "@src/components/content/WorkExperience.astro";
 import Skills from "@src/components/content/Skills.astro";
-import Awards from "@src/components/content/Awards.astro";
-import AdditionalActivity from "@src/components/content/AdditionalActivity.astro";
 import Certifications from "@src/components/content/Certifications.astro";
 ---
 
 <Layout>
   <Overview />
   <About class="py-4" />
-  <Education class="content-section" />
   <WorkExperience class="content-section" />
+  <Education class="content-section" />
   <Skills class="content-section break-inside-avoid" />
   <Projects class="content-section" />
   <Certifications class="content-section break-inside-avoid" />
-  <Awards class="content-section" />
-  <AdditionalActivity class="content-section" />
   <Rodo class="content-section" />
 </Layout>
 
@@ -31,7 +27,6 @@ import Certifications from "@src/components/content/Certifications.astro";
     display: flex;
     flex-direction: column;
     gap: calc(2 * var(--spacing));
-    /* break-inside: avoid; TODO: consider this one */
   }
 
   @media print {

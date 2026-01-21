@@ -1,7 +1,7 @@
 ---
 title: Predicting Premium Upgrades in a Music App
 description: | 
-    Developed a predictive model to identify users most likely to purchase premium subscriptions on a music platform. Leveraged feature engineering, XGBoost with randomized search, and A/B testing to optimize ROC AUC performance, achieving over 0.65 and validating the model against multiple baselines.
+    Developed a predictive model to identify users most likely to purchase premium subscriptions on a music platform. Leveraged feature engineering, XGBoost with randomized search, and A/B testing to optimize ROC AUC performance.
 tags:
     - university
     - python
@@ -12,6 +12,7 @@ tags:
     - py_spark
     - scikit_learn
 print: true
+order: 7
 ---
 
 

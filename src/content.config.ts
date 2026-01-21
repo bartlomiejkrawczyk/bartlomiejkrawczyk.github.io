@@ -44,6 +44,7 @@ export const collections = {
         columns: z.number().optional(),
         rows: z.number().optional(),
         mathJax: z.boolean().optional(),
+        order: z.number().optional(),
       }),
   }),
 };
