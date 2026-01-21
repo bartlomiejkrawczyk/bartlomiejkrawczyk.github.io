@@ -480,6 +480,7 @@ export const tags: Record<TagId, Tag> = {
     type: "framework",
     link: "https://react.dev/",
     translation: { en: "React.js" },
+    print: true,
   },
   astro_js: {
     id: "astro_js",
