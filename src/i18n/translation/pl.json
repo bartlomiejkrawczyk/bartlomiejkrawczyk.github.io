@@ -18,7 +18,7 @@
   },
   "about": {
     "header": "O Mnie",
-    "content": "Inżynier oprogramowania full-stack z bogatym doświadczeniem w back-endzie, z bogatą wiedzą w językach Kotlin i Java, specjalizujący się w natywnych, rozproszonych systemach chmurowych zorientowanych na dane. Udokumentowane doświadczenie w budowaniu i obsłudze platform opartych na metadanych, potoków ETL oraz skalowalnych usług back-endowych w środowisku produkcyjnym. Posiada tytuł magistra informatyki z solidnymi podstawami w zakresie systemów rozproszonych, algorytmów i optymalizacji."
+    "content": "Inżynier oprogramowania full-stack z silnym ukierunkowaniem na backend, posiadający rozległe doświadczenie w Kotlinie i Javie. Specjalizuje się w projektowaniu i rozwoju natywnych, rozproszonych systemów chmurowych zorientowanych na przetwarzanie danych. Ma udokumentowane doświadczenie w budowie i utrzymaniu platform opartych na metadanych, potoków ETL oraz skalowalnych usług backendowych działających w środowiskach produkcyjnych. Absolwent studiów magisterskich z informatyki, z solidnymi podstawami w zakresie systemów rozproszonych, algorytmów oraz optymalizacji."
   },
   "additionalActivity": {
     "header": "Aktywność Dodatkowa",
@@ -141,16 +141,16 @@
     },
     "responsibilities": {
       "mid": [
-        "Kierowanie architekturą backendu i wdrożenie Uniplaner-a, uniwersyteckiego systemu planowania zajęć, obejmującego logikę planowania, wykrywanie konfliktów, aktualizacje w czasie rzeczywistym i wysokowydajny dostęp do danych.",
-        "Rozwój backendu platformy Knowledge Base oraz powiązanych integracji.",
-        "Opracowywanie i utrzymywanie usług w ramach systemu oceny pracowników opartego na mikrousługach, wkład w integrację zabezpieczeń (CAS) oraz orkiestrację zadań ETL w Apache Flink.",
-        "Tworzenie i rozwijanie funkcji dla klientów, takich jak osadzalne widżety i interfejsy eksportu metadanych do systemów zewnętrznych, umożliwiające innym platformom zbieranie ustrukturyzowanych danych akademickich z Bazy Wiedzy.",
-        "Optymalizacja wydajności, skalowalności i niezawodności systemów produkcyjnych."
+        "Odpowiedzialność za architekturę backendu oraz wdrożenie systemu Uniplaner - uniwersyteckiej platformy planowania zajęć, obejmującej logikę harmonogramowania, wykrywanie konfliktów, aktualizacje w czasie rzeczywistym oraz wysokowydajny dostęp do danych.",
+        "Rozwój backendu uniwersyteckiej Bazy Wiedzy oraz implementacja i utrzymanie integracji z systemami zewnętrznymi.",
+        "Projektowanie i utrzymanie usług w ramach mikroserwisowego systemu oceny pracowników, w tym udział w integracji mechanizmów uwierzytelniania (CAS) oraz orkiestracji zadań ETL w Apache Flink.",
+        "Tworzenie funkcjonalności klienckich, takich jak osadzalne widżety oraz interfejsy eksportu metadanych do systemów zewnętrznych, umożliwiających innym platformom pozyskiwanie ustrukturyzowanych danych akademickich z Bazy Wiedzy.",
+        "Ciągła optymalizacja wydajności, skalowalności i niezawodności systemów produkcyjnych."
       ],
       "junior": [
-        "Wdrożyłem wiele zewnętrznych integracji dla platformy Bazy Wiedzy (OAI-PMH, Scopus, USOS).",
-        "Opracowanie i wdrożenie ustandaryzowanego szkieletu ETL, które zredukowało powtarzalny kod i skróciło czas realizacji nowych integracji.",
-        "Implementacja obsługi dużych plików w S3, w tym przetwarzanie strumieniowe i przesyłanie przy użyciu wstępnie podpisanych URL, umożliwiające sprawne przetwarzanie plików wielogigabajtowych.",
+        "Implementacja licznych integracji zewnętrznych dla platformy Bazy Wiedzy, m.in. OAI-PMH, Scopus oraz USOS.",
+        "Zaprojektowanie i wdrożenie ustandaryzowanego szkieletu ETL, który znacząco ograniczył duplikację kodu oraz skrócił czas realizacji nowych integracji.",
+        "Implementacja obsługi dużych plików w S3, w tym przetwarzania strumieniowego oraz uploadu z wykorzystaniem pre-signed URLs, umożliwiająca efektywne operacje na plikach wielogigabajtowych.",
         "Współpraca przy utrzymaniu i rozwoju korporacyjnych systemów akademickich."
       ]
     }
