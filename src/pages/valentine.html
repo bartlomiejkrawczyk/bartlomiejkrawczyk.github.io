@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Valentine</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    body {
+      overflow: hidden;
+    }
+
+    .gradient-background {
+      background: linear-gradient(
+        180deg,
+        #ffb6c9 0%,
+        #ff8fab 60%,
+        #ff5f8a 100%
+      );
+    }
+
+    .bounce {
+      animation: bounce 2s ease infinite;
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(-10px); }
+      60% { transform: translateY(-5px); }
+    }
+  </style>
+</head>
+
+<body class="gradient-background h-screen flex items-center justify-center">
+
+  <!-- Card -->
+  <div
+    id="card"
+    class="bg-white rounded-2xl shadow-2xl px-10 py-10 flex flex-col items-center max-w-md w-full gap-4"
+  >
+
+    <!-- Hearts -->
+    <svg width="180" height="140" viewBox="0 0 200 160" class="mb-4">
+      <!-- Big heart -->
+      <path
+        fill="#ec4899"
+        d="
+          M100 145
+          C20 90, 20 45, 65 45
+          C90 45, 100 70, 100 70
+          C100 70, 110 45, 135 45
+          C180 45, 180 90, 100 145 Z
+        "
+      />
+      <!-- Small heart -->
+      <path
+        fill="#fb7185"
+        transform="translate(115,90) scale(0.42)"
+        d="
+          M100 145
+          C20 90, 20 45, 65 45
+          C90 45, 100 70, 100 70
+          C100 70, 110 45, 135 45
+          C180 45, 180 90, 100 145 Z
+        "
+      />
+    </svg>
+
+    <h2
+      id="valentineQuestion"
+      class="text-3xl font-bold italic text-pink-600 text-center mb-6"
+    >
+      Will you be my Valentine?
+    </h2>
+
+    <!-- Buttons -->
+    <div id="responseButtons" class="flex items-center justify-center gap-6 relative">
+
+      <!-- YES wrapper (animation here) -->
+      <div class="bounce">
+        <button
+          id="yesButton"
+          class="bg-green-500 hover:bg-green-400 text-white font-semibold rounded-md px-6 py-3 text-lg transition"
+        >
+          Yes
+        </button>
+      </div>
+
+      <button
+        id="noButton"
+        class="bg-red-500 text-white font-semibold rounded-md px-6 py-3 text-lg transition"
+      >
+        No
+      </button>
+    </div>
+  </div>
+
+  <script type="module">
+    import confetti from 'https://cdn.skypack.dev/canvas-confetti';
+
+    const yesButton = document.getElementById('yesButton');
+    const noButton = document.getElementById('noButton');
+    const buttons = document.getElementById('responseButtons');
+    const question = document.getElementById('valentineQuestion');
+
+    let scale = 1;
+    let growths = 0;
+    const MAX_GROWTH = 5;
+
+    function growYes() {
+      if (growths >= MAX_GROWTH) return;
+      growths++;
+      scale += 0.25;
+      yesButton.style.transform = `scale(${scale})`;
+    }
+
+    function moveNoButton() {
+      growYes();
+
+      // Controlled playful movement near original spot
+      const x = (Math.random() - 0.5) * 180;
+      const y = (Math.random() - 0.5) * 90;
+
+      noButton.style.transform = `translate(${x}px, ${y}px)`;
+    }
+
+    noButton.addEventListener('mouseenter', moveNoButton);
+    noButton.addEventListener('click', moveNoButton);
+
+    yesButton.addEventListener('click', () => {
+      question.textContent = 'Yayyy! 😘';
+      buttons.style.display = 'none';
+      confetti();
+    });
+  </script>
+</body>
+</html>
