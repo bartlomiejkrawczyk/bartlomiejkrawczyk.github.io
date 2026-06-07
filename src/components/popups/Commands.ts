@@ -1,3 +1,5 @@
+import type { Color } from "../navigation/Themes";
+
 export const commandIds = [
   "print",
   "go-to-home",
@@ -8,6 +10,8 @@ export const commandIds = [
   "open-discord",
   "toggle-tag-filter",
   "toggle-project-filter",
+  "theme",
+  "color",
   // "project-search",
   // "language",
   // "themes",
@@ -50,6 +54,53 @@ export const commands: Record<CommandId, Command> = {
     name: { en: "Back", pl: "Poprzednia Strona" },
     execute: () => {
       history.back();
+    },
+  },
+  theme: {
+    id: "theme",
+    name: { en: "Toggle Theme", pl: "Przełącz Motyw" },
+    execute: () => {
+      const { color, mode } = window.getTheme?.() || {
+        color: "purple",
+        mode: "dark",
+      };
+      const newMode = mode === "light" ? "dark" : "light";
+      window.setTheme?.(color, newMode);
+    },
+  },
+  color: {
+    id: "color",
+    name: { en: "Toggle Color", pl: "Przełącz Kolor" },
+    execute: () => {
+      const { color, mode } = window.getTheme?.() || {
+        color: "purple",
+        mode: "dark",
+      };
+      let newColor: Color = color;
+      switch (color) {
+        case "purple":
+          newColor = "blue";
+          break;
+        case "blue":
+          newColor = "green";
+          break;
+        case "green":
+          newColor = "pink";
+          break;
+        case "pink":
+          newColor = "red";
+          break;
+        case "red":
+          newColor = "teal";
+          break;
+        case "teal":
+          newColor = "bw";
+          break;
+        case "bw":
+          newColor = "purple";
+          break;
+      }
+      window.setTheme?.(newColor, mode);
     },
   },
   "open-github": {

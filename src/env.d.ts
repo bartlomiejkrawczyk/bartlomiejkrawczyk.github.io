@@ -22,6 +22,7 @@ declare function setLanguage(key: LanguageKey);
 
 declare global {
   interface Window {
+    getTheme?: () => { color: Color; mode: Mode };
     setTheme?: (
       color: Color,
       mode: Mode,
