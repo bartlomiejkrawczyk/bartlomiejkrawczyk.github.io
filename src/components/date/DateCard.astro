@@ -1,0 +1,23 @@
+---
+
+---
+
+<!-- TODO: progress indicator? -->
+<div class="date-card shadow-2xl">
+  <slot />
+</div>
+
+<style>
+  .date-card {
+    background: var(--background);
+    border-radius: var(--radius-2xl);
+    --tw-shadow: 0 25px 50px -12px var(--tw-shadow-color, rgb(0 0 0 / 0.25));
+    box-shadow: var(--shadow-lg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: calc(4 * var(--spacing));
+    padding: calc(var(--spacing) * 10);
+  }
+</style>
