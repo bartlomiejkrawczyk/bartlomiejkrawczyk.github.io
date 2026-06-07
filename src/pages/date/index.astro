@@ -39,6 +39,8 @@ console.log(Astro.url.searchParams);
     justify-content: center;
     gap: calc(6 * var(--spacing));
     position: relative;
+    width: 100%;
+    height: 120px;
   }
 
   .yes-button {
@@ -207,37 +209,42 @@ console.log(Astro.url.searchParams);
   }
 
   function moveNoButton(pointerX: number, pointerY: number) {
+    const parentRect = responseButtons.getBoundingClientRect();
     const rect = noButton.getBoundingClientRect();
 
-    const centerX = rect.left + rect.width / 2;
-    const centerY = rect.top + rect.height / 2;
+    const maxX = parentRect.width - rect.width;
+    const maxY = parentRect.height - rect.height;
 
-    let dx = centerX - pointerX;
-    let dy = centerY - pointerY;
+    const minDistance = 120;
+    const maxAttempts = 50;
 
-    let distance = Math.hypot(dx, dy);
+    let newX = 0;
+    let newY = 0;
+    let isFarEnough = false;
+    let attempts = 0;
 
-    if (distance < 1) {
-      const angle = Math.random() * Math.PI * 2;
+    while (!isFarEnough && attempts < maxAttempts) {
+      newX = Math.random() * maxX;
+      newY = Math.random() * maxY;
 
-      dx = Math.cos(angle);
-      dy = Math.sin(angle);
+      const buttonCenterX = parentRect.left + newX + rect.width / 2;
+      const buttonCenterY = parentRect.top + newY + rect.height / 2;
 
-      distance = 1;
-    } else {
-      dx /= distance;
-      dy /= distance;
+      const distance = Math.hypot(
+        buttonCenterX - pointerX,
+        buttonCenterY - pointerY,
+      );
+
+      if (distance >= minDistance) {
+        isFarEnough = true;
+      }
+      attempts++;
     }
 
-    const fingerRadius = 50;
+    const parentCenterX = parentRect.width / 2;
+    const parentCenterY = parentRect.height / 2;
 
-    const moveDistance = Math.max(rect.width, rect.height) + fingerRadius * 2;
-
-    const x = dx * moveDistance;
-
-    const y = dy * moveDistance;
-
-    noButton.style.transform = `translate(${x}px, ${y}px)`;
+    noButton.style.transform = `translate(${newX - parentCenterX}px, ${newY - parentCenterY}px)`;
 
     growYes();
   }
