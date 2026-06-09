@@ -154,5 +154,12 @@
         "Contributed to maintenance and evolution of enterprise academic systems."
       ]
     }
+  },
+  "date": {
+    "questionDate": "Will you go out with me?",
+    "yes": "Yes",
+    "no": "No",
+    "hi": "Hi",
+    "problem": "We seem to have some technical issues, try the other button!"
   }
 }

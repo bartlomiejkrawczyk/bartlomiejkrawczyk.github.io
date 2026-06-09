@@ -154,5 +154,12 @@
         "Współpraca przy utrzymaniu i rozwoju korporacyjnych systemów akademickich."
       ]
     }
+  },
+  "date": {
+    "questionDate": "Czy pójdziesz ze mną na randkę?",
+    "yes": "Tak",
+    "no": "Nie",
+    "hi": "Cześć",
+    "problem": "Chyba mamy problemy techniczne, spróbuj drugi przycisk!"
   }
 }
