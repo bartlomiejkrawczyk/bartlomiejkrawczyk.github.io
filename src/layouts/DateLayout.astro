@@ -40,13 +40,30 @@ const lang = Astro.currentLocale as LanguageKey;
   </body>
 </html>
 
-<script is:inline>
-  // const theme = window.getTheme?.() ?? {
-  //   color: "pink",
-  //   mode: "light",
-  // };
-  // window.setTheme("pink", "light", false);
-  // console.log(`Theme set to ${theme.color} ${theme.mode}`);
+<script>
+  import type { Color, Mode } from "@src/components/navigation/Themes";
+
+  const urlSearchParams = new URLSearchParams(window.location.search);
+  const params = Object.fromEntries(urlSearchParams.entries());
+
+  const color = params.color;
+  const mode = params.mode;
+
+  if (color || mode) {
+    let current = window.getTheme?.() ?? { color: "pink", mode: "light" };
+    window.setTheme?.(
+      (color as Color) ?? current.color,
+      (mode as Mode) ?? current.mode,
+      false,
+    );
+
+    const newUrl = new URL(window.location.href);
+
+    newUrl.searchParams.delete("color");
+    newUrl.searchParams.delete("mode");
+
+    window.history.replaceState({}, document.title, newUrl.toString());
+  }
 </script>
 
 <style is:global>
