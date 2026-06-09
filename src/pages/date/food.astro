@@ -1,0 +1,29 @@
+---
+import DateLayout from "@layouts/DateLayout.astro";
+import DateCard from "@src/components/date/DateCard.astro";
+
+const name = Astro.url.searchParams.get("name") || "";
+
+console.log(Astro.url.searchParams);
+---
+
+<DateLayout
+  title="Will you be my girlfriend?"
+  description="Will you be my girlfriend?"
+>
+  <DateCard current={2} pages={5}>
+    <h1 id="name">{name}</h1>
+  </DateCard>
+</DateLayout>
+
+<script>
+  const urlSearchParams = new URLSearchParams(window.location.search);
+  const params = Object.fromEntries(urlSearchParams.entries());
+
+  const element = document.getElementById("name");
+  if (element) {
+    element.textContent = params.name || "Will you be my girlfriend?";
+  }
+</script>
+
+<style></style>

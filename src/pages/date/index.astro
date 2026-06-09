@@ -5,6 +5,7 @@ import { getTranslations, type LanguageKey } from "@src/i18n/ui";
 import { Image } from "astro:assets";
 
 import logo from "@assets/penguin.svg";
+import Icon from "@src/components/Icon.astro";
 
 console.log(Astro.url.searchParams);
 
@@ -13,33 +14,58 @@ const t = getTranslations(lang);
 ---
 
 <DateLayout title={t.date.questionDate} description={t.date.questionDate}>
-  <DateCard>
+  <DateCard current={1} pages={5}>
     <Image
       src={logo}
       width={200}
       height={200}
       alt="Cute penguin waving its flipper"
     />
-    <h1 id="name" class="text"></h1>
-    <h3 class="text">{t.date.questionDate}</h3>
 
-    <div id="responseButtons" class="response-buttons">
-      <div class="bounce">
-        <button id="yesButton" class="yes-button transition">
-          {t.date.yes}
-        </button>
+    <div id="ask-out-content" class="transition">
+      <h1 id="name" class="text">{t.date.hi + "!"}</h1>
+      <h2 class="text">{t.date.questionDate}</h2>
+
+      <div id="responseButtons" class="response-buttons">
+        <div class="bounce">
+          <button id="yesButton" class="yes-button transition">
+            {t.date.yes}
+          </button>
+        </div>
+
+        <div id="noButton" class="transition">
+          <button class="no-button glitch"> {t.date.no} </button>
+        </div>
       </div>
 
-      <div id="noButton" class="transition">
-        <button class="no-button glitch"> {t.date.no} </button>
-      </div>
+      <p id="problem" class="problem"></p>
     </div>
 
-    <p id="problem" class="problem"></p>
+    <div id="yes-content" class="transition">
+      <h1 class="text">{t.date.perfect}</h1>
+      <h2 class="text">{t.date.noGoingBack}</h2>
+
+      <a
+        id="next-button"
+        class="yes-button transition flex flex-row items-center gap-2"
+        href="/date/food"
+        data-astro-prefetch
+      >
+        {t.date.next}
+        <Icon icon="arrow-right" size="20px" />
+      </a>
+    </div>
   </DateCard>
 </DateLayout>
 
 <style>
+  #yes-content {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+
   .text {
     text-align: center;
   }
@@ -49,6 +75,10 @@ const t = getTranslations(lang);
     line-height: var(--text-sm--line-height);
     text-align: center;
     color: var(--gray-700);
+  }
+
+  #ask-out-content {
+    width: 100%;
   }
 
   .response-buttons {
@@ -198,8 +228,6 @@ const t = getTranslations(lang);
   if (element) {
     if (params.name) {
       element.textContent = t.date.hi + " " + params.name + "!";
-    } else {
-      element.textContent = t.date.hi + "!";
     }
   }
 </script>
@@ -216,7 +244,13 @@ const t = getTranslations(lang);
   ) as HTMLElement;
   const yesButton = document.getElementById("yesButton") as HTMLButtonElement;
   const noButton = document.getElementById("noButton") as HTMLButtonElement;
-  const buttons = document.getElementById("responseButtons") as HTMLElement;
+  const askOutContent = document.getElementById(
+    "ask-out-content",
+  ) as HTMLElement;
+  const yesContent = document.getElementById("yes-content") as HTMLElement;
+  const nextButton = document.getElementById(
+    "next-button",
+  ) as HTMLAnchorElement;
 
   let scale = 1;
   let growths = 0;
@@ -312,9 +346,11 @@ const t = getTranslations(lang);
 
   noButton.addEventListener("pointerdown", handleNoPointerDown);
 
-  yesButton.addEventListener("click", (e) => {
-    // question.textContent = "Yayyy! 😘";
-    buttons.style.display = "none";
+  yesButton.addEventListener("click", () => {
+    askOutContent.style.display = "none";
+    yesContent.style.display = "flex";
     confetti();
   });
+
+  nextButton.href = "/date/food" + window.location.search;
 </script>
