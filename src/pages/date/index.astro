@@ -7,8 +7,6 @@ import { Image } from "astro:assets";
 import logo from "@assets/penguin.svg";
 import Icon from "@src/components/Icon.astro";
 
-console.log(Astro.url.searchParams);
-
 const lang = Astro.currentLocale as LanguageKey;
 const t = getTranslations(lang);
 ---
@@ -104,7 +102,7 @@ const t = getTranslations(lang);
     padding-block: calc(var(--spacing) * 3);
     padding-inline: calc(var(--spacing) * 6);
     font-size: var(--text-lg);
-    line-height: var(--tw-leading, var(--text-lg--line-height));
+    line-height: var(--text-lg--line-height);
   }
   .yes-button:hover {
     color: var(--primary-light);

@@ -1,20 +1,31 @@
 ---
 import DateLayout from "@layouts/DateLayout.astro";
 import DateCard from "@src/components/date/DateCard.astro";
+import SelectionGrid from "@src/components/date/SelectionGrid.astro";
+import { getTranslations, type LanguageKey } from "@src/i18n/ui";
+
+const lang = Astro.currentLocale as LanguageKey;
+const t = getTranslations(lang);
+
+const activityKeys = ["kayaking"] as const;
+
+const activityOptions = activityKeys.map((key) => ({
+  value: key,
+  label: t.date.activity[key],
+}));
 ---
 
-<DateLayout
-  title="Will you be my girlfriend?"
-  description="Will you be my girlfriend?"
->
+<DateLayout title={t.date.questionFood} description={t.date.questionFood}>
   <DateCard current={3} pages={5}>
-    <h1 id="name">Activity</h1>
+    <h1 id="name" style="text-align: center;">{t.date.questionFood}</h1>
+
+    <SelectionGrid
+      name="activity"
+      options={activityOptions}
+      nextUrl="/date/clothing"
+      nextLabel={t.date.next}
+      backUrl="/date/food"
+      backLabel={t.date.back}
+    />
   </DateCard>
 </DateLayout>
-
-<script>
-  // const urlSearchParams = new URLSearchParams(window.location.search);
-  // const params = Object.fromEntries(urlSearchParams.entries());
-</script>
-
-<style></style>

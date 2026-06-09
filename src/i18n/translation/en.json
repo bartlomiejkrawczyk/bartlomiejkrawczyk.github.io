@@ -164,11 +164,16 @@
     "perfect": "Perfect!",
     "noGoingBack": "No going back now 😘",
     "next": "Next",
+    "back": "Back",
     "questionFood": "What are we eating?",
     "food": {
       "pizza": "Pizza",
       "sushi": "Sushi",
       "pasta": "Pasta"
+    },
+    "questionActivity": "What are we going to do?",
+    "activity": {
+      "kayaking": "Kayaking"
     }
   }
 }

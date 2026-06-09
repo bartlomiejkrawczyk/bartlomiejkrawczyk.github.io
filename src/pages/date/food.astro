@@ -1,89 +1,29 @@
 ---
 import DateLayout from "@layouts/DateLayout.astro";
 import DateCard from "@src/components/date/DateCard.astro";
-import Icon from "@src/components/Icon.astro";
+import SelectionGrid from "@src/components/date/SelectionGrid.astro";
 import { getTranslations, type LanguageKey } from "@src/i18n/ui";
 
 const lang = Astro.currentLocale as LanguageKey;
 const t = getTranslations(lang);
 
-const foodOptions = ["pizza", "sushi", "pasta"] as const;
+const foodKeys = ["pizza", "sushi", "pasta"] as const;
+
+const foodOptions = foodKeys.map((key) => ({
+  value: key,
+  label: t.date.food[key],
+}));
 ---
 
 <DateLayout title={t.date.questionFood} description={t.date.questionFood}>
   <DateCard current={2} pages={5}>
-    <h1 id="name">{t.date.questionFood}</h1>
+    <h1 id="name" style="text-align: center;">{t.date.questionFood}</h1>
 
-    <div class="food-wrapper">
-      {
-        foodOptions.map((food) => (
-          <div class="food-element">
-            <input
-              id={food}
-              type="checkbox"
-              name="food"
-              class="food-input transition"
-            />
-            <label for={food} class="text transition">
-              {t.date.food[food]}
-            </label>
-          </div>
-        ))
-      }
-    </div>
-
-    <div class="transition">
-      <a
-        id="next-button"
-        class="yes-button transition flex flex-row items-center gap-2"
-        href="/date/activity"
-        data-astro-prefetch
-      >
-        {t.date.next}
-        <Icon icon="arrow-right" size="20px" />
-      </a>
-    </div>
+    <SelectionGrid
+      name="food"
+      options={foodOptions}
+      nextUrl="/date/activity"
+      nextLabel={t.date.next}
+    />
   </DateCard>
 </DateLayout>
-
-<script>
-  // const urlSearchParams = new URLSearchParams(window.location.search);
-  // const params = Object.fromEntries(urlSearchParams.entries());
-
-  const nextButton = document.getElementById(
-    "next-button",
-  ) as HTMLAnchorElement;
-
-  // TODO: add chosen food options to next page query parameters
-
-  nextButton.href = "/date/activity" + window.location.search;
-</script>
-
-<style>
-  h1 {
-    text-align: center;
-  }
-
-  .food-wrapper {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
-    margin-top: 40px;
-  }
-
-  .food-input {
-  }
-
-  .food-element {
-    display: flex;
-    align-items: center;
-    gap: calc(var(--spacing) * 4);
-    border-radius: var(--radius-lg);
-    stroke-width: 10px;
-    stroke: red 10px;
-    padding-left: calc(var(--spacing) * 4);
-    padding-right: calc(var(--spacing) * 4);
-    padding-top: calc(var(--spacing) * 2);
-    padding-bottom: calc(var(--spacing) * 2);
-  }
-</style>
