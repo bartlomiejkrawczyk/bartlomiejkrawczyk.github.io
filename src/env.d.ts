@@ -34,5 +34,6 @@ declare global {
     setTagVisibility?: (id: TagId, visible: Boolean) => void;
     toggleProjectEditMode?: () => void;
     setProjectVisibility?: (id: string, visible: Boolean) => void;
+    getLanguage?: () => LanguageKey;
   }
 }
