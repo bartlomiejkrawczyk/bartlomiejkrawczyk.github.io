@@ -1,36 +1,54 @@
 ---
 import DateLayout from "@layouts/DateLayout.astro";
 import DateCard from "@src/components/date/DateCard.astro";
+import { getTranslations, type LanguageKey } from "@src/i18n/ui";
+import { Image } from "astro:assets";
 
-const name = Astro.url.searchParams.get("name") || "";
+import logo from "@assets/penguin.svg";
 
 console.log(Astro.url.searchParams);
+
+const lang = Astro.currentLocale as LanguageKey;
+const t = getTranslations(lang);
 ---
 
-<DateLayout
-  title="Will you be my girlfriend?"
-  description="Will you be my girlfriend?"
->
+<DateLayout title={t.date.questionDate} description={t.date.questionDate}>
   <DateCard>
-    <h1 id="name" class="text">{name}</h1>
-
-    <h3 class="text">Will you go on a date with me?</h3>
+    <Image
+      src={logo}
+      width={200}
+      height={200}
+      alt="Cute penguin waving its flipper"
+    />
+    <h1 id="name" class="text"></h1>
+    <h3 class="text">{t.date.questionDate}</h3>
 
     <div id="responseButtons" class="response-buttons">
       <div class="bounce">
-        <button id="yesButton" class="yes-button transition"> Yes </button>
+        <button id="yesButton" class="yes-button transition">
+          {t.date.yes}
+        </button>
       </div>
 
       <div id="noButton" class="transition">
-        <button id="" class="no-button glitch"> No </button>
+        <button class="no-button glitch"> {t.date.no} </button>
       </div>
     </div>
+
+    <p id="problem" class="problem"></p>
   </DateCard>
 </DateLayout>
 
 <style>
   .text {
     text-align: center;
+  }
+
+  .problem {
+    font-size: var(--text-sm);
+    line-height: var(--text-sm--line-height);
+    text-align: center;
+    color: var(--gray-700);
   }
 
   .response-buttons {
@@ -133,7 +151,7 @@ console.log(Astro.url.searchParams);
       filter: hue-rotate(0deg);
     }
     72% {
-      transform: skew(70deg);
+      transform: skew(70deg) scaleY(0.1);
       filter: hue-rotate(90deg);
     }
     75% {
@@ -168,24 +186,37 @@ console.log(Astro.url.searchParams);
 </style>
 
 <script>
+  import { getTranslations } from "@src/i18n/ui";
+
+  const lang = window.getLanguage?.() ?? "en";
+  const t = getTranslations(lang);
+
   const urlSearchParams = new URLSearchParams(window.location.search);
   const params = Object.fromEntries(urlSearchParams.entries());
 
   const element = document.getElementById("name") as HTMLElement;
   if (element) {
-    element.textContent = params.name || "Will you be my girlfriend?";
+    if (params.name) {
+      element.textContent = t.date.hi + " " + params.name + "!";
+    } else {
+      element.textContent = t.date.hi + "!";
+    }
   }
 </script>
 
 <script>
   import confetti from "canvas-confetti";
+  import { getTranslations } from "@src/i18n/ui";
+
+  const lang = window.getLanguage?.() ?? "en";
+  const t = getTranslations(lang);
+
   const responseButtons = document.getElementById(
     "responseButtons",
   ) as HTMLElement;
   const yesButton = document.getElementById("yesButton") as HTMLButtonElement;
   const noButton = document.getElementById("noButton") as HTMLButtonElement;
   const buttons = document.getElementById("responseButtons") as HTMLElement;
-  //   const question = document.getElementById("valentineQuestion");
 
   let scale = 1;
   let growths = 0;
@@ -252,7 +283,7 @@ console.log(Astro.url.searchParams);
   function handlePointerMove(e: PointerEvent) {
     const rect = noButton.getBoundingClientRect();
 
-    const padding = 80;
+    const padding = 100;
 
     const near =
       e.clientX >= rect.left - padding &&
@@ -268,6 +299,11 @@ console.log(Astro.url.searchParams);
   function handleNoPointerDown(e: PointerEvent) {
     e.preventDefault();
     e.stopPropagation();
+
+    const problemText = document.getElementById("problem") as HTMLElement;
+    if (problemText) {
+      problemText.textContent = t.date.problem;
+    }
 
     moveNoButton(e.clientX, e.clientY);
   }
