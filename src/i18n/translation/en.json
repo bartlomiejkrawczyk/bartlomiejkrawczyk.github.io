@@ -169,11 +169,36 @@
     "food": {
       "pizza": "Pizza",
       "sushi": "Sushi",
-      "pasta": "Pasta"
+      "pasta": "Pasta",
+      "ramen": "Ramen",
+      "chinese": "Chinese",
+      "kebab": "Kebab",
+      "surprise": "Surprise",
+      "chicken": "Chicken"
     },
     "questionActivity": "What are we going to do?",
     "activity": {
-      "kayaking": "Kayaking"
+      "cycling": "Cycling",
+      "rollerblading": "Rollerblading",
+      "kayaking": "Kayaking",
+      "bowling": "Bowling",
+      "pool": "Pool",
+      "swimming": "Swimming",
+      "cinema": "Cinema",
+      "netflix": "Netflix & Chill",
+      "car": "Car Date"
+    },
+    "questionClothing": "What are we wearing?",
+    "clothing": {
+      "casual": "Casual",
+      "elegant": "Elegant"
+    },
+    "questionPresent": "Should I buy a present?",
+    "present": {
+      "flowers": "Flowers",
+      "lego": "Lego",
+      "bear": "Teddy Bear",
+      "nothing": "No"
     }
   }
 }

@@ -7,7 +7,17 @@ import { getTranslations, type LanguageKey } from "@src/i18n/ui";
 const lang = Astro.currentLocale as LanguageKey;
 const t = getTranslations(lang);
 
-const activityKeys = ["kayaking"] as const;
+const activityKeys = [
+  "cycling",
+  "rollerblading",
+  "kayaking",
+  "bowling",
+  "pool",
+  "swimming",
+  "cinema",
+  "netflix",
+  "car",
+] as const;
 
 const activityOptions = activityKeys.map((key) => ({
   value: key,

@@ -7,7 +7,16 @@ import { getTranslations, type LanguageKey } from "@src/i18n/ui";
 const lang = Astro.currentLocale as LanguageKey;
 const t = getTranslations(lang);
 
-const foodKeys = ["pizza", "sushi", "pasta"] as const;
+const foodKeys = [
+  "pizza",
+  "sushi",
+  "pasta",
+  "ramen",
+  "chinese",
+  "kebab",
+  "chicken",
+  "surprise",
+] as const;
 
 const foodOptions = foodKeys.map((key) => ({
   value: key,

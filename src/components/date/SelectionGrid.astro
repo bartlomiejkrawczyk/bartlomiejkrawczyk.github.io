@@ -13,9 +13,11 @@ interface Props {
   nextLabel: string;
   backUrl?: string;
   backLabel?: string;
+  type?: "checkbox" | "radio";
 }
 
-const { name, options, nextUrl, nextLabel, backUrl, backLabel } = Astro.props;
+const { name, options, nextUrl, nextLabel, backUrl, backLabel, type } =
+  Astro.props;
 ---
 
 <selection-grid
@@ -30,7 +32,7 @@ const { name, options, nextUrl, nextLabel, backUrl, backLabel } = Astro.props;
         <label class="selection-element transition" for={opt.value}>
           <input
             id={opt.value}
-            type="checkbox"
+            type={type ?? "checkbox"}
             name={name}
             value={opt.value}
             class="custom-checkbox transition"
@@ -78,13 +80,15 @@ const { name, options, nextUrl, nextLabel, backUrl, backLabel } = Astro.props;
       if (!name || !nextUrl) return;
 
       const inputs = this.querySelectorAll<HTMLInputElement>(
-        'input[type="checkbox"]',
+        'input[type="checkbox"], input[type="radio"]',
       );
       const nextBtn = this.querySelector<HTMLAnchorElement>("#next-button");
       const backBtn = this.querySelector<HTMLAnchorElement>("#back-button");
 
-      const params = new URLSearchParams(window.location.search);
-      const selectedValues = params.get(name)?.split(",") || [];
+      console.log(inputs);
+
+      const initialParams = new URLSearchParams(window.location.search);
+      const selectedValues = initialParams.get(name)?.split(",") || [];
 
       inputs.forEach((input) => {
         if (selectedValues.includes(input.value)) {
@@ -92,8 +96,10 @@ const { name, options, nextUrl, nextLabel, backUrl, backLabel } = Astro.props;
         }
       });
 
-      nextBtn?.addEventListener("click", (e) => {
-        e.preventDefault();
+      this.addEventListener("change", (e) => {
+        const target = e.target as HTMLInputElement;
+        if (target.name !== name) return;
+
         const currentParams = new URLSearchParams(window.location.search);
 
         const checkedValues = Array.from(inputs)
@@ -106,7 +112,15 @@ const { name, options, nextUrl, nextLabel, backUrl, backLabel } = Astro.props;
           currentParams.delete(name);
         }
 
-        window.location.href = `${nextUrl}?${currentParams.toString()}`;
+        const newSearch = currentParams.toString();
+        const newUrl = `${window.location.pathname}${newSearch ? "?" + newSearch : ""}`;
+
+        window.history.replaceState({}, "", newUrl);
+      });
+
+      nextBtn?.addEventListener("click", (e) => {
+        e.preventDefault();
+        window.location.href = `${nextUrl}${window.location.search}`;
       });
 
       backBtn?.addEventListener("click", (e) => {
@@ -139,7 +153,7 @@ const { name, options, nextUrl, nextLabel, backUrl, backLabel } = Astro.props;
     gap: calc(var(--spacing, 4px) * 3);
     padding: calc(var(--spacing, 4px) * 3) calc(var(--spacing, 4px) * 4);
     border-radius: var(--radius-lg, 12px);
-    border: 2px solid var(--gray-300);
+    border: 2px solid var(--gray-700);
     cursor: pointer;
     background: transparent;
   }
@@ -158,7 +172,7 @@ const { name, options, nextUrl, nextLabel, backUrl, backLabel } = Astro.props;
     -webkit-appearance: none;
     width: 24px;
     height: 24px;
-    border: 2px solid var(--gray-300, #e2e8f0);
+    border: 2px solid var(--gray-700);
     border-radius: 6px;
     outline: none;
     display: grid;
@@ -174,11 +188,11 @@ const { name, options, nextUrl, nextLabel, backUrl, backLabel } = Astro.props;
     border-radius: 2px;
     transform: scale(0);
     transition: transform 0.2s ease-in-out;
-    background-color: var(--primary-regular, #3b82f6);
+    background-color: var(--primary-regular);
   }
 
   .custom-checkbox:checked {
-    border-color: var(--primary-regular, #3b82f6);
+    border-color: var(--primary-regular);
   }
 
   .custom-checkbox:checked::before {
