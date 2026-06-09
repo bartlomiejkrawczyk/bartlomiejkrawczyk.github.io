@@ -1,0 +1,20 @@
+---
+import DateLayout from "@layouts/DateLayout.astro";
+import DateCard from "@src/components/date/DateCard.astro";
+---
+
+<DateLayout
+  title="Will you be my girlfriend?"
+  description="Will you be my girlfriend?"
+>
+  <DateCard current={3} pages={5}>
+    <h1 id="name">Activity</h1>
+  </DateCard>
+</DateLayout>
+
+<script>
+  // const urlSearchParams = new URLSearchParams(window.location.search);
+  // const params = Object.fromEntries(urlSearchParams.entries());
+</script>
+
+<style></style>

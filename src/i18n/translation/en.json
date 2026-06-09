@@ -163,6 +163,12 @@
     "problem": "We seem to have some technical issues, try the other button!",
     "perfect": "Perfect!",
     "noGoingBack": "No going back now 😘",
-    "next": "Next"
+    "next": "Next",
+    "questionFood": "What are we eating?",
+    "food": {
+      "pizza": "Pizza",
+      "sushi": "Sushi",
+      "pasta": "Pasta"
+    }
   }
 }
