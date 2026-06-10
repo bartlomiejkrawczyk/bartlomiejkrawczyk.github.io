@@ -15,12 +15,29 @@ const foodKeys = [
   "chinese",
   "kebab",
   "chicken",
+  "drinks",
   "surprise",
+  "nothing",
 ] as const;
+
+type Food = (typeof foodKeys)[number];
+
+const foodIcons: Partial<Record<Food, string>> = {
+  pizza: "🍕",
+  sushi: "🍣",
+  pasta: "🍝",
+  ramen: "🍜",
+  chinese: "🥡",
+  kebab: "🌯",
+  chicken: "🍗",
+  surprise: "❓",
+  nothing: "✕",
+};
 
 const foodOptions = foodKeys.map((key) => ({
   value: key,
   label: t.date.food[key],
+  icon: foodIcons[key],
 }));
 ---
 

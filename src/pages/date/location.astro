@@ -1,0 +1,43 @@
+---
+import DateLayout from "@layouts/DateLayout.astro";
+import DateCard from "@src/components/date/DateCard.astro";
+import SelectionGrid from "@src/components/date/SelectionGrid.astro";
+import { getTranslations, type LanguageKey } from "@src/i18n/ui";
+
+const lang = Astro.currentLocale as LanguageKey;
+const t = getTranslations(lang);
+
+const locationKeys = ["herHome", "atLocation"] as const;
+
+type Location = (typeof locationKeys)[number];
+
+const locationIcons: Partial<Record<Location, string>> = {
+  herHome: "🏡",
+  atLocation: "📍",
+};
+
+const locationOptions = locationKeys.map((key) => ({
+  value: key,
+  label: t.date.location[key],
+  icon: locationIcons[key],
+}));
+---
+
+<DateLayout
+  title={t.date.questionLocation}
+  description={t.date.questionLocation}
+>
+  <DateCard current={3} pages={5}>
+    <h1 id="name" style="text-align: center;">{t.date.questionLocation}</h1>
+
+    <SelectionGrid
+      name="location"
+      options={locationOptions}
+      nextUrl="/date/calendar"
+      nextLabel={t.date.next}
+      backUrl="/date/paying"
+      backLabel={t.date.back}
+      type="radio"
+    />
+  </DateCard>
+</DateLayout>

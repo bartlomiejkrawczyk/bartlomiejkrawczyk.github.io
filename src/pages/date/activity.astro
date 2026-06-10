@@ -19,15 +19,33 @@ const activityKeys = [
   "car",
 ] as const;
 
+type Activity = (typeof activityKeys)[number];
+
+const activityIcons: Partial<Record<Activity, string>> = {
+  cycling: "🚲",
+  rollerblading: "🛼",
+  kayaking: "🛶",
+  bowling: "🎳",
+  pool: "🎱",
+  swimming: "🏊",
+  cinema: "🎬",
+  netflix: "🍿",
+  car: "🚗",
+};
+
 const activityOptions = activityKeys.map((key) => ({
   value: key,
   label: t.date.activity[key],
+  icon: activityIcons[key],
 }));
 ---
 
-<DateLayout title={t.date.questionFood} description={t.date.questionFood}>
+<DateLayout
+  title={t.date.questionActivity}
+  description={t.date.questionActivity}
+>
   <DateCard current={3} pages={5}>
-    <h1 id="name" style="text-align: center;">{t.date.questionFood}</h1>
+    <h1 id="name" style="text-align: center;">{t.date.questionActivity}</h1>
 
     <SelectionGrid
       name="activity"

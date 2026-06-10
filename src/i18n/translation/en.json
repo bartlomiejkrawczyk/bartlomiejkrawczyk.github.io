@@ -174,7 +174,9 @@
       "chinese": "Chinese",
       "kebab": "Kebab",
       "surprise": "Surprise",
-      "chicken": "Chicken"
+      "chicken": "Chicken",
+      "drinks": "Drinks",
+      "nothing": "Nothing"
     },
     "questionActivity": "What are we going to do?",
     "activity": {
@@ -199,6 +201,18 @@
       "lego": "Lego",
       "bear": "Teddy Bear",
       "nothing": "No"
+    },
+    "questionPaying": "Who is paying?",
+    "paying": {
+      "sugarMommy": "I want to be your sugar mommy",
+      "feminist": "I pay for mine, you pay for yours",
+      "men": "Men should pay",
+      "wildcard": "Let's gamble for it"
+    },
+    "questionLocation": "Where should we meet?",
+    "location": {
+      "herHome": "Come for me",
+      "atLocation": "At the location"
     }
   }
 }

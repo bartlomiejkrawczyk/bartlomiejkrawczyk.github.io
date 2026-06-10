@@ -1,0 +1,37 @@
+---
+import DateLayout from "@layouts/DateLayout.astro";
+import DateCard from "@src/components/date/DateCard.astro";
+import SelectionGrid from "@src/components/date/SelectionGrid.astro";
+import { getTranslations, type LanguageKey } from "@src/i18n/ui";
+
+const lang = Astro.currentLocale as LanguageKey;
+const t = getTranslations(lang);
+
+const payingKeys = ["men", "feminist", "sugarMommy", "wildcard"] as const;
+
+type Paying = (typeof payingKeys)[number];
+
+const payingIcons: Partial<Record<Paying, string>> = {};
+
+const payingOptions = payingKeys.map((key) => ({
+  value: key,
+  label: t.date.paying[key],
+  icon: payingIcons[key],
+}));
+---
+
+<DateLayout title={t.date.questionPaying} description={t.date.questionPaying}>
+  <DateCard current={3} pages={5}>
+    <h1 id="name" style="text-align: center;">{t.date.questionPaying}</h1>
+
+    <SelectionGrid
+      name="paying"
+      options={payingOptions}
+      nextUrl="/date/location"
+      nextLabel={t.date.next}
+      backUrl="/date/present"
+      backLabel={t.date.back}
+      type="radio"
+    />
+  </DateCard>
+</DateLayout>

@@ -9,9 +9,17 @@ const t = getTranslations(lang);
 
 const clothingKeys = ["casual", "elegant"] as const;
 
+type Clothing = (typeof clothingKeys)[number];
+
+const clothingIcons: Partial<Record<Clothing, string>> = {
+  casual: "👕",
+  elegant: "👔",
+};
+
 const clothingOptions = clothingKeys.map((key) => ({
   value: key,
   label: t.date.clothing[key],
+  icon: clothingIcons[key],
 }));
 ---
 
