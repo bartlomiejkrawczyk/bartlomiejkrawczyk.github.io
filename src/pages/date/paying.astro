@@ -21,17 +21,9 @@ const payingOptions = payingKeys.map((key) => ({
 ---
 
 <DateLayout title={t.date.questionPaying} description={t.date.questionPaying}>
-  <DateCard current={3} pages={5}>
+  <DateCard step="paying">
     <h1 id="name" style="text-align: center;">{t.date.questionPaying}</h1>
 
-    <SelectionGrid
-      name="paying"
-      options={payingOptions}
-      nextUrl="/date/location"
-      nextLabel={t.date.next}
-      backUrl="/date/present"
-      backLabel={t.date.back}
-      type="radio"
-    />
+    <SelectionGrid name="paying" options={payingOptions} type="radio" />
   </DateCard>
 </DateLayout>

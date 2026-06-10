@@ -44,16 +44,9 @@ const activityOptions = activityKeys.map((key) => ({
   title={t.date.questionActivity}
   description={t.date.questionActivity}
 >
-  <DateCard current={3} pages={5}>
+  <DateCard step="activity">
     <h1 id="name" style="text-align: center;">{t.date.questionActivity}</h1>
 
-    <SelectionGrid
-      name="activity"
-      options={activityOptions}
-      nextUrl="/date/clothing"
-      nextLabel={t.date.next}
-      backUrl="/date/food"
-      backLabel={t.date.back}
-    />
+    <SelectionGrid name="activity" options={activityOptions} />
   </DateCard>
 </DateLayout>

@@ -26,17 +26,9 @@ const presentOptions = presentKeys.map((key) => ({
 ---
 
 <DateLayout title={t.date.questionPresent} description={t.date.questionPresent}>
-  <DateCard current={3} pages={5}>
+  <DateCard step="present">
     <h1 id="name" style="text-align: center;">{t.date.questionPresent}</h1>
 
-    <SelectionGrid
-      name="present"
-      options={presentOptions}
-      nextUrl="/date/paying"
-      nextLabel={t.date.next}
-      backUrl="/date/clothing"
-      backLabel={t.date.back}
-      type="radio"
-    />
+    <SelectionGrid name="present" options={presentOptions} type="radio" />
   </DateCard>
 </DateLayout>

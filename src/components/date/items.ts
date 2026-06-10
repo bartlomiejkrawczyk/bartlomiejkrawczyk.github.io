@@ -1,4 +1,5 @@
 export const dateSteps = [
+  "start",
   "food",
   "activity",
   "clothing",

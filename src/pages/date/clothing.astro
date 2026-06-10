@@ -27,17 +27,9 @@ const clothingOptions = clothingKeys.map((key) => ({
   title={t.date.questionClothing}
   description={t.date.questionClothing}
 >
-  <DateCard current={4} pages={5}>
+  <DateCard step="clothing">
     <h1 id="name" style="text-align: center;">{t.date.questionClothing}</h1>
 
-    <SelectionGrid
-      name="clothing"
-      options={clothingOptions}
-      nextUrl="/date/present"
-      nextLabel={t.date.next}
-      backUrl="/date/activity"
-      backLabel={t.date.back}
-      type="radio"
-    />
+    <SelectionGrid name="clothing" options={clothingOptions} type="radio" />
   </DateCard>
 </DateLayout>

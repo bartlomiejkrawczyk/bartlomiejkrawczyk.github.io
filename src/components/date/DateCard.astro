@@ -1,12 +1,11 @@
 ---
+import { dateSteps, type DateStep } from "./items";
+
 interface Props {
-  current: number;
-  pages: number;
+  step: DateStep;
 }
 
 const { ...props } = Astro.props;
-
-const pages = Array(props.pages).fill(0);
 ---
 
 <div class="date-card-wrapper">
@@ -15,9 +14,9 @@ const pages = Array(props.pages).fill(0);
     class="progress flex flex-row items-center gap-2 mb-4"
   >
     {
-      pages.map((_, index) => (
+      dateSteps.map((step, _) => (
         <div
-          class={`progress-dot transition ${index + 1 === props.current ? "primary" : "gray"}`}
+          class={`progress-dot transition ${step === props.step ? "primary" : "gray"}`}
         />
       ))
     }

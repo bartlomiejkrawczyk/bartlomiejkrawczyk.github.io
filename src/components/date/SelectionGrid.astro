@@ -1,5 +1,10 @@
 ---
 import Icon from "@src/components/Icon.astro";
+import { DATE_STEPS, dateSteps, type DateStep } from "./items";
+import { getTranslations, type LanguageKey } from "@src/i18n/ui";
+
+const lang = Astro.currentLocale as LanguageKey;
+const t = getTranslations(lang);
 
 interface Option {
   value: string;
@@ -8,24 +13,28 @@ interface Option {
 }
 
 interface Props {
-  name: string;
+  name: DateStep;
   options: Option[];
-  nextUrl: string;
-  nextLabel: string;
-  backUrl?: string;
-  backLabel?: string;
   type?: "checkbox" | "radio";
 }
 
-const {
-  name,
-  options,
-  nextUrl,
-  nextLabel,
-  backUrl,
-  backLabel,
-  type = "checkbox",
-} = Astro.props;
+const { name, options, type = "checkbox" } = Astro.props;
+
+let nextUrl: string | undefined;
+let backUrl: string | undefined;
+
+for (let i = 0; i < DATE_STEPS; i++) {
+  if (dateSteps[i] !== name) continue;
+  nextUrl = dateSteps[i + 1];
+  if (nextUrl) {
+    nextUrl = `/date/${nextUrl}`;
+  }
+  if (i == 1) continue;
+  backUrl = dateSteps[i - 1];
+  if (backUrl) {
+    backUrl = `/date/${backUrl}`;
+  }
+}
 ---
 
 <selection-grid
@@ -66,7 +75,7 @@ const {
           data-astro-prefetch
         >
           <Icon icon="arrow-left" size="20px" />
-          {backLabel}
+          {t.date.back}
         </a>
       )
     }
@@ -77,7 +86,7 @@ const {
       href={nextUrl}
       data-astro-prefetch
     >
-      {nextLabel}
+      {t.date.next}
       <Icon icon="arrow-right" size="20px" />
     </a>
   </div>

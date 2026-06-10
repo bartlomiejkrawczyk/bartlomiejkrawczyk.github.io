@@ -42,14 +42,9 @@ const foodOptions = foodKeys.map((key) => ({
 ---
 
 <DateLayout title={t.date.questionFood} description={t.date.questionFood}>
-  <DateCard current={2} pages={5}>
+  <DateCard step="food">
     <h1 id="name" style="text-align: center;">{t.date.questionFood}</h1>
 
-    <SelectionGrid
-      name="food"
-      options={foodOptions}
-      nextUrl="/date/activity"
-      nextLabel={t.date.next}
-    />
+    <SelectionGrid name="food" options={foodOptions} />
   </DateCard>
 </DateLayout>

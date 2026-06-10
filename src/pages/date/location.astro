@@ -27,17 +27,9 @@ const locationOptions = locationKeys.map((key) => ({
   title={t.date.questionLocation}
   description={t.date.questionLocation}
 >
-  <DateCard current={3} pages={5}>
+  <DateCard step="location">
     <h1 id="name" style="text-align: center;">{t.date.questionLocation}</h1>
 
-    <SelectionGrid
-      name="location"
-      options={locationOptions}
-      nextUrl="/date/calendar"
-      nextLabel={t.date.next}
-      backUrl="/date/paying"
-      backLabel={t.date.back}
-      type="radio"
-    />
+    <SelectionGrid name="location" options={locationOptions} type="radio" />
   </DateCard>
 </DateLayout>
