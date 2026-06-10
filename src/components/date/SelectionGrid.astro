@@ -4,7 +4,7 @@ import Icon from "@src/components/Icon.astro";
 interface Option {
   value: string;
   label: string;
-  icon?: string;
+  icon?: string | undefined;
 }
 
 interface Props {
@@ -95,14 +95,24 @@ const {
       const inputs = this.querySelectorAll<HTMLInputElement>(
         'input[class*="custom-input"]',
       );
-      const nextBtn = this.querySelector<HTMLAnchorElement>("#next-button");
-      const backBtn = this.querySelector<HTMLAnchorElement>("#back-button");
 
       if (inputs.length === 0) return;
+      const isRadio = (inputs[0] as HTMLInputElement).type === "radio";
 
-      const firstInput = inputs[0];
-      if (!firstInput) return;
-      const isRadio = firstInput.type === "radio";
+      const updateButtonHrefs = (searchParams: URLSearchParams) => {
+        const nextBtn = this.querySelector<HTMLAnchorElement>("#next-button");
+        const backBtn = this.querySelector<HTMLAnchorElement>("#back-button");
+
+        const searchStr = searchParams.toString();
+        const suffix = searchStr ? `?${searchStr}` : "";
+
+        if (nextBtn) {
+          nextBtn.href = `${nextUrl}${suffix}`;
+        }
+        if (backBtn && backUrl) {
+          backBtn.href = `${backUrl}${suffix}`;
+        }
+      };
 
       const initialParams = new URLSearchParams(window.location.search);
       const selectedValues = initialParams.get(name)?.split(",") || [];
@@ -113,21 +123,21 @@ const {
         }
       });
 
+      updateButtonHrefs(initialParams);
+
       this.addEventListener("change", (e) => {
         const target = e.target as HTMLInputElement;
         if (target.name !== name) return;
 
         const currentParams = new URLSearchParams(window.location.search);
-
         const checkedValues = Array.from(inputs)
           .filter((i) => i.checked)
           .map((i) => i.value);
 
         if (checkedValues.length > 0) {
-          const firstChecked = checkedValues[0] as string;
           currentParams.set(
             name,
-            isRadio ? firstChecked : checkedValues.join(","),
+            isRadio ? (checkedValues[0] as string) : checkedValues.join(","),
           );
         } else {
           currentParams.delete(name);
@@ -136,17 +146,9 @@ const {
         const newSearch = currentParams.toString();
         const newUrl = `${window.location.pathname}${newSearch ? "?" + newSearch : ""}`;
 
-        window.history.replaceState({}, "", newUrl);
-      });
+        window.history.replaceState(window.history.state, "", newUrl);
 
-      nextBtn?.addEventListener("click", (e) => {
-        e.preventDefault();
-        window.location.href = `${nextUrl}${window.location.search}`;
-      });
-
-      backBtn?.addEventListener("click", (e) => {
-        e.preventDefault();
-        window.location.href = `${backUrl}${window.location.search}`;
+        updateButtonHrefs(currentParams);
       });
     }
   }
@@ -162,7 +164,7 @@ const {
   .grid-wrapper {
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
 
     gap: 16px;
     margin-top: 40px;
@@ -173,7 +175,7 @@ const {
     display: flex;
     align-items: center;
     gap: calc(var(--spacing, 4px) * 3);
-    padding: calc(var(--spacing, 4px) * 3) calc(var(--spacing, 4px) * 4);
+    padding: calc(var(--spacing, 4px) * 5) calc(var(--spacing, 4px) * 4);
     border-radius: var(--radius-lg, 12px);
     border: 1px solid var(--gray-700);
     cursor: pointer;
@@ -191,7 +193,7 @@ const {
   }
 
   .emoji-icon {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     line-height: 1;
     display: inline-flex;
     align-items: center;
@@ -238,6 +240,12 @@ const {
 
   .custom-input:checked::before {
     transform: scale(1);
+  }
+
+  .text {
+    min-width: 0;
+    overflow-wrap: break-word;
+    word-break: break-word;
   }
 
   .navigation-buttons {
