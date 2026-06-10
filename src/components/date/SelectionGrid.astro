@@ -4,6 +4,7 @@ import Icon from "@src/components/Icon.astro";
 interface Option {
   value: string;
   label: string;
+  icon?: string;
 }
 
 interface Props {
@@ -16,8 +17,15 @@ interface Props {
   type?: "checkbox" | "radio";
 }
 
-const { name, options, nextUrl, nextLabel, backUrl, backLabel, type } =
-  Astro.props;
+const {
+  name,
+  options,
+  nextUrl,
+  nextLabel,
+  backUrl,
+  backLabel,
+  type = "checkbox",
+} = Astro.props;
 ---
 
 <selection-grid
@@ -32,11 +40,16 @@ const { name, options, nextUrl, nextLabel, backUrl, backLabel, type } =
         <label class="selection-element transition" for={opt.value}>
           <input
             id={opt.value}
-            type={type ?? "checkbox"}
+            type={type}
             name={name}
             value={opt.value}
-            class="custom-checkbox transition"
+            class="custom-input transition"
           />
+          {opt.icon && (
+            <span class="emoji-icon" aria-hidden="true">
+              {opt.icon}
+            </span>
+          )}
           <span class="text">{opt.label}</span>
         </label>
       ))
@@ -80,12 +93,16 @@ const { name, options, nextUrl, nextLabel, backUrl, backLabel, type } =
       if (!name || !nextUrl) return;
 
       const inputs = this.querySelectorAll<HTMLInputElement>(
-        'input[type="checkbox"], input[type="radio"]',
+        'input[class*="custom-input"]',
       );
       const nextBtn = this.querySelector<HTMLAnchorElement>("#next-button");
       const backBtn = this.querySelector<HTMLAnchorElement>("#back-button");
 
-      console.log(inputs);
+      if (inputs.length === 0) return;
+
+      const firstInput = inputs[0];
+      if (!firstInput) return;
+      const isRadio = firstInput.type === "radio";
 
       const initialParams = new URLSearchParams(window.location.search);
       const selectedValues = initialParams.get(name)?.split(",") || [];
@@ -107,7 +124,11 @@ const { name, options, nextUrl, nextLabel, backUrl, backLabel, type } =
           .map((i) => i.value);
 
         if (checkedValues.length > 0) {
-          currentParams.set(name, checkedValues.join(","));
+          const firstChecked = checkedValues[0] as string;
+          currentParams.set(
+            name,
+            isRadio ? firstChecked : checkedValues.join(","),
+          );
         } else {
           currentParams.delete(name);
         }
@@ -142,7 +163,8 @@ const { name, options, nextUrl, nextLabel, backUrl, backLabel, type } =
     width: 100%;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    gap: 20px;
+
+    gap: 16px;
     margin-top: 40px;
     margin-bottom: 40px;
   }
@@ -153,49 +175,68 @@ const { name, options, nextUrl, nextLabel, backUrl, backLabel, type } =
     gap: calc(var(--spacing, 4px) * 3);
     padding: calc(var(--spacing, 4px) * 3) calc(var(--spacing, 4px) * 4);
     border-radius: var(--radius-lg, 12px);
-    border: 2px solid var(--gray-700);
+    border: 1px solid var(--gray-700);
     cursor: pointer;
     background: transparent;
+    user-select: none;
   }
 
-  .selection-element:has(.custom-checkbox:checked) {
+  .selection-element:has(.custom-input:checked) {
     border-color: var(--primary-regular);
     background-color: color-mix(
       in srgb,
-      var(--primary-regular) 10%,
+      var(--primary-regular) 8%,
       transparent
     );
   }
 
-  .custom-checkbox {
+  .emoji-icon {
+    font-size: 1.5rem;
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .custom-input {
     appearance: none;
     -webkit-appearance: none;
-    width: 24px;
-    height: 24px;
-    border: 2px solid var(--gray-700);
+    width: 22px;
+    height: 22px;
+    border: 1px solid var(--gray-700);
     border-radius: 6px;
     outline: none;
     display: grid;
     place-content: center;
     margin: 0;
     cursor: pointer;
+    flex-shrink: 0;
   }
 
-  .custom-checkbox::before {
+  .custom-input[type="radio"] {
+    border-radius: 50%;
+  }
+
+  .custom-input::before {
     content: "";
-    width: 12px;
-    height: 12px;
+    width: 10px;
+    height: 10px;
     border-radius: 2px;
     transform: scale(0);
     transition: transform 0.2s ease-in-out;
     background-color: var(--primary-regular);
   }
 
-  .custom-checkbox:checked {
+  .custom-input[type="radio"]::before {
+    border-radius: 50%;
+  }
+
+  .custom-input:checked {
     border-color: var(--primary-regular);
   }
 
-  .custom-checkbox:checked::before {
+  .custom-input:checked::before {
     transform: scale(1);
   }
 
