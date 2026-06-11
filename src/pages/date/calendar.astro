@@ -19,6 +19,11 @@ if (next) {
 if (back) {
   backUrl = `/date/${back}`;
 }
+
+let currentDate = new Date();
+currentDate.setTime(0);
+
+const excludedDates = [];
 ---
 
 <DateLayout
@@ -27,6 +32,28 @@ if (back) {
 >
   <DateCard step="calendar">
     <h1 id="name">{t.date.questionCalendar}</h1>
+
+    <!-- TODO: embed the calendar element instead of text box? + apply simple formatting - eg. rounded corners -->
+    <label for="date">
+      {t.date.chooseDate}:
+      <input
+        id="date"
+        type="date"
+        value={currentDate.toISOString()}
+        min={currentDate.toISOString()}
+      />
+      <!-- TODO: min date should be current date, and max date should be about 6 months in the future?  -->
+    </label>
+    <!-- TODO: handle a constant list of dates that shouldn't have any dates scheduled at that date - because I've got some other things to do -->
+
+    <!-- TODO: do the same as with the date picker -->
+    <label for="time">
+      {t.date.chooseTime}:
+      <input id="time" type="time" />
+    </label>
+    <!-- TODO: on weekends (saturday, sunday) I'm available all the time - anytime works -->
+    <!-- TODO: but on workdays I'm available only after 17:00 -->
+    <!-- TODO: and another thing on tuesdays I ride to Warsaw for work - and I'm not coming back until at least 18:00 -->
 
     <div class="navigation-buttons">
       {
@@ -56,7 +83,52 @@ if (back) {
   </DateCard>
 </DateLayout>
 
-<script></script>
+<script>
+  import { previousAndNext } from "@src/components/date/items";
+
+  const { next, back } = previousAndNext("calendar");
+
+  let nextUrl: string | undefined;
+  let backUrl: string | undefined;
+
+  if (next) {
+    nextUrl = `/date/${next}`;
+  }
+  if (back) {
+    backUrl = `/date/${back}`;
+  }
+
+  // TODO: we need to add a script that will listen to date/time changes and automatically apply
+  // changes to the query parameters in the current url as well as the buttons next + back
+
+  const updateButtonHrefs = (searchParams: URLSearchParams) => {
+    const nextBtn = this.querySelector<HTMLAnchorElement>("#next-button");
+    const backBtn = this.querySelector<HTMLAnchorElement>("#back-button");
+
+    const searchStr = searchParams.toString();
+    const suffix = searchStr ? `?${searchStr}` : "";
+
+    if (nextBtn) {
+      nextBtn.href = `${nextUrl}${suffix}`;
+    }
+    if (backBtn && backUrl) {
+      backBtn.href = `${backUrl}${suffix}`;
+    }
+  };
+
+  const initialParams = new URLSearchParams(window.location.search);
+  const selectedDate = initialParams.get("date");
+  const selectedTime = initialParams.get("time");
+
+  const currentParams = initialParams; // TODO: update these
+
+  const newSearch = currentParams.toString();
+  const newUrl = `${window.location.pathname}${newSearch ? "?" + newSearch : ""}`;
+
+  window.history.replaceState(window.history.state, "", newUrl);
+
+  updateButtonHrefs(initialParams);
+</script>
 
 <style>
   .navigation-buttons {
