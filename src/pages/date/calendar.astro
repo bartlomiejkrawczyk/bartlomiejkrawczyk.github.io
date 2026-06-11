@@ -20,10 +20,14 @@ if (back) {
   backUrl = `/date/${back}`;
 }
 
-let currentDate = new Date();
-currentDate.setTime(0);
+const today = new Date();
+const minDateStr = today.toISOString().split("T")[0];
 
-const excludedDates = [];
+const maxDate = new Date(today);
+maxDate.setMonth(maxDate.getMonth() + 6);
+const maxDateStr = maxDate.toISOString().split("T")[0];
+
+const excludedDates = ["2026-06-11"];
 ---
 
 <DateLayout
@@ -33,27 +37,28 @@ const excludedDates = [];
   <DateCard step="calendar">
     <h1 id="name">{t.date.questionCalendar}</h1>
 
-    <!-- TODO: embed the calendar element instead of text box? + apply simple formatting - eg. rounded corners -->
-    <label for="date">
-      {t.date.chooseDate}:
-      <input
-        id="date"
-        type="date"
-        value={currentDate.toISOString()}
-        min={currentDate.toISOString()}
-      />
-      <!-- TODO: min date should be current date, and max date should be about 6 months in the future?  -->
-    </label>
-    <!-- TODO: handle a constant list of dates that shouldn't have any dates scheduled at that date - because I've got some other things to do -->
+    <div
+      id="date-picker-container"
+      data-excluded={JSON.stringify(excludedDates)}
+    >
+      <div class="input-group">
+        <label for="date">{t.date.chooseDate}:</label>
+        <input
+          id="date"
+          type="date"
+          class="picker-input"
+          min={minDateStr}
+          max={maxDateStr}
+        />
+        <span id="date-error" class="error-msg"></span>
+      </div>
 
-    <!-- TODO: do the same as with the date picker -->
-    <label for="time">
-      {t.date.chooseTime}:
-      <input id="time" type="time" />
-    </label>
-    <!-- TODO: on weekends (saturday, sunday) I'm available all the time - anytime works -->
-    <!-- TODO: but on workdays I'm available only after 17:00 -->
-    <!-- TODO: and another thing on tuesdays I ride to Warsaw for work - and I'm not coming back until at least 18:00 -->
+      <div class="input-group">
+        <label for="time">{t.date.chooseTime}:</label>
+        <input id="time" type="time" class="picker-input" />
+        <span id="time-hint" class="hint-msg"></span>
+      </div>
+    </div>
 
     <div class="navigation-buttons">
       {
@@ -84,50 +89,113 @@ const excludedDates = [];
 </DateLayout>
 
 <script>
-  import { previousAndNext } from "@src/components/date/items";
+  import { getTranslations } from "@src/i18n/ui";
 
-  const { next, back } = previousAndNext("calendar");
+  const lang = window.getLanguage?.() ?? "pl";
+  const t = getTranslations(lang);
 
-  let nextUrl: string | undefined;
-  let backUrl: string | undefined;
+  const setupPickers = () => {
+    const dateInput = document.getElementById("date") as HTMLInputElement;
+    const timeInput = document.getElementById("time") as HTMLInputElement;
+    const container = document.getElementById("date-picker-container");
+    const dateError = document.getElementById("date-error");
+    const timeHint = document.getElementById("time-hint");
 
-  if (next) {
-    nextUrl = `/date/${next}`;
-  }
-  if (back) {
-    backUrl = `/date/${back}`;
-  }
+    const nextBtn = document.getElementById("next-button") as HTMLAnchorElement;
+    const backBtn = document.getElementById("back-button") as HTMLAnchorElement;
 
-  // TODO: we need to add a script that will listen to date/time changes and automatically apply
-  // changes to the query parameters in the current url as well as the buttons next + back
+    if (!dateInput || !timeInput || !container) return;
 
-  const updateButtonHrefs = (searchParams: URLSearchParams) => {
-    const nextBtn = this.querySelector<HTMLAnchorElement>("#next-button");
-    const backBtn = this.querySelector<HTMLAnchorElement>("#back-button");
+    const excludedDates: string[] = JSON.parse(
+      container.dataset.excluded || "[]",
+    );
 
-    const searchStr = searchParams.toString();
-    const suffix = searchStr ? `?${searchStr}` : "";
+    const originalNextUrl = nextBtn
+      ? new URL(nextBtn.href, window.location.origin).pathname
+      : "";
+    const originalBackUrl = backBtn
+      ? new URL(backBtn.href, window.location.origin).pathname
+      : "";
 
-    if (nextBtn) {
-      nextBtn.href = `${nextUrl}${suffix}`;
-    }
-    if (backBtn && backUrl) {
-      backBtn.href = `${backUrl}${suffix}`;
-    }
+    const updateButtonHrefs = (searchParams: URLSearchParams) => {
+      const searchStr = searchParams.toString();
+      const suffix = searchStr ? `?${searchStr}` : "";
+
+      if (nextBtn && originalNextUrl)
+        nextBtn.href = `${originalNextUrl}${suffix}`;
+      if (backBtn && originalBackUrl)
+        backBtn.href = `${originalBackUrl}${suffix}`;
+    };
+
+    const validateAndSync = () => {
+      if (dateError) dateError.textContent = "";
+      if (timeHint) timeHint.textContent = "";
+
+      let isValidDate = true;
+
+      if (dateInput.value && excludedDates.includes(dateInput.value)) {
+        if (dateError) dateError.textContent = t.date.dateUnavailable;
+        dateInput.value = "";
+        isValidDate = false;
+      }
+
+      if (dateInput.value && isValidDate) {
+        const selectedDate = new Date(dateInput.value);
+        const day = selectedDate.getDay();
+
+        let minTime = "";
+        let hint = "";
+
+        if (day === 0 || day === 6) {
+          // Weekend: anytime
+          timeInput.removeAttribute("min");
+          hint = t.date.availableAnytime;
+        } else if (day === 2) {
+          // Tuesday: after 18:00
+          minTime = "18:00";
+          timeInput.min = minTime;
+          hint = t.date.availableAfterSix;
+        } else {
+          // Mon, Wed, Thu, Fri: after 17:00
+          minTime = "17:00";
+          timeInput.min = minTime;
+          hint = t.date.availableAfterFive;
+        }
+
+        if (timeHint) timeHint.textContent = hint;
+
+        if (minTime && timeInput.value && timeInput.value < minTime) {
+          timeInput.value = "";
+        }
+      } else {
+        timeInput.removeAttribute("min");
+      }
+
+      const params = new URLSearchParams(window.location.search);
+      if (dateInput.value) params.set("date", dateInput.value);
+      else params.delete("date");
+
+      if (timeInput.value) params.set("time", timeInput.value);
+      else params.delete("time");
+
+      const searchStr = params.toString();
+      const newUrl = `${window.location.pathname}${searchStr ? "?" + searchStr : ""}`;
+      window.history.replaceState(window.history.state, "", newUrl);
+
+      updateButtonHrefs(params);
+    };
+
+    const initialParams = new URLSearchParams(window.location.search);
+    if (initialParams.get("date")) dateInput.value = initialParams.get("date")!;
+    if (initialParams.get("time")) timeInput.value = initialParams.get("time")!;
+
+    dateInput.addEventListener("change", validateAndSync);
+    timeInput.addEventListener("change", validateAndSync);
+
+    validateAndSync();
   };
 
-  const initialParams = new URLSearchParams(window.location.search);
-  const selectedDate = initialParams.get("date");
-  const selectedTime = initialParams.get("time");
-
-  const currentParams = initialParams; // TODO: update these
-
-  const newSearch = currentParams.toString();
-  const newUrl = `${window.location.pathname}${newSearch ? "?" + newSearch : ""}`;
-
-  window.history.replaceState(window.history.state, "", newUrl);
-
-  updateButtonHrefs(initialParams);
+  document.addEventListener("DOMContentLoaded", setupPickers);
 </script>
 
 <style>
@@ -136,6 +204,7 @@ const excludedDates = [];
     justify-content: center;
     gap: 16px;
     flex-wrap: wrap;
+    margin-top: 24px;
   }
 
   .btn {
@@ -144,5 +213,46 @@ const excludedDates = [];
     align-items: center;
     gap: 8px;
     text-decoration: none;
+  }
+
+  .input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 20px;
+    text-align: left;
+  }
+
+  .picker-input {
+    padding: 10px 14px;
+    border: 1px solid var(--gray-700);
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: inherit;
+    background-color: var(--background);
+    color: var(--gray-400);
+    outline: none;
+    transition:
+      border-color 0.2s,
+      box-shadow 0.2s;
+    width: 100%;
+    max-width: 300px;
+    cursor: pointer;
+  }
+
+  .picker-input:focus {
+    border-color: var(--primary-regular);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .error-msg {
+    color: var(--secondary-dark);
+    font-size: 0.85rem;
+    font-weight: 500;
+  }
+
+  .hint-msg {
+    color: var(--gray-400);
+    font-size: 0.85rem;
   }
 </style>
