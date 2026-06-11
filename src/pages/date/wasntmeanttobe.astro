@@ -1,27 +1,29 @@
 ---
 import DateLayout from "@layouts/DateLayout.astro";
 import DateCard from "@src/components/date/DateCard.astro";
-import Icon from "@src/components/Icon.astro";
 import { getTranslations, type LanguageKey } from "@src/i18n/ui";
+import { Image } from "astro:assets";
+
+import logo from "@assets/sad-penguin.svg";
+import Icon from "@src/components/Icon.astro";
 
 const lang = Astro.currentLocale as LanguageKey;
 const t = getTranslations(lang);
 
-const backUrl = "/date/dealBreakers";
+let backUrl: string = "/date/dealBreakers";
 ---
 
-<script is:inline define:vars={{ backUrl }}>
-  const searchParams = new URLSearchParams(window.location.search);
-  const dealBreakers = searchParams.get("dealBreakers");
-
-  if (dealBreakers && dealBreakers !== "no") {
-    window.location.replace(`/date/wasntmeanttobe?${searchParams.toString()}`);
-  }
-</script>
-
-<DateLayout title={t.date.seeYouSoon} description={t.date.seeYouSoon}>
+<DateLayout title={t.date.wasntMeantToBe} description={t.date.wasntMeantToBe}>
   <DateCard step="seeyousoon">
-    <h1 id="name">{t.date.seeYouSoon}</h1>
+    <h1 id="name" class="text">{t.date.wasntMeantToBe}</h1>
+    <Image
+      src={logo}
+      width={300}
+      height={300}
+      alt="Cute penguin waving its flipper"
+    />
+
+    <h2 class="text">{t.date.reconsider}</h2>
 
     <div class="navigation-buttons">
       <a
@@ -69,5 +71,9 @@ const backUrl = "/date/dealBreakers";
     align-items: center;
     gap: 8px;
     text-decoration: none;
+  }
+
+  .text {
+    text-align: center;
   }
 </style>
