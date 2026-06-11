@@ -1,25 +1,76 @@
 ---
 import DateLayout from "@layouts/DateLayout.astro";
 import DateCard from "@src/components/date/DateCard.astro";
+import { previousAndNext } from "@src/components/date/items";
+import Icon from "@src/components/Icon.astro";
+import { getTranslations, type LanguageKey } from "@src/i18n/ui";
+
+const lang = Astro.currentLocale as LanguageKey;
+const t = getTranslations(lang);
+
+const { next, back } = previousAndNext("calendar");
+
+let nextUrl: string | undefined;
+let backUrl: string | undefined;
+
+if (next) {
+  nextUrl = `/date/${next}`;
+}
+if (back) {
+  backUrl = `/date/${back}`;
+}
 ---
 
 <DateLayout
-  title="Will you be my girlfriend?"
-  description="Will you be my girlfriend?"
+  title={t.date.questionCalendar}
+  description={t.date.questionCalendar}
 >
   <DateCard step="calendar">
-    <h1 id="name">{}</h1>
+    <h1 id="name">{t.date.questionCalendar}</h1>
+
+    <div class="navigation-buttons">
+      {
+        backUrl && (
+          <a
+            id="back-button"
+            class="btn secondary-button transition"
+            href={backUrl}
+            data-astro-prefetch
+          >
+            <Icon icon="arrow-left" size="20px" />
+            {t.date.back}
+          </a>
+        )
+      }
+
+      <a
+        id="next-button"
+        class="btn primary-button transition"
+        href={nextUrl}
+        data-astro-prefetch
+      >
+        {t.date.next}
+        <Icon icon="arrow-right" size="20px" />
+      </a>
+    </div>
   </DateCard>
 </DateLayout>
 
-<script>
-  const urlSearchParams = new URLSearchParams(window.location.search);
-  const params = Object.fromEntries(urlSearchParams.entries());
+<script></script>
 
-  const element = document.getElementById("name");
-  if (element) {
-    element.textContent = params.name || "Will you be my girlfriend?";
+<style>
+  .navigation-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
   }
-</script>
 
-<style></style>
+  .btn {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+  }
+</style>
