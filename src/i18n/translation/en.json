@@ -178,7 +178,7 @@
       "drinks": "Drinks",
       "nothing": "Nothing"
     },
-    "questionActivity": "What are we going to do?",
+    "questionActivity": "What's the plan?",
     "activity": {
       "cycling": "Cycling",
       "rollerblading": "Rollerblading",
@@ -190,7 +190,7 @@
       "netflix": "Netflix & Chill",
       "car": "Car Date"
     },
-    "questionClothing": "What are we wearing?",
+    "questionClothing": "What's the dress code?",
     "clothing": {
       "casual": "Casual",
       "elegant": "Elegant"
@@ -202,17 +202,35 @@
       "bear": "Teddy Bear",
       "nothing": "No"
     },
-    "questionPaying": "Who is paying?",
+    "questionPaying": "How are we handling the bill?",
     "paying": {
-      "sugarMommy": "I want to be your sugar mommy",
-      "feminist": "I pay for mine, you pay for yours",
-      "men": "Men should pay",
-      "wildcard": "Let's gamble for it"
+      "sugarMommy": "I will pay for everything",
+      "feminist": "We split the bill 50/50",
+      "men": "The guy should pay",
+      "wildcard": "Let's flip a coin"
     },
-    "questionLocation": "Where should we meet?",
+    "questionLocation": "Where are we meeting?",
     "location": {
-      "herHome": "Come for me",
-      "atLocation": "At the location"
-    }
+      "herHome": "Pick me up / Meet at my place",
+      "atLocation": "Meet directly at the venue"
+    },
+    "questionCalendar": "What time works best?",
+    "chooseDate": "Choose date",
+    "chooseTime": "Choose time",
+    "dateUnavailable": "This date is unavailable. Please choose another.",
+    "availableAfterFive": "Available after 17:00",
+    "availableAfterSix": "Available after 18:00",
+    "availableAnytime": "Available anytime",
+    "questionDealBreakers": "Are any of these a dealbreaker for you?",
+    "dealBreakers": {
+      "noAnimals": "Prefers a pet-free home",
+      "commitment": "Seeking a serious relationship",
+      "sociallyAnxious": "Takes a little time to warm up to people",
+      "noFriends": "Keeps a very small, private social circle",
+      "workaholic": "Highly career-driven",
+      "noLector": "Anti-movie voiceovers (subtitles only)",
+      "no": "None of the above"
+    },
+    "seeYouSoon": "See You soon"
   }
 }
