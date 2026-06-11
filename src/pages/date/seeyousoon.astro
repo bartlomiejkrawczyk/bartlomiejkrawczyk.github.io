@@ -1,0 +1,49 @@
+---
+import DateLayout from "@layouts/DateLayout.astro";
+import DateCard from "@src/components/date/DateCard.astro";
+import Icon from "@src/components/Icon.astro";
+import { getTranslations, type LanguageKey } from "@src/i18n/ui";
+
+const lang = Astro.currentLocale as LanguageKey;
+const t = getTranslations(lang);
+
+let backUrl: string = "/date/dealBreakers";
+---
+
+<DateLayout title={t.date.seeYouSoon} description={t.date.seeYouSoon}>
+  <DateCard step="seeyousoon">
+    <h1 id="name">{t.date.seeYouSoon}</h1>
+
+    <div class="navigation-buttons">
+      <a
+        id="back-button"
+        class="btn secondary-button transition"
+        href={backUrl}
+        data-astro-prefetch
+      >
+        <Icon icon="arrow-left" size="20px" />
+        {t.date.back}
+      </a>
+    </div>
+  </DateCard>
+</DateLayout>
+
+<script></script>
+
+<style>
+  .navigation-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-top: 24px;
+  }
+
+  .btn {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+  }
+</style>

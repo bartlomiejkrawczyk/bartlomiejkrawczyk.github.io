@@ -209,10 +209,10 @@
       "men": "Mężczyzna powinien zapłacić",
       "wildcard": "Rzućmy monetą"
     },
-    "questionLocation": "Where are we meeting?",
+    "questionLocation": "Gdzie się spotykamy?",
     "location": {
-      "herHome": "Pick me up / Meet at my place",
-      "atLocation": "Meet directly at the venue"
+      "herHome": "Odbierz mnie / Spotkajmy się u mnie",
+      "atLocation": "Widzimy się na miejscu"
     },
     "questionCalendar": "O której godzinie się widzimy?",
     "chooseDate": "Wybierz datę",
@@ -231,6 +231,7 @@
       "noLector": "Oglądam tylko z napisami (nie znoszę lektora)",
       "no": "Żadne z powyższych"
     },
-    "seeYouSoon": "Do zobaczenia"
+    "seeYouSoon": "Do zobaczenia",
+    "wasntMeantToBe": "Nie byliśmy sobie pisani"
   }
 }

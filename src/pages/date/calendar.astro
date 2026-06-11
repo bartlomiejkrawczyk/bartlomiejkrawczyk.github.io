@@ -35,14 +35,14 @@ const excludedDates = ["2026-06-11"];
   description={t.date.questionCalendar}
 >
   <DateCard step="calendar">
-    <h1 id="name">{t.date.questionCalendar}</h1>
+    <h1 id="name" class="text">{t.date.questionCalendar}</h1>
 
     <div
       id="date-picker-container"
       data-excluded={JSON.stringify(excludedDates)}
     >
       <div class="input-group">
-        <label for="date">{t.date.chooseDate}:</label>
+        <label for="date" class="text">{t.date.chooseDate}:</label>
         <input
           id="date"
           type="date"
@@ -54,7 +54,7 @@ const excludedDates = ["2026-06-11"];
       </div>
 
       <div class="input-group">
-        <label for="time">{t.date.chooseTime}:</label>
+        <label for="time" class="text">{t.date.chooseTime}:</label>
         <input id="time" type="time" class="picker-input" />
         <span id="time-hint" class="hint-msg"></span>
       </div>
@@ -254,5 +254,12 @@ const excludedDates = ["2026-06-11"];
   .hint-msg {
     color: var(--gray-400);
     font-size: 0.85rem;
+  }
+
+  .text {
+    min-width: 0;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    text-align: center;
   }
 </style>
