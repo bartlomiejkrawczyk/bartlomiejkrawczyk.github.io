@@ -1,6 +1,6 @@
 ---
 import Icon from "@src/components/Icon.astro";
-import { DATE_STEPS, dateSteps, type DateStep } from "./items";
+import { previousAndNext, type DateStep } from "./items";
 import { getTranslations, type LanguageKey } from "@src/i18n/ui";
 
 const lang = Astro.currentLocale as LanguageKey;
@@ -20,20 +20,16 @@ interface Props {
 
 const { name, options, type = "checkbox" } = Astro.props;
 
+const { next, back } = previousAndNext(name);
+
 let nextUrl: string | undefined;
 let backUrl: string | undefined;
 
-for (let i = 0; i < DATE_STEPS; i++) {
-  if (dateSteps[i] !== name) continue;
-  nextUrl = dateSteps[i + 1];
-  if (nextUrl) {
-    nextUrl = `/date/${nextUrl}`;
-  }
-  if (i == 1) continue;
-  backUrl = dateSteps[i - 1];
-  if (backUrl) {
-    backUrl = `/date/${backUrl}`;
-  }
+if (next) {
+  nextUrl = `/date/${next}`;
+}
+if (back) {
+  backUrl = `/date/${back}`;
 }
 ---
 
