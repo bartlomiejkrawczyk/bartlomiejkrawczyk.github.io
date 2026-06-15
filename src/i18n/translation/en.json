@@ -233,6 +233,18 @@
     },
     "seeYouSoon": "See You soon",
     "wasntMeantToBe": "We weren't meant to be",
-    "reconsider": "You still may reconsider"
+    "reconsider": "You still may reconsider",
+    "dateDetails": "Date Details",
+    "copy": "Copy to clipboard",
+    "email": "Send via Email",
+    "date": "Date",
+    "time": "Time",
+    "locationName": "Location",
+    "activityName": "Activity",
+    "foodName": "Food",
+    "clothingName": "Clothing",
+    "presentName": "Present",
+    "payingName": "Paying",
+    "dateDetailsText": "Hey! Here are the details for our date"
   }
 }

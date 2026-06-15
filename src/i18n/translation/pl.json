@@ -233,6 +233,18 @@
     },
     "seeYouSoon": "Do zobaczenia",
     "wasntMeantToBe": "Jednak nie byliśmy sobie pisani",
-    "reconsider": "Możesz jeszcze to przemyśleć"
+    "reconsider": "Możesz jeszcze to przemyśleć",
+    "dateDetails": "Szczegóły randki",
+    "copy": "Kopiuj do schowka",
+    "email": "Wyślij e-mailem",
+    "date": "Data",
+    "time": "Godzina",
+    "locationName": "Lokalizacja",
+    "activityName": "Aktywność",
+    "foodName": "Jedzenie",
+    "clothingName": "Odzież",
+    "presentName": "Prezent",
+    "payingName": "Płacę",
+    "dateDetailsText": "Hej! Oto szczegóły naszej randki"
   }
 }

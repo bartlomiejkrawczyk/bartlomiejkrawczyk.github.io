@@ -24,19 +24,19 @@ const backUrl = "/date/dealBreakers";
     <h1 id="name">{t.date.seeYouSoon}</h1>
 
     <div class="summary-box">
-      <h3>Date Details</h3>
+      <h2>{t.date.dateDetails}</h2>
       <ul id="summary-list"></ul>
     </div>
 
     <div class="action-buttons">
       <button id="copy-button" class="btn primary-button transition">
         <Icon icon="copy" size="20px" />
-        Copy to clipboard
+        {t.date.copy}
       </button>
 
       <a id="email-button" class="btn primary-button transition" href="#">
         <Icon icon="envelope" size="20px" />
-        Send via Email
+        {t.date.email}
       </a>
     </div>
 
@@ -55,6 +55,11 @@ const backUrl = "/date/dealBreakers";
 </DateLayout>
 
 <script>
+  import { getTranslations } from "@src/i18n/ui";
+
+  const lang = window.getLanguage?.() ?? "pl";
+  const t = getTranslations(lang);
+
   const backUrl = "/date/dealBreakers";
 
   const updateButtonHrefs = (searchParams: URLSearchParams) => {
@@ -75,24 +80,24 @@ const backUrl = "/date/dealBreakers";
     if (val && val.includes(",")) {
       return val.split(",").join(", ");
     }
-    return val || "Not specified";
+    return val || null;
   };
 
-  const details = {
-    Date: getParam("date"),
-    Time: getParam("time"),
-    Location: getParam("location"),
-    Activity: getParam("activity"),
-    Food: getParam("food"),
-    Clothing: getParam("clothing"),
-    Present: getParam("present"),
-    Paying: getParam("paying"),
-  };
+  let details: any = {};
+
+  details[t.date.date] = getParam("date");
+  details[t.date.time] = getParam("time");
+  details[t.date.locationName] = getParam("location");
+  details[t.date.activityName] = getParam("activity");
+  details[t.date.foodName] = getParam("food");
+  details[t.date.clothingName] = getParam("clothing");
+  details[t.date.presentName] = getParam("present");
+  details[t.date.payingName] = getParam("paying");
 
   const summaryList = document.getElementById("summary-list");
   if (summaryList) {
     Object.entries(details).forEach(([key, value]) => {
-      if (value !== "Not specified") {
+      if (value !== null) {
         const li = document.createElement("li");
         li.innerHTML = `<strong>${key}:</strong> <span class="capitalize">${value}</span>`;
         summaryList.appendChild(li);
@@ -101,10 +106,10 @@ const backUrl = "/date/dealBreakers";
   }
 
   const messageLines = Object.entries(details)
-    .filter(([_, value]) => value !== "Not specified")
+    .filter(([_, value]) => value !== null)
     .map(([key, value]) => `- ${key}: ${value}`);
 
-  const fullMessage = `Hey! Here are the details for our date:\n\n${messageLines.join("\n")}\n\nSee you soon!`;
+  const fullMessage = `${t.date.dateDetailsText}:\n\n${messageLines.join("\n")}\n\n${t.date.seeYouSoon}!`;
 
   const emailBtn = document.getElementById("email-button") as HTMLAnchorElement;
   if (emailBtn) {
