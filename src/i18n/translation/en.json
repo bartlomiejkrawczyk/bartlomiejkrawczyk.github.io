@@ -245,6 +245,7 @@
     "clothingName": "Clothing",
     "presentName": "Present",
     "payingName": "Paying",
-    "dateDetailsText": "Hey! Here are the details for our date"
+    "dateDetailsText": "Hey!\nHere are the details for our date",
+    "emailTitle": "Our Date Details"
   }
 }

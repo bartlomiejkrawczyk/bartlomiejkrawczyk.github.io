@@ -4,10 +4,10 @@ export const dateSteps = [
   "activity",
   "clothing",
   "present",
-  "paying",
+  // "paying",
   "location",
   "calendar",
-  "dealBreakers",
+  // "dealBreakers",
   "seeyousoon",
 ] as const;
 

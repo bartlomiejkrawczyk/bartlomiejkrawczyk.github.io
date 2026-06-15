@@ -1,13 +1,15 @@
 ---
 import DateLayout from "@layouts/DateLayout.astro";
 import DateCard from "@src/components/date/DateCard.astro";
+import { dateSteps } from "@src/components/date/items";
 import Icon from "@src/components/Icon.astro";
 import { getTranslations, type LanguageKey } from "@src/i18n/ui";
 
 const lang = Astro.currentLocale as LanguageKey;
 const t = getTranslations(lang);
 
-const backUrl = "/date/dealBreakers";
+const lastPage = dateSteps[dateSteps.length - 2];
+const backUrl = `/date/${lastPage}`;
 ---
 
 <script is:inline define:vars={{ backUrl }}>
@@ -55,12 +57,14 @@ const backUrl = "/date/dealBreakers";
 </DateLayout>
 
 <script>
+  import { dateSteps } from "@src/components/date/items";
   import { getTranslations } from "@src/i18n/ui";
 
   const lang = window.getLanguage?.() ?? "pl";
   const t = getTranslations(lang);
 
-  const backUrl = "/date/dealBreakers";
+  const lastPage = dateSteps[dateSteps.length - 2];
+  const backUrl = `/date/${lastPage}`;
 
   const updateButtonHrefs = (searchParams: URLSearchParams) => {
     const backBtn = document.querySelector<HTMLAnchorElement>("#back-button");
@@ -75,31 +79,53 @@ const backUrl = "/date/dealBreakers";
   const initialParams = new URLSearchParams(window.location.search);
   updateButtonHrefs(initialParams);
 
-  const getParam = (key: string) => {
+  const getParam = (key: string, transform?: (it: string) => string) => {
+    const transformFunction = transform ?? ((it) => it);
     const val = initialParams.get(key);
     if (val && val.includes(",")) {
-      return val.split(",").join(", ");
+      return val.split(",").map(transformFunction).join(", ");
     }
-    return val || null;
+    if (val) {
+      return transformFunction(val);
+    }
+    return null;
   };
 
   let details: any = {};
 
   details[t.date.date] = getParam("date");
   details[t.date.time] = getParam("time");
-  details[t.date.locationName] = getParam("location");
-  details[t.date.activityName] = getParam("activity");
-  details[t.date.foodName] = getParam("food");
-  details[t.date.clothingName] = getParam("clothing");
-  details[t.date.presentName] = getParam("present");
-  details[t.date.payingName] = getParam("paying");
+  details[t.date.locationName] = getParam(
+    "location",
+    (it) => t.date.location[it as keyof typeof t.date.location],
+  );
+  details[t.date.activityName] = getParam(
+    "activity",
+    (it) => t.date.activity[it as keyof typeof t.date.activity],
+  );
+  details[t.date.foodName] = getParam(
+    "food",
+    (it) => t.date.food[it as keyof typeof t.date.food],
+  );
+  details[t.date.clothingName] = getParam(
+    "clothing",
+    (it) => t.date.clothing[it as keyof typeof t.date.clothing],
+  );
+  details[t.date.presentName] = getParam(
+    "present",
+    (it) => t.date.present[it as keyof typeof t.date.present],
+  );
+  details[t.date.payingName] = getParam(
+    "paying",
+    (it) => t.date.paying[it as keyof typeof t.date.paying],
+  );
 
   const summaryList = document.getElementById("summary-list");
   if (summaryList) {
     Object.entries(details).forEach(([key, value]) => {
       if (value !== null) {
         const li = document.createElement("li");
-        li.innerHTML = `<strong>${key}:</strong> <span class="capitalize">${value}</span>`;
+        li.innerHTML = `<strong>${key}:</strong> <span>${value}</span>`;
         summaryList.appendChild(li);
       }
     });
@@ -109,11 +135,14 @@ const backUrl = "/date/dealBreakers";
     .filter(([_, value]) => value !== null)
     .map(([key, value]) => `- ${key}: ${value}`);
 
-  const fullMessage = `${t.date.dateDetailsText}:\n\n${messageLines.join("\n")}\n\n${t.date.seeYouSoon}!`;
+  const signature = getParam("name") ?? "XOXOXO";
+  const fullMessage = `${t.date.dateDetailsText}:\n\n${messageLines.join("\n")}\n\n${t.date.seeYouSoon},\n${signature}`;
 
   const emailBtn = document.getElementById("email-button") as HTMLAnchorElement;
   if (emailBtn) {
-    const subject = encodeURIComponent("Our Date Details 📅");
+    const subject = encodeURIComponent(
+      t.date.emailTitle + " - " + details[t.date.date],
+    );
     const body = encodeURIComponent(fullMessage);
     emailBtn.href = `mailto:bartlomiejkrawczyk01@gmail.com?subject=${subject}&body=${body}`;
   }
@@ -161,10 +190,6 @@ const backUrl = "/date/dealBreakers";
     display: flex;
     flex-direction: column;
     gap: 8px;
-  }
-
-  .capitalize {
-    text-transform: capitalize;
   }
 
   .action-buttons {
