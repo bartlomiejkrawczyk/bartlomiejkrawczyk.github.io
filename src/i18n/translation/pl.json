@@ -199,8 +199,8 @@
     "present": {
       "flowers": "Kwiaty",
       "lego": "Klocki Lego",
-      "bear": "Pluszowego misia",
-      "nothing": "Nie, po prostu przyjdź"
+      "bear": "Pluszowy miś",
+      "nothing": "Nie - wystarczy, że przyjdziesz"
     },
     "questionPaying": "Kto płaci?",
     "paying": {
@@ -245,6 +245,7 @@
     "clothingName": "Odzież",
     "presentName": "Prezent",
     "payingName": "Płacę",
-    "dateDetailsText": "Hej! Oto szczegóły naszej randki"
+    "dateDetailsText": "Hej!\nOto szczegóły naszej randki",
+    "emailTitle": "Szczegóły randki"
   }
 }
