@@ -1,0 +1,360 @@
+---
+import DateLayout from "@layouts/DateLayout.astro";
+import BeerCard from "@src/components/beer/BeerCard.astro";
+import { getTranslations, type LanguageKey } from "@src/i18n/ui";
+import { Image } from "astro:assets";
+
+import logo from "@assets/beer.svg";
+import Icon from "@src/components/Icon.astro";
+
+const lang = Astro.currentLocale as LanguageKey;
+const t = getTranslations(lang);
+---
+
+<DateLayout title={t.beer.questionBeer} description={t.beer.questionBeer}>
+  <BeerCard step="start">
+    <Image
+      src={logo}
+      width={200}
+      height={200}
+      alt="Fine looking two glasses of beer"
+    />
+
+    <div id="ask-out-content" class="transition">
+      <h1 id="name" class="text">{t.beer.hi + "!"}</h1>
+      <h2 class="text">{t.beer.questionBeer}</h2>
+
+      <div id="responseButtons" class="response-buttons">
+        <div class="bounce">
+          <button id="yesButton" class="yes-button transition">
+            {t.beer.yes}
+          </button>
+        </div>
+
+        <div id="noButton" class="transition">
+          <button class="no-button glitch"> {t.beer.no} </button>
+        </div>
+      </div>
+
+      <p id="problem" class="problem"></p>
+    </div>
+
+    <div id="yes-content" class="transition">
+      <h1 class="text">{t.beer.perfect}</h1>
+      <h2 class="text">{t.beer.noGoingBack}</h2>
+
+      <a
+        id="next-button"
+        class="yes-button transition flex flex-row items-center gap-2"
+        href="/beer/seeyousoon"
+        data-astro-prefetch
+      >
+        {t.beer.next}
+        <Icon icon="arrow-right" size="20px" />
+      </a>
+    </div>
+  </BeerCard>
+</DateLayout>
+
+<style>
+  #yes-content {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: calc(var(--spacing) * 4);
+  }
+
+  .text {
+    text-align: center;
+  }
+
+  .problem {
+    font-size: var(--text-sm);
+    line-height: var(--text-sm--line-height);
+    text-align: center;
+    color: var(--gray-700);
+  }
+
+  #ask-out-content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--spacing) * 4);
+    align-items: center;
+    justify-content: center;
+  }
+
+  .response-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: calc(6 * var(--spacing));
+    position: relative;
+    width: 100%;
+    height: 120px;
+  }
+
+  .yes-button {
+    background-color: var(--primary-dark);
+    color: var(--gray-999);
+    border-radius: var(--radius-md);
+    padding-block: calc(var(--spacing) * 3);
+    padding-inline: calc(var(--spacing) * 6);
+    font-size: var(--text-lg);
+    line-height: var(--text-lg--line-height);
+  }
+  .yes-button:hover {
+    color: var(--primary-light);
+    box-shadow: var(--shadow-md);
+  }
+  .no-button {
+    background-color: var(--primary-light);
+    box-shadow: var(--shadow-md);
+    color: var(--gray-999);
+    border-radius: var(--radius-md);
+    padding-block: calc(var(--spacing) * 3);
+    padding-inline: calc(var(--spacing) * 6);
+    font-size: var(--text-lg);
+    line-height: var(--tw-leading, var(--text-lg--line-height));
+  }
+  .no-button:hover {
+    color: var(--gray-900);
+    box-shadow: var(--shadow-md);
+  }
+
+  .bounce {
+    animation: bounce 2s ease infinite;
+  }
+
+  @keyframes bounce {
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
+      transform: translateY(0);
+    }
+    40% {
+      transform: translateY(-10px);
+    }
+    60% {
+      transform: translateY(-5px);
+    }
+  }
+
+  .glitch {
+    animation: glitch-squish 3s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
+  }
+
+  @keyframes glitch-chaos {
+    0%,
+    20%,
+    50%,
+    80%,
+    90% {
+      transform: translate(0, 0) scale(1);
+      filter: hue-rotate(0deg);
+    }
+    92% {
+      transform: translate(-4px, 3px) scale(0.98);
+      filter: hue-rotate(90deg);
+    }
+    94% {
+      transform: translate(4px, -3px) scale(1.02);
+      filter: hue-rotate(180deg);
+    }
+    96% {
+      transform: translate(-2px, -4px) scale(0.99);
+      filter: hue-rotate(270deg);
+    }
+    98% {
+      transform: translate(2px, 4px) scale(1.01);
+      filter: hue-rotate(360deg);
+    }
+    100% {
+      transform: translate(0, 0) scale(1);
+      filter: hue-rotate(0deg);
+    }
+  }
+
+  @keyframes glitch-squish {
+    0%,
+    70% {
+      transform: scale(1, 1);
+      filter: hue-rotate(0deg);
+    }
+    72% {
+      transform: skew(70deg) scaleY(0.1);
+      filter: hue-rotate(90deg);
+    }
+    75% {
+      transform: scale(0.02, 1.2);
+      filter: hue-rotate(180deg);
+    }
+    78% {
+      transform: skew(-70deg);
+      filter: hue-rotate(270deg);
+    }
+    80% {
+      transform: scale(1, 1);
+      filter: hue-rotate(360deg);
+    }
+  }
+
+  .ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    transform: scale(0);
+    animation: ripple-effect 0.6s linear;
+    pointer-events: none;
+  }
+
+  @keyframes ripple-effect {
+    to {
+      transform: scale(4);
+      opacity: 0;
+    }
+  }
+</style>
+
+<script>
+  import { getTranslations } from "@src/i18n/ui";
+
+  const lang = window.getLanguage?.() ?? "en";
+  const t = getTranslations(lang);
+
+  const urlSearchParams = new URLSearchParams(window.location.search);
+  const params = Object.fromEntries(urlSearchParams.entries());
+
+  const element = document.getElementById("name") as HTMLElement;
+  if (element) {
+    if (params.name) {
+      element.textContent = t.beer.hi + " " + params.name + "!";
+    }
+  }
+</script>
+
+<script>
+  import confetti from "canvas-confetti";
+  import { getTranslations } from "@src/i18n/ui";
+
+  const lang = window.getLanguage?.() ?? "en";
+  const t = getTranslations(lang);
+
+  const responseButtons = document.getElementById(
+    "responseButtons",
+  ) as HTMLElement;
+  const yesButton = document.getElementById("yesButton") as HTMLButtonElement;
+  const noButton = document.getElementById("noButton") as HTMLButtonElement;
+  const askOutContent = document.getElementById(
+    "ask-out-content",
+  ) as HTMLElement;
+  const yesContent = document.getElementById("yes-content") as HTMLElement;
+  const nextButton = document.getElementById(
+    "next-button",
+  ) as HTMLAnchorElement;
+
+  let scale = 1;
+  let growths = 0;
+
+  const MAX_GROWTH = 5;
+  const GROWTH_COOLDOWN = 500;
+
+  let lastGrowthTime = 0;
+
+  function growYes() {
+    const now = Date.now();
+
+    if (growths >= MAX_GROWTH) return;
+    if (now - lastGrowthTime < GROWTH_COOLDOWN) return;
+
+    lastGrowthTime = now;
+    growths++;
+    scale += 0.25;
+
+    yesButton.style.transform = `scale(${scale})`;
+  }
+
+  function moveNoButton(pointerX: number, pointerY: number) {
+    const parentRect = responseButtons.getBoundingClientRect();
+    const rect = noButton.getBoundingClientRect();
+
+    const maxX = parentRect.width - rect.width;
+    const maxY = parentRect.height - rect.height;
+
+    const minDistance = 120;
+    const maxAttempts = 50;
+
+    let newX = 0;
+    let newY = 0;
+    let isFarEnough = false;
+    let attempts = 0;
+
+    while (!isFarEnough && attempts < maxAttempts) {
+      newX = Math.random() * maxX;
+      newY = Math.random() * maxY;
+
+      const buttonCenterX = parentRect.left + newX + rect.width / 2;
+      const buttonCenterY = parentRect.top + newY + rect.height / 2;
+
+      const distance = Math.hypot(
+        buttonCenterX - pointerX,
+        buttonCenterY - pointerY,
+      );
+
+      if (distance >= minDistance) {
+        isFarEnough = true;
+      }
+      attempts++;
+    }
+
+    const parentCenterX = parentRect.width / 2;
+    const parentCenterY = parentRect.height / 2;
+
+    noButton.style.transform = `translate(${newX - parentCenterX}px, ${newY - parentCenterY}px)`;
+
+    growYes();
+  }
+
+  function handlePointerMove(e: PointerEvent) {
+    const rect = noButton.getBoundingClientRect();
+
+    const padding = 100;
+
+    const near =
+      e.clientX >= rect.left - padding &&
+      e.clientX <= rect.right + padding &&
+      e.clientY >= rect.top - padding &&
+      e.clientY <= rect.bottom + padding;
+
+    if (!near) return;
+
+    moveNoButton(e.clientX, e.clientY);
+  }
+
+  function handleNoPointerDown(e: PointerEvent) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    const problemText = document.getElementById("problem") as HTMLElement;
+    if (problemText) {
+      problemText.textContent = t.beer.problem;
+    }
+
+    moveNoButton(e.clientX, e.clientY);
+  }
+
+  document.addEventListener("pointermove", handlePointerMove);
+
+  noButton.addEventListener("pointerdown", handleNoPointerDown);
+
+  yesButton.addEventListener("click", () => {
+    askOutContent.style.display = "none";
+    yesContent.style.display = "flex";
+    confetti();
+  });
+
+  nextButton.href = "/beer/seeyousoon" + window.location.search;
+</script>

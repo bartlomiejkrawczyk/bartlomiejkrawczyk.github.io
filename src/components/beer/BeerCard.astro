@@ -1,0 +1,88 @@
+---
+import { beerSteps, type BeerStep } from "./items";
+
+interface Props {
+  step: BeerStep;
+}
+
+const { ...props } = Astro.props;
+---
+
+<div class="beer-card-wrapper">
+  <div
+    id="beer-progress"
+    class="progress flex flex-row items-center gap-2 mb-4"
+  >
+    {
+      beerSteps.map((step, _) => (
+        <div
+          class={`progress-dot transition ${step === props.step ? "primary" : "gray"}`}
+        />
+      ))
+    }
+  </div>
+
+  <div class="beer-card" id="card">
+    <div class="card-content">
+      <slot />
+    </div>
+  </div>
+</div>
+
+<script>
+  const card = document.getElementById("card");
+  const content = card?.querySelector(".card-content");
+
+  if (card && content) {
+    const observer = new ResizeObserver(() => {
+      card.style.height = `${content.scrollHeight}px`;
+    });
+
+    observer.observe(content);
+  }
+</script>
+
+<style>
+  .progress-dot {
+    width: calc(var(--spacing) * 3);
+    height: calc(var(--spacing) * 3);
+    border-radius: calc(infinity * 1px);
+  }
+
+  .gray {
+    background-color: var(--gray-700);
+  }
+
+  .primary {
+    background-color: var(--primary-regular);
+  }
+
+  .beer-card-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .beer-card {
+    background: var(--background);
+    border-radius: var(--radius-2xl);
+    --tw-shadow: 0 25px 50px -12px var(--tw-shadow-color, rgb(0 0 0 / 0.25));
+    box-shadow: var(--shadow-lg);
+    width: 100%;
+
+    overflow: hidden;
+
+    transition: height 0.5s ease-in-out;
+  }
+
+  .card-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: calc(4 * var(--spacing));
+    padding: calc(var(--spacing) * 10);
+  }
+</style>

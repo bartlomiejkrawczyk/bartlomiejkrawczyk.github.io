@@ -247,5 +247,24 @@
     "payingName": "Płacę",
     "dateDetailsText": "Hej!\nOto szczegóły naszej randki",
     "emailTitle": "Szczegóły randki"
+  },
+  "beer": {
+    "questionBeer": "Czy wyskoczymy jutro na Piwo?",
+    "yes": "Tak",
+    "no": "Nie",
+    "hi": "Cześć",
+    "problem": "Chyba mamy problemy techniczne, spróbuj drugi przycisk!",
+    "perfect": "Fantastycznie!",
+    "noGoingBack": "Teraz nie ma już odwrotu",
+    "next": "Następne",
+    "back": "Powrót",
+    "seeYouSoon": "Do zobaczenia",
+    "copy": "Kopiuj do schowka i daj znać",
+    "beerDetails": "Beer details",
+    "beerDetailsText": "Siema!\nWpadnij na Piwo",
+    "tomorrow": "Jutro",
+    "date": "Data",
+    "time": "Czas",
+    "locationName": "Lokalizacja"
   }
 }
