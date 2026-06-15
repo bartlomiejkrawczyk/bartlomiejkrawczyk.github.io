@@ -247,5 +247,24 @@
     "payingName": "Paying",
     "dateDetailsText": "Hey!\nHere are the details for our date",
     "emailTitle": "Our Date Details"
+  },
+  "beer": {
+    "questionBeer": "Should we grab a beer tomorrow?",
+    "yes": "Yes",
+    "no": "No",
+    "hi": "Hey",
+    "problem": "Looks like we're having technical difficulties, try the other button!",
+    "perfect": "Fantastic!",
+    "noGoingBack": "There's no turning back now",
+    "next": "Next",
+    "back": "Back",
+    "seeYouSoon": "See you soon",
+    "copy": "Copy to clipboard & text me",
+    "beerDetails": "Beer details",
+    "beerDetailsText": "Hey!\nCome grab a beer",
+    "tomorrow": "Tomorrow",
+    "date": "Date",
+    "time": "Time",
+    "locationName": "Location"
   }
 }

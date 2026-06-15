@@ -1,0 +1,155 @@
+---
+import DateLayout from "@layouts/DateLayout.astro";
+import BeerCard from "@src/components/beer/BeerCard.astro";
+import { beerSteps } from "@src/components/beer/items";
+import Icon from "@src/components/Icon.astro";
+import { getTranslations, type LanguageKey } from "@src/i18n/ui";
+
+const lang = Astro.currentLocale as LanguageKey;
+const t = getTranslations(lang);
+
+const lastPage = beerSteps[beerSteps.length - 2];
+const backUrl = `/beer/${lastPage}`;
+---
+
+<script is:inline define:vars={{ backUrl }}>
+  const searchParams = new URLSearchParams(window.location.search);
+  const dealBreakers = searchParams.get("dealBreakers");
+
+  if (dealBreakers && dealBreakers !== "no") {
+    window.location.replace(`/beer/wasntmeanttobe?${searchParams.toString()}`);
+  }
+</script>
+
+<DateLayout title={t.beer.seeYouSoon} description={t.beer.seeYouSoon}>
+  <BeerCard step="seeyousoon">
+    <h1 id="name">{t.beer.seeYouSoon}</h1>
+
+    <div class="summary-box">
+      <h2>{t.beer.beerDetails}</h2>
+      <ul id="summary-list"></ul>
+    </div>
+
+    <div class="action-buttons">
+      <button id="copy-button" class="btn primary-button transition">
+        <Icon icon="copy" size="20px" />
+        {t.beer.copy}
+      </button>
+    </div>
+  </BeerCard>
+</DateLayout>
+
+<script>
+  import { getTranslations } from "@src/i18n/ui";
+
+  const lang = window.getLanguage?.() ?? "pl";
+  const t = getTranslations(lang);
+
+  const initialParams = new URLSearchParams(window.location.search);
+
+  const getParam = (key: string, transform?: (it: string) => string) => {
+    const transformFunction = transform ?? ((it) => it);
+    const val = initialParams.get(key);
+    if (val && val.includes(",")) {
+      return val.split(",").map(transformFunction).join(", ");
+    }
+    if (val) {
+      return transformFunction(val);
+    }
+    return null;
+  };
+
+  let details: any = {};
+
+  details[t.beer.date] = t.beer.tomorrow;
+  details[t.beer.time] = "20:00";
+  details[t.beer.locationName] = "Kwadrofonia Bar";
+
+  const summaryList = document.getElementById("summary-list");
+  if (summaryList) {
+    Object.entries(details).forEach(([key, value]) => {
+      if (value !== null) {
+        const li = document.createElement("li");
+        li.innerHTML = `<strong>${key}:</strong> <span>${value}</span>`;
+        summaryList.appendChild(li);
+      }
+    });
+  }
+
+  const messageLines = Object.entries(details)
+    .filter(([_, value]) => value !== null)
+    .map(([key, value]) => `- ${key}: ${value}`);
+
+  const signature = getParam("name") ?? "Beer-Pal";
+  const fullMessage = `${t.beer.beerDetailsText}:\n\n${messageLines.join("\n")}\n\n${t.beer.seeYouSoon},\n${signature}`;
+
+  const copyBtn = document.getElementById("copy-button") as HTMLButtonElement;
+  if (copyBtn) {
+    copyBtn.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(fullMessage);
+
+        const originalHtml = copyBtn.innerHTML;
+        copyBtn.innerHTML = `Copied!`;
+
+        setTimeout(() => {
+          copyBtn.innerHTML = originalHtml;
+        }, 2000);
+      } catch (err) {
+        console.error("Failed to copy text: ", err);
+        alert("Failed to copy to clipboard.");
+      }
+    });
+  }
+</script>
+
+<style>
+  .summary-box {
+    background-color: var(--gray-999);
+    border: 1px solid var(--gray-700);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px 0;
+    text-align: left;
+  }
+
+  .summary-box h3 {
+    margin-top: 0;
+    margin-bottom: 12px;
+    font-size: 1.2rem;
+  }
+
+  #summary-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin: 24px 0;
+  }
+
+  .navigation-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-top: 24px;
+  }
+
+  .btn {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    cursor: pointer;
+  }
+</style>
