@@ -1,0 +1,42 @@
+---
+import DateLayout from "@layouts/DateLayout.astro";
+import DateCard from "@src/components/date/DateCard.astro";
+import SelectionGrid from "@src/components/date/SelectionGrid.astro";
+import { getTranslations, type LanguageKey } from "@src/i18n/ui";
+
+const lang = Astro.currentLocale as LanguageKey;
+const t = getTranslations(lang);
+
+const dealBreakersKeys = [
+  "noAnimals",
+  "workaholic",
+  "commitment",
+  "sociallyAnxious",
+  "noLector",
+  "no",
+] as const;
+
+type DealBreakers = (typeof dealBreakersKeys)[number];
+
+const dealBreakersIcons: Partial<Record<DealBreakers, string>> = {};
+
+const dealBreakersOptions = dealBreakersKeys.map((key) => ({
+  value: key,
+  label: t.date.dealBreakers[key],
+  icon: dealBreakersIcons[key],
+}));
+
+// const step = "dealBreakers";
+const step = "seeyousoon";
+---
+
+<DateLayout
+  title={t.date.questionDealBreakers}
+  description={t.date.questionDealBreakers}
+>
+  <DateCard step={step}>
+    <h1 id="name" style="text-align: center;">{t.date.questionDealBreakers}</h1>
+
+    <SelectionGrid name={step} options={dealBreakersOptions} />
+  </DateCard>
+</DateLayout>

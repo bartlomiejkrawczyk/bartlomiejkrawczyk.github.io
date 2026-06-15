@@ -71,6 +71,25 @@ const { ...props } = Astro.props;
     }
   });
 
+  window.getLanguage = function () {
+    const supportedLangs = Object.keys(languages);
+    const defaultLang = "en";
+
+    const optionalCurrentLang = localStorage.getItem("preferredLang");
+
+    if (optionalCurrentLang === null) {
+      const pathParts = window.location.pathname.split("/").filter(Boolean);
+      const firstPath = pathParts[0];
+      return firstPath && supportedLangs.includes(firstPath)
+        ? (firstPath as LanguageKey)
+        : defaultLang;
+    } else {
+      return supportedLangs.includes(optionalCurrentLang)
+        ? (optionalCurrentLang as LanguageKey)
+        : defaultLang;
+    }
+  };
+
   function setLanguage(targetLang: LanguageKey) {
     const supportedLangs = Object.keys(languages);
     const defaultLang = "en";

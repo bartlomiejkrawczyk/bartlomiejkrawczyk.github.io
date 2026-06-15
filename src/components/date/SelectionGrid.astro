@@ -1,0 +1,270 @@
+---
+import Icon from "@src/components/Icon.astro";
+import { previousAndNext, type DateStep } from "./items";
+import { getTranslations, type LanguageKey } from "@src/i18n/ui";
+
+const lang = Astro.currentLocale as LanguageKey;
+const t = getTranslations(lang);
+
+interface Option {
+  value: string;
+  label: string;
+  icon?: string | undefined;
+}
+
+interface Props {
+  name: DateStep;
+  options: Option[];
+  type?: "checkbox" | "radio";
+}
+
+const { name, options, type = "checkbox" } = Astro.props;
+
+const { next, back } = previousAndNext(name);
+
+let nextUrl: string | undefined;
+let backUrl: string | undefined;
+
+if (next) {
+  nextUrl = `/date/${next}`;
+}
+if (back) {
+  backUrl = `/date/${back}`;
+}
+---
+
+<selection-grid
+  data-name={name}
+  data-next={nextUrl}
+  data-back={backUrl}
+  class="selection-grid-content"
+>
+  <div class="grid-wrapper">
+    {
+      options.map((opt) => (
+        <label class="selection-element transition" for={opt.value}>
+          <input
+            id={opt.value}
+            type={type}
+            name={name}
+            value={opt.value}
+            class="custom-input transition"
+          />
+          {opt.icon && (
+            <span class="emoji-icon" aria-hidden="true">
+              {opt.icon}
+            </span>
+          )}
+          <span class="text">{opt.label}</span>
+        </label>
+      ))
+    }
+  </div>
+
+  <div class="navigation-buttons">
+    {
+      backUrl && (
+        <a
+          id="back-button"
+          class="btn secondary-button transition"
+          href={backUrl}
+          data-astro-prefetch
+        >
+          <Icon icon="arrow-left" size="20px" />
+          {t.date.back}
+        </a>
+      )
+    }
+
+    <a
+      id="next-button"
+      class="btn primary-button transition"
+      href={nextUrl}
+      data-astro-prefetch
+    >
+      {t.date.next}
+      <Icon icon="arrow-right" size="20px" />
+    </a>
+  </div>
+</selection-grid>
+
+<script>
+  class SelectionGrid extends HTMLElement {
+    connectedCallback() {
+      const name = this.dataset.name;
+      const nextUrl = this.dataset.next;
+      const backUrl = this.dataset.back;
+
+      if (!name || !nextUrl) return;
+
+      const inputs = this.querySelectorAll<HTMLInputElement>(
+        'input[class*="custom-input"]',
+      );
+
+      if (inputs.length === 0) return;
+      const isRadio = (inputs[0] as HTMLInputElement).type === "radio";
+
+      const updateButtonHrefs = (searchParams: URLSearchParams) => {
+        const nextBtn = this.querySelector<HTMLAnchorElement>("#next-button");
+        const backBtn = this.querySelector<HTMLAnchorElement>("#back-button");
+
+        const searchStr = searchParams.toString();
+        const suffix = searchStr ? `?${searchStr}` : "";
+
+        if (nextBtn) {
+          nextBtn.href = `${nextUrl}${suffix}`;
+        }
+        if (backBtn && backUrl) {
+          backBtn.href = `${backUrl}${suffix}`;
+        }
+      };
+
+      const initialParams = new URLSearchParams(window.location.search);
+      const selectedValues = initialParams.get(name)?.split(",") || [];
+
+      inputs.forEach((input) => {
+        if (selectedValues.includes(input.value)) {
+          input.checked = true;
+        }
+      });
+
+      updateButtonHrefs(initialParams);
+
+      this.addEventListener("change", (e) => {
+        const target = e.target as HTMLInputElement;
+        if (target.name !== name) return;
+
+        const currentParams = new URLSearchParams(window.location.search);
+        const checkedValues = Array.from(inputs)
+          .filter((i) => i.checked)
+          .map((i) => i.value);
+
+        if (checkedValues.length > 0) {
+          currentParams.set(
+            name,
+            isRadio ? (checkedValues[0] as string) : checkedValues.join(","),
+          );
+        } else {
+          currentParams.delete(name);
+        }
+
+        const newSearch = currentParams.toString();
+        const newUrl = `${window.location.pathname}${newSearch ? "?" + newSearch : ""}`;
+
+        window.history.replaceState(window.history.state, "", newUrl);
+
+        updateButtonHrefs(currentParams);
+      });
+    }
+  }
+
+  customElements.define("selection-grid", SelectionGrid);
+</script>
+
+<style>
+  .selection-grid-content {
+    width: 100%;
+  }
+
+  .grid-wrapper {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+
+    gap: 16px;
+    margin-top: 40px;
+    margin-bottom: 40px;
+  }
+
+  .selection-element {
+    display: flex;
+    align-items: center;
+    gap: calc(var(--spacing, 4px) * 3);
+    padding: calc(var(--spacing, 4px) * 5) calc(var(--spacing, 4px) * 4);
+    border-radius: var(--radius-lg, 12px);
+    border: 1px solid var(--gray-700);
+    cursor: pointer;
+    background: transparent;
+    user-select: none;
+  }
+
+  .selection-element:has(.custom-input:checked) {
+    border-color: var(--primary-regular);
+    background-color: color-mix(
+      in srgb,
+      var(--primary-regular) 8%,
+      transparent
+    );
+  }
+
+  .emoji-icon {
+    font-size: 1.25rem;
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .custom-input {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 22px;
+    height: 22px;
+    border: 1px solid var(--gray-700);
+    border-radius: 6px;
+    outline: none;
+    display: grid;
+    place-content: center;
+    margin: 0;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  .custom-input[type="radio"] {
+    border-radius: 50%;
+  }
+
+  .custom-input::before {
+    content: "";
+    width: 10px;
+    height: 10px;
+    border-radius: 2px;
+    transform: scale(0);
+    transition: transform 0.2s ease-in-out;
+    background-color: var(--primary-regular);
+  }
+
+  .custom-input[type="radio"]::before {
+    border-radius: 50%;
+  }
+
+  .custom-input:checked {
+    border-color: var(--primary-regular);
+  }
+
+  .custom-input:checked::before {
+    transform: scale(1);
+  }
+
+  .text {
+    min-width: 0;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+
+  .navigation-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+  }
+</style>

@@ -154,5 +154,98 @@
         "Współpraca przy utrzymaniu i rozwoju korporacyjnych systemów akademickich."
       ]
     }
+  },
+  "date": {
+    "questionDate": "Czy pójdziesz ze mną na randkę?",
+    "yes": "Tak",
+    "no": "Nie",
+    "hi": "Cześć",
+    "problem": "Chyba mamy problemy techniczne, spróbuj drugi przycisk!",
+    "perfect": "Fantastycznie!",
+    "noGoingBack": "Teraz nie ma już odwrotu",
+    "next": "Dalej",
+    "back": "Powrót",
+    "questionFood": "Co będziemy jeść?",
+    "food": {
+      "pizza": "Pizza",
+      "sushi": "Sushi",
+      "pasta": "Makaron",
+      "ramen": "Ramen",
+      "chinese": "Chińczyk",
+      "kebab": "Kebab",
+      "surprise": "Niespodzianka",
+      "chicken": "Kurczak",
+      "drinks": "Drinki",
+      "nothing": "Nic"
+    },
+    "questionActivity": "Co będziemy robić?",
+    "activity": {
+      "cycling": "Rowery",
+      "rollerblading": "Rolki",
+      "kayaking": "Spływ kajakiem",
+      "bowling": "Kręgle",
+      "pool": "Bilard",
+      "swimming": "Pływanie",
+      "cinema": "Kino",
+      "netflix": "Netflix & Chill",
+      "car": "Randka w aucie"
+    },
+    "questionClothing": "W co się ubieramy?",
+    "clothing": {
+      "casual": "Na luzie / Casual",
+      "elegant": "Elegancko"
+    },
+    "questionPresent": "Przynieść jakiś upominek?",
+    "present": {
+      "flowers": "Kwiaty",
+      "lego": "Klocki Lego",
+      "bear": "Pluszowy miś",
+      "nothing": "Nie - wystarczy, że przyjdziesz"
+    },
+    "questionPaying": "Kto płaci?",
+    "paying": {
+      "sugarMommy": "Ja stawiam za wszystko",
+      "feminist": "Płacimy po połowie (pół na pół)",
+      "men": "Mężczyzna powinien zapłacić",
+      "wildcard": "Rzućmy monetą"
+    },
+    "questionLocation": "Gdzie się spotykamy?",
+    "location": {
+      "herHome": "Odbierz mnie / Spotkajmy się u mnie",
+      "atLocation": "Widzimy się na miejscu"
+    },
+    "questionCalendar": "O której godzinie się widzimy?",
+    "chooseDate": "Wybierz datę",
+    "chooseTime": "Wybierz czas",
+    "dateUnavailable": "Ta data jest niedostępna. Proszę wybierz inną.",
+    "availableAfterFive": "Dostępny po 17:00",
+    "availableAfterSix": "Dostępny po 18:00",
+    "availableAnytime": "Dostępny w dowolnym czasie",
+    "questionDealBreakers": "Czy któreś z poniższych to dla Ciebie tzw. dealbreaker (rzecz nie do przyjęcia)?",
+    "dealBreakers": {
+      "noAnimals": "Wolę dom bez zwierząt",
+      "commitment": "Szukam czegoś na poważnie",
+      "sociallyAnxious": "Potrzebuję trochę czasu, żeby się otworzyć",
+      "noFriends": "Mam bardzo małe, kameralne grono znajomych",
+      "workaholic": "Mocno skupiam się na karierze / Praca to mój priorytet",
+      "noLector": "Oglądam tylko z napisami (nie znoszę lektora)",
+      "no": "Żadne z powyższych"
+    },
+    "seeYouSoon": "Do zobaczenia",
+    "wasntMeantToBe": "Jednak nie byliśmy sobie pisani",
+    "reconsider": "Możesz jeszcze to przemyśleć",
+    "dateDetails": "Szczegóły randki",
+    "copy": "Kopiuj do schowka",
+    "email": "Wyślij e-mailem",
+    "date": "Data",
+    "time": "Godzina",
+    "locationName": "Lokalizacja",
+    "activityName": "Aktywność",
+    "foodName": "Jedzenie",
+    "clothingName": "Odzież",
+    "presentName": "Prezent",
+    "payingName": "Płacę",
+    "dateDetailsText": "Hej!\nOto szczegóły naszej randki",
+    "emailTitle": "Szczegóły randki"
   }
 }

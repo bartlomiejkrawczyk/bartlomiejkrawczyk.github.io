@@ -1,0 +1,265 @@
+---
+import DateLayout from "@layouts/DateLayout.astro";
+import DateCard from "@src/components/date/DateCard.astro";
+import { previousAndNext } from "@src/components/date/items";
+import Icon from "@src/components/Icon.astro";
+import { getTranslations, type LanguageKey } from "@src/i18n/ui";
+
+const lang = Astro.currentLocale as LanguageKey;
+const t = getTranslations(lang);
+
+const { next, back } = previousAndNext("calendar");
+
+let nextUrl: string | undefined;
+let backUrl: string | undefined;
+
+if (next) {
+  nextUrl = `/date/${next}`;
+}
+if (back) {
+  backUrl = `/date/${back}`;
+}
+
+const today = new Date();
+const minDateStr = today.toISOString().split("T")[0];
+
+const maxDate = new Date(today);
+maxDate.setMonth(maxDate.getMonth() + 6);
+const maxDateStr = maxDate.toISOString().split("T")[0];
+
+const excludedDates = ["2026-06-11", "2026-06-27", "2026-06-28"];
+---
+
+<DateLayout
+  title={t.date.questionCalendar}
+  description={t.date.questionCalendar}
+>
+  <DateCard step="calendar">
+    <h1 id="name" class="text">{t.date.questionCalendar}</h1>
+
+    <div
+      id="date-picker-container"
+      data-excluded={JSON.stringify(excludedDates)}
+    >
+      <div class="input-group">
+        <label for="date" class="text">{t.date.chooseDate}:</label>
+        <input
+          id="date"
+          type="date"
+          class="picker-input"
+          min={minDateStr}
+          max={maxDateStr}
+        />
+        <span id="date-error" class="error-msg"></span>
+      </div>
+
+      <div class="input-group">
+        <label for="time" class="text">{t.date.chooseTime}:</label>
+        <input id="time" type="time" class="picker-input" />
+        <span id="time-hint" class="hint-msg"></span>
+      </div>
+    </div>
+
+    <div class="navigation-buttons">
+      {
+        backUrl && (
+          <a
+            id="back-button"
+            class="btn secondary-button transition"
+            href={backUrl}
+            data-astro-prefetch
+          >
+            <Icon icon="arrow-left" size="20px" />
+            {t.date.back}
+          </a>
+        )
+      }
+
+      <a
+        id="next-button"
+        class="btn primary-button transition"
+        href={nextUrl}
+        data-astro-prefetch
+      >
+        {t.date.next}
+        <Icon icon="arrow-right" size="20px" />
+      </a>
+    </div>
+  </DateCard>
+</DateLayout>
+
+<script>
+  import { getTranslations } from "@src/i18n/ui";
+
+  const lang = window.getLanguage?.() ?? "pl";
+  const t = getTranslations(lang);
+
+  const setupPickers = () => {
+    const dateInput = document.getElementById("date") as HTMLInputElement;
+    const timeInput = document.getElementById("time") as HTMLInputElement;
+    const container = document.getElementById("date-picker-container");
+    const dateError = document.getElementById("date-error");
+    const timeHint = document.getElementById("time-hint");
+
+    const nextBtn = document.getElementById("next-button") as HTMLAnchorElement;
+    const backBtn = document.getElementById("back-button") as HTMLAnchorElement;
+
+    if (!dateInput || !timeInput || !container) return;
+
+    const excludedDates: string[] = JSON.parse(
+      container.dataset.excluded || "[]",
+    );
+
+    const originalNextUrl = nextBtn
+      ? new URL(nextBtn.href, window.location.origin).pathname
+      : "";
+    const originalBackUrl = backBtn
+      ? new URL(backBtn.href, window.location.origin).pathname
+      : "";
+
+    const updateButtonHrefs = (searchParams: URLSearchParams) => {
+      const searchStr = searchParams.toString();
+      const suffix = searchStr ? `?${searchStr}` : "";
+
+      if (nextBtn && originalNextUrl)
+        nextBtn.href = `${originalNextUrl}${suffix}`;
+      if (backBtn && originalBackUrl)
+        backBtn.href = `${originalBackUrl}${suffix}`;
+    };
+
+    const validateAndSync = () => {
+      if (dateError) dateError.textContent = "";
+      if (timeHint) timeHint.textContent = "";
+
+      let isValidDate = true;
+
+      if (dateInput.value && excludedDates.includes(dateInput.value)) {
+        if (dateError) dateError.textContent = t.date.dateUnavailable;
+        dateInput.value = "";
+        isValidDate = false;
+      }
+
+      if (dateInput.value && isValidDate) {
+        const selectedDate = new Date(dateInput.value);
+        const day = selectedDate.getDay();
+
+        let minTime = "";
+        let hint = "";
+
+        if (day === 0 || day === 6) {
+          // Weekend: anytime
+          timeInput.removeAttribute("min");
+          hint = t.date.availableAnytime;
+        } else if (day === 2) {
+          // Tuesday: after 18:00
+          minTime = "18:00";
+          timeInput.min = minTime;
+          hint = t.date.availableAfterSix;
+        } else {
+          // Mon, Wed, Thu, Fri: after 17:00
+          minTime = "17:00";
+          timeInput.min = minTime;
+          hint = t.date.availableAfterFive;
+        }
+
+        if (timeHint) timeHint.textContent = hint;
+
+        if (minTime && timeInput.value && timeInput.value < minTime) {
+          timeInput.value = "";
+        }
+      } else {
+        timeInput.removeAttribute("min");
+      }
+
+      const params = new URLSearchParams(window.location.search);
+      if (dateInput.value) params.set("date", dateInput.value);
+      else params.delete("date");
+
+      if (timeInput.value) params.set("time", timeInput.value);
+      else params.delete("time");
+
+      const searchStr = params.toString();
+      const newUrl = `${window.location.pathname}${searchStr ? "?" + searchStr : ""}`;
+      window.history.replaceState(window.history.state, "", newUrl);
+
+      updateButtonHrefs(params);
+    };
+
+    const initialParams = new URLSearchParams(window.location.search);
+    if (initialParams.get("date")) dateInput.value = initialParams.get("date")!;
+    if (initialParams.get("time")) timeInput.value = initialParams.get("time")!;
+
+    dateInput.addEventListener("change", validateAndSync);
+    timeInput.addEventListener("change", validateAndSync);
+
+    validateAndSync();
+  };
+
+  document.addEventListener("DOMContentLoaded", setupPickers);
+</script>
+
+<style>
+  .navigation-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-top: 24px;
+  }
+
+  .btn {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+  }
+
+  .input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 20px;
+    text-align: left;
+  }
+
+  .picker-input {
+    padding: 10px 14px;
+    border: 1px solid var(--gray-700);
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: inherit;
+    background-color: var(--background);
+    color: var(--gray-400);
+    outline: none;
+    transition:
+      border-color 0.2s,
+      box-shadow 0.2s;
+    width: 100%;
+    max-width: 300px;
+    cursor: pointer;
+  }
+
+  .picker-input:focus {
+    border-color: var(--primary-regular);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .error-msg {
+    color: var(--secondary-dark);
+    font-size: 0.85rem;
+    font-weight: 500;
+  }
+
+  .hint-msg {
+    color: var(--gray-400);
+    font-size: 0.85rem;
+  }
+
+  .text {
+    min-width: 0;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    text-align: center;
+  }
+</style>

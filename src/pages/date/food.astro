@@ -1,0 +1,51 @@
+---
+import DateLayout from "@layouts/DateLayout.astro";
+import DateCard from "@src/components/date/DateCard.astro";
+import SelectionGrid from "@src/components/date/SelectionGrid.astro";
+import { getTranslations, type LanguageKey } from "@src/i18n/ui";
+
+const lang = Astro.currentLocale as LanguageKey;
+const t = getTranslations(lang);
+
+const foodKeys = [
+  "pizza",
+  "sushi",
+  "pasta",
+  "ramen",
+  "chinese",
+  "kebab",
+  "chicken",
+  "drinks",
+  "surprise",
+  "nothing",
+] as const;
+
+type Food = (typeof foodKeys)[number];
+
+const foodIcons: Partial<Record<Food, string>> = {
+  pizza: "🍕",
+  sushi: "🍣",
+  pasta: "🍝",
+  ramen: "🍜",
+  chinese: "🥡",
+  kebab: "🌯",
+  chicken: "🍗",
+  drinks: "🍸",
+  surprise: "❓",
+  nothing: "✕",
+};
+
+const foodOptions = foodKeys.map((key) => ({
+  value: key,
+  label: t.date.food[key],
+  icon: foodIcons[key],
+}));
+---
+
+<DateLayout title={t.date.questionFood} description={t.date.questionFood}>
+  <DateCard step="food">
+    <h1 id="name" style="text-align: center;">{t.date.questionFood}</h1>
+
+    <SelectionGrid name="food" options={foodOptions} />
+  </DateCard>
+</DateLayout>

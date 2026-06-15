@@ -1,5 +1,4 @@
 ---
-import { getTranslations } from "@src/i18n/ui";
 import type { HTMLAttributes } from "astro/types";
 
 interface Props extends HTMLAttributes<"div"> {
@@ -30,9 +29,6 @@ const {
   subjects,
   ...props
 } = Astro.props;
-
-const lang = Astro.currentLocale;
-const t = getTranslations(lang);
 ---
 
 <div class="py-1 flex flex-col gap-3 break-inside-avoid" {...props}>

@@ -1,0 +1,34 @@
+---
+import DateLayout from "@layouts/DateLayout.astro";
+import DateCard from "@src/components/date/DateCard.astro";
+import SelectionGrid from "@src/components/date/SelectionGrid.astro";
+import { getTranslations, type LanguageKey } from "@src/i18n/ui";
+
+const lang = Astro.currentLocale as LanguageKey;
+const t = getTranslations(lang);
+
+const presentKeys = ["flowers", "lego", "bear", "nothing"] as const;
+
+type Present = (typeof presentKeys)[number];
+
+const presentIcons: Partial<Record<Present, string>> = {
+  flowers: "🌺",
+  lego: "🧱",
+  bear: "🐻",
+  nothing: "✕",
+};
+
+const presentOptions = presentKeys.map((key) => ({
+  value: key,
+  label: t.date.present[key],
+  icon: presentIcons[key],
+}));
+---
+
+<DateLayout title={t.date.questionPresent} description={t.date.questionPresent}>
+  <DateCard step="present">
+    <h1 id="name" style="text-align: center;">{t.date.questionPresent}</h1>
+
+    <SelectionGrid name="present" options={presentOptions} type="radio" />
+  </DateCard>
+</DateLayout>

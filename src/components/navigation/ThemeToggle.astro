@@ -39,6 +39,15 @@ type Props = Record<string, never>;
     }
   }
 
+  window.getTheme = function () {
+    const storedTheme = getThemePreference();
+    const [color, mode] = storedTheme.split("-");
+    return {
+      color,
+      mode,
+    };
+  };
+
   window.setTheme = function (
     color = "purple",
     mode = "light",

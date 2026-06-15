@@ -22,6 +22,7 @@ declare function setLanguage(key: LanguageKey);
 
 declare global {
   interface Window {
+    getTheme?: () => { color: Color; mode: Mode };
     setTheme?: (
       color: Color,
       mode: Mode,
@@ -33,5 +34,6 @@ declare global {
     setTagVisibility?: (id: TagId, visible: Boolean) => void;
     toggleProjectEditMode?: () => void;
     setProjectVisibility?: (id: string, visible: Boolean) => void;
+    getLanguage?: () => LanguageKey;
   }
 }

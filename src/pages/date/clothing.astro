@@ -1,0 +1,35 @@
+---
+import DateLayout from "@layouts/DateLayout.astro";
+import DateCard from "@src/components/date/DateCard.astro";
+import SelectionGrid from "@src/components/date/SelectionGrid.astro";
+import { getTranslations, type LanguageKey } from "@src/i18n/ui";
+
+const lang = Astro.currentLocale as LanguageKey;
+const t = getTranslations(lang);
+
+const clothingKeys = ["casual", "elegant"] as const;
+
+type Clothing = (typeof clothingKeys)[number];
+
+const clothingIcons: Partial<Record<Clothing, string>> = {
+  casual: "👕",
+  elegant: "👔",
+};
+
+const clothingOptions = clothingKeys.map((key) => ({
+  value: key,
+  label: t.date.clothing[key],
+  icon: clothingIcons[key],
+}));
+---
+
+<DateLayout
+  title={t.date.questionClothing}
+  description={t.date.questionClothing}
+>
+  <DateCard step="clothing">
+    <h1 id="name" style="text-align: center;">{t.date.questionClothing}</h1>
+
+    <SelectionGrid name="clothing" options={clothingOptions} type="radio" />
+  </DateCard>
+</DateLayout>
