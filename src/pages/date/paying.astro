@@ -18,12 +18,15 @@ const payingOptions = payingKeys.map((key) => ({
   label: t.date.paying[key],
   icon: payingIcons[key],
 }));
+
+// const step = "paying";
+const step = "seeyousoon";
 ---
 
 <DateLayout title={t.date.questionPaying} description={t.date.questionPaying}>
-  <DateCard step="paying">
+  <DateCard step={step}>
     <h1 id="name" style="text-align: center;">{t.date.questionPaying}</h1>
 
-    <SelectionGrid name="paying" options={payingOptions} type="radio" />
+    <SelectionGrid name={step} options={payingOptions} type="radio" />
   </DateCard>
 </DateLayout>
