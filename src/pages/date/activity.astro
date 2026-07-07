@@ -8,6 +8,7 @@ const lang = Astro.currentLocale as LanguageKey;
 const t = getTranslations(lang);
 
 const activityKeys = [
+  "walk",
   "cycling",
   "rollerblading",
   "kayaking",
@@ -16,8 +17,9 @@ const activityKeys = [
   "swimming",
   "cinema",
   "danceLessons",
-  "netflix",
   "car",
+  "netflix",
+  "netflixAndChill",
 ] as const;
 
 type Activity = (typeof activityKeys)[number];
@@ -31,7 +33,9 @@ const activityIcons: Partial<Record<Activity, string>> = {
   swimming: "🏊",
   cinema: "🎬",
   danceLessons: "💃",
+  walk: "🚶",
   netflix: "🍿",
+  netflixAndChill: "😈",
   car: "🚗",
 };
 

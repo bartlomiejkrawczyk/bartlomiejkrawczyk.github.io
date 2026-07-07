@@ -176,6 +176,7 @@
       "surprise": "Surprise",
       "chicken": "Chicken",
       "drinks": "Drinks",
+      "coffee": "Coffee",
       "nothing": "Nothing"
     },
     "questionActivity": "What's the plan?",
@@ -188,8 +189,10 @@
       "swimming": "Swimming",
       "cinema": "Cinema",
       "danceLessons": "Functional dance lessons",
-      "netflix": "Netflix & Chill",
-      "car": "Car Date"
+      "netflix": "Movies/Series",
+      "netflixAndChill": "Netflix & Chill",
+      "car": "Car Date",
+      "walk": "Walk"
     },
     "questionClothing": "What's the dress code?",
     "clothing": {

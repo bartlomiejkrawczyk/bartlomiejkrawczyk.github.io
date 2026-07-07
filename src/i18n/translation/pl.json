@@ -175,6 +175,7 @@
       "kebab": "Kebab",
       "surprise": "Niespodzianka",
       "chicken": "Kurczak",
+      "coffee": "Kawa",
       "drinks": "Drinki",
       "nothing": "Nic"
     },
@@ -187,8 +188,10 @@
       "pool": "Bilard",
       "swimming": "Pływanie",
       "cinema": "Kino",
+      "walk": "Spacer",
       "danceLessons": "Nauka tańca użytkowego",
-      "netflix": "Netflix & Chill",
+      "netflix": "Filmy/Seriale",
+      "netflixAndChill": "Netflix & Chill",
       "car": "Randka w aucie"
     },
     "questionClothing": "W co się ubieramy?",
