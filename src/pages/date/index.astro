@@ -228,10 +228,12 @@ const t = getTranslations(lang);
   const urlSearchParams = new URLSearchParams(window.location.search);
   const params = Object.fromEntries(urlSearchParams.entries());
 
+  const name = params.id ? atob(params.id) : params.name;
+
   const element = document.getElementById("name") as HTMLElement;
   if (element) {
-    if (params.name) {
-      element.textContent = t.date.hi + " " + params.name + "!";
+    if (name) {
+      element.textContent = t.date.hi + " " + name + "!";
     }
   }
 </script>

@@ -135,7 +135,9 @@ const backUrl = `/date/${lastPage}`;
     .filter(([_, value]) => value !== null)
     .map(([key, value]) => `- ${key}: ${value}`);
 
-  const signature = getParam("name") ?? "XOXOXO";
+  const id = getParam("id");
+  const name = id ? atob(id) : getParam("name");
+  const signature = name ?? "XOXOXO";
   const fullMessage = `${t.date.dateDetailsText}:\n\n${messageLines.join("\n")}\n\n${t.date.seeYouSoon},\n${signature}`;
 
   const emailBtn = document.getElementById("email-button") as HTMLAnchorElement;
